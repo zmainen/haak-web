@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAAK — About</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../blog/style.css">
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-home">HAAK</a>
+  <div class="nav-links">
+    <a href="../blog/">blog</a>
+    <button id="theme-toggle">day</button>
+  </div>
+</nav>
+
+<div class="container">
+  <article>
+    <p class="article-meta">About</p>
+    <h1 class="article-title">What HAAK Is</h1>
+
+    <div class="article-body">
+
+      <p>HAAK is a research project at the intersection of artificial intelligence, formal ontology, and governance. It asks a single question: what institutional architecture do AI systems need in order to reason well, act transparently, and remain under human control?</p>
+
+      <p>The project is named for Theodore Haak, who in 1646 began convening the group of natural philosophers that would become the Royal Society. Haak did not discover anything himself. He built the infrastructure&mdash;the correspondence network, the meeting schedule, the translation pipeline&mdash;that let others discover things together. HAAK takes this as its model: the hard problem is not intelligence but the organization of intelligence.</p>
+
+      <p>The work spans formal proof, systems architecture, neuroscience, and political theory. It is grounded in two results proved in Lean 4 (machine-checked, zero axioms assumed beyond the type theory itself): that organized external memory is exponentially more efficient than unorganized memory, and that a single primitive relation is sufficient to reconstruct every relation in standard formal ontologies. From these foundations, the project builds outward toward a constitutional framework for AI governance.</p>
+
+      <h2>The Research Program</h2>
+
+      <p>The argument begins with the <strong>Library Theorem</strong>: a formal proof that indexed retrieval from an external store achieves logarithmic cost where unindexed retrieval requires linear cost, and that over multi-step reasoning the gap compounds from exponential to quadratic. This is not a metaphor. It is a theorem about computation, and it applies directly to any system&mdash;biological or artificial&mdash;that must reason beyond its immediate working memory.</p>
+
+      <p>The ontological foundation is equally precise. Standard formal ontologies (BFO, DOLCE) posit dozens of primitive relations&mdash;part-of, located-in, participates-in, has-quality, and so on. We prove that all of these reduce to a single primitive: <em>belongs-to</em>, qualified by the nature of the belonging. Twelve reductions across both frameworks, each machine-checked. The result is not just elegant; it makes ontology computationally tractable for AI systems that need to reason about what exists and how things relate.</p>
+
+      <p>A bounded transformer&mdash;any model with a fixed context window&mdash;is formally equivalent to a finite automaton. It cannot, by itself, perform unbounded computation. What makes it Turing-complete is access to an external read/write store. This is the theoretical link between the Library Theorem and practical AI architecture: the context window is working memory, the external store is long-term memory, and the index is what makes the difference between brute-force search and structured retrieval.</p>
+
+      <p>The neuroscience application follows naturally. Working memory maps to the context window. Long-term memory maps to the external store. The hippocampus maps to the index. The brain solved the Library Theorem long before we proved it. This gives extended cognition&mdash;the philosophical thesis that minds extend beyond skulls&mdash;its first formal foundation.</p>
+
+      <p>Applied reflexively to the model itself, the framework asks: what fraction of a model's weights constitute retrievable knowledge rather than irreducible computation? Early results on GPT-2 suggest that roughly 65% of weights qualify for externalization&mdash;they encode knowledge that could, in principle, be stored in an indexed external library rather than baked into parameters.</p>
+
+      <p>The arc culminates in governance. Every AI system already has a constitution&mdash;policies that determine who can do what, under what conditions, with what authority. The question is whether that constitution is legible. Current systems encode their governance in model weights, optimized by markets, unreadable by the people they affect. The alternative is explicit: policies in plain text, version-controlled, authored through participatory democratic process, with federalism across communities. Constitutional AI governance, in other words, modeled on the oldest successful technology for organizing collective action among agents with divergent interests.</p>
+
+      <h2>The System</h2>
+
+      <p>HAAK is its own experiment. The research described above was conducted inside a system where AI agents and a human researcher collaborate through an externalized reasoning workspace. Every step&mdash;every literature search, every draft, every editorial decision, every architectural change&mdash;is written to disk, indexed, and auditable. The human steers; the agents execute; the process is visible.</p>
+
+      <p>This is not incidental to the research. It is the research. The Library Theorem predicts that externalized, indexed memory should outperform unindexed memory. HAAK tests this prediction on itself, daily, across real scientific work. The ontology structures the workspace. The constitutional framework governs the agents. The question at the center&mdash;where is human participation irreplaceable?&mdash;gets answered empirically, one intervention at a time.</p>
+
+      <h2>Who</h2>
+
+      <p><strong>Zach Mainen</strong> is a principal investigator at the Champalimaud Centre for the Unknown in Lisbon, where he leads the Systems Neuroscience Lab. His experimental work spans two decades of research on serotonin, decision-making, and the neural basis of uncertainty. HAAK represents a second line of work&mdash;formal ontology, AI architecture, and institutional design&mdash;that grew out of the conviction that neuroscience's deepest questions about memory, reasoning, and agency are the same questions that AI governance must answer.</p>
+
+    </div>
+  </article>
+</div>
+
+<div class="container">
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-side">Zach Mainen &middot; Champalimaud Research</span>
+      <span class="footer-side">haak.world &middot; 2026</span>
+    </div>
+  </footer>
+</div>
+
+<script src="../blog/theme.js"></script>
+</body>
+</html>
