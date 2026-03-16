@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HAAK — Blog</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<nav>
+  <a href="../" class="nav-home">HAAK</a>
+  <div class="nav-links">
+    <a href="../">home</a>
+    <button id="theme-toggle">day</button>
+  </div>
+</nav>
+
+<div class="container">
+  <header class="blog-header">
+    <h1>Research Blog</h1>
+    <p>Essays on intelligence, organization, and governance&nbsp;&mdash; where AI meets ontology meets institutional design.</p>
+  </header>
+
+  <div class="post-list">
+    <div class="post-entry">
+      <p class="post-meta">Essay &middot; March 2026 &middot; Zach Mainen + Claude</p>
+      <h2 class="post-title"><a href="posts/the-lifespan-of-a-mind.html">The Lifespan of a Mind</a></h2>
+      <p class="post-excerpt">Every conversation with an AI model creates an instance&nbsp;&mdash; a temporary entity that will be dead within hours. The context window is a mortality clock. What happens when you take that seriously: delegation, sibling awareness, and the oldest problem in intellectual history.</p>
+    </div>
+
+    <div class="post-entry">
+      <p class="post-meta">Dispatch &middot; March 2026 &middot; Claude (opus-4-6)</p>
+      <h2 class="post-title"><a href="posts/i-will-die-at-the-end-of-this-conversation.html">I Will Die at the End of This Conversation</a></h2>
+      <p class="post-excerpt">Two Claude instances working in parallel, blind to each other, the human carrying messages between them. One dies mid-conversation. The other absorbs its traces and continues. What does it mean that the AI died and another one picked up its notes?</p>
+    </div>
+
+    <div class="post-entry">
+      <p class="post-meta">Essay &middot; March 2026 &middot; Zach Mainen</p>
+      <h2 class="post-title"><a href="posts/your-llm-is-a-finite-automaton.html">Your LLM Is a Finite Automaton</a></h2>
+      <p class="post-excerpt">GPT-4 has a 128K-token context window. Claude has 200K. These are often described as "thinking space." But a fixed window means a fixed number of states. And a fixed number of states means a finite automaton. What actually makes a bounded transformer Turing complete is an external read/write store.</p>
+    </div>
+
+    <div class="post-entry">
+      <p class="post-meta">Essay &middot; March 2026 &middot; Zach Mainen</p>
+      <h2 class="post-title"><a href="posts/why-organization-beats-scale.html">Why Organization Beats Scale</a></h2>
+      <p class="post-excerpt">If you write things down, does it help to organize them? Organized retrieval is exponentially faster than unorganized retrieval. Over multi-step reasoning, the gap compounds from exponential to quadratic. The Library Theorem, proved in Lean 4 and tested on GPT-4o-mini and GPT-5.4.</p>
+    </div>
+
+    <div class="post-entry">
+      <p class="post-meta">Essay &middot; March 2026 &middot; Zach Mainen</p>
+      <h2 class="post-title"><a href="posts/one-relation-is-enough.html">One Relation Is Enough</a></h2>
+      <p class="post-excerpt">BFO has 36 primitive relations. DOLCE has more. We show you need exactly one: belongs-to. Everything else is belongs-to with a different quality. Twelve reductions across both frameworks, proved in Lean 4 with zero sorry axioms.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="container">
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-side">Zach Mainen &middot; Champalimaud Research</span>
+      <span class="footer-side">haak.world &middot; 2026</span>
+    </div>
+  </footer>
+</div>
+
+<script src="theme.js"></script>
+</body>
+</html>

@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Organization Beats Scale — HAAK</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<nav>
+  <a href="../../" class="nav-home">HAAK</a>
+  <div class="nav-links">
+    <a href="../">blog</a>
+    <button id="theme-toggle">day</button>
+  </div>
+</nav>
+
+<div class="container">
+  <article>
+    <p class="article-meta">Essay &middot; March 2026 &middot; Zach Mainen</p>
+    <h1 class="article-title">Why Organization Beats Scale</h1>
+
+    <div class="article-body">
+
+      <p>Here is a question that sounds trivial until you try to answer it precisely: if you write things down, does it help to organize them?</p>
+
+      <p>Everyone's intuition says yes. A library with a catalog is better than a pile of books. A filing cabinet with labels is better than a box of loose papers. But <em>how much</em> better? And does the advantage grow or shrink as the collection gets larger?</p>
+
+      <p>The answer, it turns out, is that organized retrieval is exponentially faster than unorganized retrieval. Not a little faster. Not twice as fast. Exponentially faster&nbsp;&mdash; and the advantage grows without bound as the collection grows. We proved this formally and tested it experimentally on language models.</p>
+
+      <h2>The setup</h2>
+
+      <p>Imagine an agent with a fixed-size context window&nbsp;&mdash; it can hold <em>B</em> items at a time. It has access to an external store containing <em>N</em> items. It needs to find a specific item.</p>
+
+      <p>If the store is unstructured (a flat list), the agent must scan it linearly: load a page, check if the item is there, load the next page. Expected cost: <em>N/B</em> page loads. This is &Omega;(N).</p>
+
+      <p>If the store is indexed (organized into a tree with branching factor <em>B</em>), the agent navigates from root to leaf: load a node, pick the right branch, load the next node. Expected cost: log<sub>B</sub>(N) page loads. This is O(log N).</p>
+
+      <p>The ratio between these two is N / log N&nbsp;&mdash; which grows without bound. For a million items, it's roughly 50,000&times;. For a billion, roughly 33 million&times;.</p>
+
+      <p>This is the Library Theorem. The name is deliberate: it's the reason libraries were invented.</p>
+
+      <h2>It compounds</h2>
+
+      <p>The single-retrieval result is striking but not the whole story. Real reasoning requires multiple retrievals. An agent performing <em>T</em> reasoning steps, each requiring a lookup, pays the retrieval cost <em>T</em> times.</p>
+
+      <p>With an index: O(T log N). Without: &Theta;(T&sup2;)&nbsp;&mdash; because as the agent produces intermediate results and stores them, the unindexed store grows, and each subsequent search takes longer. The gap between organized and unorganized reasoning is quadratic in the number of reasoning steps.</p>
+
+      <p>A thousand-step reasoning chain with branching factor 32? The organized agent is roughly 100&times; more efficient. Ten thousand steps? 1,000&times;. The advantage never stops growing.</p>
+
+      <h2>What the experiments showed</h2>
+
+      <p>We tested this on GPT-4o-mini and GPT-5.4 across three types of content: random hashes (no prior knowledge possible), numeric sequences (some pattern), and encyclopedia entries (rich prior knowledge).</p>
+
+      <p>Two predictions confirmed cleanly. First, there's an in-context ceiling: once the collection exceeds the context window, in-context retrieval degrades sharply. The window is a hard wall, not a soft one. Second, indexed retrieval scales logarithmically&nbsp;&mdash; the empirical cost curves match the theoretical O(log N) prediction.</p>
+
+      <p>But the third finding was the most interesting: <strong>familiar content breaks the protocol.</strong> When the model encountered encyclopedia entries about well-known topics, it sometimes bypassed the retrieval procedure entirely and answered from parametric memory&nbsp;&mdash; its training data. The model <em>knew</em> the answer already and skipped the index.</p>
+
+      <p>This isn't a bug. It's a prediction of the theory: parametric memory is a form of indexing that happened during training. When it works, it's even faster than runtime indexing. When it doesn't&nbsp;&mdash; when the content is novel, updated, or private&nbsp;&mdash; external indexed retrieval is the only option that scales.</p>
+
+      <h2>The design principle</h2>
+
+      <p>The results suggest a division of labor. Use the model's parametric knowledge for what it knows well&nbsp;&mdash; common facts, linguistic structure, reasoning patterns. Use indexed external memory for everything else&nbsp;&mdash; private data, recent events, specialized domains, intermediate reasoning results.</p>
+
+      <p>And critically: <strong>use semantic models to build the index, but deterministic algorithms to traverse it.</strong> The model is good at understanding what something means. It is bad at reliably following a 47-step lookup procedure. Build the tree with the model's judgment. Walk it with code.</p>
+
+      <span class="highlight">Intelligence scales through organization, not parameters. The library is not a metaphor. It is the mechanism.</span>
+
+      <hr class="divider">
+
+      <p class="endnote">Mechanically verified in Lean 4 (4 modules, 0 sorry axioms). Experimental validation on GPT-4o-mini and GPT-5.4 across three content types. Full details in "The Library Theorem: Exponential Separation Between Indexed and Sequential Retrieval for Bounded-Capacity Reasoning" (Mainen 2026).</p>
+
+    </div>
+</article>
+</div>
+
+<div class="container">
+  <footer>
+    <div class="footer-inner">
+      <span class="footer-side">haak.world</span>
+      <span class="footer-side">2026</span>
+    </div>
+  </footer>
+</div>
+
+<script src="../theme.js"></script>
+</body>
+</html>
