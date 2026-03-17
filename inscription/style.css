@@ -1,55 +1,55 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #111210;
-  --title:    #e8e0d4;
-  --cream:    #d0c8be;
-  --cream2:   #b0a89c;
-  --gold:     #5ab8a6;
-  --gold-dim: #1e2a24;
-  --silver:   #8a8078;
-  --subtitle: #a09888;
-  --link:     #6abcaa;
-  --line:     #1e1a16;
-  --line2:    #2a2520;
-  --card-bg:  rgba(255,245,230,0.02);
-  --accent-governance:   #4a9e8e;
-  --accent-philosophy:   #c4956a;
-  --accent-experience:   #b07878;
-  --accent-architecture: #6a8aa0;
-  --accent-knowledge:    #8a9a6a;
-  --accent-computation:  #8a7aa0;
-  --accent-ontology:     #a0846a;
-  --accent-neuroscience: #7a9a7a;
-  --accent-topology:     #a07a5a;
-  --accent-history:      #8a7a6a;
-  --accent-interactive:  #7a6e6a;
+  --bg:       #161618;
+  --title:    #dcdad6;
+  --cream:    #c4c2be;
+  --cream2:   #9a9894;
+  --gold:     #7a9e96;
+  --gold-dim: #1e2224;
+  --silver:   #7a7876;
+  --subtitle: #9a9894;
+  --link:     #7a9e96;
+  --line:     #1e1e20;
+  --line2:    #2a2a2c;
+  --card-bg:  rgba(255,255,255,0.015);
+  --accent-governance:   #6a9e96;
+  --accent-philosophy:   #b89090;
+  --accent-experience:   #9a8aaa;
+  --accent-architecture: #7a8ea0;
+  --accent-knowledge:    #8a9e86;
+  --accent-computation:  #8888aa;
+  --accent-ontology:     #a08a94;
+  --accent-neuroscience: #7aaa96;
+  --accent-topology:     #b09080;
+  --accent-history:      #a09a88;
+  --accent-interactive:  #80a0b0;
 }
 
 [data-theme="light"] {
-  --bg:       #f5f2ec;
-  --title:    #2a2520;
-  --cream:    #3a352e;
-  --cream2:   #4a443c;
-  --gold:     #2a7a68;
-  --gold-dim: #d0e0da;
-  --silver:   #6a6058;
-  --subtitle: #5a544c;
-  --link:     #1a7060;
-  --line:     #dcd6cc;
-  --line2:    #ccc4b8;
-  --card-bg:  rgba(0,0,0,0.025);
-  --accent-governance:   #2e7a6a;
-  --accent-philosophy:   #9a7040;
-  --accent-experience:   #8a4a50;
-  --accent-architecture: #4a6a84;
-  --accent-knowledge:    #5a7a3a;
-  --accent-computation:  #6a5a84;
-  --accent-ontology:     #7a5e3a;
-  --accent-neuroscience: #4a7a4a;
-  --accent-topology:     #7a5a30;
-  --accent-history:      #6a5a4a;
-  --accent-interactive:  #5a5048;
+  --bg:       #f0eeea;
+  --title:    #2a2a28;
+  --cream:    #3a3a38;
+  --cream2:   #5a5a58;
+  --gold:     #5a8880;
+  --gold-dim: #d4dcd8;
+  --silver:   #6a6a68;
+  --subtitle: #5a5a58;
+  --link:     #4a7a72;
+  --line:     #dad8d4;
+  --line2:    #cccac6;
+  --card-bg:  rgba(0,0,0,0.022);
+  --accent-governance:   #4a7a72;
+  --accent-philosophy:   #8a6060;
+  --accent-experience:   #6a5a7a;
+  --accent-architecture: #4a6070;
+  --accent-knowledge:    #5a7a56;
+  --accent-computation:  #585878;
+  --accent-ontology:     #705a64;
+  --accent-neuroscience: #4a7a66;
+  --accent-topology:     #7a6050;
+  --accent-history:      #706a58;
+  --accent-interactive:  #507080;
 }
 
 html { scroll-behavior: smooth; }
