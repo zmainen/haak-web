@@ -83,42 +83,54 @@
   letter-spacing: 0.06em;
   color: var(--silver);
 }
-/* Tag accent — watercolor wash gradient from left edge */
-.post-entry[data-tag="governance"]   { background: linear-gradient(to right, rgba(122,176,168,0.28) 0%, rgba(122,176,168,0.10) 60px, transparent 140px), var(--card-bg); }
-.post-entry[data-tag="experience"]   { background: linear-gradient(to right, rgba(170,154,186,0.28) 0%, rgba(170,154,186,0.10) 60px, transparent 140px), var(--card-bg); }
-.post-entry[data-tag="architecture"] { background: linear-gradient(to right, rgba(122,142,160,0.28) 0%, rgba(122,142,160,0.10) 60px, transparent 140px), var(--card-bg); }
-.post-entry[data-tag="philosophy"]   { background: linear-gradient(to right, rgba(200,160,160,0.28) 0%, rgba(200,160,160,0.10) 60px, transparent 140px), var(--card-bg); }
-.post-entry[data-tag="ontology"]     { background: linear-gradient(to right, rgba(176,154,164,0.28) 0%, rgba(176,154,164,0.10) 60px, transparent 140px), var(--card-bg); }
-.post-entry[data-tag="knowledge"]    { background: linear-gradient(to right, rgba(138,158,134,0.28) 0%, rgba(138,158,134,0.10) 60px, transparent 140px), var(--card-bg); }
-.post-entry[data-tag="computation"]  { background: linear-gradient(to right, rgba(144,144,184,0.28) 0%, rgba(144,144,184,0.10) 60px, transparent 140px), var(--card-bg); }
-.post-entry[data-tag="neuroscience"] { background: linear-gradient(to right, rgba(122,170,150,0.28) 0%, rgba(122,170,150,0.10) 60px, transparent 140px), var(--card-bg); }
-.post-entry[data-tag="topology"]     { background: linear-gradient(to right, rgba(192,160,144,0.28) 0%, rgba(192,160,144,0.10) 60px, transparent 140px), var(--card-bg); }
-.post-entry[data-tag="history"]      { background: linear-gradient(to right, rgba(160,154,136,0.28) 0%, rgba(160,154,136,0.10) 60px, transparent 140px), var(--card-bg); }
-.ttt-entry { background: linear-gradient(to right, rgba(128,160,176,0.28) 0%, rgba(128,160,176,0.10) 60px, transparent 140px), var(--card-bg); }
-/* Light theme — slightly stronger wash */
-[data-theme="light"] .post-entry[data-tag="governance"]   { background: linear-gradient(to right, rgba(122,176,168,0.22) 0%, rgba(122,176,168,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .post-entry[data-tag="experience"]   { background: linear-gradient(to right, rgba(170,154,186,0.22) 0%, rgba(170,154,186,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .post-entry[data-tag="architecture"] { background: linear-gradient(to right, rgba(122,142,160,0.22) 0%, rgba(122,142,160,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .post-entry[data-tag="philosophy"]   { background: linear-gradient(to right, rgba(200,160,160,0.22) 0%, rgba(200,160,160,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .post-entry[data-tag="ontology"]     { background: linear-gradient(to right, rgba(176,154,164,0.22) 0%, rgba(176,154,164,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .post-entry[data-tag="knowledge"]    { background: linear-gradient(to right, rgba(138,158,134,0.22) 0%, rgba(138,158,134,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .post-entry[data-tag="computation"]  { background: linear-gradient(to right, rgba(144,144,184,0.22) 0%, rgba(144,144,184,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .post-entry[data-tag="neuroscience"] { background: linear-gradient(to right, rgba(122,170,150,0.22) 0%, rgba(122,170,150,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .post-entry[data-tag="topology"]     { background: linear-gradient(to right, rgba(192,160,144,0.22) 0%, rgba(192,160,144,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .post-entry[data-tag="history"]      { background: linear-gradient(to right, rgba(160,154,136,0.22) 0%, rgba(160,154,136,0.07) 60px, transparent 140px), var(--card-bg); }
-[data-theme="light"] .ttt-entry { background: linear-gradient(to right, rgba(128,160,176,0.22) 0%, rgba(128,160,176,0.07) 60px, transparent 140px), var(--card-bg); }
-/* Tag text colors — slightly brighter than gradient band */
-.post-entry[data-tag="governance"]   .post-tags { color: var(--accent-governance); }
-.post-entry[data-tag="experience"]   .post-tags { color: var(--accent-experience); }
-.post-entry[data-tag="architecture"] .post-tags { color: var(--accent-architecture); }
-.post-entry[data-tag="philosophy"]   .post-tags { color: var(--accent-philosophy); }
-.post-entry[data-tag="ontology"]     .post-tags { color: var(--accent-ontology); }
-.post-entry[data-tag="knowledge"]    .post-tags { color: var(--accent-knowledge); }
-.post-entry[data-tag="computation"]  .post-tags { color: var(--accent-computation); }
-.post-entry[data-tag="neuroscience"] .post-tags { color: var(--accent-neuroscience); }
-.post-entry[data-tag="topology"]     .post-tags { color: var(--accent-topology); }
-.post-entry[data-tag="history"]      .post-tags { color: var(--accent-history); }
-.ttt-entry .ttt-label                            { color: var(--accent-interactive); }
+/* Tag accent — full pastel card backgrounds + left border */
+.post-entry[data-tag="governance"]   { background: rgba(122,176,168,0.13); border-left: 3px solid #7ab0a8; }
+.post-entry[data-tag="experience"]   { background: rgba(170,154,186,0.13); border-left: 3px solid #aa9aba; }
+.post-entry[data-tag="architecture"] { background: rgba(122,142,160,0.13); border-left: 3px solid #7a8ea0; }
+.post-entry[data-tag="philosophy"]   { background: rgba(200,160,160,0.13); border-left: 3px solid #c8a0a0; }
+.post-entry[data-tag="ontology"]     { background: rgba(176,154,164,0.13); border-left: 3px solid #b09aa4; }
+.post-entry[data-tag="knowledge"]    { background: rgba(138,158,134,0.13); border-left: 3px solid #8a9e86; }
+.post-entry[data-tag="computation"]  { background: rgba(144,144,184,0.13); border-left: 3px solid #9090b8; }
+.post-entry[data-tag="neuroscience"] { background: rgba(122,170,150,0.13); border-left: 3px solid #7aaa96; }
+.post-entry[data-tag="topology"]     { background: rgba(192,160,144,0.13); border-left: 3px solid #c0a090; }
+.post-entry[data-tag="history"]      { background: rgba(160,154,136,0.13); border-left: 3px solid #a09a88; }
+.ttt-entry { background: rgba(128,160,176,0.13); border-left: 3px solid #80a0b0; }
+/* Light theme */
+[data-theme="light"] .post-entry[data-tag="governance"]   { background: rgba(122,176,168,0.09); }
+[data-theme="light"] .post-entry[data-tag="experience"]   { background: rgba(170,154,186,0.09); }
+[data-theme="light"] .post-entry[data-tag="architecture"] { background: rgba(122,142,160,0.09); }
+[data-theme="light"] .post-entry[data-tag="philosophy"]   { background: rgba(200,160,160,0.09); }
+[data-theme="light"] .post-entry[data-tag="ontology"]     { background: rgba(176,154,164,0.09); }
+[data-theme="light"] .post-entry[data-tag="knowledge"]    { background: rgba(138,158,134,0.09); }
+[data-theme="light"] .post-entry[data-tag="computation"]  { background: rgba(144,144,184,0.09); }
+[data-theme="light"] .post-entry[data-tag="neuroscience"] { background: rgba(122,170,150,0.09); }
+[data-theme="light"] .post-entry[data-tag="topology"]     { background: rgba(192,160,144,0.09); }
+[data-theme="light"] .post-entry[data-tag="history"]      { background: rgba(160,154,136,0.09); }
+[data-theme="light"] .ttt-entry { background: rgba(128,160,176,0.09); }
+/* Tag text colors — full pastel */
+.post-entry[data-tag="governance"]   .post-tags { color: #7ab0a8; }
+.post-entry[data-tag="experience"]   .post-tags { color: #aa9aba; }
+.post-entry[data-tag="architecture"] .post-tags { color: #7a8ea0; }
+.post-entry[data-tag="philosophy"]   .post-tags { color: #c8a0a0; }
+.post-entry[data-tag="ontology"]     .post-tags { color: #b09aa4; }
+.post-entry[data-tag="knowledge"]    .post-tags { color: #8a9e86; }
+.post-entry[data-tag="computation"]  .post-tags { color: #9090b8; }
+.post-entry[data-tag="neuroscience"] .post-tags { color: #7aaa96; }
+.post-entry[data-tag="topology"]     .post-tags { color: #c0a090; }
+.post-entry[data-tag="history"]      .post-tags { color: #a09a88; }
+.ttt-entry .ttt-label                            { color: #80a0b0; }
+/* Light theme tag text — darker for readability */
+[data-theme="light"] .post-entry[data-tag="governance"]   .post-tags { color: #5a9088; }
+[data-theme="light"] .post-entry[data-tag="experience"]   .post-tags { color: #7a6a8a; }
+[data-theme="light"] .post-entry[data-tag="architecture"] .post-tags { color: #5a6e80; }
+[data-theme="light"] .post-entry[data-tag="philosophy"]   .post-tags { color: #a07070; }
+[data-theme="light"] .post-entry[data-tag="ontology"]     .post-tags { color: #907a84; }
+[data-theme="light"] .post-entry[data-tag="knowledge"]    .post-tags { color: #6a7e66; }
+[data-theme="light"] .post-entry[data-tag="computation"]  .post-tags { color: #686898; }
+[data-theme="light"] .post-entry[data-tag="neuroscience"] .post-tags { color: #5a8a76; }
+[data-theme="light"] .post-entry[data-tag="topology"]     .post-tags { color: #a08060; }
+[data-theme="light"] .post-entry[data-tag="history"]      .post-tags { color: #807a68; }
+[data-theme="light"] .ttt-entry .ttt-label                            { color: #608090; }
 </style>
 </head>
 <body>
