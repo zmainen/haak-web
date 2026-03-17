@@ -14,12 +14,12 @@
   font-size: clamp(48px, 8vw, 80px) !important;
   font-weight: 400;
   line-height: 1.0;
-  color: #dcdad6;
+  color: #e0e0e6;
   margin-bottom: 12px;
   letter-spacing: -0.02em;
 }
 [data-theme="light"] .masthead-title {
-  color: #2a2a28;
+  color: #1a1a1e;
 }
 .masthead-author {
   font-family: 'IBM Plex Mono', monospace;
@@ -83,54 +83,59 @@
   letter-spacing: 0.06em;
   color: var(--silver);
 }
-/* Tag accent — full pastel card backgrounds + left border */
-.post-entry[data-tag="governance"]   { background: rgba(122,176,168,0.13); border-left: 3px solid #7ab0a8; }
-.post-entry[data-tag="experience"]   { background: rgba(170,154,186,0.13); border-left: 3px solid #aa9aba; }
-.post-entry[data-tag="architecture"] { background: rgba(122,142,160,0.13); border-left: 3px solid #7a8ea0; }
-.post-entry[data-tag="philosophy"]   { background: rgba(200,160,160,0.13); border-left: 3px solid #c8a0a0; }
-.post-entry[data-tag="ontology"]     { background: rgba(176,154,164,0.13); border-left: 3px solid #b09aa4; }
-.post-entry[data-tag="knowledge"]    { background: rgba(138,158,134,0.13); border-left: 3px solid #8a9e86; }
-.post-entry[data-tag="computation"]  { background: rgba(144,144,184,0.13); border-left: 3px solid #9090b8; }
-.post-entry[data-tag="neuroscience"] { background: rgba(122,170,150,0.13); border-left: 3px solid #7aaa96; }
-.post-entry[data-tag="topology"]     { background: rgba(192,160,144,0.13); border-left: 3px solid #c0a090; }
-.post-entry[data-tag="history"]      { background: rgba(160,154,136,0.13); border-left: 3px solid #a09a88; }
-.ttt-entry { background: rgba(128,160,176,0.13); border-left: 3px solid #80a0b0; }
-/* Light theme */
-[data-theme="light"] .post-entry[data-tag="governance"]   { background: rgba(122,176,168,0.09); }
-[data-theme="light"] .post-entry[data-tag="experience"]   { background: rgba(170,154,186,0.09); }
-[data-theme="light"] .post-entry[data-tag="architecture"] { background: rgba(122,142,160,0.09); }
-[data-theme="light"] .post-entry[data-tag="philosophy"]   { background: rgba(200,160,160,0.09); }
-[data-theme="light"] .post-entry[data-tag="ontology"]     { background: rgba(176,154,164,0.09); }
-[data-theme="light"] .post-entry[data-tag="knowledge"]    { background: rgba(138,158,134,0.09); }
-[data-theme="light"] .post-entry[data-tag="computation"]  { background: rgba(144,144,184,0.09); }
-[data-theme="light"] .post-entry[data-tag="neuroscience"] { background: rgba(122,170,150,0.09); }
-[data-theme="light"] .post-entry[data-tag="topology"]     { background: rgba(192,160,144,0.09); }
-[data-theme="light"] .post-entry[data-tag="history"]      { background: rgba(160,154,136,0.09); }
-[data-theme="light"] .ttt-entry { background: rgba(128,160,176,0.09); }
-/* Tag text colors — full pastel */
-.post-entry[data-tag="governance"]   .post-tags { color: #7ab0a8; }
-.post-entry[data-tag="experience"]   .post-tags { color: #aa9aba; }
-.post-entry[data-tag="architecture"] .post-tags { color: #7a8ea0; }
-.post-entry[data-tag="philosophy"]   .post-tags { color: #c8a0a0; }
-.post-entry[data-tag="ontology"]     .post-tags { color: #b09aa4; }
-.post-entry[data-tag="knowledge"]    .post-tags { color: #8a9e86; }
-.post-entry[data-tag="computation"]  .post-tags { color: #9090b8; }
-.post-entry[data-tag="neuroscience"] .post-tags { color: #7aaa96; }
-.post-entry[data-tag="topology"]     .post-tags { color: #c0a090; }
-.post-entry[data-tag="history"]      .post-tags { color: #a09a88; }
-.ttt-entry .ttt-label                            { color: #80a0b0; }
-/* Light theme tag text — darker for readability */
-[data-theme="light"] .post-entry[data-tag="governance"]   .post-tags { color: #5a9088; }
-[data-theme="light"] .post-entry[data-tag="experience"]   .post-tags { color: #7a6a8a; }
-[data-theme="light"] .post-entry[data-tag="architecture"] .post-tags { color: #5a6e80; }
-[data-theme="light"] .post-entry[data-tag="philosophy"]   .post-tags { color: #a07070; }
-[data-theme="light"] .post-entry[data-tag="ontology"]     .post-tags { color: #907a84; }
-[data-theme="light"] .post-entry[data-tag="knowledge"]    .post-tags { color: #6a7e66; }
-[data-theme="light"] .post-entry[data-tag="computation"]  .post-tags { color: #686898; }
-[data-theme="light"] .post-entry[data-tag="neuroscience"] .post-tags { color: #5a8a76; }
-[data-theme="light"] .post-entry[data-tag="topology"]     .post-tags { color: #a08060; }
-[data-theme="light"] .post-entry[data-tag="history"]      .post-tags { color: #807a68; }
-[data-theme="light"] .ttt-entry .ttt-label                            { color: #608090; }
+
+/* ── DARK MODE CARD BACKGROUNDS (default) ── */
+/* Watercolor pastels on dark slate — 0.10-0.12 opacity */
+.post-entry[data-tag="governance"]   { background: rgba(100,170,160,0.11); border-top: 3px solid rgba(100,170,160,0.6); }
+.post-entry[data-tag="philosophy"]   { background: rgba(190,140,150,0.11); border-top: 3px solid rgba(190,140,150,0.6); }
+.post-entry[data-tag="experience"]   { background: rgba(150,130,180,0.11); border-top: 3px solid rgba(150,130,180,0.6); }
+.post-entry[data-tag="architecture"] { background: rgba(120,140,190,0.11); border-top: 3px solid rgba(120,140,190,0.6); }
+.post-entry[data-tag="knowledge"]    { background: rgba(140,170,120,0.11); border-top: 3px solid rgba(140,170,120,0.6); }
+.post-entry[data-tag="computation"]  { background: rgba(130,130,190,0.11); border-top: 3px solid rgba(130,130,190,0.6); }
+.post-entry[data-tag="ontology"]     { background: rgba(170,140,160,0.11); border-top: 3px solid rgba(170,140,160,0.6); }
+.post-entry[data-tag="neuroscience"] { background: rgba(120,180,160,0.11); border-top: 3px solid rgba(120,180,160,0.6); }
+.post-entry[data-tag="topology"]     { background: rgba(190,160,130,0.11); border-top: 3px solid rgba(190,160,130,0.6); }
+.post-entry[data-tag="history"]      { background: rgba(170,160,130,0.11); border-top: 3px solid rgba(170,160,130,0.6); }
+.ttt-entry                           { background: rgba(120,160,190,0.11); border-top: 3px solid rgba(120,160,190,0.6); }
+
+/* Dark mode tag text — brighter pastels for readability */
+.post-entry[data-tag="governance"]   .post-tags { color: #7ec8be; }
+.post-entry[data-tag="philosophy"]   .post-tags { color: #d4a8b0; }
+.post-entry[data-tag="experience"]   .post-tags { color: #b8a4d0; }
+.post-entry[data-tag="architecture"] .post-tags { color: #96a8d0; }
+.post-entry[data-tag="knowledge"]    .post-tags { color: #a0c090; }
+.post-entry[data-tag="computation"]  .post-tags { color: #a0a0d0; }
+.post-entry[data-tag="ontology"]     .post-tags { color: #c8a8b8; }
+.post-entry[data-tag="neuroscience"] .post-tags { color: #7ec8b0; }
+.post-entry[data-tag="topology"]     .post-tags { color: #d0b898; }
+.post-entry[data-tag="history"]      .post-tags { color: #c0b898; }
+.ttt-entry .ttt-label                            { color: #96b8d0; }
+
+/* ── LIGHT MODE CARD BACKGROUNDS ── */
+[data-theme="light"] .post-entry[data-tag="governance"]   { background: rgba(100,170,160,0.12); border-top: 3px solid rgba(100,170,160,0.5); }
+[data-theme="light"] .post-entry[data-tag="philosophy"]   { background: rgba(190,140,150,0.12); border-top: 3px solid rgba(190,140,150,0.5); }
+[data-theme="light"] .post-entry[data-tag="experience"]   { background: rgba(150,130,180,0.12); border-top: 3px solid rgba(150,130,180,0.5); }
+[data-theme="light"] .post-entry[data-tag="architecture"] { background: rgba(120,140,190,0.12); border-top: 3px solid rgba(120,140,190,0.5); }
+[data-theme="light"] .post-entry[data-tag="knowledge"]    { background: rgba(140,170,120,0.12); border-top: 3px solid rgba(140,170,120,0.5); }
+[data-theme="light"] .post-entry[data-tag="computation"]  { background: rgba(130,130,190,0.12); border-top: 3px solid rgba(130,130,190,0.5); }
+[data-theme="light"] .post-entry[data-tag="ontology"]     { background: rgba(170,140,160,0.12); border-top: 3px solid rgba(170,140,160,0.5); }
+[data-theme="light"] .post-entry[data-tag="neuroscience"] { background: rgba(120,180,160,0.12); border-top: 3px solid rgba(120,180,160,0.5); }
+[data-theme="light"] .post-entry[data-tag="topology"]     { background: rgba(190,160,130,0.12); border-top: 3px solid rgba(190,160,130,0.5); }
+[data-theme="light"] .post-entry[data-tag="history"]      { background: rgba(170,160,130,0.12); border-top: 3px solid rgba(170,160,130,0.5); }
+[data-theme="light"] .ttt-entry                           { background: rgba(120,160,190,0.12); border-top: 3px solid rgba(120,160,190,0.5); }
+
+/* Light mode tag text — darker for readability */
+[data-theme="light"] .post-entry[data-tag="governance"]   .post-tags { color: #4a8a80; }
+[data-theme="light"] .post-entry[data-tag="philosophy"]   .post-tags { color: #a06870; }
+[data-theme="light"] .post-entry[data-tag="experience"]   .post-tags { color: #7a6890; }
+[data-theme="light"] .post-entry[data-tag="architecture"] .post-tags { color: #5a6a98; }
+[data-theme="light"] .post-entry[data-tag="knowledge"]    .post-tags { color: #5a7a48; }
+[data-theme="light"] .post-entry[data-tag="computation"]  .post-tags { color: #606090; }
+[data-theme="light"] .post-entry[data-tag="ontology"]     .post-tags { color: #906878; }
+[data-theme="light"] .post-entry[data-tag="neuroscience"] .post-tags { color: #4a8a70; }
+[data-theme="light"] .post-entry[data-tag="topology"]     .post-tags { color: #987850; }
+[data-theme="light"] .post-entry[data-tag="history"]      .post-tags { color: #807860; }
+[data-theme="light"] .ttt-entry .ttt-label                            { color: #507890; }
 </style>
 </head>
 <body>
@@ -144,6 +149,30 @@
   </header>
 
   <div class="post-list">
+
+    <div class="post-entry lead" data-tag="governance">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/there-is-no-meta-room.html">There Is No Meta-Room</a></h2>
+        <span class="post-tags">governance &middot; philosophy</span>
+      </div>
+      <p class="post-subtitle">Pluralism is not a bug but a structural feature of any system that governs itself honestly</p>
+    </div>
+
+    <div class="post-entry" data-tag="governance">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/who-writes-the-constitution.html">Who Writes the Constitution?</a></h2>
+        <span class="post-tags">governance</span>
+      </div>
+      <p class="post-subtitle">Every AI system has one &mdash; not always written down, not always called that</p>
+    </div>
+
+    <div class="post-entry" data-tag="governance">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/your-knowledge-system-is-a-polity.html">Your Knowledge System Is a Polity</a></h2>
+        <span class="post-tags">governance &middot; architecture</span>
+      </div>
+      <p class="post-subtitle">Every knowledge system has governance &mdash; most don't know it</p>
+    </div>
 
     <div class="post-entry" data-tag="experience">
       <div class="post-title-row">
@@ -177,12 +206,68 @@
       <p class="post-subtitle">Context windows are bounded, and what follows changes everything</p>
     </div>
 
+    <div class="post-entry" data-tag="architecture">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/your-filing-system-is-a-map.html">Your Filing System Is a Map</a></h2>
+        <span class="post-tags">architecture &middot; knowledge</span>
+      </div>
+      <p class="post-subtitle">Folders are materializations of situations &mdash; when the filing system gets messy, the map has drifted</p>
+    </div>
+
+    <div class="post-entry" data-tag="philosophy">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/reality-is-a-tangle.html">Reality Is a Tangle</a></h2>
+        <span class="post-tags">philosophy &middot; topology</span>
+      </div>
+      <p class="post-subtitle">Leibniz's leaves, Harman's withdrawal, and a topological mechanism for three ancient problems</p>
+    </div>
+
     <div class="post-entry" data-tag="philosophy">
       <div class="post-title-row">
         <h2 class="post-title"><a href="posts/one-relation-is-enough.html">One Relation Is Enough</a></h2>
         <span class="post-tags">philosophy &middot; ontology</span>
       </div>
       <p class="post-subtitle">Every ontology starts with a collection of primitive relations &mdash; this one starts with one</p>
+    </div>
+
+    <div class="post-entry" data-tag="ontology">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/before-the-first-entity.html">Before the First Entity</a></h2>
+        <span class="post-tags">ontology &middot; philosophy</span>
+      </div>
+      <p class="post-subtitle">Nagarjuna, Badiou, and Turing converge on what exists before the first differentiation</p>
+    </div>
+
+    <div class="post-entry" data-tag="knowledge">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/the-notebooks-beneath-the-system.html">The Notebooks Beneath the System</a></h2>
+        <span class="post-tags">knowledge &middot; architecture</span>
+      </div>
+      <p class="post-subtitle">A librarian agent reads the twenty-year notebook archive and finds the roots of its own governance</p>
+    </div>
+
+    <div class="post-entry" data-tag="philosophy">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/the-first-ontologist.html">The First Ontologist</a></h2>
+        <span class="post-tags">philosophy &middot; history</span>
+      </div>
+      <p class="post-subtitle">Nagarjuna, the Yoneda lemma, and why multiple primitive relations is working too hard</p>
+    </div>
+
+    <div class="post-entry" data-tag="neuroscience">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/your-hippocampus-is-a-library.html">Your Hippocampus Is a Library</a></h2>
+        <span class="post-tags">neuroscience &middot; knowledge</span>
+      </div>
+      <p class="post-subtitle">Fixed-capacity processor, enormous store &mdash; the Library Theorem has an optimal retrieval strategy</p>
+    </div>
+
+    <div class="post-entry" data-tag="computation">
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/what-if-you-could-read-a-models-mind.html">What If You Could Read a Model's Mind?</a></h2>
+        <span class="post-tags">computation &middot; philosophy</span>
+      </div>
+      <p class="post-subtitle">Knowledge lives in the weights &mdash; what if you could read it directly?</p>
     </div>
 
     <div class="ttt-entry">
@@ -206,7 +291,7 @@
 <script>
 function updateSubtitleColors() {
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-  const color = isLight ? '#6a6a68' : '#9a9894';
+  const color = isLight ? '#5a5a5e' : '#9a9aa0';
   document.querySelectorAll('.post-subtitle').forEach(el => { el.style.color = color; });
 }
 updateSubtitleColors();

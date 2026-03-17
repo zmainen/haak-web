@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>What If You Could Read a Model's Mind? — inscription</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<button id="theme-toggle" class="theme-toggle">&#9728;</button>
+
+<div class="container">
+  <a href="/inscription/" class="back-link">&larr; inscription</a>
+</div>
+
+<div class="container">
+  <article>
+    <p class="article-meta">Paper R &middot; March 2026 &middot; Zach Mainen</p>
+    <h1 class="article-title">What If You Could Read a Model's Mind?</h1>
+
+    <div class="article-body">
+
+      <p>A language model knows things. It knows that Paris is the capital of France, that water boils at 100&deg;C, that Shakespeare wrote Hamlet. This knowledge lives in the model's weights&nbsp;&mdash; billions of floating-point numbers, arranged in matrices, completely unreadable to any human.</p>
+
+      <p>What if you could take that knowledge out?</p>
+
+      <p>Not by asking the model questions one at a time. By actually decomposing the weight matrices into two parts: a reduced set of weights that handles computation, and an indexed external store that holds the factual knowledge in a form you can read, search, edit, and audit. The model would still work. But its knowledge would be <em>outside</em>, organized, and yours to inspect.</p>
+
+      <p>This is what redaction is.</p>
+
+      <h2>The idea</h2>
+
+      <p>Every weight in a neural network responds to some inputs and ignores others. A weight in an early attention layer might activate for tokens that look like dates. A weight deeper in the network might activate for sentences about geography. Most weights are surprisingly sparse: they care about a small fraction of possible inputs.</p>
+
+      <p>If a weight only matters for a narrow set of inputs, you don't need it in the weight matrix. You can replace it with a lookup: when the model encounters that input pattern, retrieve the weight's contribution from an external store. The remaining weight matrix is smaller, handles the dense computations, and the sparse knowledge sits in an indexed library.</p>
+
+      <p>This is the Library Theorem applied reflexively&nbsp;&mdash; to the model's own weights.</p>
+
+      <h2>What the math says</h2>
+
+      <p>We define a weight's <em>dependency density</em>: the fraction of inputs for which that weight materially affects the output. If a weight has low dependency density, it's sparse&nbsp;&mdash; it encodes specific knowledge, not general computation.</p>
+
+      <p>The theorem: under reasonable sparsity conditions, at least (1&nbsp;&minus;&nbsp;&epsilon;) of all weights can be externalized into an indexed store. The store size scales with the sparsity structure, not the number of weights. The reduced weight matrix retains the dense, general-purpose computation.</p>
+
+      <h2>What the experiment showed</h2>
+
+      <p>We ran this analysis on GPT-2. The results were sharper than expected.</p>
+
+      <p>About 65% of weights have dependency density below 0.01 at a tolerance of &epsilon;&nbsp;=&nbsp;10<sup>&minus;4</sup>. These are the specific-knowledge weights&nbsp;&mdash; the ones encoding facts, associations, and patterns that fire rarely but matter when they do. They're candidates for externalization.</p>
+
+      <p>The distribution is bimodal: weights are either very sparse or very dense. Almost nothing sits in the middle. This isn't an artifact of the analysis&nbsp;&mdash; it reflects the architecture. Layer norms are universally dense (dependency density ~0.77). Token embeddings are universally sparse (~97% qualify for externalization). Attention and MLP layers show the bimodal split.</p>
+
+      <p>There's a phase transition at &epsilon;&nbsp;=&nbsp;10<sup>&minus;4</sup>. Below that threshold, the decomposition is clean. Above it, the boundary between sparse and dense blurs. The model has a natural seam between "things it knows" and "things it does."</p>
+
+      <h2>What this enables</h2>
+
+      <p>Once knowledge is externalized, three things become possible that aren't possible with weights alone:</p>
+
+      <div class="consequences">
+        <p><strong>Auditability.</strong> You can inspect what the model knows. Not by asking it&nbsp;&mdash; models confabulate&nbsp;&mdash; but by reading the store directly. Every fact has a location, a provenance, and a context in which it was learned.</p>
+
+        <p><strong>Selective intervention.</strong> You can edit specific knowledge without retraining. Remove a piece of misinformation. Update an outdated fact. Add private data that shouldn't be in the weights. The surgery is precise because the knowledge is indexed, not diffused across a billion parameters.</p>
+
+        <p><strong>Provenance.</strong> When the model produces an output, you can trace which stored facts contributed. Not perfectly&nbsp;&mdash; the dense computation layer still mediates&nbsp;&mdash; but with far more transparency than black-box attribution.</p>
+      </div>
+
+      <span class="highlight">The model's knowledge is not a black box. It is a library that hasn't been organized yet.</span>
+
+      <h2>The connection</h2>
+
+      <p>This paper is where the arc bends back on itself. Paper 7 showed that external memory makes a bounded transformer Turing complete. Paper 1 showed that organized external memory is exponentially more efficient. Paper R applies both results to the model's own internals: the weights <em>already contain</em> an implicit library. Redaction makes it explicit.</p>
+
+      <p>The forward pass of a neural network is a situation in the ontological sense (Paper 0): an entity (the input) belongs to a context (the computation) with qualities (the intermediate activations). The weights that fire are the participants. The outputs are the traces. Everything the ontology describes about external reasoning applies, reflexively, to the model's own reasoning.</p>
+
+      <hr class="divider">
+
+      <p class="endnote">Preliminary experiment on GPT-2 confirms bimodal sparsity prediction. Full externalization experiment in progress. Theory formalized in the Library Theorem framework. Details in "Redaction: Externalizing Knowledge from Neural Network Weights" (Mainen 2026).</p>
+
+    </div>
+
+    <div class="series-nav">
+      <p class="series-label">Paper Arc 2026</p>
+      <ul class="series-list">
+        <li><a href="your-llm-is-a-finite-automaton.html">Your LLM Is a Finite Automaton</a></li>
+        <li><a href="why-organization-beats-scale.html">Why Organization Beats Scale</a></li>
+        <li><a href="one-relation-is-enough.html">One Relation Is Enough</a></li>
+        <li class="current">What If You Could Read a Model's Mind?</li>
+        <li class="upcoming">Your Hippocampus Is a Library</li>
+        <li class="upcoming">Who Writes the Constitution?</li>
+      </ul>
+    </div>
+  </article>
+</div>
+
+<div class="container">
+  <footer>
+    <a href="https://zmainen.org" class="footer-link">zmainen.org</a>
+  </footer>
+</div>
+
+<script src="../theme.js"></script>
+</body>
+</html>

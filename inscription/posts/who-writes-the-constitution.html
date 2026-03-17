@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Who Writes the Constitution? — inscription</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<button id="theme-toggle" class="theme-toggle">&#9728;</button>
+
+<div class="container">
+  <a href="/inscription/" class="back-link">&larr; inscription</a>
+</div>
+
+<div class="container">
+  <article>
+    <p class="article-meta">Paper 4+6 &middot; March 2026 &middot; Zach Mainen</p>
+    <h1 class="article-title">Who Writes the Constitution?</h1>
+
+    <div class="article-body">
+
+      <p>Every AI system has a constitution. Not always written down. Not always called that. But every system that accepts some inputs and rejects others, that responds one way rather than another, that has boundaries on what it will and won't do&nbsp;&mdash; that system is constituted. It operates under rules.</p>
+
+      <p>The question is: who wrote those rules? And can anyone else read them?</p>
+
+      <h2>The current situation</h2>
+
+      <p>Right now, the constitution of every major AI system is written by its manufacturer. Anthropic writes Claude's constitution. OpenAI writes GPT's rules. Google writes Gemini's. These constitutions live partly in system prompts (readable, in principle) and partly in training data and RLHF reward models (unreadable, in practice). The public cannot inspect them, modify them, or appeal their application.</p>
+
+      <p>This isn't a conspiracy. It's a design choice that follows from the current business model: the company builds the product, the company sets the rules. But it creates a structural problem. The rules that govern how AI systems behave&nbsp;&mdash; what they refuse, what they emphasize, whose values they reflect&nbsp;&mdash; are set by a small number of private organizations, with no democratic input from the people those systems affect.</p>
+
+      <p>Constitutional AI (Bai et al., 2022) was a genuine step forward: making the principles explicit rather than implicit. But explicit principles written by one company are still one company's principles. The question of <em>who decides</em> remains unanswered.</p>
+
+      <h2>The proposal</h2>
+
+      <p>What if the constitution were written by the people it governs?</p>
+
+      <p>This is not a new idea in political theory. It's the foundational idea: a legitimate constitution derives its authority from the consent of the governed. Citizens' assemblies, constitutional conventions, participatory budgeting&nbsp;&mdash; these are all mechanisms for making governance rules through democratic participation rather than executive decree.</p>
+
+      <p>We propose applying these mechanisms to AI governance. Not as metaphor. As implementation.</p>
+
+      <p>The system we describe has three components:</p>
+
+      <div class="consequences">
+        <p><strong>Explicit policies in plain text.</strong> Every behavioral rule is written as a policy document&nbsp;&mdash; version-controlled, auditable, forkable. Not hidden in reward models. Not baked into weights. Readable by anyone who can read.</p>
+
+        <p><strong>Democratic authorship.</strong> Policies are drafted, debated, and ratified through participatory processes. Citizens' assemblies for major constitutional decisions. Community input for domain-specific policies. Expert panels for technical safety constraints. Different levels of governance for different scopes of impact.</p>
+
+        <p><strong>Federalism.</strong> Different communities can run different constitutions. A medical AI and a creative writing AI don't need the same rules. A children's educational tool and an adult research tool shouldn't have the same boundaries. The architecture supports multiple constitutions coexisting, with shared infrastructure and distinct governance.</p>
+      </div>
+
+      <h2>The mechanism</h2>
+
+      <p>The technical architecture uses three primitives: a function (the language model), recursion (agents that can invoke other agents, forming a directed cyclic graph), and a store (git branches that hold the policies, the conversation history, and the audit trail).</p>
+
+      <p>Policies operate at three levels. Hard gates are binary: the system will not do X, period. Soft policies are guidance: prefer Y over Z, with exceptions. Constitutional policies are meta-rules: how policies themselves get created, modified, and retired.</p>
+
+      <p>The key insight is that <strong>policies are data, not code.</strong> They live in the same indexed store as everything else. They're subject to the same ontological treatment&nbsp;&mdash; a policy is an entity that belongs to a governance domain with a normative quality. This means the system's governance is visible to the system itself, and to anyone who inspects it.</p>
+
+      <h2>Why a law journal</h2>
+
+      <p>This paper isn't about AI architecture. It's about institutional design. The question of who writes the rules that govern powerful systems is a question of constitutional law, democratic theory, and political legitimacy. It belongs in conversation with legal scholars, political theorists, and governance practitioners&nbsp;&mdash; not just machine learning researchers.</p>
+
+      <p>The technical community can build the mechanism. But the question of who gets to use it, and how, is not a technical question. It's the oldest question in political theory: who governs?</p>
+
+      <span class="highlight">A constitution that cannot be read by the people it governs is not a constitution. It is a terms-of-service agreement.</span>
+
+      <h2>The connection to Zephyr Teachout</h2>
+
+      <p>Zephyr Teachout's work on corruption and democratic governance provides the legal and political framework this paper needs. Her argument: concentrated private power corrupts democratic institutions not through bribery but through structural capture&nbsp;&mdash; the gradual replacement of public governance with private rule-making. AI governance is the newest front in this centuries-old struggle.</p>
+
+      <p>The technical architecture exists. The democratic theory exists. What's missing is the bridge. This paper is that bridge.</p>
+
+      <hr class="divider">
+
+      <p class="endnote">Architecture formalized as the Filix Mesh (directed cyclic graph with policy-governed nodes). Constitutional framework draws on Teachout's democratic theory and citizens' assembly methodology. Target venue: FAccT or law journal.</p>
+
+    </div>
+
+    <div class="series-nav">
+      <p class="series-label">Paper Arc 2026</p>
+      <ul class="series-list">
+        <li><a href="your-llm-is-a-finite-automaton.html">Your LLM Is a Finite Automaton</a></li>
+        <li><a href="why-organization-beats-scale.html">Why Organization Beats Scale</a></li>
+        <li><a href="one-relation-is-enough.html">One Relation Is Enough</a></li>
+        <li><a href="what-if-you-could-read-a-models-mind.html">What If You Could Read a Model's Mind?</a></li>
+        <li><a href="your-hippocampus-is-a-library.html">Your Hippocampus Is a Library</a></li>
+        <li class="current">Who Writes the Constitution?</li>
+      </ul>
+    </div>
+  </article>
+</div>
+
+<div class="container">
+  <footer>
+    <a href="https://zmainen.org" class="footer-link">zmainen.org</a>
+  </footer>
+</div>
+
+<script src="../theme.js"></script>
+</body>
+</html>

@@ -1,55 +1,37 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* ── THEME D: PAPER ── */
+
+/* Dark mode (default) — dark slate gray */
 :root {
-  --bg:       #161618;
-  --title:    #dcdad6;
-  --cream:    #c4c2be;
-  --cream2:   #9a9894;
-  --gold:     #7a9e96;
-  --gold-dim: #1e2224;
-  --silver:   #7a7876;
-  --subtitle: #9a9894;
-  --link:     #7a9e96;
-  --line:     #1e1e20;
-  --line2:    #2a2a2c;
-  --card-bg:  rgba(255,255,255,0.015);
-  --accent-governance:   #7ab0a8;
-  --accent-philosophy:   #c8a0a0;
-  --accent-experience:   #aa9aba;
-  --accent-architecture: #7a8ea0;
-  --accent-knowledge:    #8a9e86;
-  --accent-computation:  #9090b8;
-  --accent-ontology:     #b09aa4;
-  --accent-neuroscience: #7aaa96;
-  --accent-topology:     #c0a090;
-  --accent-history:      #a09a88;
-  --accent-interactive:  #80a0b0;
+  --bg:       #1e2028;
+  --title:    #e0e0e6;
+  --cream:    #d0d0d6;
+  --cream2:   #9a9aa0;
+  --gold:     #7ab0a8;
+  --gold-dim: #2a2c32;
+  --silver:   #8a8a90;
+  --subtitle: #9a9aa0;
+  --link:     #7ab0a8;
+  --line:     #28282e;
+  --line2:    #32323a;
+  --card-bg:  rgba(255,255,255,0.02);
 }
 
+/* Light mode — warm paper */
 [data-theme="light"] {
-  --bg:       #f0eeea;
-  --title:    #2a2a28;
-  --cream:    #3a3a38;
-  --cream2:   #5a5a58;
-  --gold:     #5a8880;
-  --gold-dim: #d4dcd8;
-  --silver:   #6a6a68;
-  --subtitle: #5a5a58;
+  --bg:       #f2f0ec;
+  --title:    #1a1a1e;
+  --cream:    #2a2a2e;
+  --cream2:   #5a5a5e;
+  --gold:     #4a7a72;
+  --gold-dim: #d8dcd8;
+  --silver:   #6a6a6e;
+  --subtitle: #5a5a5e;
   --link:     #4a7a72;
-  --line:     #dad8d4;
-  --line2:    #cccac6;
-  --card-bg:  rgba(0,0,0,0.022);
-  --accent-governance:   #5a9088;
-  --accent-philosophy:   #a07070;
-  --accent-experience:   #7a6a8a;
-  --accent-architecture: #5a6e80;
-  --accent-knowledge:    #6a7e66;
-  --accent-computation:  #686898;
-  --accent-ontology:     #907a84;
-  --accent-neuroscience: #5a8a76;
-  --accent-topology:     #a08060;
-  --accent-history:      #807a68;
-  --accent-interactive:  #608090;
+  --line:     #dcd8d4;
+  --line2:    #ccc8c4;
+  --card-bg:  rgba(0,0,0,0.02);
 }
 
 html { scroll-behavior: smooth; }

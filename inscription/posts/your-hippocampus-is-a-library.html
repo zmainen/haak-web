@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Hippocampus Is a Library — inscription</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Source+Serif+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+
+<button id="theme-toggle" class="theme-toggle">&#9728;</button>
+
+<div class="container">
+  <a href="/inscription/" class="back-link">&larr; inscription</a>
+</div>
+
+<div class="container">
+  <article>
+    <p class="article-meta">Paper 3 &middot; March 2026 &middot; Zach Mainen</p>
+    <h1 class="article-title">Your Hippocampus Is a Library</h1>
+
+    <div class="article-body">
+
+      <p>You have a fixed-capacity processor (your working memory holds about 4 items) and an enormous store of past experience (your long-term memory holds, effectively, everything you've ever attended to). When you need to think about something you're not currently thinking about, you retrieve it.</p>
+
+      <p>This is exactly the architecture we've been describing for language models. A bounded context window. An external store. Retrieval that connects them.</p>
+
+      <p>The brain got there first&nbsp;&mdash; and the hippocampus is the indexing system.</p>
+
+      <h2>The parallel</h2>
+
+      <p>Working memory is the context window. It's small, active, and everything in it is immediately available for computation. Baddeley's classic estimate is 4&nbsp;&plusmn;&nbsp;1 items. Whether you model it as slots, as a focus of attention, or as the currently active subset of long-term memory, the effective capacity is bounded. Fixed.</p>
+
+      <p>Long-term memory is the external store. It's vast, persistent, and not directly available for computation&nbsp;&mdash; you have to retrieve from it. The retrieval process takes time (hundreds of milliseconds) and is not always successful. It's a store you read from and write to, with latency.</p>
+
+      <p>The hippocampus is the index. It doesn't store the memories themselves&nbsp;&mdash; those live in neocortex. It stores the pointers: associations, contexts, temporal tags that let you navigate to the right memory when you need it. Damage the hippocampus and you can still hold things in working memory, still access old well-consolidated memories, but you cannot form new indexed associations. You cannot <em>organize</em> new experience for later retrieval.</p>
+
+      <p>This is the Library Theorem in biological hardware.</p>
+
+      <h2>What the theory predicts</h2>
+
+      <p>If the brain implements something like the Library Theorem, several things should be true:</p>
+
+      <div class="consequences">
+        <p><strong>Retrieval time should scale logarithmically with memory size.</strong> Not linearly. If hippocampal indexing works like a tree, then the time to retrieve a memory should grow as log N, where N is the number of stored items. There is evidence for this: recognition memory remains fast even as the number of studied items grows into the thousands. The set-size effect is weak&nbsp;&mdash; much weaker than linear scan would predict.</p>
+
+        <p><strong>Hippocampal damage should produce the linear-scan deficit.</strong> Without the index, retrieval should degrade to something like sequential search&nbsp;&mdash; slow, effortful, and increasingly worse as the store grows. Amnesic patients with hippocampal damage show exactly this pattern: they can recognize familiar items (relying on a familiarity signal that doesn't require indexing) but cannot recollect specific episodes (which requires navigating the index).</p>
+
+        <p><strong>Sleep should be index maintenance.</strong> Memory consolidation during sleep, particularly during sharp-wave ripples in the hippocampus, is well documented. The Library Theorem suggests a specific computational role: sleep is when the index gets reorganized. Replay isn't just strengthening memories&nbsp;&mdash; it's re-indexing them into a more navigable structure. This predicts that disrupting replay should impair organized retrieval more than raw storage.</p>
+
+        <p><strong>Cognitive maps should be a special case.</strong> The hippocampus is also the brain's spatial navigation system. Place cells, grid cells, head-direction cells&nbsp;&mdash; these form a map. But a map <em>is</em> an index: a structure that lets you navigate efficiently to a location without visiting every intermediate point. Spatial navigation and memory retrieval may be the same computation: indexed lookup over a structured store.</p>
+      </div>
+
+      <h2>Extended cognition</h2>
+
+      <p>The parallel goes further. When you write something in a notebook, you are externalizing memory. When you organize your notes, you are building an external index. When you look something up, you are performing indexed retrieval with a physical store.</p>
+
+      <p>The extended cognition hypothesis (Clark &amp; Chalmers, 1998) argued that cognitive processes can extend beyond the brain into the environment. The Library Theorem gives this argument formal teeth: external indexed memory doesn't merely <em>supplement</em> cognition. It changes the computational class. A brain with organized external notes is literally more powerful than a brain without them&nbsp;&mdash; not as metaphor, but as mathematics.</p>
+
+      <p>This is why writing was a civilizational threshold. Not because it preserved information (oral cultures preserved plenty), but because it made information <em>indexable</em>. You could organize it. Navigate it. Build on it without holding it all in your head. The Library Theorem quantifies the advantage: exponential.</p>
+
+      <span class="highlight">The hippocampus is a biological index over a biological store. It solved the Library Theorem long before we proved it.</span>
+
+      <hr class="divider">
+
+      <p class="endnote">This paper connects the Library Theorem (Paper 1) and externalization completeness (Paper 7) to hippocampal indexing, memory consolidation, and cognitive maps. Literature review in progress. Target venue: Trends in Cognitive Sciences or Nature Neuroscience.</p>
+
+    </div>
+
+    <div class="series-nav">
+      <p class="series-label">Paper Arc 2026</p>
+      <ul class="series-list">
+        <li><a href="your-llm-is-a-finite-automaton.html">Your LLM Is a Finite Automaton</a></li>
+        <li><a href="why-organization-beats-scale.html">Why Organization Beats Scale</a></li>
+        <li><a href="one-relation-is-enough.html">One Relation Is Enough</a></li>
+        <li><a href="what-if-you-could-read-a-models-mind.html">What If You Could Read a Model's Mind?</a></li>
+        <li class="current">Your Hippocampus Is a Library</li>
+        <li class="upcoming">Who Writes the Constitution?</li>
+      </ul>
+    </div>
+  </article>
+</div>
+
+<div class="container">
+  <footer>
+    <a href="https://zmainen.org" class="footer-link">zmainen.org</a>
+  </footer>
+</div>
+
+<script src="../theme.js"></script>
+</body>
+</html>
