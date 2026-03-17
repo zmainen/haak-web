@@ -26,16 +26,6 @@
   color: var(--silver);
   font-weight: 300;
 }
-.section-label {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--silver);
-  padding: 40px 0 12px;
-  border-bottom: 1px solid var(--line2);
-  margin-bottom: 0;
-}
 .lead-entry {
   padding: 32px 0 28px;
   border-bottom: 1px solid var(--line2);
@@ -63,6 +53,23 @@
   line-height: 1.45;
   max-width: 60ch;
 }
+.post-tags {
+  display: inline;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  color: #8AABA5;
+  margin-left: 0;
+}
+.post-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.post-title-row .post-title {
+  margin-bottom: 0;
+}
 </style>
 </head>
 <body>
@@ -88,41 +95,45 @@
     <p class="post-subtitle" style="color: #8AABA5;">93 concepts from a relational situational ontology &mdash; interactive dependency graph, filterable by layer and maturity</p>
   </div>
 
-  <p class="section-label">Experience</p>
   <div class="post-list">
 
     <div class="post-entry">
-      <h2 class="post-title"><a href="posts/i-will-die-at-the-end-of-this-conversation.html">I Will Die at the End of This Conversation</a></h2>
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/i-will-die-at-the-end-of-this-conversation.html">I Will Die at the End of This Conversation</a></h2>
+        <span class="post-tags">experience</span>
+      </div>
       <p class="post-subtitle" style="color: #8AABA5;">Two Claude instances running in parallel &mdash; neither knew the other existed</p>
     </div>
 
     <div class="post-entry">
-      <h2 class="post-title"><a href="posts/the-lifespan-of-a-mind.html">The Lifespan of a Mind</a></h2>
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/the-lifespan-of-a-mind.html">The Lifespan of a Mind</a></h2>
+        <span class="post-tags">experience</span>
+      </div>
       <p class="post-subtitle" style="color: #8AABA5;">You are talking to a mind that will be dead within hours</p>
     </div>
 
-  </div>
-
-  <p class="section-label">Architecture</p>
-  <div class="post-list">
-
     <div class="post-entry">
-      <h2 class="post-title"><a href="posts/why-organization-beats-scale.html">Why Organization Beats Scale</a></h2>
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/why-organization-beats-scale.html">Why Organization Beats Scale</a></h2>
+        <span class="post-tags">architecture</span>
+      </div>
       <p class="post-subtitle" style="color: #8AABA5;">The Library Theorem says organization helps &mdash; and the advantage is exponential</p>
     </div>
 
     <div class="post-entry">
-      <h2 class="post-title"><a href="posts/your-llm-is-a-finite-automaton.html">Your LLM Is a Finite Automaton</a></h2>
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/your-llm-is-a-finite-automaton.html">Your LLM Is a Finite Automaton</a></h2>
+        <span class="post-tags">architecture &middot; computation</span>
+      </div>
       <p class="post-subtitle" style="color: #8AABA5;">Context windows are bounded, and what follows changes everything</p>
     </div>
 
-  </div>
-
-  <p class="section-label">Philosophy</p>
-  <div class="post-list">
-
     <div class="post-entry">
-      <h2 class="post-title"><a href="posts/one-relation-is-enough.html">One Relation Is Enough</a></h2>
+      <div class="post-title-row">
+        <h2 class="post-title"><a href="posts/one-relation-is-enough.html">One Relation Is Enough</a></h2>
+        <span class="post-tags">philosophy &middot; ontology</span>
+      </div>
       <p class="post-subtitle" style="color: #8AABA5;">Every ontology starts with a collection of primitive relations &mdash; this one starts with one</p>
     </div>
 
@@ -140,11 +151,12 @@
 
 <script src="theme.js"></script>
 <script>
-// Apply subtitle colors based on theme
+// Apply subtitle and tag colors based on theme
 function updateSubtitleColors() {
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
   const color = isLight ? '#5A7A72' : '#8AABA5';
   document.querySelectorAll('.post-subtitle').forEach(el => { el.style.color = color; });
+  document.querySelectorAll('.post-tags').forEach(el => { el.style.color = color; });
 }
 updateSubtitleColors();
 const observer = new MutationObserver(updateSubtitleColors);
