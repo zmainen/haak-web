@@ -1,53 +1,55 @@
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg:       #0E0D0A;
-  --title:    #e2d8c8;
-  --cream:    #d4cabb;
-  --cream2:   #9A8E80;
-  --gold:     #7A9E8E;
-  --gold-dim: #1A1E18;
-  --silver:   #8A7A70;
-  --subtitle: #A09484;
-  --line:     #1A1610;
-  --line2:    #252018;
-  --card-bg:  rgba(255,245,230,0.015);
-  --accent-governance:   #6A9A88;
-  --accent-philosophy:   #B89A58;
-  --accent-experience:   #A07478;
-  --accent-architecture: #6A8478;
-  --accent-knowledge:    #808A60;
-  --accent-computation:  #70788A;
-  --accent-ontology:     #988258;
-  --accent-neuroscience: #5A8A6A;
-  --accent-topology:     #8A7258;
-  --accent-history:      #7A7060;
-  --accent-interactive:  #7A6E6A;
+  --bg:       #111210;
+  --title:    #e8e0d4;
+  --cream:    #d0c8be;
+  --cream2:   #b0a89c;
+  --gold:     #5ab8a6;
+  --gold-dim: #1e2a24;
+  --silver:   #8a8078;
+  --subtitle: #a09888;
+  --link:     #6abcaa;
+  --line:     #1e1a16;
+  --line2:    #2a2520;
+  --card-bg:  rgba(255,245,230,0.02);
+  --accent-governance:   #4a9e8e;
+  --accent-philosophy:   #c4956a;
+  --accent-experience:   #b07878;
+  --accent-architecture: #6a8aa0;
+  --accent-knowledge:    #8a9a6a;
+  --accent-computation:  #8a7aa0;
+  --accent-ontology:     #a0846a;
+  --accent-neuroscience: #7a9a7a;
+  --accent-topology:     #a07a5a;
+  --accent-history:      #8a7a6a;
+  --accent-interactive:  #7a6e6a;
 }
 
 [data-theme="light"] {
-  --bg:       #F0EBE2;
-  --title:    #1E1A16;
-  --cream:    #2A2420;
-  --cream2:   #5A5048;
-  --gold:     #4A7A68;
-  --gold-dim: #6A9A88;
-  --silver:   #6A6058;
-  --subtitle: #6A6058;
-  --line:     #D4CCC0;
-  --line2:    #C4BAB0;
-  --card-bg:  #F6F2EA;
-  --accent-governance:   #4A7A68;
-  --accent-philosophy:   #8A6A28;
-  --accent-experience:   #8A4A58;
-  --accent-architecture: #4A6458;
-  --accent-knowledge:    #5A6A40;
-  --accent-computation:  #4A5870;
-  --accent-ontology:     #705A38;
-  --accent-neuroscience: #3A6A4A;
-  --accent-topology:     #6A4A38;
-  --accent-history:      #5A4A3A;
-  --accent-interactive:  #5A5048;
+  --bg:       #f5f2ec;
+  --title:    #2a2520;
+  --cream:    #3a352e;
+  --cream2:   #4a443c;
+  --gold:     #2a7a68;
+  --gold-dim: #d0e0da;
+  --silver:   #6a6058;
+  --subtitle: #5a544c;
+  --link:     #1a7060;
+  --line:     #dcd6cc;
+  --line2:    #ccc4b8;
+  --card-bg:  rgba(0,0,0,0.025);
+  --accent-governance:   #2e7a6a;
+  --accent-philosophy:   #9a7040;
+  --accent-experience:   #8a4a50;
+  --accent-architecture: #4a6a84;
+  --accent-knowledge:    #5a7a3a;
+  --accent-computation:  #6a5a84;
+  --accent-ontology:     #7a5e3a;
+  --accent-neuroscience: #4a7a4a;
+  --accent-topology:     #7a5a30;
+  --accent-history:      #6a5a4a;
+  --accent-interactive:  #5a5048;
 }
 
 html { scroll-behavior: smooth; }
@@ -55,11 +57,13 @@ html { scroll-behavior: smooth; }
 body {
   background-color: var(--bg);
   color: var(--cream);
-  font-family: 'Crimson Pro', Georgia, serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Source Serif Pro', Georgia, serif;
+  font-size: 19px;
+  line-height: 1.65;
   transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-a { color: var(--gold); text-decoration: none; transition: opacity 0.2s; }
+a { color: var(--link); text-decoration: none; transition: opacity 0.2s; }
 a:hover { opacity: 0.8; }
 
 .container {
@@ -84,7 +88,7 @@ a:hover { opacity: 0.8; }
   opacity: 0.5;
   transition: opacity 0.2s;
 }
-.theme-toggle:hover { opacity: 1; color: var(--gold); }
+.theme-toggle:hover { opacity: 1; color: var(--link); }
 
 /* ── BACK LINK ── */
 .back-link {
@@ -95,7 +99,7 @@ a:hover { opacity: 0.8; }
   color: var(--silver);
   padding: 28px 0 0;
 }
-.back-link:hover { color: var(--gold); }
+.back-link:hover { color: var(--link); }
 
 /* ── ARTICLE ── */
 article { padding: 80px 0 120px; }
@@ -110,28 +114,28 @@ article { padding: 80px 0 120px; }
 }
 
 .article-title {
-  font-family: 'Gloock', serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Source Serif Pro', Georgia, serif;
   font-size: clamp(32px, 5vw, 48px);
-  font-weight: 400;
-  line-height: 1.08;
+  font-weight: 700;
+  line-height: 1.1;
   color: var(--title);
   margin-bottom: 36px;
 }
 
 .article-body {
-  font-family: 'Crimson Pro', serif;
-  font-size: clamp(18px, 1.8vw, 21px);
-  font-weight: 300;
-  line-height: 1.78;
-  color: var(--cream2);
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Source Serif Pro', Georgia, serif;
+  font-size: clamp(18px, 1.8vw, 20px);
+  font-weight: normal;
+  line-height: 1.7;
+  color: var(--cream);
 }
 
 .article-body p { margin-bottom: 1.4em; }
 
 .article-body h2 {
-  font-family: 'Gloock', serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Source Serif Pro', Georgia, serif;
   font-size: clamp(24px, 3vw, 32px);
-  font-weight: 400;
+  font-weight: 700;
   color: var(--title);
   margin-top: 2.4em;
   margin-bottom: 0.8em;
@@ -139,16 +143,15 @@ article { padding: 80px 0 120px; }
 }
 
 .article-body em { font-style: italic; color: var(--title); }
-.article-body strong { font-weight: 400; color: var(--title); }
+.article-body strong { font-weight: 600; color: var(--title); }
 
 .article-body .highlight {
-  font-family: 'Instrument Serif', serif;
   font-style: italic;
-  font-size: clamp(20px, 2.2vw, 25px);
+  font-size: clamp(20px, 2.2vw, 24px);
   color: var(--gold);
   display: block;
   margin: 1.8em 0;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .article-body ol, .article-body ul {
@@ -200,9 +203,8 @@ article { padding: 80px 0 120px; }
 }
 
 .blog-header p {
-  font-family: 'Crimson Pro', serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Source Serif Pro', Georgia, serif;
   font-size: clamp(17px, 1.8vw, 20px);
-  font-weight: 300;
   line-height: 1.6;
   color: var(--cream2);
   max-width: 48ch;
@@ -227,20 +229,19 @@ article { padding: 80px 0 120px; }
 }
 
 .post-title {
-  font-family: 'Gloock', serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Source Serif Pro', Georgia, serif;
   font-size: clamp(22px, 3vw, 30px);
-  font-weight: 400;
+  font-weight: 700;
   line-height: 1.15;
   margin-bottom: 2px;
 }
 
 .post-title a { color: var(--title); }
-.post-title a:hover { color: var(--gold); }
+.post-title a:hover { color: var(--link); }
 
 .post-excerpt {
-  font-family: 'Crimson Pro', serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Source Serif Pro', Georgia, serif;
   font-size: clamp(16px, 1.6vw, 18px);
-  font-weight: 300;
   line-height: 1.65;
   color: var(--cream2);
   max-width: 56ch;
@@ -266,18 +267,17 @@ article { padding: 80px 0 120px; }
 
 .series-list li {
   padding: 8px 0;
-  font-family: 'Crimson Pro', serif;
+  font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, 'Source Serif Pro', Georgia, serif;
   font-size: 17px;
-  font-weight: 300;
   color: var(--cream2);
 }
 
 .series-list li a { color: var(--cream2); }
-.series-list li a:hover { color: var(--gold); }
+.series-list li a:hover { color: var(--link); }
 
 .series-list li.current {
   color: var(--title);
-  font-weight: 400;
+  font-weight: 600;
 }
 
 .series-list li.current::before {
