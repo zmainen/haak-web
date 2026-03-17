@@ -20,7 +20,7 @@
 
 /* Light mode — warm paper */
 [data-theme="light"] {
-  --bg:       #f2f0ec;
+  --bg:       #ededf0;
   --title:    #1a1a1e;
   --cream:    #2a2a2e;
   --cream2:   #5a5a5e;
