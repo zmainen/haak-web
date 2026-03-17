@@ -13,17 +13,17 @@
   --line:     #1e1e20;
   --line2:    #2a2a2c;
   --card-bg:  rgba(255,255,255,0.015);
-  --accent-governance:   #6a9e96;
-  --accent-philosophy:   #b89090;
-  --accent-experience:   #9a8aaa;
-  --accent-architecture: #7a8ea0;
-  --accent-knowledge:    #8a9e86;
-  --accent-computation:  #8888aa;
-  --accent-ontology:     #a08a94;
-  --accent-neuroscience: #7aaa96;
-  --accent-topology:     #b09080;
-  --accent-history:      #a09a88;
-  --accent-interactive:  #80a0b0;
+  --accent-governance:   #7ab0a8;
+  --accent-philosophy:   #c8a0a0;
+  --accent-experience:   #aa9aba;
+  --accent-architecture: #8a9eb0;
+  --accent-knowledge:    #9aae96;
+  --accent-computation:  #9898ba;
+  --accent-ontology:     #b09aa4;
+  --accent-neuroscience: #8abaa6;
+  --accent-topology:     #c0a090;
+  --accent-history:      #b0aa98;
+  --accent-interactive:  #90b0c0;
 }
 
 [data-theme="light"] {
@@ -39,17 +39,17 @@
   --line:     #dad8d4;
   --line2:    #cccac6;
   --card-bg:  rgba(0,0,0,0.022);
-  --accent-governance:   #4a7a72;
-  --accent-philosophy:   #8a6060;
-  --accent-experience:   #6a5a7a;
-  --accent-architecture: #4a6070;
-  --accent-knowledge:    #5a7a56;
-  --accent-computation:  #585878;
-  --accent-ontology:     #705a64;
-  --accent-neuroscience: #4a7a66;
-  --accent-topology:     #7a6050;
-  --accent-history:      #706a58;
-  --accent-interactive:  #507080;
+  --accent-governance:   #5a8a82;
+  --accent-philosophy:   #9a7070;
+  --accent-experience:   #7a6a8a;
+  --accent-architecture: #5a7080;
+  --accent-knowledge:    #6a8a66;
+  --accent-computation:  #686888;
+  --accent-ontology:     #806a74;
+  --accent-neuroscience: #5a8a76;
+  --accent-topology:     #8a7060;
+  --accent-history:      #807a68;
+  --accent-interactive:  #608090;
 }
 
 html { scroll-behavior: smooth; }

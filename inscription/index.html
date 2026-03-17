@@ -41,12 +41,12 @@
   border-radius: 7px;
   padding: 28px 32px;
   border: none;
-  border-left: 2px solid var(--accent-architecture);
+  border-left: 4px solid var(--accent-architecture);
   transition: background 0.4s ease;
 }
 .post-entry.lead {
   padding: 30px 34px;
-  border-left-width: 2px;
+  border-left-width: 4px;
 }
 .post-entry .post-title { margin-bottom: 4px; }
 .post-entry .post-subtitle {
@@ -62,7 +62,7 @@
   font-family: 'IBM Plex Mono', monospace;
   font-size: 10px;
   letter-spacing: 0.06em;
-  color: #9a9894;
+  color: var(--silver);
   margin-left: 0;
 }
 .post-title-row {
@@ -77,7 +77,7 @@
   border-radius: 7px;
   padding: 28px 32px;
   border: none;
-  border-left: 2px solid var(--accent-interactive);
+  border-left: 4px solid var(--accent-interactive);
   transition: background 0.4s ease;
 }
 .ttt-entry .post-title { margin-bottom: 4px; }
@@ -99,6 +99,18 @@
 .post-entry[data-tag="neuroscience"] { border-left-color: var(--accent-neuroscience); }
 .post-entry[data-tag="topology"]     { border-left-color: var(--accent-topology); }
 .post-entry[data-tag="history"]      { border-left-color: var(--accent-history); }
+/* Tag text colors — match card accent */
+.post-entry[data-tag="governance"]   .post-tags { color: var(--accent-governance); }
+.post-entry[data-tag="experience"]   .post-tags { color: var(--accent-experience); }
+.post-entry[data-tag="architecture"] .post-tags { color: var(--accent-architecture); }
+.post-entry[data-tag="philosophy"]   .post-tags { color: var(--accent-philosophy); }
+.post-entry[data-tag="ontology"]     .post-tags { color: var(--accent-ontology); }
+.post-entry[data-tag="knowledge"]    .post-tags { color: var(--accent-knowledge); }
+.post-entry[data-tag="computation"]  .post-tags { color: var(--accent-computation); }
+.post-entry[data-tag="neuroscience"] .post-tags { color: var(--accent-neuroscience); }
+.post-entry[data-tag="topology"]     .post-tags { color: var(--accent-topology); }
+.post-entry[data-tag="history"]      .post-tags { color: var(--accent-history); }
+.ttt-entry .ttt-label                            { color: var(--accent-interactive); }
 </style>
 </head>
 <body>
@@ -176,7 +188,6 @@ function updateSubtitleColors() {
   const isLight = document.documentElement.getAttribute('data-theme') === 'light';
   const color = isLight ? '#6a6a68' : '#9a9894';
   document.querySelectorAll('.post-subtitle').forEach(el => { el.style.color = color; });
-  document.querySelectorAll('.post-tags').forEach(el => { el.style.color = color; });
 }
 updateSubtitleColors();
 const observer = new MutationObserver(updateSubtitleColors);
