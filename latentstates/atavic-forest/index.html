@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Atavic Forest — Latent States</title>
+<meta name="description" content="A generative AI forest created with neural networks trained on over 180,000 images. A 45-minute live audiovisual performance where motion and sound guide the journey through an ancient, impossible landscape.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0a0a;
+  --bg-raised: #111110;
+  --bg-card: #161614;
+  --text-primary: #e8e4e0;
+  --text-secondary: #8a8580;
+  --text-muted: #585450;
+  --text-ghost: #2a2826;
+  --accent: #c4956a;
+  --accent-sage: #7a9a8a;
+  --accent-warm: #a89888;
+  --accent-highlight: #c8c0b8;
+  --border: #1e1c1a;
+  --border-light: #2a2826;
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+}
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --bg: #f4f0ec;
+    --bg-raised: #e8e4e0;
+    --bg-card: #ddd9d5;
+    --text-primary: #1a1816;
+    --text-secondary: #6a6560;
+    --text-muted: #8a8580;
+    --text-ghost: #c8c4c0;
+    --accent: #9a6a42;
+    --accent-sage: #4a7a6a;
+    --accent-warm: #7a6a5a;
+    --accent-highlight: #4a4440;
+    --border: #d8d4d0;
+    --border-light: #c8c4c0;
+  }
+}
+
+[data-theme="light"] {
+  --bg: #f4f0ec;
+  --bg-raised: #e8e4e0;
+  --bg-card: #ddd9d5;
+  --text-primary: #1a1816;
+  --text-secondary: #6a6560;
+  --text-muted: #8a8580;
+  --text-ghost: #c8c4c0;
+  --accent: #9a6a42;
+  --accent-sage: #4a7a6a;
+  --accent-warm: #7a6a5a;
+  --accent-highlight: #4a4440;
+  --border: #d8d4d0;
+  --border-light: #c8c4c0;
+}
+html { scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; }
+body {
+  background: var(--bg); color: var(--text-primary);
+  font-family: var(--font-body); font-weight: 300; line-height: 1.7;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 32px;
+  background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
+}
+nav .nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center; height: 64px;
+}
+nav .logo {
+  font-family: var(--font-heading); font-weight: 700; font-size: 18px;
+  letter-spacing: -0.02em; color: var(--text-primary); text-decoration: none;
+}
+nav .breadcrumb { font-size: 13px; color: var(--text-muted); letter-spacing: 0.04em; }
+nav .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+nav .breadcrumb a:hover { color: var(--text-primary); }
+.page { max-width: 960px; margin: 0 auto; padding: 120px 32px 80px; }
+.page-title {
+  font-family: var(--font-heading); font-weight: 800;
+  font-size: clamp(48px, 8vw, 80px); letter-spacing: -0.03em;
+  line-height: 0.95; margin-bottom: 20px;
+  background: linear-gradient(135deg, var(--text-primary) 0%, var(--text-secondary) 60%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+}
+.page-meta {
+  font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--text-muted); margin-bottom: 48px;
+}
+.page-meta .accent { color: var(--accent); }
+.hero-image {
+  width: 100%; aspect-ratio: 16/9; background: var(--bg-card);
+  border: 1px solid var(--border); border-radius: 2px;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 56px; position: relative; overflow: hidden;
+}
+.hero-image img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.description {
+  font-size: 18px; line-height: 1.85; color: var(--text-secondary);
+  margin-bottom: 56px; max-width: 720px;
+}
+.quote {
+  border-left: 2px solid var(--border-light); padding-left: 24px;
+  margin: 40px 0; max-width: 720px;
+}
+.quote p {
+  font-size: 16px; line-height: 1.8; color: var(--text-secondary); font-style: italic;
+}
+.quote .attribution {
+  font-size: 13px; color: var(--text-muted); margin-top: 12px; font-style: normal;
+  letter-spacing: 0.04em;
+}
+.info-section { margin-bottom: 48px; }
+.info-label {
+  font-family: var(--font-heading); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.info-text { font-size: 15px; line-height: 1.75; color: var(--text-secondary); }
+.info-text a {
+  color: var(--accent); text-decoration: none;
+  border-bottom: 1px solid var(--border); padding-bottom: 1px;
+  transition: color 0.3s, border-color 0.3s;
+}
+.info-text a:hover { color: var(--text-primary); border-color: var(--accent); }
+.video-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 14px; color: var(--accent); text-decoration: none;
+  border: 1px solid var(--border); padding: 12px 24px; border-radius: 2px;
+  transition: border-color 0.3s, color 0.3s; margin-top: 8px;
+}
+.video-link:hover { border-color: var(--accent); color: var(--text-primary); }
+.video-link svg { width: 16px; height: 16px; fill: currentColor; }
+
+/* Gallery grids */
+.grid { margin-bottom: 80px; }
+.grid-label {
+  font-family: var(--font-heading); font-weight: 600; font-size: 11px;
+  letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted);
+  margin-bottom: 24px;
+}
+.grid-caption {
+  font-size: 15px; line-height: 1.75; color: var(--text-secondary);
+  margin-bottom: 32px; max-width: 640px;
+}
+.grid-fullwidth {
+  display: flex; flex-direction: column; gap: 12px;
+}
+.grid-fullwidth img {
+  width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 2px;
+  display: block; transition: opacity 0.3s;
+}
+.grid-fullwidth img:hover { opacity: 0.85; }
+
+.related { display: flex; gap: 16px; flex-wrap: wrap; }
+.related a {
+  font-size: 13px; letter-spacing: 0.08em; color: var(--accent);
+  text-decoration: none; border: 1px solid var(--border); padding: 8px 20px;
+  border-radius: 2px; transition: border-color 0.3s, color 0.3s;
+}
+.related a:hover { border-color: var(--accent); color: var(--text-primary); }
+.divider { width: 48px; height: 1px; background: var(--border-light); margin: 56px 0; }
+footer { padding: 48px 32px; border-top: 1px solid var(--border); }
+footer .footer-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+footer .footer-left, footer .footer-right { font-size: 12px; letter-spacing: 0.15em; color: var(--text-ghost); }
+footer a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+footer a:hover { color: var(--accent-warm); }
+@media (max-width: 768px) {
+  .page { padding: 100px 20px 60px; }
+  nav { padding: 0 20px; }
+  footer .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
+}
+</style>
+</head>
+<body>
+<button id="theme-toggle" aria-label="Toggle light/dark mode" style="position:fixed;top:20px;right:20px;z-index:1000;background:none;border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;color:var(--text-secondary, var(--text-muted));font-size:14px;display:flex;align-items:center;justify-content:center;transition:border-color 0.3s,color 0.3s;">☀</button>
+
+<nav>
+  <div class="nav-inner">
+    <a href="../" class="logo">LS</a>
+    <div class="breadcrumb">Atavic Forest</div>
+  </div>
+</nav>
+
+<div class="page">
+  <h1 class="page-title">Atavic Forest</h1>
+  <div class="page-meta"><span class="accent">2022&ndash;2023</span> &middot; Metamersion &middot; Mucho Flow Festival</div>
+
+  <div class="hero-image">
+    <img src="assets/af-04.jpg" alt="Atavic Forest — generative landscape of flowing forms and light">
+  </div>
+
+  <div class="description">
+    A 45-minute live audiovisual performance. The forest exists wholly in latent space—each frame generated in real-time by neural networks trained on over 180,000 forest images. The boundary between the biological and the computational dissolves into undergrowth. Collective movement in the room steers the journey; sonic vibrations perturb the generative networks themselves. The forest responds to sound as much as motion, each viewer experiencing their own singular path through ancestral memory.
+  </div>
+
+  <div class="quote">
+    <p>This forest has been fully dreamt by Artificial Intelligence. Hidden within the corpus of its training data lie forgotten memories that diffuse through a fluid continuum. Throughout our evolutionary path, our genes have kept a record of our relationship with nature, hiding it in order to avoid unnecessary expression. This installation is an expression of that hidden knowledge. An exploration of what a space of these memories look like if we could directly interface with them in a pre-linguistic stance; direct contact with alterity.</p>
+  </div>
+
+  <div class="info-section">
+    <a href="https://www.youtube.com/watch?v=jjR7zX9ouM4" target="_blank" rel="noopener" class="video-link">
+      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      Deep inside Atavic Forest
+    </a>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- The Experience -->
+  <div class="grid">
+    <div class="grid-label">The Experience</div>
+    <div class="grid-caption">
+      Thirteen key frames from the generative performances. Each frame rendered live from the latent space, shaped by the collective presence and sonic environment of the room.
+    </div>
+    <div class="grid-fullwidth">
+      <img src="assets/af-01.jpg" alt="Generative forest frame 1 — flowing organic forms" loading="lazy">
+      <img src="assets/af-02.jpg" alt="Generative forest frame 2 — layered landscape" loading="lazy">
+      <img src="assets/af-03.jpg" alt="Generative forest frame 3 — emergence of depth" loading="lazy">
+      <img src="assets/af-04.jpg" alt="Generative forest frame 4 — light and shadow interchange" loading="lazy">
+      <img src="assets/af-05.jpg" alt="Generative forest frame 5 — dense vegetation" loading="lazy">
+      <img src="assets/af-06.jpg" alt="Generative forest frame 6 — atmospheric depth" loading="lazy">
+      <img src="assets/af-07.jpg" alt="Generative forest frame 7 — crystalline forms" loading="lazy">
+      <img src="assets/af-08.jpg" alt="Generative forest frame 8 — luminous canopy" loading="lazy">
+      <img src="assets/af-09.jpg" alt="Generative forest frame 9 — deep green expanse" loading="lazy">
+      <img src="assets/af-10.jpg" alt="Generative forest frame 10 — texturing and detail" loading="lazy">
+      <img src="assets/af-11.jpg" alt="Generative forest frame 11 — volumetric space" loading="lazy">
+      <img src="assets/af-12.jpg" alt="Generative forest frame 12 — shifting focus" loading="lazy">
+      <img src="assets/af-13.jpg" alt="Generative forest frame 13 — final landscape" loading="lazy">
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="info-section">
+    <div class="info-label">How It Works</div>
+    <div class="info-text">
+      The Atavic Forest is a journey through ancient psychographic spaces rendered using generative adversarial networks and latent blending techniques. Neural networks process the collective body movement in the room via IR tracking cameras, and audio reactivity comes from a 7.2 surround system that feeds directly into the generative layers. The result is a singular experience for each group—the forest you see is shaped by where you stand, how you move, and the sounds you make. No two performances are the same.
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="info-section">
+    <div class="info-label">Collaborators</div>
+    <div class="info-text">
+      Lunar Ring (Alexander Loktyushin, Gon&ccedil;alo Guiomar, Anna Taphorn, Johannes Stelzer, Niklas Fricke), Jonathan Uliel Saldanha (sound), Zachary Mainen
+    </div>
+  </div>
+
+  <div class="info-section">
+    <div class="info-label">Context</div>
+    <div class="info-text">
+      Metamersion 2: Latent Spaces, Dec 2022 &ndash; Jan 2023, Champalimaud Foundation, Lisbon<br>
+      Mucho Flow Festival, Oct 2023, Guimar&atilde;es, Portugal
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="info-section">
+    <div class="info-label">Related</div>
+    <div class="related">
+      <a href="../ls1/">LS1</a>
+      <a href="../metamersion/">Metamersion</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">Latent States &middot; 2026</div>
+    <div class="footer-right">Lisbon</div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var t=document.getElementById('theme-toggle'),r=document.documentElement;
+  var saved=localStorage.getItem('ls-theme');
+  if(saved){r.setAttribute('data-theme',saved);t.textContent=saved==='light'?'☾':'☀';}
+  t.addEventListener('click',function(){
+    var current=r.getAttribute('data-theme');
+    var next=current==='light'?'dark':'light';
+    r.setAttribute('data-theme',next);
+    localStorage.setItem('ls-theme',next);
+    t.textContent=next==='light'?'☾':'☀';
+  });
+})();
+</script>
+</body>
+</html>
