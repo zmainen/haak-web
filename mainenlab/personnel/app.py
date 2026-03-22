@@ -291,7 +291,7 @@ def page(title, body, narrow=False):
 <div class="{cls}">
 <header>
   <h1><a href="/" style="color:var(--text);text-decoration:none">Personnel</a></h1>
-  <nav><a href="/">Roster</a> &middot; <a href="/alerts">Alerts</a></nav>
+  <nav><a href="/">Roster</a> &middot; <a href="http://127.0.0.1:18831">Projects</a> &middot; <a href="/alerts">Alerts</a></nav>
   <button id="theme-toggle">Dark</button>
 </header>
 {flashes}

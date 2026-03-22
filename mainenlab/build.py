@@ -159,6 +159,9 @@ def load_projects():
     projects = []
     for f in sorted((LAB / "projects").glob("*/project.yaml")):
         d = load_yaml(f.read_text(errors="replace")) or {}
+        proj_type = d.get("type", "lab")
+        if proj_type == "internal":
+            continue
         slug = d.get("slug", f.parent.name)
         start_year = _extract_year(d.get("start_year") or d.get("start_date"))
         end_year = _extract_year(d.get("end_year") or d.get("end_date"))
@@ -176,11 +179,14 @@ def load_projects():
                 if pid: people_ids.append(pid)
             elif isinstance(p, str):
                 people_ids.append(p)
+        pub_desc = d.get("public_description", "").strip()
+        int_desc = d.get("description", "").strip()
         projects.append({
             "slug": slug,
             "name": d.get("name", slug),
+            "type": proj_type,
             "status": d.get("status", "unknown"),
-            "description": d.get("description", ""),
+            "description": pub_desc if pub_desc else int_desc,
             "start_year": start_year,
             "end_year": end_year,
             "themes": _as_list(d.get("themes", [])),
@@ -273,71 +279,14 @@ def load_overrides():
 # ── Lab intro ──
 
 def generate_lab_intro(people, projects, taxonomy):
-    active = [p for p in people if p["status"] == "active"]
-    role_counts = defaultdict(int)
-    for p in active:
-        role_counts[p["role"]] += 1
-    ROLE_PLURAL = {
-        "PI": ("PI", "PIs"), "Postdoc": ("postdoc", "postdocs"),
-        "PhD Student": ("PhD student", "PhD students"),
-        "MSc Student": ("MSc student", "MSc students"),
-        "Technician": ("technician", "technicians"),
-        "Lab Manager": ("lab manager", "lab managers"),
-        "Other": ("other", "others"),
-    }
-    parts = []
-    for role in ROLE_ORDER:
-        n = role_counts.get(role, 0)
-        if n == 0: continue
-        singular, plural = ROLE_PLURAL.get(role, (role.lower(), role.lower() + "s"))
-        parts.append(f"{n} {plural if n > 1 else singular}")
-    member_breakdown = ", ".join(parts) if parts else str(len(active)) + " members"
-
-    active_projects = [p for p in projects if p["status"] == "active"]
-    active_themes = set()
-    active_methods = set()
-    active_organisms = set()
-    for p in active_projects:
-        active_themes.update(p["themes"])
-        active_methods.update(p["methods"])
-        active_organisms.update(p["organisms"])
-
-    theme_labels = []
-    for t in taxonomy.get("themes", []):
-        if t["slug"] in active_themes:
-            theme_labels.append(t["label"].lower())
-    if not theme_labels:
-        for slug in active_themes:
-            theme_labels.append(slug.replace("-", " "))
-
-    method_labels = []
-    for m in taxonomy.get("methods", []):
-        if m["slug"] in active_methods:
-            method_labels.append(m["label"].lower())
-    if not method_labels:
-        for slug in active_methods:
-            method_labels.append(slug.replace("-", " "))
-
-    organism_labels = []
-    for o in taxonomy.get("organisms", []):
-        if o["slug"] in active_organisms:
-            organism_labels.append(o["label"].lower())
-
-    def join_natural(items):
-        if len(items) <= 2: return " and ".join(items)
-        return ", ".join(items[:-1]) + ", and " + items[-1]
-
-    themes_str = join_natural(theme_labels[:5]) if theme_labels else "neural computation"
-    methods_str = join_natural(method_labels[:4]) if method_labels else "diverse approaches"
-    organisms_str = join_natural(organism_labels[:3]) if organism_labels else "model organisms"
-
-    intro = (
-        f"The Mainen Lab at the Champalimaud Foundation investigates {themes_str}. "
-        f"The lab currently has {len(active)} active members \u2014 {member_breakdown} \u2014 "
-        f"working across {len(active_projects)} active research projects "
-        f"using {methods_str} in {organisms_str}."
+    return (
+        "How do brains make decisions, interpret the world, and generate conscious experience? "
+        "The Mainen Lab at the Champalimaud Foundation in Lisbon investigates these questions "
+        "through the lens of neuromodulation \u2014 particularly serotonin \u2014 using large-scale "
+        "electrophysiology, optogenetics, computational modeling, and behavioral analysis in mice "
+        "and humans. Our current work centres on how serotonin shapes learning, novelty detection, "
+        "and embodied cognition, with growing programmes in psychedelics and consciousness."
     )
-    return intro
 
 # ── HTML Generation ──
 
@@ -442,12 +391,7 @@ header .subtitle { color: var(--muted); font-size: 0.95rem; margin-top: 0.2rem; 
 .filter-pill.axis-settings.active { background: var(--pill-settings); color: #fff; }
 .filter-pill.child { font-size: 0.72rem; padding: 0.2rem 0.55rem; }
 
-.tertiary-toggle {
-  font-size: 0.75rem; color: var(--muted); cursor: pointer; border: none;
-  background: none; padding: 0.3rem 0; text-decoration: underline;
-}
-.tertiary-filters { display: none; }
-.tertiary-filters.show { display: block; }
+.tertiary-filters { display: block; }
 
 /* Active filters */
 .active-filters { padding: 0.5rem 0; display: none; align-items: center; flex-wrap: wrap; gap: 0.35rem; }
@@ -485,6 +429,17 @@ header .subtitle { color: var(--muted); font-size: 0.95rem; margin-top: 0.2rem; 
   font-size: 1rem; font-weight: 600; padding: 1.25rem 0 0.75rem;
   color: var(--text);
 }
+
+/* Completed toggle */
+.completed-toggle {
+  cursor: pointer; list-style: none; user-select: none;
+}
+.completed-toggle::-webkit-details-marker { display: none; }
+.completed-toggle::before {
+  content: '\25b6'; display: inline-block; margin-right: 0.5rem;
+  font-size: 0.7rem; transition: transform 0.2s; vertical-align: middle;
+}
+details[open] > .completed-toggle::before { transform: rotate(90deg); }
 
 /* Project cards */
 .project-card {
@@ -531,25 +486,62 @@ header .subtitle { color: var(--muted); font-size: 0.95rem; margin-top: 0.2rem; 
 .card-detail.open ~ .card-header .expand-icon,
 .project-card.expanded .expand-icon { transform: rotate(180deg); }
 
-/* People section */
-.people-section { padding: 1rem 0 1.5rem; border-bottom: 1px solid var(--border); }
-.people-section h2 { font-size: 1.2rem; font-weight: 600; margin-bottom: 1rem; }
-.role-group h3 { font-size: 0.85rem; font-weight: 600; color: var(--muted); margin: 0.75rem 0 0.35rem; text-transform: uppercase; letter-spacing: 0.05em; }
-.people-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 0.5rem; }
-.person-card {
-  padding: 0.6rem 0.8rem; background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: 6px; font-size: 0.85rem;
-}
-.person-name { font-weight: 500; }
-.person-role { font-size: 0.75rem; color: var(--muted); }
-.person-position { font-size: 0.75rem; color: var(--muted); font-style: italic; }
+/* Section titles */
+.section-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 1rem; }
 
-.alumni-toggle {
-  font-size: 0.85rem; color: var(--accent); cursor: pointer; border: none;
-  background: none; padding: 0.5rem 0; font-weight: 500;
+/* Unified timeline */
+.unified-timeline { position: relative; display: flex; }
+.unified-timeline-labels { width: 170px; min-width: 170px; flex-shrink: 0; }
+.unified-timeline-scroll { flex: 1; overflow-x: auto; min-width: 0; }
+.unified-timeline-scroll-inner { min-width: 1200px; }
+.timeline-divider {
+  padding: 0.4rem 0 0.2rem;
+  border-top: 1px solid var(--border);
 }
-.alumni-section { display: none; }
-.alumni-section.show { display: block; }
+.timeline-divider-label-only {
+  padding: 0.4rem 0 0.2rem;
+  border-top: 1px solid var(--border);
+}
+.divider-label {
+  font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.08em;
+  color: var(--muted); font-weight: 600;
+}
+
+/* People timeline — mirrors research timeline */
+.people-timeline-container { position: relative; }
+.tl-label-row {
+  height: 28px; display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  cursor: pointer; transition: background 0.15s; border-radius: 4px 0 0 4px;
+}
+.tl-label-row:hover { background: var(--hover); }
+.tl-label-row.selected { background: var(--hover); }
+.tl-track-row {
+  height: 28px; position: relative; cursor: pointer;
+  transition: background 0.15s; border-radius: 0 4px 4px 0;
+}
+.tl-track-row:hover { background: var(--hover); }
+.tl-track-row.selected { background: var(--hover); }
+.ptl-name { font-size: 0.8rem; font-weight: 500; color: var(--text); line-height: 1.2; }
+.ptl-role { font-size: 0.62rem; color: var(--muted); line-height: 1.1; }
+.people-timeline-bar {
+  position: absolute; height: 16px; border-radius: 3px; top: 6px;
+  cursor: pointer; transition: opacity 0.15s, box-shadow 0.15s;
+}
+.people-timeline-bar:hover { box-shadow: 0 0 6px rgba(0,0,0,0.3); }
+.people-timeline-bar.alumni-bar { opacity: 0.5; }
+
+/* Alumni collapsible — people timeline */
+.alumni-toggle-label {
+  height: 28px; display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 12px; font-size: 0.8rem; font-weight: 500; color: var(--accent);
+  cursor: pointer; user-select: none;
+}
+.alumni-toggle-label::before {
+  content: '\25b6'; display: inline-block; margin-right: 0.4rem;
+  font-size: 0.6rem; transition: transform 0.2s; vertical-align: middle;
+}
+.alumni-toggle-label.open::before { transform: rotate(90deg); }
 
 /* Footer */
 footer {
@@ -560,11 +552,63 @@ footer a { color: var(--accent); text-decoration: none; }
 footer a:hover { text-decoration: underline; }
 footer .sep { margin: 0 0.5rem; opacity: 0.4; }
 
+/* Timeline */
+.timeline-section { padding: 1.5rem 0 1rem; }
+.timeline-container { position: relative; }
+.tl-research-label {
+  height: 28px; display: flex; align-items: center; justify-content: flex-end;
+  padding-right: 12px; font-size: 0.8rem; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  cursor: pointer; transition: background 0.15s; border-radius: 4px 0 0 4px;
+}
+.tl-research-label:hover { background: var(--hover); }
+.tl-research-label.selected { background: var(--hover); }
+.tl-research-track {
+  height: 28px; position: relative; cursor: pointer;
+  transition: background 0.15s; border-radius: 0 4px 4px 0;
+}
+.tl-research-track:hover { background: var(--hover); }
+.tl-research-track.selected { background: var(--hover); }
+.timeline-seg {
+  position: absolute; height: 18px; border-radius: 3px; top: 5px;
+  cursor: pointer; transition: opacity 0.15s, box-shadow 0.15s;
+}
+.timeline-seg:hover { box-shadow: 0 0 6px rgba(0,0,0,0.3); }
+.timeline-seg.completed { opacity: 0.55; }
+.timeline-seg.active { opacity: 1; }
+.timeline-years {
+  position: relative; height: 18px; margin-bottom: 2px;
+}
+.timeline-year-label {
+  position: absolute; font-size: 0.65rem; color: var(--muted);
+  transform: translateX(-50%); top: 0; user-select: none;
+}
+.timeline-gridlines { position: absolute; top: 0; left: 0; right: 0; bottom: 0; pointer-events: none; }
+.timeline-gridline {
+  position: absolute; top: 0; bottom: 0; width: 1px;
+  background: var(--border); opacity: 0.3;
+}
+.timeline-now-line {
+  position: absolute; top: 0; bottom: 0; width: 1px;
+  border-left: 1px dotted var(--text); opacity: 0.3;
+  pointer-events: none; z-index: 5;
+}
+.timeline-tooltip {
+  position: fixed; pointer-events: none; opacity: 0; transition: opacity 0.15s;
+  background: var(--bg-card); border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.5rem 0.75rem; font-size: 0.78rem; color: var(--text);
+  max-width: 350px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); z-index: 100;
+}
+.timeline-tooltip.visible { opacity: 1; }
+.timeline-tooltip .tt-name { font-weight: 600; margin-bottom: 0.2rem; }
+.timeline-tooltip .tt-span { color: var(--muted); font-size: 0.72rem; margin-bottom: 0.2rem; }
+.timeline-tooltip .tt-desc { color: var(--muted); line-height: 1.4; }
+
 /* Responsive */
 @media (max-width: 640px) {
   header h1 { font-size: 1.3rem; }
-  .people-grid { grid-template-columns: 1fr; }
   .card-header { flex-direction: column; }
+  .unified-timeline-labels { width: 110px; min-width: 110px; }
 }
 </style>
 </head>
@@ -579,11 +623,19 @@ footer .sep { margin: 0 0.5rem; opacity: 0.4; }
 
 <div class="lab-intro" id="lab-intro">__LAB_INTRO_PLACEHOLDER__</div>
 
-<div class="people-section">
-  <h2>People</h2>
-  <div id="active-people"></div>
-  <button class="alumni-toggle" id="alumni-toggle">Show Alumni</button>
-  <div class="alumni-section" id="alumni-section"></div>
+<!-- Unified Timeline -->
+<div class="timeline-section" id="unified-timeline-section">
+  <div class="unified-timeline" id="unified-timeline">
+    <div class="unified-timeline-labels" id="tl-labels"></div>
+    <div class="unified-timeline-scroll" id="tl-scroll">
+      <div class="unified-timeline-scroll-inner" id="tl-tracks"></div>
+    </div>
+  </div>
+</div>
+<div class="timeline-tooltip" id="timeline-tooltip">
+  <div class="tt-name"></div>
+  <div class="tt-span"></div>
+  <div class="tt-desc"></div>
 </div>
 
 <!-- Filter bar -->
@@ -592,7 +644,6 @@ footer .sep { margin: 0 0.5rem; opacity: 0.4; }
   <div class="filter-row" id="filter-themes"></div>
   <h3>Methods</h3>
   <div class="filter-row" id="filter-methods"></div>
-  <button class="tertiary-toggle" id="tertiary-toggle">+ Scale, Organisms, Settings</button>
   <div class="tertiary-filters" id="tertiary-filters">
     <h3>Scale</h3>
     <div class="filter-row" id="filter-scale"></div>
@@ -643,7 +694,24 @@ toggle.addEventListener('click', () => {
   root.setAttribute('data-theme', next);
   localStorage.setItem('ml-theme', next);
   toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+  renderFullTimeline();
 });
+
+// ── Tooltip positioning (viewport-aware) ──
+function positionTooltip(e) {
+  const tt = document.getElementById('timeline-tooltip');
+  const pad = 12;
+  const ttW = tt.offsetWidth || 350;
+  const ttH = tt.offsetHeight || 80;
+  let x = e.clientX + pad;
+  let y = e.clientY - pad;
+  if (x + ttW > window.innerWidth - pad) x = e.clientX - ttW - pad;
+  if (x < pad) x = pad;
+  if (y + ttH > window.innerHeight - pad) y = window.innerHeight - pad - ttH;
+  if (y < pad) y = pad;
+  tt.style.left = x + 'px';
+  tt.style.top = y + 'px';
+}
 
 // ── Build filter pills ──
 const AXES = ['themes', 'methods', 'scale', 'organisms', 'settings'];
@@ -673,12 +741,6 @@ function makePill(slug, label, axis, isChild) {
   return el;
 }
 
-// ── Tertiary toggle ──
-document.getElementById('tertiary-toggle').addEventListener('click', function() {
-  const tf = document.getElementById('tertiary-filters');
-  tf.classList.toggle('show');
-  this.textContent = tf.classList.contains('show') ? '- Scale, Organisms, Settings' : '+ Scale, Organisms, Settings';
-});
 
 // ── Filter logic ──
 function toggleFilter(axis, slug) {
@@ -703,6 +765,10 @@ function expandThemeSet(slugs) {
 }
 
 function projectMatches(proj) {
+  // Person filter
+  if (selectedPerson) {
+    if ((proj.participants || []).indexOf(selectedPerson) === -1) return false;
+  }
   const activeAxes = AXES.filter(a => filters[a].size > 0);
   if (activeAxes.length === 0) return true;
   return activeAxes.every(axis => {
@@ -741,6 +807,18 @@ function render() {
   renderNarratives();
   renderProjects();
   renderStats();
+  // Sync timeline selection with theme filter
+  if (filters.themes.size === 1) {
+    selectedTimelineTheme = [...filters.themes][0];
+  } else if (filters.themes.size === 0) {
+    selectedTimelineTheme = null;
+  }
+  document.querySelectorAll('.tl-research-label[data-theme]').forEach(el => {
+    el.classList.toggle('selected', el.dataset.theme === selectedTimelineTheme);
+  });
+  document.querySelectorAll('.tl-research-track[data-theme]').forEach(el => {
+    el.classList.toggle('selected', el.dataset.theme === selectedTimelineTheme);
+  });
 }
 
 function renderFilterPills() {
@@ -819,8 +897,13 @@ function renderProjects() {
     active.forEach(p => container.appendChild(makeProjectCard(p)));
   }
   if (completed.length) {
-    container.innerHTML += '<div class="section-heading">Completed Research</div>';
-    completed.forEach(p => container.appendChild(makeProjectCard(p)));
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.className = 'section-heading completed-toggle';
+    summary.textContent = 'Completed Research (' + completed.length + ' projects)';
+    details.appendChild(summary);
+    completed.forEach(p => details.appendChild(makeProjectCard(p)));
+    container.appendChild(details);
   }
   if (!visible.length) {
     container.innerHTML = '<div class="section-heading" style="color:var(--muted)">No projects match the current filters.</div>';
@@ -839,8 +922,8 @@ function makeProjectCard(p) {
   const span = p.start_year ? (p.status === 'active' ? p.start_year + '\u2013present' : p.start_year + (p.end_year ? '\u2013' + p.end_year : '')) : '';
   const peopleBySlug = {};
   DATA.people.forEach(pe => peopleBySlug[pe.slug] = pe);
-  const keyPeople = (p.people || []).slice(0, 3).map(s => peopleBySlug[s] ? peopleBySlug[s].name : s).join(', ');
-  const allPeople = (p.people || []).map(s => peopleBySlug[s] ? peopleBySlug[s].name : s).join(', ');
+  const keyPeople = (p.participants || []).slice(0, 3).map(s => peopleBySlug[s] ? peopleBySlug[s].name : s).join(', ');
+  const allPeople = (p.participants || []).map(s => peopleBySlug[s] ? peopleBySlug[s].name : s).join(', ');
 
   const tags = [];
   ['themes','methods','scale','organisms','settings'].forEach(axis => {
@@ -893,49 +976,414 @@ function renderStats() {
 }
 
 // ── People ──
-function renderPeople() {
-  const activeContainer = document.getElementById('active-people');
-  const alumniContainer = document.getElementById('alumni-section');
-  const active = DATA.people.filter(p => p.status === 'active');
+let selectedPerson = null;
+
+function getPersonThemes(slug) {
+  const themes = {};
+  DATA.projects.forEach(p => {
+    if ((p.participants || []).indexOf(slug) !== -1) {
+      (p.themes || []).forEach(t => { themes[t] = (themes[t] || 0) + 1; });
+    }
+  });
+  return themes;
+}
+
+function getPrimaryTheme(themeMap) {
+  let best = null, max = 0;
+  for (const [slug, count] of Object.entries(themeMap)) {
+    if (count > max) { max = count; best = slug; }
+  }
+  return best;
+}
+
+function selectPerson(slug) {
+  if (selectedPerson === slug) { selectedPerson = null; }
+  else { selectedPerson = slug; }
+  document.querySelectorAll('.tl-label-row[data-person]').forEach(r => {
+    r.classList.toggle('selected', r.dataset.person === selectedPerson);
+  });
+  document.querySelectorAll('.tl-track-row[data-person]').forEach(r => {
+    r.classList.toggle('selected', r.dataset.person === selectedPerson);
+  });
+  renderProjects();
+  renderStats();
+  highlightPersonOnTimeline(selectedPerson);
+}
+
+function highlightPersonOnTimeline(slug) {
+  if (!slug) {
+    document.querySelectorAll('.timeline-seg').forEach(s => { s.style.opacity = ''; });
+    return;
+  }
+  const personProjects = new Set();
+  DATA.projects.forEach(p => {
+    if ((p.participants || []).indexOf(slug) !== -1) personProjects.add(p.slug);
+  });
+  document.querySelectorAll('.timeline-seg').forEach(s => {
+    s.style.opacity = personProjects.has(s.dataset.slug) ? '1' : '0.15';
+  });
+}
+
+// ── Timeline (theme-based) ──
+const THEME_COLORS = {
+  'serotonin': '#2a9d8f', 'olfaction': '#e9c46a', 'decision': '#e76f51',
+  'synaptic': '#7b2d8e', 'dendritic': '#9b59b6', 'spike': '#6c3483',
+  'consciousness': '#8e44ad', 'volition': '#a569bd', 'embodiment': '#c0835d',
+  'perception': '#5d6d7e', 'learning': '#27ae60', 'space': '#3498db',
+  'vision': '#f39c12'
+};
+
+function getThemeColor(slug) {
+  for (const [key, color] of Object.entries(THEME_COLORS)) {
+    if (slug.indexOf(key) !== -1) return color;
+  }
+  return '#9ca3af';
+}
+
+let selectedTimelineTheme = null;
+
+// Shared timeline constants
+const TL_MIN_YEAR = 1990, TL_MAX_YEAR = 2060;
+const TL_TOTAL_YEARS = TL_MAX_YEAR - TL_MIN_YEAR;
+const TL_CURRENT_YEAR = new Date().getFullYear();
+
+function addGridlines(container) {
+  const gridDiv = document.createElement('div');
+  gridDiv.className = 'timeline-gridlines';
+  for (let y = TL_MIN_YEAR; y <= TL_MAX_YEAR; y += 5) {
+    const pct = ((y - TL_MIN_YEAR) / TL_TOTAL_YEARS) * 100;
+    const line = document.createElement('div');
+    line.className = 'timeline-gridline';
+    line.style.left = pct + '%';
+    gridDiv.appendChild(line);
+  }
+  container.appendChild(gridDiv);
+}
+
+function addNowLine(container) {
+  const pct = ((TL_CURRENT_YEAR - TL_MIN_YEAR) / TL_TOTAL_YEARS) * 100;
+  const line = document.createElement('div');
+  line.className = 'timeline-now-line';
+  line.style.left = pct + '%';
+  container.appendChild(line);
+}
+
+function renderFullTimeline() {
+  const labelsCol = document.getElementById('tl-labels');
+  const tracksCol = document.getElementById('tl-tracks');
+  labelsCol.innerHTML = '';
+  tracksCol.innerHTML = '';
+
+  const currentYear = TL_CURRENT_YEAR;
+  const minYear = TL_MIN_YEAR, maxYear = TL_MAX_YEAR;
+  const totalYears = TL_TOTAL_YEARS;
+  const tooltip = document.getElementById('timeline-tooltip');
+
+  // ── Research section ──
+  const projects = DATA.projects.filter(p => p.start_year);
+  const allThemeSlugs = new Set();
+  DATA.taxonomy.themes.forEach(t => {
+    allThemeSlugs.add(t.slug);
+    (t.children || []).forEach(c => allThemeSlugs.add(c.slug));
+  });
+  const themeProjects = {};
+  allThemeSlugs.forEach(slug => {
+    const matching = projects.filter(p => (p.themes || []).indexOf(slug) !== -1);
+    if (matching.length) themeProjects[slug] = matching;
+  });
+  const themeSlugs = Object.keys(themeProjects).sort((a, b) => {
+    return Math.min(...themeProjects[a].map(p => p.start_year)) - Math.min(...themeProjects[b].map(p => p.start_year));
+  });
+
+  // Research divider
+  const researchDivL = document.createElement('div');
+  researchDivL.className = 'timeline-divider-label-only';
+  researchDivL.style.borderTop = 'none';
+  researchDivL.innerHTML = '<span class="divider-label">Research</span>';
+  labelsCol.appendChild(researchDivL);
+
+  const yearRow = document.createElement('div');
+  yearRow.className = 'timeline-years';
+  for (let y = minYear; y <= maxYear; y += 5) {
+    const pct = ((y - minYear) / totalYears) * 100;
+    const lbl = document.createElement('span');
+    lbl.className = 'timeline-year-label';
+    lbl.style.left = pct + '%';
+    lbl.textContent = y;
+    yearRow.appendChild(lbl);
+  }
+  // Spacer in label col for year row
+  const yearSpacer = document.createElement('div');
+  yearSpacer.style.height = '20px';
+  labelsCol.appendChild(yearSpacer);
+
+  // Matching spacer in tracks col for the "Research" divider label
+  const researchDivR = document.createElement('div');
+  researchDivR.className = 'timeline-divider-label-only';
+  researchDivR.style.borderTop = 'none';
+  researchDivR.innerHTML = '&nbsp;';
+  tracksCol.appendChild(researchDivR);
+
+  tracksCol.appendChild(yearRow);
+
+  // Research rows wrapper
+  const researchTracksWrap = document.createElement('div');
+  researchTracksWrap.style.position = 'relative';
+  addGridlines(researchTracksWrap);
+  addNowLine(researchTracksWrap);
+
+  themeSlugs.forEach(slug => {
+    // Label
+    const labelRow = document.createElement('div');
+    labelRow.className = 'tl-research-label';
+    labelRow.textContent = findLabel('themes', slug);
+    labelRow.style.color = getThemeColor(slug);
+    labelRow.dataset.theme = slug;
+    if (selectedTimelineTheme === slug) labelRow.classList.add('selected');
+    labelRow.addEventListener('click', function() { selectTimelineTheme(slug, null); });
+    labelsCol.appendChild(labelRow);
+
+    // Track
+    const trackRow = document.createElement('div');
+    trackRow.className = 'tl-research-track';
+    trackRow.dataset.theme = slug;
+    if (selectedTimelineTheme === slug) trackRow.classList.add('selected');
+
+    const projs = themeProjects[slug].sort((a, b) => a.start_year - b.start_year);
+    projs.forEach(p => {
+      const startPct = ((p.start_year - minYear) / totalYears) * 100;
+      const endYr = p.status === 'active' ? currentYear : (p.end_year || p.start_year);
+      const endPct = ((endYr - minYear + 1) / totalYears) * 100;
+      const widthPct = Math.max(endPct - startPct, 1.2);
+
+      const seg = document.createElement('div');
+      seg.className = 'timeline-seg ' + (p.status === 'active' ? 'active' : 'completed');
+      seg.style.left = startPct + '%';
+      seg.style.width = widthPct + '%';
+      seg.style.backgroundColor = getThemeColor(slug);
+      seg.dataset.slug = p.slug;
+
+      seg.addEventListener('mouseenter', function() {
+        tooltip.querySelector('.tt-name').textContent = p.name;
+        tooltip.querySelector('.tt-span').textContent = p.start_year + '\u2013' + (p.status === 'active' ? 'present' : (p.end_year || '?'));
+        const desc = p.description || '';
+        tooltip.querySelector('.tt-desc').textContent = desc.length > 120 ? desc.slice(0, 120) + '\u2026' : desc;
+        tooltip.classList.add('visible');
+      });
+      seg.addEventListener('mousemove', positionTooltip);
+      seg.addEventListener('mouseleave', function() { tooltip.classList.remove('visible'); });
+      seg.addEventListener('click', function(e) { e.stopPropagation(); selectTimelineTheme(slug, p.slug); });
+
+      trackRow.appendChild(seg);
+    });
+
+    trackRow.addEventListener('click', function() { selectTimelineTheme(slug, null); });
+    researchTracksWrap.appendChild(trackRow);
+  });
+
+  tracksCol.appendChild(researchTracksWrap);
+
+  // ── People section ──
+  function addPersonSection(title, people, isAlumni, collapsible) {
+    if (!people.length) return;
+
+    if (collapsible) {
+      const yearRange = people.reduce((acc, p) => {
+        const s = parseInt(p.start_date) || 9999, e = parseInt(p.end_date) || 0;
+        return { min: Math.min(acc.min, s), max: Math.max(acc.max, e) };
+      }, { min: 9999, max: 0 });
+      const rangeStr = (yearRange.min < 9999 ? yearRange.min : '?') + '\u2013' + (yearRange.max > 0 ? yearRange.max : '?');
+
+      const toggleLabel = document.createElement('div');
+      toggleLabel.className = 'alumni-toggle-label';
+      toggleLabel.style.marginTop = '24px';
+      toggleLabel.textContent = title + ' (' + people.length + ', ' + rangeStr + ')';
+      labelsCol.appendChild(toggleLabel);
+
+      const toggleTrack = document.createElement('div');
+      toggleTrack.style.height = '28px';
+      toggleTrack.style.marginTop = '24px';
+      tracksCol.appendChild(toggleTrack);
+
+      const alumniLabelContainer = document.createElement('div');
+      alumniLabelContainer.style.display = 'none';
+      labelsCol.appendChild(alumniLabelContainer);
+
+      const alumniTrackContainer = document.createElement('div');
+      alumniTrackContainer.style.display = 'none';
+      tracksCol.appendChild(alumniTrackContainer);
+
+      toggleLabel.addEventListener('click', function() {
+        const open = alumniLabelContainer.style.display !== 'none';
+        alumniLabelContainer.style.display = open ? 'none' : 'block';
+        alumniTrackContainer.style.display = open ? 'none' : 'block';
+        toggleLabel.classList.toggle('open', !open);
+      });
+
+      const innerTrackWrap = document.createElement('div');
+      innerTrackWrap.style.position = 'relative';
+      addGridlines(innerTrackWrap);
+      addNowLine(innerTrackWrap);
+
+      people.forEach(p => {
+        const { labelEl, trackEl } = makePersonElements(p, isAlumni);
+        alumniLabelContainer.appendChild(labelEl);
+        innerTrackWrap.appendChild(trackEl);
+      });
+      alumniTrackContainer.appendChild(innerTrackWrap);
+      return;
+    }
+
+    // Non-collapsible: divider + rows
+    const divL = document.createElement('div');
+    divL.className = 'timeline-divider';
+    divL.innerHTML = '<span class="divider-label">' + title + '</span>';
+    labelsCol.appendChild(divL);
+
+    const divR = document.createElement('div');
+    divR.className = 'timeline-divider';
+    divR.innerHTML = '&nbsp;';
+    tracksCol.appendChild(divR);
+
+    const trackWrap = document.createElement('div');
+    trackWrap.style.position = 'relative';
+    addGridlines(trackWrap);
+    addNowLine(trackWrap);
+
+    people.forEach(p => {
+      const { labelEl, trackEl } = makePersonElements(p, isAlumni);
+      labelsCol.appendChild(labelEl);
+      trackWrap.appendChild(trackEl);
+    });
+    tracksCol.appendChild(trackWrap);
+  }
+
+  function makePersonElements(p, isAlumni) {
+    const themes = getPersonThemes(p.slug);
+    const primary = getPrimaryTheme(themes);
+    const color = primary ? getThemeColor(primary) : '#9ca3af';
+
+    const startYr = parseInt(p.start_date) || minYear;
+    const endYr = isAlumni ? (parseInt(p.end_date) || currentYear) : currentYear;
+    const startPct = Math.max(0, ((startYr - minYear) / totalYears) * 100);
+    const endPct = Math.min(100, ((endYr - minYear + 1) / totalYears) * 100);
+    const widthPct = Math.max(endPct - startPct, 1.2);
+
+    const labelEl = document.createElement('div');
+    labelEl.className = 'tl-label-row';
+    labelEl.dataset.person = p.slug;
+    if (selectedPerson === p.slug) labelEl.classList.add('selected');
+    labelEl.innerHTML = '<div style="text-align:right"><div class="ptl-name">' + escHTML(p.name) + '</div><div class="ptl-role">' + escHTML(p.role) + '</div></div>';
+    labelEl.addEventListener('click', function() { selectPerson(p.slug); });
+
+    const trackEl = document.createElement('div');
+    trackEl.className = 'tl-track-row';
+    trackEl.dataset.person = p.slug;
+    if (selectedPerson === p.slug) trackEl.classList.add('selected');
+
+    const bar = document.createElement('div');
+    bar.className = 'people-timeline-bar' + (isAlumni ? ' alumni-bar' : '');
+    bar.style.left = startPct + '%';
+    bar.style.width = widthPct + '%';
+    bar.style.backgroundColor = color;
+
+    const themeNames = Object.keys(themes).map(t => findLabel('themes', t));
+    bar.addEventListener('mouseenter', function() {
+      tooltip.querySelector('.tt-name').textContent = p.name;
+      tooltip.querySelector('.tt-span').textContent = p.role + ' \u00b7 ' + (p.start_date || '?') + '\u2013' + (isAlumni ? (p.end_date || '?') : 'present');
+      const descParts = [];
+      if (themeNames.length) descParts.push('Research: ' + themeNames.join(', '));
+      if (isAlumni && p.current_position) descParts.push('Now: ' + p.current_position);
+      tooltip.querySelector('.tt-desc').textContent = descParts.join('. ');
+      tooltip.classList.add('visible');
+    });
+    bar.addEventListener('mousemove', positionTooltip);
+    bar.addEventListener('mouseleave', function() { tooltip.classList.remove('visible'); });
+
+    trackEl.appendChild(bar);
+    trackEl.addEventListener('click', function() { selectPerson(p.slug); });
+
+    return { labelEl, trackEl };
+  }
+
+  // Sort and render people sections
+  const ROLE_SORT = ['PI', 'Postdoc', 'PhD Student', 'MSc Student', 'Technician', 'Lab Manager', 'Other'];
+  function sortByRole(arr) {
+    arr.sort((a, b) => {
+      const ra = ROLE_SORT.indexOf(a.role), rb = ROLE_SORT.indexOf(b.role);
+      if (ra !== rb) return (ra === -1 ? 99 : ra) - (rb === -1 ? 99 : rb);
+      return (parseInt(a.start_date) || 9999) - (parseInt(b.start_date) || 9999);
+    });
+  }
+
+  const activePeople = DATA.people.filter(p => p.status === 'active');
+  const collaborators = DATA.people.filter(p => p.status === 'collaborator');
   const alumni = DATA.people.filter(p => p.status === 'alumni');
 
-  const ROLE_ORDER = ['PI', 'Postdoc', 'PhD Student', 'MSc Student', 'Technician', 'Lab Manager', 'Other'];
-  const byRole = {};
-  active.forEach(p => { (byRole[p.role] = byRole[p.role] || []).push(p); });
-
-  let html = '';
-  ROLE_ORDER.forEach(role => {
-    if (!byRole[role] || !byRole[role].length) return;
-    html += '<div class="role-group"><h3>' + role + (byRole[role].length > 1 ? 's' : '') + '</h3><div class="people-grid">';
-    byRole[role].sort((a,b) => a.name.localeCompare(b.name)).forEach(p => {
-      html += '<div class="person-card"><div class="person-name">' + escHTML(p.name) + '</div></div>';
-    });
-    html += '</div></div>';
+  sortByRole(activePeople);
+  sortByRole(collaborators);
+  alumni.sort((a, b) => {
+    const ya = parseInt(a.end_date) || 0, yb = parseInt(b.end_date) || 0;
+    if (yb !== ya) return yb - ya;
+    return a.name.localeCompare(b.name);
   });
-  activeContainer.innerHTML = html;
 
-  let alumniHTML = '<div class="people-grid">';
-  alumni.sort((a,b) => a.name.localeCompare(b.name)).forEach(p => {
-    alumniHTML += '<div class="person-card"><div class="person-name">' + escHTML(p.name) + '</div>' +
-      (p.current_position ? '<div class="person-position">' + escHTML(p.current_position) + '</div>' : '') +
-      '</div>';
-  });
-  alumniHTML += '</div>';
-  alumniContainer.innerHTML = alumniHTML;
+  addPersonSection('People', activePeople, false, false);
+  if (collaborators.length) addPersonSection('Collaborators', collaborators, false, true);
+  if (alumni.length) addPersonSection('Alumni', alumni, true, true);
 
-  document.getElementById('alumni-toggle').textContent = 'Show Alumni (' + alumni.length + ')';
-  document.getElementById('alumni-toggle').addEventListener('click', function() {
-    const section = document.getElementById('alumni-section');
-    section.classList.toggle('show');
-    this.textContent = section.classList.contains('show') ? 'Hide Alumni' : 'Show Alumni (' + alumni.length + ')';
-  });
+}
+
+function scrollTimelineToPresent() {
+  const scrollEl = document.getElementById('tl-scroll');
+  if (!scrollEl) return;
+  const nowPct = (TL_CURRENT_YEAR - TL_MIN_YEAR) / TL_TOTAL_YEARS;
+  const targetX = scrollEl.scrollWidth * nowPct - scrollEl.clientWidth * 0.5;
+  scrollEl.scrollLeft = Math.max(0, targetX);
+}
+
+function selectTimelineTheme(slug, projectSlug) {
+  if (selectedTimelineTheme === slug && !projectSlug) {
+    // Deselect
+    selectedTimelineTheme = null;
+    filters.themes.clear();
+  } else {
+    selectedTimelineTheme = slug;
+    AXES.forEach(a => filters[a].clear());
+    filters.themes.add(slug);
+  }
+  updateURL();
+  render();
+  renderFullTimeline();
+
+  if (projectSlug) {
+    // Scroll to projects and expand the target card
+    setTimeout(function() {
+      const cards = document.querySelectorAll('.project-card');
+      for (const card of cards) {
+        const title = card.querySelector('.card-title');
+        const proj = DATA.projects.find(p => p.slug === projectSlug);
+        if (proj && title && title.textContent === proj.name) {
+          card.classList.add('expanded');
+          const detail = card.querySelector('.card-detail');
+          if (detail) detail.classList.add('open');
+          card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          break;
+        }
+      }
+    }, 50);
+  } else {
+    const projContainer = document.getElementById('projects-container');
+    if (projContainer) projContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 // ── Init ──
 buildFilterPills();
 readURL();
-renderPeople();
+renderFullTimeline();
 render();
+scrollTimelineToPresent();
 window.addEventListener('hashchange', () => {
   AXES.forEach(a => filters[a].clear());
   readURL();
@@ -959,7 +1407,8 @@ def build():
     people = load_people()
     active = [p for p in people if p["status"] == "active"]
     alumni = [p for p in people if p["status"] == "alumni"]
-    print(f"  {len(active)} active, {len(alumni)} alumni ({len(people)} total)")
+    collabs = [p for p in people if p["status"] == "collaborator"]
+    print(f"  {len(active)} active, {len(collabs)} collaborators, {len(alumni)} alumni ({len(people)} total)")
 
     print("Loading publications...")
     pubs = load_publications()
@@ -983,6 +1432,7 @@ def build():
         narratives[slug] = body
     print(f"  {len(narratives)} narratives ({generated_count - len(overrides)} generated, {len(overrides)} hand-written overrides)")
 
+    # Fields allowed in public JSON (no internal IDs, paths, or type)
     site_data = {
         "taxonomy": taxonomy,
         "projects": [{
@@ -991,7 +1441,7 @@ def build():
             "start_year": p["start_year"], "end_year": p["end_year"],
             "themes": p["themes"], "methods": p["methods"], "scale": p["scale"],
             "organisms": p["organisms"], "settings": p["settings"],
-            "people": p["people"], "papers": p["papers"], "paper_count": p["paper_count"],
+            "participants": p["people"], "papers": p["papers"], "paper_count": p["paper_count"],
         } for p in projects],
         "publications": [{
             "slug": p["slug"], "title": p["title"], "year": p["year"],
@@ -1002,6 +1452,7 @@ def build():
         "people": [{
             "slug": p["slug"], "name": p["name"], "status": p["status"],
             "role": p["role"], "current_position": p["current_position"],
+            "start_date": p["start_date"], "end_date": p["end_date"],
         } for p in people],
         "narratives": narratives,
     }
