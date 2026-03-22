@@ -842,4 +842,5 @@ if __name__ == '__main__':
     print(f'Projects dir: {PROJECTS_DIR} ({len(list(PROJECTS_DIR.iterdir()))} entries)')
     print(f'People dir: {PEOPLE_DIR} ({len(list(PEOPLE_DIR.iterdir()))} entries)')
     print(f'Publications dir: {PUBS_DIR} ({len(list(PUBS_DIR.iterdir()))} entries)')
-    app.run(host='127.0.0.1', port=18831, debug=True)
+    host = os.environ.get('HAAK_HOST', '127.0.0.1')
+    app.run(host=host, port=18831, debug=True)
