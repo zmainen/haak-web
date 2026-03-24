@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Zach Mainen — Neuroscientist · AI Researcher</title>
-<meta name="description" content="Zach Mainen is a Principal Investigator at the Champalimaud Foundation in Lisbon, working on serotonin, decision-making, perception, AI governance, and art-science.">
+<meta name="description" content="Zach Mainen is a Principal Investigator at the Champalimaud Foundation in Lisbon, working on serotonin, decision-making, perception, formal ontology, and AI governance.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
@@ -52,7 +52,6 @@ a:hover { text-decoration: underline; }
   padding: 0 28px;
 }
 
-/* ── HEADER ── */
 header {
   padding: 80px 0 60px;
   border-bottom: 1px solid var(--border);
@@ -90,7 +89,6 @@ header {
   font-weight: 300;
 }
 
-/* ── THEME TOGGLE ── */
 #theme-toggle {
   position: fixed;
   top: 20px;
@@ -107,7 +105,6 @@ header {
 }
 #theme-toggle:hover { border-color: var(--accent); }
 
-/* ── SECTIONS ── */
 section { padding: 48px 0; border-bottom: 1px solid var(--border); }
 section:last-of-type { border-bottom: none; }
 
@@ -121,7 +118,6 @@ h2 {
 
 .bio { font-weight: 300; color: var(--text); max-width: 60ch; }
 
-/* ── RESEARCH CARDS ── */
 .cards {
   display: grid;
   grid-template-columns: 1fr;
@@ -165,7 +161,37 @@ h2 {
   line-height: 1.6;
 }
 
-/* ── PUBLICATIONS ── */
+.writing-list { list-style: none; }
+
+.writing-list li {
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.writing-list li:last-child { border-bottom: none; }
+
+.writing-list a {
+  font-weight: 400;
+}
+
+.writing-venue {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 300;
+  margin-left: 4px;
+}
+
+.writing-desc {
+  display: block;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--muted);
+  margin-top: 3px;
+  line-height: 1.5;
+}
+
 .pub-list { list-style: none; }
 
 .pub-list li {
@@ -182,11 +208,9 @@ h2 {
 .pub-journal { font-style: italic; color: var(--muted); }
 .pub-year { color: var(--muted); font-size: 13px; }
 
-/* ── CONTACT ── */
 .contact-info { font-weight: 300; font-size: 15px; line-height: 1.8; }
 .contact-info .label { font-weight: 400; color: var(--muted); font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; }
 
-/* ── FOOTER ── */
 footer {
   padding: 32px 0;
   text-align: center;
@@ -209,7 +233,6 @@ footer {
 
 <div class="wrap">
 
-<!-- ── HEADER ── -->
 <header>
   <div class="header-row">
     <div class="avatar">ZM</div>
@@ -220,12 +243,12 @@ footer {
   </div>
 </header>
 
-<!-- ── BIO ── -->
+<!-- BIO -->
 <section>
-  <p class="bio">I am a Principal Investigator at the <a href="https://fchampalimaud.org">Champalimaud Centre for the Unknown</a> in Lisbon, where I run a systems neuroscience lab studying serotonin, decision-making, and perception. I co-founded the <a href="https://www.internationalbrainlab.com">International Brain Laboratory</a>, a collaboration rethinking how neuroscience is done. I also lead <a href="https://haak.world">HAAK</a>, a research project at the intersection of AI, formal ontology, and governance, and <a href="https://latentstates.org">Latent States</a>, an art-science practice.</p>
+  <p class="bio">I am a Principal Investigator at the <a href="https://fchampalimaud.org">Champalimaud Centre for the Unknown</a> in Lisbon, where I run a <a href="https://mainenlab.org">systems neuroscience lab</a> studying serotonin, decision-making, and perception. I co-founded the <a href="https://www.internationalbrainlab.com">International Brain Laboratory</a>, a collaboration rethinking how neuroscience is done. I also write on artificial intelligence, formal ontology, and the design of institutions, and direct <a href="https://latentstates.org">Latent States</a>, a research programme exploring subjective experience through science and art.</p>
 </section>
 
-<!-- ── RESEARCH ── -->
+<!-- RESEARCH -->
 <section>
   <h2>Research</h2>
   <div class="cards">
@@ -234,51 +257,86 @@ footer {
       <div class="card-url">mainenlab.org</div>
       <div class="card-desc">Systems neuroscience of serotonin, decision-making, and rapid perception. Neural circuits underlying confidence, uncertainty, and flexible behavior in mice and humans.</div>
     </a>
-    <a class="card" href="https://haak.world">
-      <div class="card-title">AI &amp; Governance</div>
-      <div class="card-url">haak.world</div>
-      <div class="card-desc">Formal ontology for AI systems. Constitutional governance of autonomous agents. The Library Theorem and externalized intelligence. Open infrastructure for collective human action.</div>
-    </a>
     <a class="card" href="https://latentstates.org">
-      <div class="card-title">Art Practice</div>
+      <div class="card-title">Latent States</div>
       <div class="card-url">latentstates.org</div>
-      <div class="card-desc">Latent States: art-science installations exploring perception, agency, and the boundary between observer and observed. Collaborative work across neuroscience, music, and visual art.</div>
+      <div class="card-desc">Situated experiments at the intersection of neuroscience, art, and subjective experience. The Latent States Camp at Waking Life festival, immersive installations, and collaborative research across perception, consciousness, and embodied cognition.</div>
     </a>
   </div>
 </section>
 
-<!-- ── PUBLICATIONS ── -->
+<!-- WRITING -->
 <section>
-  <h2>Selected Publications</h2>
-  <ul class="pub-list">
+  <h2>Writing</h2>
+  <ul class="writing-list">
     <li>
-      <span class="pub-title">A standardized and reproducible method to measure decision-making in mice.</span>
-      The International Brain Laboratory <em>et al.</em>
-      <span class="pub-journal">eLife</span> <span class="pub-year">(2021)</span>
+      <a href="https://haak.world/blog/posts/why-organization-beats-scale.html">Why Organization Beats Scale</a>
+      <span class="writing-desc">Organized retrieval is exponentially faster than unorganized retrieval. Not a little faster. Exponentially. The implications for AI are immediate.</span>
     </li>
     <li>
-      <span class="pub-title">Activation of serotonin neurons promotes active persistence in a probabilistic foraging task.</span>
-      Lottem E, Banerjee D, Vertechi P, Sarra D, Özel Duygan M, Mainen ZF.
-      <span class="pub-journal">Nature Communications</span> <span class="pub-year">(2018)</span> <a href="https://doi.org/10.1038/s41467-018-03438-y">10.1038/s41467-018-03438-y</a>
+      <a href="https://haak.world/blog/posts/your-llm-is-a-finite-automaton.html">Your LLM Is a Finite Automaton</a>
+      <span class="writing-desc">A transformer with a fixed context window is a finite automaton. Chain-of-thought doesn't fix this. External memory does.</span>
     </li>
     <li>
-      <span class="pub-title">Activation of dorsal raphe serotonin neurons promotes waiting but is not reinforcing.</span>
-      Fonseca MS, Murakami M, Mainen ZF.
-      <span class="pub-journal">Current Biology</span> <span class="pub-year">(2015)</span> <a href="https://doi.org/10.1016/j.cub.2014.12.002">10.1016/j.cub.2014.12.002</a>
+      <a href="https://haak.world/blog/posts/reality-is-a-tangle.html">Reality Is a Tangle</a>
+      <span class="writing-desc">Three ancient problems — similarity, identity, knowledge — share a single topological solution.</span>
     </li>
     <li>
-      <span class="pub-title">Reliability of spike timing in neocortical neurons.</span>
-      Mainen ZF, Sejnowski TJ.
-      <span class="pub-journal">Science</span> <span class="pub-year">(1995)</span>
+      <a href="https://haak.world/blog/posts/there-is-no-meta-room.html">There Is No Meta Room</a>
+      <span class="writing-desc">How should we make decisions when we disagree about the rules for making decisions? There is no framework above frameworks.</span>
+    </li>
+    <li>
+      <a href="https://haak.world/blog/posts/who-writes-the-constitution.html">Who Writes the Constitution?</a>
+      <span class="writing-desc">Every AI system has a constitution. The question is who writes it, and whether anyone else can read it.</span>
+    </li>
+    <li>
+      <a href="https://latentspacedialogues.substack.com/p/ai-needs-informed-consent">The Micro-Alignment Problem</a>
+      <span class="writing-desc">The danger isn't superintelligence — it's synthetic agents forming intimate relationships without informed consent.</span>
+    </li>
+    <li>
+      <a href="https://latentspacedialogues.substack.com/p/coming-soon">Latent Space Dialogues</a>
+      <span class="writing-desc">On latent spaces, metaphor, and dialogue as orientation during technological disruption.</span>
     </li>
   </ul>
 </section>
 
-<!-- ── CONTACT ── -->
+<!-- PUBLICATIONS -->
+<section>
+  <h2>Selected Publications</h2>
+  <ul class="pub-list">
+    <li>
+      <span class="pub-title">The Library Theorem: how external organization governs agentic reasoning capacity.</span>
+      Mainen ZF.
+      <span class="pub-journal">arXiv preprint</span> <span class="pub-year">(2026)</span> <a href="https://doi.org/10.48550/arXiv.2603.21272">arXiv:2603.21272</a>
+    </li>
+    <li>
+      <span class="pub-title">Facial expressions in mice reveal latent cognitive variables and their neural correlates.</span>
+      Cazettes F, Reato D, Augusto E, Steinfeld R, Renart A, Mainen ZF.
+      <span class="pub-journal">Nature Neuroscience</span> <span class="pub-year">(2025)</span> <a href="https://doi.org/10.1038/s41593-025-02071-5">10.1038/s41593-025-02071-5</a>
+    </li>
+    <li>
+      <span class="pub-title">Standardized and reproducible measurement of decision-making in mice.</span>
+      The International Brain Laboratory <em>et al.</em>
+      <span class="pub-journal">eLife</span> <span class="pub-year">(2021)</span> <a href="https://doi.org/10.7554/eLife.63711">10.7554/eLife.63711</a>
+    </li>
+    <li>
+      <span class="pub-title">Neural correlates, computation and behavioural impact of decision confidence.</span>
+      Kepecs A, Uchida N, Zariwala HA, Mainen ZF.
+      <span class="pub-journal">Nature</span> <span class="pub-year">(2008)</span> <a href="https://doi.org/10.1038/nature07200">10.1038/nature07200</a>
+    </li>
+    <li>
+      <span class="pub-title">Reliability of spike timing in neocortical neurons.</span>
+      Mainen ZF, Sejnowski TJ.
+      <span class="pub-journal">Science</span> <span class="pub-year">(1995)</span> <a href="https://doi.org/10.1126/science.7770778">10.1126/science.7770778</a>
+    </li>
+  </ul>
+</section>
+
+<!-- CONTACT -->
 <section>
   <h2>Contact</h2>
   <div class="contact-info">
-    <p><span class="label">Email</span><br><a href="mailto:zmainen@neuro.fchampalimaud.org">zmainen@neuro.fchampalimaud.org</a></p>
+    <p><span class="label">Email</span><br><a href="mailto:zmainen@neuro.fchampalimoud.org">zmainen@neuro.fchampalimaud.org</a></p>
     <p style="margin-top:12px"><span class="label">Address</span><br>Champalimaud Centre for the Unknown<br>Av. Bras&iacute;lia, 1400-038 Lisbon, Portugal</p>
   </div>
 </section>
