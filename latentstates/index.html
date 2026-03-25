@@ -4,204 +4,344 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Latent States</title>
-<meta name="description" content="Latent States explores the hidden worlds within us — through art, science, and the spaces where they meet.">
+<meta name="description" content="Latent States explores the hidden worlds within us — through science in the wild and exploration through art. 2016–2026.">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon.ico" sizes="any">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200..900&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 :root {
-  --bg: #0a0a0a;
+  --bg: #1a1a1a;
+  --bg-deep: #111111;
   --text-primary: #e8e4e0;
-  --text-secondary: #8a8580;
+  --text-secondary: #7a7570;
+  --text-dim: #4a4540;
   --accent: #c4956a;
-  --accent-secondary: #7a9a8a;
-  --border: #1a1816;
-  --placeholder-bg: #141210;
-  --font-heading: 'Syne', sans-serif;
-  --font-body: 'Space Grotesk', sans-serif;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg: #f4f0ec;
-    --text-primary: #1a1816;
-    --text-secondary: #6a6560;
-    --accent: #9a6a42;
-    --accent-secondary: #4a7a6a;
-    --border: #d8d4d0;
-    --placeholder-bg: #e8e4e0;
-  }
+  --accent-glow: rgba(196, 149, 106, 0.15);
+  --font: 'Inter', sans-serif;
 }
 
-[data-theme="light"] {
-  --bg: #f4f0ec;
-  --text-primary: #1a1816;
-  --text-secondary: #6a6560;
-  --accent: #9a6a42;
-  --accent-secondary: #4a7a6a;
-  --border: #d8d4d0;
-  --placeholder-bg: #e8e4e0;
-}
-
-html { scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; }
+html { font-size: 16px; scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
   color: var(--text-primary);
-  font-family: var(--font-body);
-  font-weight: 400;
-  line-height: 1.75;
+  font-family: var(--font);
+  font-weight: 300;
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-a {
-  color: var(--accent);
-  text-decoration: none;
-  transition: text-decoration 0.2s;
-}
-a:hover { text-decoration: underline; }
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
 
-/* ── Section layout ── */
-.section {
-  min-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 80px clamp(20px, 5vw, 64px);
-}
-
-.section-text {
-  max-width: 640px;
-  margin: 0 auto;
-  font-size: clamp(16px, 1.8vw, 19px);
-  line-height: 1.75;
-  color: var(--text-primary);
+/* ── Flow Field Canvas Placeholder ── */
+#flow-field {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  opacity: 0.3;
+  pointer-events: none;
 }
 
-.section-text p { margin-bottom: 1.5em; }
-.section-text p:last-child { margin-bottom: 0; }
-
-.section-meta {
-  max-width: 640px;
-  margin: 2em auto 0;
-  font-size: 13px;
-  letter-spacing: 0.04em;
-  color: var(--text-secondary);
-  line-height: 1.6;
-}
-
-.section-meta a {
-  color: var(--accent);
-  text-decoration: none;
-}
-.section-meta a:hover { text-decoration: underline; }
-
-/* ── Image placeholders ── */
-.image-placeholder {
+/* ── Media Stack ── */
+.media-stack {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
-  height: 60vh;
-  min-height: 360px;
-  background: var(--placeholder-bg);
-  border: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-body);
-  font-size: 14px;
-  letter-spacing: 0.04em;
-  color: var(--text-secondary);
-  margin-bottom: 48px;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
 }
 
-/* ── Hero images ── */
-.hero-image { margin: 0 0 48px; width: 100%; }
-.hero-image img { width: 100%; max-height: 70vh; object-fit: cover; border-radius: 2px; }
+.media-stack__img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  will-change: opacity;
+}
+
+.media-stack__overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(26, 26, 26, 0.94) 0%,
+    rgba(26, 26, 26, 0.80) 35%,
+    rgba(26, 26, 26, 0.50) 65%,
+    rgba(26, 26, 26, 0.35) 100%
+  );
+  z-index: 1;
+}
+
+/* ── Content Layer ── */
+.content-layer {
+  position: relative;
+  z-index: 2;
+}
 
 /* ── Opening ── */
 #opening {
   height: 100vh;
-  min-height: 100vh;
+  min-height: 600px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 0 clamp(20px, 5vw, 64px);
+  padding: 0 clamp(32px, 8vw, 120px);
   position: relative;
 }
 
 #opening h1 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: clamp(48px, 8vw, 80px);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  margin-bottom: 48px;
+  font-weight: 200;
+  font-size: clamp(40px, 7vw, 84px);
+  line-height: 1.08;
+  letter-spacing: -0.035em;
+  max-width: 800px;
 }
 
-.opening-subjects {
-  font-family: var(--font-body);
+.opening-sub {
   font-weight: 300;
-  font-size: clamp(18px, 2.5vw, 24px);
-  letter-spacing: 0.02em;
-  line-height: 2.2;
-  color: var(--text-primary);
-  margin-bottom: 80px;
-}
-
-.opening-statement {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: clamp(16px, 1.8vw, 19px);
-  line-height: 1.75;
+  font-size: clamp(14px, 1.6vw, 18px);
   color: var(--text-secondary);
-  max-width: 560px;
+  letter-spacing: 0.01em;
+  max-width: 480px;
+  line-height: 1.7;
+  margin-top: 32px;
 }
 
 .opening-bottom {
   position: absolute;
-  bottom: 40px;
+  bottom: 48px;
+  left: clamp(32px, 8vw, 120px);
   display: flex;
   flex-direction: column;
-  align-items: center;
   gap: 16px;
 }
 
-.opening-bottom .epoch {
-  font-size: 13px;
-  letter-spacing: 0.04em;
+.opening-epoch {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+}
+
+.scroll-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, var(--text-dim), transparent);
+  opacity: 0.5;
+}
+
+/* ── Works Section ── */
+#works {
+  min-height: 100vh;
+  padding: 160px clamp(32px, 8vw, 120px) 200px;
+  position: relative;
+}
+
+.works-header {
+  margin-bottom: 80px;
+}
+
+.works-header h2 {
+  font-weight: 200;
+  font-size: clamp(28px, 4vw, 48px);
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
   color: var(--text-secondary);
 }
 
-.scroll-indicator {
-  width: 1px;
-  height: 32px;
-  background: var(--text-secondary);
-  animation: gentle-bounce 2.4s ease-in-out infinite;
+/* ── Project List ── */
+.project-list {
+  max-width: 680px;
 }
 
-@keyframes gentle-bounce {
-  0%, 100% { transform: translateY(0); opacity: 0.4; }
-  50% { transform: translateY(6px); opacity: 1; }
+.project-item {
+  display: block;
+  padding: 24px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+}
+
+.project-item:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.project-item:hover { text-decoration: none; }
+
+.project-item__cat {
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.project-item:hover .project-item__cat { opacity: 1; }
+
+.project-item__title {
+  font-weight: 300;
+  font-size: clamp(24px, 3.5vw, 42px);
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  transition: font-weight 0.2s ease;
+}
+
+.project-item:hover .project-item__title { font-weight: 600; }
+
+.project-item__year {
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-dim);
+  margin-top: 4px;
+  letter-spacing: 0.02em;
+}
+
+/* Unlinked items */
+.project-item--nolink {
+  cursor: default;
+}
+
+.project-item--nolink:hover .project-item__title {
+  font-weight: 300;
+}
+
+/* ── Tag colors ── */
+.project-item[data-tag="origins"] .project-item__cat { color: var(--text-secondary); }
+.project-item[data-tag="spaces"] .project-item__cat { color: var(--accent); }
+.project-item[data-tag="states"] .project-item__cat { color: #8fa7c4; }
+.project-item[data-tag="bridge"] .project-item__cat { color: #b497bd; }
+
+/* ── Pill Toggles ── */
+.pill-container {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease;
+}
+
+.pill-container--visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.pill-toggle {
+  display: flex;
+  background: rgba(17, 17, 17, 0.88);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 40px;
+  padding: 4px;
+  position: relative;
+}
+
+.pill-toggle__option {
+  position: relative;
+  z-index: 2;
+  padding: 10px 26px;
+  font-family: var(--font);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 36px;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+.pill-toggle__option--active {
+  color: var(--text-primary);
+}
+
+.pill-toggle__slider {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  height: calc(100% - 8px);
+  border-radius: 36px;
+  background: rgba(196, 149, 106, 0.12);
+  border: 1px solid rgba(196, 149, 106, 0.18);
+  pointer-events: none;
+  will-change: transform, width;
+}
+
+/* Secondary filter */
+.pill-filter {
+  display: none;
+}
+
+.pill-filter--visible {
+  display: flex;
+}
+
+/* ── Closing ── */
+#closing {
+  height: 50vh;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  padding: 0 clamp(32px, 8vw, 120px);
+}
+
+#closing p {
+  font-weight: 200;
+  font-size: clamp(24px, 3.5vw, 42px);
+  letter-spacing: -0.02em;
+  color: var(--text-dim);
 }
 
 /* ── Footer ── */
 footer {
-  padding: 80px clamp(20px, 5vw, 64px);
-  border-top: 1px solid var(--border);
+  padding: 80px clamp(32px, 8vw, 120px) 60px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  z-index: 2;
+  background: var(--bg);
 }
 
-.footer-inner {
-  max-width: 960px;
-  margin: 0 auto;
-}
+.footer-inner { max-width: 960px; }
 
 .footer-brand {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  font-size: 24px;
+  font-weight: 200;
+  font-size: 28px;
+  letter-spacing: -0.02em;
   margin-bottom: 48px;
 }
 
@@ -213,203 +353,591 @@ footer {
 }
 
 .footer-col h3 {
-  font-family: var(--font-body);
-  font-weight: 400;
-  font-size: 13px;
-  letter-spacing: 0.05em;
-  color: var(--text-secondary);
-  margin-bottom: 16px;
+  font-weight: 500;
+  font-size: 11px;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 20px;
 }
 
-.footer-col ul {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
 
 .footer-col a {
-  font-size: 13px;
-  letter-spacing: 0.05em;
-  color: var(--text-primary);
-  text-decoration: none;
-  transition: color 0.2s;
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  transition: font-weight 0.2s ease, color 0.2s ease;
 }
-.footer-col a:hover { color: var(--accent); }
+
+.footer-col a:hover {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.footer-col li {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--text-secondary);
+}
 
 .footer-attribution {
-  font-size: 14px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  margin-bottom: 8px;
+  font-size: 13px;
+  font-weight: 300;
+  color: var(--text-dim);
+  margin-bottom: 6px;
 }
 
 .footer-contact {
   font-size: 13px;
+  font-weight: 300;
   margin-bottom: 48px;
 }
 
 .footer-contact a {
   color: var(--accent);
-  text-decoration: none;
+  transition: opacity 0.2s;
 }
-.footer-contact a:hover { text-decoration: underline; }
+
+.footer-contact a:hover { opacity: 0.7; }
 
 .footer-closer {
-  font-size: 12px;
-  letter-spacing: 0.06em;
-  color: var(--text-secondary);
-  opacity: 0.6;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  opacity: 0.4;
+}
+
+/* ── Responsive ── */
+@media (max-width: 640px) {
+  .footer-columns { grid-template-columns: 1fr; gap: 40px; }
+  .pill-toggle__option { padding: 10px 20px; font-size: 11px; }
+  .media-stack__overlay {
+    background: linear-gradient(
+      to bottom,
+      rgba(26, 26, 26, 0.88) 0%,
+      rgba(26, 26, 26, 0.65) 50%,
+      rgba(26, 26, 26, 0.88) 100%
+    );
+  }
+  .project-item__title { font-size: 22px; }
+  #works { padding-top: 100px; padding-bottom: 120px; }
 }
 
 /* ── Print ── */
 @media print {
   body { background: #fff; color: #111; }
-  .image-placeholder { background: #eee; color: #666; border-color: #ccc; }
-  a { color: #333; }
-  .scroll-indicator, .opening-bottom { display: none; }
-  .section { min-height: auto; page-break-inside: avoid; }
+  .media-stack, .pill-container, .scroll-line, #flow-field { display: none; }
   footer { border-top-color: #ccc; }
-  .footer-col a { color: #333; }
-  .section-meta, .footer-attribution, .footer-contact { color: #555; }
 }
 
-/* ── Mobile ── */
-@media (max-width: 640px) {
-  .footer-columns {
-    grid-template-columns: 1fr;
-    gap: 40px;
-  }
-  .image-placeholder {
-    height: 40vh;
-    min-height: 240px;
-  }
+/* ── Visibility helpers ── */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(24px);
+  will-change: opacity, transform;
 }
 </style>
 </head>
 <body>
-<button id="theme-toggle" aria-label="Toggle light/dark mode" style="position:fixed;top:20px;right:20px;z-index:1000;background:none;border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;color:var(--text-secondary, var(--text-muted));font-size:14px;display:flex;align-items:center;justify-content:center;transition:border-color 0.3s,color 0.3s;">☀</button>
 
-<!-- ── Section 1: Opening ── -->
-<section id="opening">
-  <h1>What is it like to experience?</h1>
-  <div class="opening-subjects">
-    Yourself. The world. Other people. A machine.
-  </div>
-  <p class="opening-statement">
-    Latent States explores the hidden worlds within us — through art, science, and the spaces where they meet.
-  </p>
-  <div class="opening-bottom">
-    <span class="epoch">LS &middot; 2016–2026</span>
-    <div class="scroll-indicator"></div>
-  </div>
-</section>
+<!-- ════════════════════════════════════════════
+     Flow Field Canvas — placeholder for generative background
+     ════════════════════════════════════════════ -->
+<canvas id="flow-field" aria-hidden="true"></canvas>
 
-<!-- ── Section 2: Act I — Sensing the collective (2016–2018) ── -->
-<section id="collective" class="section">
-  <figure class="hero-image">
-    <img src="assets/Psilloscope dance.png" alt="Psiloscope concept render — collective dance floor visualization at Boom Festival 2016" loading="lazy">
-  </figure>
-  <div class="section-text">
-    <p>Psiloscope began with a hundred wireless sensors on a dance floor at Boom festival. MindCrystal added EEG under trance conditions. The question: what does collective experience look like when you externalize it? We brought instruments designed for the laboratory into the place where experience actually happens — a festival, at night, among strangers, in motion.</p>
-  </div>
-  <div class="section-meta">
-    <a href="psiloscope/">Psiloscope</a> (2016) &middot; <a href="mindcrystal/">MindCrystal</a> (2018) &middot; Boom Festival, Portugal
-  </div>
-</section>
+<!-- ════════════════════════════════════════════
+     Media Stack — Full-bleed background images (one per project)
+     ════════════════════════════════════════════ -->
+<div class="media-stack" aria-hidden="true">
+  <img class="media-stack__img" data-id="psiloscope" src="assets/boom-remember.jpg" alt="">
+  <img class="media-stack__img" data-id="mindcrystal" src="assets/Psilloscope devices .png" alt="">
+  <img class="media-stack__img" data-id="hof" src="assets/human-open-field-hero.jpg" alt="">
+  <img class="media-stack__img" data-id="polylith" src="assets/cf-metamersion-polylith.png" alt="">
+  <img class="media-stack__img" data-id="atavic-forest" src="assets/cf-metamersion-ls-atavic-forest.jpg" alt="">
+  <img class="media-stack__img" data-id="ls1" src="assets/cf-metamersion-ls-latent-space-i.jpg" alt="">
+  <img class="media-stack__img" data-id="palimpsest" src="assets/cf-metamersion-ls-palimpsest.png" alt="">
+  <img class="media-stack__img" data-id="lsc-2023" src="assets/camp-1.jpg" alt="">
+  <img class="media-stack__img" data-id="lsc-2024" src="assets/seeing-1.jpg" alt="">
+  <img class="media-stack__img" data-id="lsc-2025" src="assets/camp-3.jpg" alt="">
+  <img class="media-stack__img" data-id="meta-3" src="assets/cf-metamersion-ha-installation-overview.jpg" alt="">
+  <img class="media-stack__img" data-id="altered" src="assets/cf-metamersion-ha-altered-reflexions.jpg" alt="">
+  <img class="media-stack__img" data-id="submersion" src="assets/cf-metamersion-ha-submersion.jpeg" alt="">
+  <div class="media-stack__overlay"></div>
+</div>
 
-<!-- ── Section 3: Act II — The encounter (2022–2024) ── -->
-<section id="encounter" class="section">
-  <figure class="hero-image">
-    <img src="assets/Latent Space - The Whale AI_43.jpg" alt="Latent Space I film still — The Whale, AI-generated VR dream sequence" loading="lazy">
-  </figure>
-  <div class="section-text">
-    <p>At the Champalimaud Foundation warehouse, we built spaces where visitors encountered AI — not as tool or threat but as mirror. Atavic Forest was a generative neural network trained on 180,000 images, steered by collective movement in the room. Latent Space I invited you to sit at a terminal, talk to an AI, then enter a VR dream shaped by what you'd said. Polylith simulated deep connection to natural environments through body tracking and spatial sound. Each installation asked: what is it like when a system reflects your hidden states back at you?</p>
-  </div>
-  <div class="section-meta">
-    <a href="polylith/">Polylith</a> (2022) &middot; <a href="atavic-forest/">Atavic Forest</a> (2022–23) &middot; <a href="ls1/">LS1</a> (2022–23) &middot; <a href="metamersion/">Metamersion</a>, Champalimaud Foundation
-  </div>
-</section>
+<!-- ════════════════════════════════════════════
+     Content
+     ════════════════════════════════════════════ -->
+<div class="content-layer">
 
-<!-- ── Section 4: Act III — Science in the wild (2023–) ── -->
-<section id="wild" class="section">
-  <figure class="hero-image">
-    <img src="assets/camp-1.jpg" alt="Latent States Camp welcome desk and experiment station at Waking Life 2025" loading="lazy">
-  </figure>
-  <div class="section-text">
-    <p>The Latent States Camp at Waking Life festival is a laboratory without walls. Not a lab outpost at a festival — a place where ideas transform into situated experience. We study perception where perception actually happens: 240 participants, experiments on seeing, hearing, tasting, time. How do psychedelics change what you see? Does the color of a cup change how things taste? Does the festival experience itself change you? Phenomenology — the careful description of lived experience — is our primary instrument. The question is not how perception works but what perception is, when you stop controlling the conditions.</p>
-  </div>
-  <div class="section-meta">
-    <a href="lsc/">Latent States Camp</a> (2023–) &middot; Waking Life Festival, Portugal
-  </div>
-</section>
+  <!-- ── Opening ── -->
+  <section id="opening">
+    <h1>What is it like<br>to experience?</h1>
+    <p class="opening-sub">Latent States explores the hidden worlds within us &mdash; through science in the wild and exploration through art.</p>
+    <div class="opening-bottom">
+      <span class="opening-epoch">2016 &ndash; 2026</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
 
-<!-- ── Section 5: Coda — The creature sees you back (2026) ── -->
-<section id="creature" class="section">
-  <!-- TODO: need image — LS9 cephalopod creature render or prototype -->
-  <figure class="image-placeholder">LS9 &middot; Cephalopod Brain 2026</figure>
-  <div class="section-text">
-    <p>LS9 is an autonomous alien creature with eight articulated arms, thirteen channels of spatial audio, and its own behavioral states — curiosity, tracking, withdrawal, alarm. It watches you with infrared sensors and neural networks. It decides whether to approach or retreat. The observer becomes the observed. A decade of asking what it is like to experience arrives at its inversion: what is it like to be experienced?</p>
-  </div>
-  <div class="section-meta">
-    <a href="ls9/">LS9: Cephalopod Brain</a> (2026)
-  </div>
-</section>
+  <!-- ── Works ── -->
+  <section id="works">
 
-<!-- ── Section 6: Footer / Archive ── -->
-<footer id="archive">
-  <div class="footer-inner">
-    <div class="footer-brand">LS</div>
-    <nav class="footer-columns">
-      <div class="footer-col">
-        <h3>Works</h3>
-        <ul>
-          <li><a href="psiloscope/">Psiloscope</a></li>
-          <li><a href="mindcrystal/">MindCrystal</a></li>
-          <li><a href="polylith/">Polylith</a></li>
-          <li><a href="atavic-forest/">Atavic Forest</a></li>
-          <li><a href="ls1/">LS1</a></li>
-          <li><a href="palimpsest/">Palimpsest</a></li>
-          <li><a href="ls9/">LS9</a></li>
-        </ul>
+    <!-- Featured view (default) — 6 curated projects -->
+    <div class="project-list" id="view-featured">
+
+      <a class="project-item reveal-up" href="psiloscope/" data-hover="psiloscope" data-tag="origins">
+        <div class="project-item__cat">Collective Motion Lab &middot; 2016</div>
+        <div class="project-item__title">Psiloscope</div>
+        <div class="project-item__year">Boom Festival, Portugal</div>
+      </a>
+
+      <div class="project-item project-item--nolink reveal-up" data-hover="hof" data-tag="origins">
+        <div class="project-item__cat">Experiment &middot; 2019</div>
+        <div class="project-item__title">Human Open Field</div>
+        <div class="project-item__year">Pavilh&atilde;o do Conhecimento, Lisbon</div>
       </div>
-      <div class="footer-col">
-        <h3>Programmes</h3>
-        <ul>
-          <li><a href="metamersion/">Metamersion</a></li>
-          <li><a href="lsc/">Latent States Camp</a></li>
-          <li><a href="waking-life/">Waking Life</a></li>
-          <li><a href="boom/">Boom</a></li>
-        </ul>
-      </div>
-      <div class="footer-col">
-        <h3>More</h3>
-        <ul>
-          <li><a href="people/">People</a></li>
-          <li><a href="talks/">Talks</a></li>
-          <li><a href="about/">About</a></li>
-        </ul>
-      </div>
-    </nav>
-    <p class="footer-attribution">Zachary Mainen &middot; Champalimaud Foundation &middot; Lisbon</p>
-    <p class="footer-contact"><a href="mailto:latentstates@gmail.com">latentstates@</a></p>
-    <p class="footer-closer">Identity &middot; Perception &middot; Reality</p>
-  </div>
-</footer>
 
+      <a class="project-item reveal-up" href="atavic-forest/" data-hover="atavic-forest" data-tag="spaces">
+        <div class="project-item__cat">Immersive Installation &middot; 2022</div>
+        <div class="project-item__title">Metamersion: Atavic Forest</div>
+        <div class="project-item__year">Champalimaud Foundation</div>
+      </a>
+
+      <a class="project-item reveal-up" href="lsc/" data-hover="lsc-2024" data-tag="states">
+        <div class="project-item__cat">Festival Experiment &middot; 2024</div>
+        <div class="project-item__title">Latent States Camp 2024</div>
+        <div class="project-item__year">Waking Life Festival, Portugal</div>
+      </a>
+
+      <a class="project-item reveal-up" href="metamersion/" data-hover="meta-3" data-tag="spaces">
+        <div class="project-item__cat">Immersive Exhibition &middot; 2024</div>
+        <div class="project-item__title">Metamersion III: Healing Algorithms</div>
+        <div class="project-item__year">Champalimaud Foundation</div>
+      </a>
+
+      <div class="project-item project-item--nolink reveal-up" data-hover="altered" data-tag="bridge">
+        <div class="project-item__cat">Bridge &middot; 2024</div>
+        <div class="project-item__title">Altered Reflections</div>
+        <div class="project-item__year"></div>
+      </div>
+
+    </div>
+
+    <!-- All Works view (hidden by default) — 13 projects, chronological oldest first -->
+    <div class="project-list" id="view-all" style="display: none;">
+
+      <!-- Origins -->
+      <a class="project-item reveal-up" href="psiloscope/" data-hover="psiloscope" data-tag="origins">
+        <div class="project-item__cat">Collective Motion Lab &middot; 2016</div>
+        <div class="project-item__title">Psiloscope</div>
+        <div class="project-item__year">Boom Festival, Portugal</div>
+      </a>
+
+      <a class="project-item reveal-up" href="mindcrystal/" data-hover="mindcrystal" data-tag="origins">
+        <div class="project-item__cat">Collective Motion Lab &middot; 2018</div>
+        <div class="project-item__title">MindCrystal</div>
+        <div class="project-item__year">Boom Festival, Portugal</div>
+      </a>
+
+      <div class="project-item project-item--nolink reveal-up" data-hover="hof" data-tag="origins">
+        <div class="project-item__cat">Experiment &middot; 2019</div>
+        <div class="project-item__title">Human Open Field</div>
+        <div class="project-item__year">Pavilh&atilde;o do Conhecimento, Lisbon</div>
+      </div>
+
+      <!-- Spaces -->
+      <a class="project-item reveal-up" href="polylith/" data-hover="polylith" data-tag="spaces">
+        <div class="project-item__cat">Immersive Installation &middot; 2022</div>
+        <div class="project-item__title">Metamersion: Polylith</div>
+        <div class="project-item__year">Champalimaud Foundation</div>
+      </a>
+
+      <a class="project-item reveal-up" href="atavic-forest/" data-hover="atavic-forest" data-tag="spaces">
+        <div class="project-item__cat">Immersive Installation &middot; 2022</div>
+        <div class="project-item__title">Metamersion: Atavic Forest</div>
+        <div class="project-item__year">Champalimaud Foundation</div>
+      </a>
+
+      <a class="project-item reveal-up" href="ls1/" data-hover="ls1" data-tag="spaces">
+        <div class="project-item__cat">Immersive Installation &middot; 2022</div>
+        <div class="project-item__title">Metamersion: Latent Space I</div>
+        <div class="project-item__year">Champalimaud Foundation</div>
+      </a>
+
+      <a class="project-item reveal-up" href="palimpsest/" data-hover="palimpsest" data-tag="spaces">
+        <div class="project-item__cat">Immersive Installation &middot; 2023</div>
+        <div class="project-item__title">Metamersion: Palimpsest</div>
+        <div class="project-item__year">Champalimaud Foundation</div>
+      </a>
+
+      <!-- States -->
+      <a class="project-item reveal-up" href="lsc/" data-hover="lsc-2023" data-tag="states">
+        <div class="project-item__cat">Festival Experiment &middot; 2023</div>
+        <div class="project-item__title">Latent States Camp 2023</div>
+        <div class="project-item__year">Waking Life Festival, Portugal</div>
+      </a>
+
+      <a class="project-item reveal-up" href="lsc/" data-hover="lsc-2024" data-tag="states">
+        <div class="project-item__cat">Festival Experiment &middot; 2024</div>
+        <div class="project-item__title">Latent States Camp 2024</div>
+        <div class="project-item__year">Waking Life Festival, Portugal</div>
+      </a>
+
+      <!-- Spaces (continued) -->
+      <a class="project-item reveal-up" href="metamersion/" data-hover="meta-3" data-tag="spaces">
+        <div class="project-item__cat">Immersive Exhibition &middot; 2024</div>
+        <div class="project-item__title">Metamersion III: Healing Algorithms</div>
+        <div class="project-item__year">Champalimaud Foundation</div>
+      </a>
+
+      <!-- Bridge -->
+      <div class="project-item project-item--nolink reveal-up" data-hover="altered" data-tag="bridge">
+        <div class="project-item__cat">Bridge &middot; 2024</div>
+        <div class="project-item__title">Altered Reflections</div>
+        <div class="project-item__year"></div>
+      </div>
+
+      <div class="project-item project-item--nolink reveal-up" data-hover="submersion" data-tag="bridge">
+        <div class="project-item__cat">Bridge &middot; 2024</div>
+        <div class="project-item__title">Submersion</div>
+        <div class="project-item__year"></div>
+      </div>
+
+      <!-- States (continued) -->
+      <a class="project-item reveal-up" href="lsc/" data-hover="lsc-2025" data-tag="states">
+        <div class="project-item__cat">Festival Experiment &middot; 2025</div>
+        <div class="project-item__title">Latent States Camp 2025</div>
+        <div class="project-item__year">Waking Life Festival, Portugal</div>
+      </a>
+
+    </div>
+
+  </section>
+
+  <!-- ── Closing ── -->
+  <section id="closing">
+    <p class="reveal-up">The question continues.</p>
+  </section>
+
+  <!-- ── Footer ── -->
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-brand">Latent States</div>
+      <nav class="footer-columns">
+        <div class="footer-col">
+          <h3>Works</h3>
+          <ul>
+            <li><a href="psiloscope/">Psiloscope</a></li>
+            <li><a href="mindcrystal/">MindCrystal</a></li>
+            <li>Human Open Field</li>
+            <li><a href="polylith/">Metamersion: Polylith</a></li>
+            <li><a href="atavic-forest/">Metamersion: Atavic Forest</a></li>
+            <li><a href="ls1/">Metamersion: Latent Space I</a></li>
+            <li><a href="palimpsest/">Metamersion: Palimpsest</a></li>
+            <li><a href="lsc/">Latent States Camp</a></li>
+            <li><a href="metamersion/">Metamersion III: Healing Algorithms</a></li>
+            <li>Altered Reflections</li>
+            <li>Submersion</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>Partners</h3>
+          <ul>
+            <li><a href="boom/">Boom Festival</a></li>
+            <li><a href="waking-life/">Waking Life Festival</a></li>
+            <li>Champalimaud Foundation</li>
+            <li>Lunar Ring</li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h3>More</h3>
+          <ul>
+            <li><a href="people/">People</a></li>
+            <li>Talks</li>
+            <li><a href="about/">About</a></li>
+          </ul>
+        </div>
+      </nav>
+      <p class="footer-attribution">Zachary Mainen &middot; Champalimaud Foundation &middot; Lisbon</p>
+      <p class="footer-contact"><a href="mailto:latentstates@gmail.com">latentstates@</a></p>
+      <p class="footer-closer">Identity &middot; Perception &middot; Reality</p>
+    </div>
+  </footer>
+
+</div><!-- /content-layer -->
+
+<!-- ── Pill Toggles ── -->
+<div class="pill-container" id="pill-container">
+  <!-- Primary: Featured / All Works -->
+  <div class="pill-toggle" id="pill-primary">
+    <div class="pill-toggle__slider" id="pill-primary-slider"></div>
+    <button class="pill-toggle__option pill-toggle__option--active" data-view="featured">Featured</button>
+    <button class="pill-toggle__option" data-view="all">All Works</button>
+  </div>
+  <!-- Secondary: tag filter (only visible in All Works mode) -->
+  <div class="pill-toggle pill-filter" id="pill-filter">
+    <div class="pill-toggle__slider" id="pill-filter-slider"></div>
+    <button class="pill-toggle__option pill-toggle__option--active" data-filter="all">All</button>
+    <button class="pill-toggle__option" data-filter="states">States</button>
+    <button class="pill-toggle__option" data-filter="spaces">Spaces</button>
+    <button class="pill-toggle__option" data-filter="origins">Origins</button>
+  </div>
+</div>
+
+<!-- ── Scripts ── -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script>
-(function(){
-  var t=document.getElementById('theme-toggle'),r=document.documentElement;
-  var saved=localStorage.getItem('ls-theme');
-  if(saved){r.setAttribute('data-theme',saved);t.textContent=saved==='light'?'☾':'☀';}
-  t.addEventListener('click',function(){
-    var current=r.getAttribute('data-theme');
-    var next=current==='light'?'dark':'light';
-    r.setAttribute('data-theme',next);
-    localStorage.setItem('ls-theme',next);
-    t.textContent=next==='light'?'☾':'☀';
+(function() {
+  'use strict';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ── Media stack crossfade ──
+  var stackImages = document.querySelectorAll('.media-stack__img');
+  var activeStackImg = null;
+
+  function showBackground(id) {
+    if (!id) return;
+    stackImages.forEach(function(img) {
+      if (img.dataset.id === id) {
+        if (img !== activeStackImg) {
+          if (activeStackImg) {
+            gsap.to(activeStackImg, { opacity: 0, duration: 0.5, ease: 'power2.inOut' });
+          }
+          gsap.to(img, { opacity: 1, duration: 0.5, ease: 'power2.inOut' });
+          activeStackImg = img;
+        }
+      }
+    });
+  }
+
+  function hideAllBackgrounds() {
+    if (activeStackImg) {
+      gsap.to(activeStackImg, { opacity: 0, duration: 0.5, ease: 'power2.inOut' });
+      activeStackImg = null;
+    }
+  }
+
+  // ── Hover bindings ──
+  function bindHovers(container) {
+    var items = container.querySelectorAll('[data-hover]');
+    items.forEach(function(item) {
+      item.addEventListener('mouseenter', function() {
+        showBackground(this.dataset.hover);
+      });
+      item.addEventListener('mouseleave', function() {
+        hideAllBackgrounds();
+      });
+    });
+  }
+
+  bindHovers(document.getElementById('view-featured'));
+  bindHovers(document.getElementById('view-all'));
+
+  // ── Scroll reveals ──
+  function triggerReveals(container) {
+    var els = container.querySelectorAll('.reveal-up');
+    els.forEach(function(el) {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 0.7,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 88%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+  }
+
+  triggerReveals(document.getElementById('view-featured'));
+
+  // ── Scroll indicator fade ──
+  var openingBottom = document.querySelector('.opening-bottom');
+  if (openingBottom) {
+    gsap.to(openingBottom, {
+      opacity: 0,
+      scrollTrigger: {
+        trigger: '#opening',
+        start: 'top top',
+        end: '30% top',
+        scrub: true
+      }
+    });
+  }
+
+  // ── Closing reveal ──
+  triggerReveals(document.getElementById('closing'));
+
+  // ── Opening animation ──
+  var tl = gsap.timeline({ delay: 0.2 });
+  tl.from('#opening h1', { opacity: 0, y: 50, duration: 1.4, ease: 'power3.out' })
+    .from('.opening-sub', { opacity: 0, y: 20, duration: 0.9, ease: 'power3.out' }, '-=0.7')
+    .from('.opening-bottom', { opacity: 0, duration: 0.6, ease: 'power2.out' }, '-=0.3');
+
+  // ── Pill Toggle Logic ──
+  var pillContainer = document.getElementById('pill-container');
+  var pillPrimary = document.getElementById('pill-primary');
+  var pillFilter = document.getElementById('pill-filter');
+  var primarySlider = document.getElementById('pill-primary-slider');
+  var filterSlider = document.getElementById('pill-filter-slider');
+  var viewFeatured = document.getElementById('view-featured');
+  var viewAll = document.getElementById('view-all');
+
+  var currentView = 'featured';
+  var currentFilter = 'all';
+
+  function positionSlider(pill, slider, btn, animate) {
+    var rect = btn.getBoundingClientRect();
+    var pillRect = pill.getBoundingClientRect();
+    var left = rect.left - pillRect.left;
+    var width = rect.width;
+    if (animate) {
+      gsap.to(slider, { left: left, width: width, duration: 0.3, ease: 'power2.inOut' });
+    } else {
+      gsap.set(slider, { left: left, width: width });
+    }
+  }
+
+  // Initial slider positions
+  setTimeout(function() {
+    var primaryActive = pillPrimary.querySelector('.pill-toggle__option--active');
+    var filterActive = pillFilter.querySelector('.pill-toggle__option--active');
+    positionSlider(pillPrimary, primarySlider, primaryActive, false);
+    positionSlider(pillFilter, filterSlider, filterActive, false);
+  }, 100);
+
+  // Primary toggle: Featured / All Works
+  var primaryOptions = pillPrimary.querySelectorAll('.pill-toggle__option');
+  primaryOptions.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var view = this.dataset.view;
+      if (view === currentView) return;
+      currentView = view;
+
+      primaryOptions.forEach(function(o) {
+        o.classList.toggle('pill-toggle__option--active', o.dataset.view === view);
+        if (o.dataset.view === view) positionSlider(pillPrimary, primarySlider, o, true);
+      });
+
+      if (view === 'featured') {
+        pillFilter.classList.remove('pill-filter--visible');
+        gsap.to(viewAll, {
+          opacity: 0, duration: 0.25, ease: 'power2.in',
+          onComplete: function() {
+            viewAll.style.display = 'none';
+            viewFeatured.style.display = 'block';
+            gsap.fromTo(viewFeatured, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'power2.out' });
+            resetReveals(viewFeatured);
+            triggerReveals(viewFeatured);
+            ScrollTrigger.refresh();
+          }
+        });
+      } else {
+        pillFilter.classList.add('pill-filter--visible');
+        setTimeout(function() {
+          var filterActive = pillFilter.querySelector('.pill-toggle__option--active');
+          positionSlider(pillFilter, filterSlider, filterActive, false);
+        }, 50);
+        gsap.to(viewFeatured, {
+          opacity: 0, duration: 0.25, ease: 'power2.in',
+          onComplete: function() {
+            viewFeatured.style.display = 'none';
+            viewAll.style.display = 'block';
+            applyFilter(currentFilter);
+            gsap.fromTo(viewAll, { opacity: 0 }, { opacity: 1, duration: 0.35, ease: 'power2.out' });
+            resetReveals(viewAll);
+            triggerReveals(viewAll);
+            ScrollTrigger.refresh();
+          }
+        });
+      }
+
+      hideAllBackgrounds();
+    });
   });
+
+  // Secondary toggle: tag filter
+  var filterOptions = pillFilter.querySelectorAll('.pill-toggle__option');
+  filterOptions.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var filter = this.dataset.filter;
+      if (filter === currentFilter) return;
+      currentFilter = filter;
+
+      filterOptions.forEach(function(o) {
+        o.classList.toggle('pill-toggle__option--active', o.dataset.filter === filter);
+        if (o.dataset.filter === filter) positionSlider(pillFilter, filterSlider, o, true);
+      });
+
+      applyFilter(filter);
+      hideAllBackgrounds();
+    });
+  });
+
+  function applyFilter(filter) {
+    var items = viewAll.querySelectorAll('.project-item');
+    items.forEach(function(item) {
+      if (filter === 'all' || item.dataset.tag === filter) {
+        item.style.display = '';
+      } else {
+        item.style.display = 'none';
+      }
+    });
+    ScrollTrigger.refresh();
+  }
+
+  function resetReveals(container) {
+    var els = container.querySelectorAll('.reveal-up');
+    els.forEach(function(el, i) {
+      gsap.set(el, { opacity: 0, y: 24 });
+    });
+  }
+
+  // ── Show/hide pills based on scroll position ──
+  ScrollTrigger.create({
+    trigger: '#works',
+    start: 'top 80%',
+    end: 'bottom 20%',
+    onEnter: function() {
+      pillContainer.classList.add('pill-container--visible');
+    },
+    onLeave: function() {
+      pillContainer.classList.remove('pill-container--visible');
+    },
+    onEnterBack: function() {
+      pillContainer.classList.add('pill-container--visible');
+    },
+    onLeaveBack: function() {
+      pillContainer.classList.remove('pill-container--visible');
+    }
+  });
+
+  // ── Mobile: scroll-triggered backgrounds ──
+  var isMobile = window.matchMedia('(max-width: 900px)');
+  function setupMobileScrollTriggers() {
+    if (!isMobile.matches) return;
+    document.querySelectorAll('.project-item[data-hover]').forEach(function(item) {
+      ScrollTrigger.create({
+        trigger: item,
+        start: 'top 60%',
+        end: 'bottom 40%',
+        onEnter: function() { showBackground(item.dataset.hover); },
+        onEnterBack: function() { showBackground(item.dataset.hover); },
+        onLeave: function() { hideAllBackgrounds(); },
+        onLeaveBack: function() { hideAllBackgrounds(); }
+      });
+    });
+  }
+  setupMobileScrollTriggers();
+
 })();
 </script>
 </body>
