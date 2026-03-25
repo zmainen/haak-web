@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Scott Rennie — Mainen Lab</title>
+<title>Scott Rennie &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,19 +61,35 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Scott Rennie</h1>
+<h1>Scott Rennie <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Postdoc in the Mainen Lab</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0002-9121-7293" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/37419733" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Scott Rennie joined the Mainen Lab as a postdoc in 2022, bringing expertise in social cognition and prosocial behavior from his previous work with rodent models. His research in the lab spans multiple projects including confidence in auditory perception, social flavor perception, and the application of virtual reality to study perioperative anxiety. His work bridges social neuroscience with sensory perception, examining how social context influences cognitive processes across different modalities.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 5 | Total papers: 10 | Lab papers: 2 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Ludwig VU, Prieur L, Rennie SM, Beswerchij A, Weintraub D, Berry B, Wey JT, Candido K, Platt ML. <a href="https://doi.org/10.1007/s12671-025-02588-7" target="_blank">Synchronous Smiles and Hearts: Dyadic Meditations Enhance Closeness and Prosocial Behavior in Virtual and In-Person Settings</a>. <span class="venue">Mindfulness</span>, 2025. <span class="cite-count">Citations: 2</span></li>
+<li>Meyler SV, Rennie SM. <a href="https://doi.org/10.1016/j.newideapsych.2024.101143" target="_blank">Face perception and synchrony disruption in theatre masks</a>. <span class="venue">New Ideas in Psychology</span>, 2025.</li>
+<li>Rennie SM, Prieur L, Platt M. <a href="https://doi.org/10.3389/fpsyg.2023.1095131" target="_blank">Communication style drives emergent leadership attribution in virtual teams</a>. <span class="venue">Frontiers in Psychology</span>, 2023. <span class="cite-count">Citations: 7</span></li>
+<li class="lab-paper">Rigato J, Rennie SM, Mainen Z. <a href="https://doi.org/10.1007/s11229-019-02136-6" target="_blank">The overlooked ubiquity of first-person experience in the cognitive sciences</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Synthese</span>, 2019. <span class="cite-count">Citations: 12</span></li>
+<li>Rennie SM, Platt M. <a href="https://doi.org/10.1038/d41586-017-08835-9" target="_blank">Mice learn to avoid the rat race</a>. <span class="venue">Nature</span>, 2017.</li>
+<li>Márquez C, Rennie SM, Costa D, Moita M. <a href="https://doi.org/10.1016/j.cub.2015.05.018" target="_blank">Prosocial Choice in Rats Depends on Food-Seeking Behavior Displayed by Recipients.</a>. <span class="venue">Current Biology</span>, 2015. <span class="cite-count">Citations: 90</span></li>
+<li class="lab-paper">Rennie SM, Moita MM, Mainen Z. <a href="https://doi.org/10.1016/j.tics.2013.04.011" target="_blank">Social cognition in the rodent: nothing to be sniffed at.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Trends in Cognitive Sciences</span>, 2013. <span class="cite-count">Citations: 15</span></li>
+<li>Rennie SM. <a href="https://doi.org/10.3200/JOEE.40.1.55-61" target="_blank">Toward a 21st-Century Understanding of Humans&#x27; Relation to Nature: Two Hats?</a>. 2008. <span class="cite-count">Citations: 23</span></li>
+<li>Barrett G, Decot P, Foster RE, Landolt JH, Landy R, ... et al.. A Comparison of National Policies on Research Involving Human Subjects to Facilitate Review and Approval of Collaborative Research. 2008.</li>
+<li>Meagher PA, Rennie SM. EXCEPTIONS TO FINAL ACCEPTANCE: LATENT DEFECTS, FRAUD &amp; GROSS MISTAKES AMOUNTING TO FRAUD. 2001.</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2022–present</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Joana Rigato, Scott M. Rennie, Z. Mainen (2019). <em><a href="https://doi.org/10.1007/s11229-019-02136-6" target="_blank">The overlooked ubiquity of first-person experience in the cognitive sciences</a></em>. <span class="journal">Synthese 198, 8005–8041</span></li>
-<li>Scott M. Rennie, Marta M. Moita, Z. Mainen (2013). <em><a href="https://doi.org/10.1016/j.tics.2013.04.011" target="_blank">Social cognition in the rodent: nothing to be sniffed at</a></em>. <span class="journal">Trends Cogn Sci 17 (7), 306-7</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-hearing">Confidence in Auditory Perception</a></li>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-hearing">Confidence in Auditory Perception</a></li>
 <li><a href="../index.html#project-seeing">Gaze and Visual Texture Perception</a></li>
 <li><a href="../index.html#project-sharing">Social Flavor Perception</a></li>
 <li><a href="../index.html#project-social-cognition">Social Cognition</a></li>
 <li><a href="../index.html#project-vr-surgery">VR and Perioperative Anxiety</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0002-9121-7293" target="_blank">ORCID</a></div>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

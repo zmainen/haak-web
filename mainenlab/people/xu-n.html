@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ninglong Xu — Mainen Lab</title>
+<title>Ninglong Xu &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,14 +61,45 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Ninglong Xu</h1>
+<h1>Ninglong Xu <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">PI, Chinese Academy of Sciences</div>
-<div class="lab-role">Postdoc, 2006–2008</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>D. Kobak, Wieland Brendel, C. Constantinidis, C. Feierstein, Adam Kepecs, Z. Mainen, Xue-Lian Qi, R. Romo, N. Uchida, C. Machens (2016). <em><a href="https://doi.org/10.7554/elife.10989.022" target="_blank">Demixed principal component analysis of neural population data</a></em>. <span class="journal">eLife (5), e10989</span></li></ul>
-
-<div class="links"><a href="https://orcid.org/0000-0002-1651-401X" target="_blank">ORCID</a></div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0002-1651-401X" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/14505606" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Ninglong Xu was a postdoc in the Mainen Lab from 2006-2008, during the laboratory's early years at the Champalimaud Centre for the Unknown. His research focuses on neural circuit mechanisms underlying perceptual decision-making, with particular emphasis on cortical and striatal circuits that support sensory categorization and flexible behavior. He is now a Principal Investigator at the Chinese Academy of Sciences, where he continues to investigate how neural ensemble dynamics in motor and sensory systems contribute to adaptive decision-making processes.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 13 | Total papers: 28 | Lab papers: 0 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Zhang Y, Liu Y, Hu Y, Zhang Z, Du J, ... et al.. <a href="https://doi.org/10.1101/2025.06.03.657766" target="_blank">Dendritic computation for rule-based flexible categorization</a>. <span class="venue">bioRxiv</span>, 2025. <span class="cite-count">Citations: 1</span></li>
+<li>Cui L, Tang S, Pan J, Deng L, Zhang Z, Zhao K, Si B, Xu N. <a href="https://doi.org/10.1016/j.celrep.2024.115084" target="_blank">Causal contributions of cell-type-specific circuits in the posterior dorsal striatum to auditory decision-making.</a>. <span class="venue">Cell Reports</span>, 2024. <span class="cite-count">Citations: 3</span></li>
+<li>Tang S, Cui L, Pan J, Xu N. <a href="https://doi.org/10.1016/j.celrep.2024.114726" target="_blank">Dynamic ensemble balance in direct- and indirect-pathway striatal projection neurons underlying decision-related action selection.</a>. <span class="venue">Cell Reports</span>, 2024. <span class="cite-count">Citations: 3</span></li>
+<li>Xu N. <a href="https://doi.org/10.1038/s41583-024-00810-4" target="_blank">How the brain’s primary processing units compute to give rise to intelligence</a>. <span class="venue">Nature Reviews Neuroscience</span>, 2024. <span class="cite-count">Citations: 2</span></li>
+<li>Mao Y, Li Y, Yang Z, Xu N, Zhang S, Wang X, Yang X, Sun Q, Mao Y. <a href="https://doi.org/10.1101/2023.08.17.553631" target="_blank">Comparative transcriptome in rhesus macaques and crab-eating macaques</a>. <span class="venue">bioRxiv</span>, 2023.</li>
+<li>Zhang N, Xu N. <a href="https://doi.org/10.1016/j.conb.2022.102628" target="_blank">Reshaping sensory representations by task-specific brain states: Toward cortical circuit mechanisms.</a>. <span class="venue">Current Opinion in Neurobiology</span>, 2022. <span class="cite-count">Citations: 8</span></li>
+<li>Cui L, Tang S, Zhao K, Pan J, Zhang Z, Si B, Xu N. <a href="https://doi.org/10.1101/2021.11.16.468594" target="_blank">Multi-ensemble coordination between the direct and indirect striatal pathways actuates perceptual decisions</a>. <span class="venue">bioRxiv</span>, 2022. <span class="cite-count">Citations: 2</span></li>
+<li>Cui L, Tang S, Zhao K, Pan J, Zhang Z, Si B, Xu N. <a href="https://doi.org/10.1101/2022.07.30.502110" target="_blank">Causal contributions to sensory-based decision-making by cell-type specific circuits in the tail striatum</a>. <span class="venue">bioRxiv</span>, 2022. <span class="cite-count">Citations: 1</span></li>
+<li>Liu Y, Xin Y, Xu N. <a href="https://doi.org/10.1016/j.neuron.2021.04.014" target="_blank">A cortical circuit mechanism for structural knowledge-based flexible sensorimotor decision-making.</a>. <span class="venue">Neuron</span>, 2021. <span class="cite-count">Citations: 39</span></li>
+<li>Chen X, Liu Y, Xu N, Sun Y. <a href="https://doi.org/10.1523/JNEUROSCI.1445-21.2021" target="_blank">Multiplexed Representation of Itch and Mechanical and Thermal Sensation in the Primary Somatosensory Cortex</a>. <span class="venue">Journal of Neuroscience</span>, 2021. <span class="cite-count">Citations: 17</span></li>
+<li>Cui L, Tang S, Zhao K, Pan J, Zhang Z, Si B, Xu N. <a href="https://doi.org/10.1101/2021.11.16.468594" target="_blank">Asymmetrical choice-related ensemble activity in direct and indirect-pathway striatal neurons drives perceptual decisions</a>. 2021. <span class="cite-count">Citations: 1</span></li>
+<li>Xu N. <a href="https://doi.org/10.1016/j.neuron.2019.12.018" target="_blank">Deciphering Pyramidal Neuron Diversity: Delineating Perceptual Functions of Projection-Defined Neuronal Types.</a>. <span class="venue">Neuron</span>, 2020. <span class="cite-count">Citations: 2</span></li>
+<li>Yan J, Gao L, Liu S, Gou L, Hu Y, ... et al.. <a href="https://doi.org/10.21203/rs.3.rs-117637/v1" target="_blank">Topographic organization of single-neuron projectome for mouse prefrontal cortex</a>. 2020. <span class="cite-count">Citations: 1</span></li>
+<li>Liu Y, Xin Y, Xu N. <a href="https://doi.org/10.1101/2020.09.15.299172" target="_blank">A cortical circuit mechanism for coding and updating task structural knowledge in inference-based decision-making</a>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 1</span></li>
+<li>Qian M, Xu N. <a href="https://doi.org/10.11648/J.IJALT.20200604.12" target="_blank">Research on the Cognitive Effort of Sight-Interpreting Complex English Sentences into Chinese: Evidence from Eye Tracking</a>. 2020.</li>
+<li>Zhong L, Zhang Y, Duan CA, Deng J, Pan J, Xu N. <a href="https://doi.org/10.1038/s41593-019-0383-6" target="_blank">Causal contributions of parietal cortex to perceptual decision-making during stimulus categorization</a>. <span class="venue">Nature Neuroscience</span>, 2019. <span class="cite-count">Citations: 70</span></li>
+<li>Xin Y, Zhong L, Zhang Y, Zhou T, Pan J, Xu N. <a href="https://doi.org/10.1016/j.neuron.2019.06.004" target="_blank">Sensory-to-Category Transformation via Dynamic Reorganization of Ensemble Structures in Mouse Auditory Cortex.</a>. <span class="venue">Neuron</span>, 2019. <span class="cite-count">Citations: 69</span></li>
+<li>Duan CA, Pan Y, Ma G, Zhou T, Zhang S, Xu N. <a href="https://doi.org/10.1038/s41467-021-22547-9" target="_blank">A cortico-collicular pathway for motor planning in a memory-dependent perceptual decision task</a>. <span class="venue">Nature Communications</span>, 2019. <span class="cite-count">Citations: 38</span></li>
+<li>Ranganathan G, Apostolides P, Harnett MT, Xu N, Druckmann S, Magee J. <a href="https://doi.org/10.1038/s41593-018-0254-6" target="_blank">Active dendritic integration and mixed neocortical network representations during an adaptive sensing behavior</a>. <span class="venue">Nature Neuroscience</span>, 2018. <span class="cite-count">Citations: 83</span></li>
+<li>Zhong L, Zhang Y, Duan CA, Pan J, Xu N. <a href="https://doi.org/10.1101/304071" target="_blank">Dynamic and causal contribution of parietal circuits to perceptual decisions during category learning</a>. <span class="venue">bioRxiv</span>, 2018. <span class="cite-count">Citations: 7</span></li>
+<li>Xu N. <a href="https://doi.org/10.1007/s12264-014-1509-1" target="_blank">Learning to memorize: Shedding new light on prefrontal functions</a>. <span class="venue">Neuroscience Bulletin</span>, 2015. <span class="cite-count">Citations: 2</span></li>
+<li>Guo ZV, Hires S, Li N, &#x27;connor DHO, Komiyama T, ... et al.. <a href="https://doi.org/10.1371/journal.pone.0088678" target="_blank">Procedures for Behavioral Experiments in Head-Fixed Mice</a>. <span class="venue">PLoS ONE</span>, 2014. <span class="cite-count">Citations: 390</span></li>
+<li>Harnett MT, Xu N, Magee J, Williams SR. <a href="https://doi.org/10.1016/j.neuron.2013.06.005" target="_blank">Potassium channels control the interaction between active dendritic integration compartments in layer 5 cortical pyramidal neurons.</a>. <span class="venue">Neuron</span>, 2013. <span class="cite-count">Citations: 131</span></li>
+<li>Chen JL, Andermann M, Keck T, Xu N, Ziv Y. <a href="https://doi.org/10.1523/JNEUROSCI.3255-13.2013" target="_blank">Imaging Neuronal Populations in Behaving Rodents: Paradigms for Studying Neural Circuits Underlying Behavior in the Mammalian Cortex</a>. <span class="venue">Journal of Neuroscience</span>, 2013. <span class="cite-count">Citations: 64</span></li>
+<li>Xu N, Harnett MT, Williams SR, Huber D, O’Connor DH, Svoboda K, Magee J. <a href="https://doi.org/10.1038/nature11601" target="_blank">Nonlinear dendritic integration of sensory and motor input during an active sensing task</a>. <span class="venue">Nature</span>, 2012. <span class="cite-count">Citations: 487</span></li>
+<li>Petreanu L, Gutnisky D, Huber D, Xu N, O’Connor DH, Tian L, Looger L, Svoboda K. <a href="https://doi.org/10.1038/nature11321" target="_blank">Activity in motor-sensory projections reveals distributed coding in somatosensation</a>. <span class="venue">Nature</span>, 2012. <span class="cite-count">Citations: 325</span></li>
+<li>Xu N, Ye C, Poo M, Zhang X. <a href="https://doi.org/10.1523/JNEUROSCI.5220-05.2006" target="_blank">Coincidence Detection of Synaptic Inputs Is Facilitated at the Distal Dendrites after Long-Term Potentiation Induction</a>. <span class="venue">Journal of Neuroscience</span>, 2006. <span class="cite-count">Citations: 45</span></li>
+<li>Wang Z, Xu N, Wu C, Duan S, Poo M. <a href="https://doi.org/10.1016/S0896-6273(02)01189-3" target="_blank">Bidirectional changes in spatial dendritic integration accompanying long-term synaptic modifications.</a>. <span class="venue">Neuron</span>, 2003. <span class="cite-count">Citations: 133</span></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

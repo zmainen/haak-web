@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Magor Lorincz &mdash; Mainen Lab</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
+}
+[data-theme="dark"] {
+  --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
+}
+.page { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+.back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
+.back:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
+.position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+.position a { color: var(--accent); text-decoration: none; }
+.position a:hover { text-decoration: underline; }
+.lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+.pub-list { list-style: none; padding: 0; }
+.pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
+.pub-list li a { color: var(--accent); text-decoration: none; }
+.pub-list li a:hover { text-decoration: underline; }
+.project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.project-list li a {
+  display: inline-block; font-size: 0.82rem; padding: 0.25rem 0.65rem;
+  border-radius: 999px; border: 1px solid var(--border); color: var(--accent);
+  text-decoration: none; transition: background 0.15s;
+}
+.project-list li a:hover { background: var(--hover); }
+#theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text); font-size: 0.85rem;
+}
+#theme-toggle:hover { background: var(--hover); }
+</style>
+</head>
+<body>
+<div class="page">
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+<h1>Magor Lorincz <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
+<div class="position">PI, U. Szeged</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0001-5240-1904" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/35343200" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Magor Lorincz was a postdoc in the lab from 2009-2013, where he worked on serotonin optogenetics projects. His research focuses on thalamic and cortical circuit dynamics, particularly in sleep-wake regulation and epilepsy, with expertise in electrophysiology and closed-loop brain stimulation approaches. He is now a Principal Investigator at the University of Szeged.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 19 | Total papers: 48 | Lab papers: 0 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Magyar A, Berki P, Borbély S, Barsy B, Bakacsi AV, Lőrincz ML, Liu D, Mátyás F. <a href="https://doi.org/10.1101/2025.07.22.665932" target="_blank">A thalamic hub integrates brainstem and stress signals to dynamically regulate REM sleep</a>. <span class="venue">bioRxiv</span>, 2026. <span class="cite-count">Citations: 1</span></li>
+<li>Földi T, Szoboszlay M, Chadaide Z, Radics B, Horváth B, ... et al.. <a href="https://doi.org/10.1101/2025.01.02.631064" target="_blank">Non-vectorial Integration of Intersectional Short-Pulse Stimulation Enables Enhanced Deep Brain Modulation and Effective Seizure Control</a>. <span class="venue">bioRxiv</span>, 2025. <span class="cite-count">Citations: 1</span></li>
+<li>Morais TP, Taylor HL, Nagy O, Mátyás F, David F, Crunelli V, Lőrincz ML. <a href="https://doi.org/10.1016/j.pneurobio.2025.102774" target="_blank">Bidirectional control of generalized absence epilepsy networks via real-time direct depolarization of thalamocortical neurons.</a>. <span class="venue">Progress in neurobiology</span>, 2025. <span class="cite-count">Citations: 1</span></li>
+<li>Sere P, Zsigri N, Crunelli V, Lőrincz ML. <a href="https://doi.org/10.1101/2025.10.14.682021" target="_blank">Heterogeneity of ictal firing during generalized seizures in the awake cortex</a>. <span class="venue">bioRxiv</span>, 2025.</li>
+<li>Pedraza LK, Sierra RO, Barcsai L, Li Q, Pejin A, Gellért L, Lőrincz ML, Berényi A. <a href="https://doi.org/10.1101/2024.04.30.591894" target="_blank">Hippocampal sharp wave ripples mediate generalization and subsequent fear attenuation via closed-loop brain stimulation in rats</a>. <span class="venue">bioRxiv</span>, 2024. <span class="cite-count">Citations: 1</span></li>
+<li>Tukacs V, Fladhus EK, Mittli D, Lőrincz ML, Eberwine J, Kékesi K, Juhász G. <a href="https://doi.org/10.1101/2024.05.16.594495" target="_blank">Neuronal phenotype defined by transcriptome-wide bursting kinetics in pyramidal and fast-spiking cells</a>. <span class="venue">bioRxiv</span>, 2024.</li>
+<li>Li Q, Takeuchi Y, Wang J, Gellért L, Barcsai L, ... et al.. <a href="https://doi.org/10.1016/j.neuron.2023.04.013" target="_blank">Reinstating olfactory bulb-derived limbic gamma oscillations alleviates depression-like behavioral deficits in rodents</a>. <span class="venue">Neuron</span>, 2023. <span class="cite-count">Citations: 39</span></li>
+<li>Crunelli V, David F, Morais TP, Lőrincz ML. <a href="https://doi.org/10.1016/j.nbd.2023.106107" target="_blank">HCN channels and absence seizures.</a>. <span class="venue">Neurobiology of Disease</span>, 2023. <span class="cite-count">Citations: 25</span></li>
+<li>Sierra RO, Pedraza L, Barcsai L, Pejin A, Li Q, ... et al.. <a href="https://doi.org/10.1038/s41467-023-39546-7" target="_blank">Closed-loop brain stimulation augments fear extinction in male rats</a>. <span class="venue">Nature Communications</span>, 2023. <span class="cite-count">Citations: 9</span></li>
+<li>Piszár I, Lőrincz ML. <a href="https://doi.org/10.3390/ijms24031950" target="_blank">Differential Serotonergic Modulation of Synaptic Inputs to the Olfactory Cortex</a>. <span class="venue">International Journal of Molecular Sciences</span>, 2023.</li>
+<li>Correa LKP, Ordonez RS, Pejin A, Barcsai L, Li Q, Gellért L, Lőrincz ML, Berényi A. <a href="https://doi.org/10.1016/j.ibneur.2023.08.1838" target="_blank">CLOSED-LOOP STIMULATION OF INFRALIMBIC CORTEX REDUCES ANXIETY AND PREVENTS FEAR GENERALIZATION DURING MEMORY CONSOLIDATION AND RECONSOLIDATION</a>. <span class="venue">IBRO Neuroscience Reports</span>, 2023.</li>
+<li>Ordonez RS, Correa LKP, Barcsai L, Pejin A, Kozák G, Takeuchi Y, Lőrincz ML, Devinsky O, Buzsáki G, Berényi A. <a href="https://doi.org/10.1016/j.ibneur.2023.08.1879" target="_blank">CLOSED-LOOP BRAIN STIMULATION AUGMENTS FEAR EXTINCTION</a>. <span class="venue">IBRO Neuroscience Reports</span>, 2023.</li>
+<li>Atherton Z, Nagy O, Barcsai L, Sere P, Zsigri N, Földi T, Berényi A, Crunelli V, Lőrincz ML. <a href="https://doi.org/10.1101/2022.12.02.518853" target="_blank">Higher-order thalamic nuclei facilitate the generalization and maintenance of spike-and-wave discharges of absence seizures</a>. <span class="venue">bioRxiv</span>, 2022. <span class="cite-count">Citations: 7</span></li>
+<li>Piszár I, Lőrincz ML. <a href="https://doi.org/10.3389/fnana.2022.821695" target="_blank">Differential Serotonergic Modulation of Principal Neurons and Interneurons in the Anterior Piriform Cortex</a>. <span class="venue">bioRxiv</span>, 2022. <span class="cite-count">Citations: 1</span></li>
+<li>Sierra RO, Pedraza L, Barcsai L, Pejin A, Kozák G, Takeuchi Y, Lőrincz ML, Devinsky O, Buzsáki G, Berényi A. <a href="https://doi.org/10.1101/2022.07.24.501314" target="_blank">Closed-loop brain stimulation to reduce pathologic fear</a>. <span class="venue">bioRxiv</span>, 2022.</li>
+<li>Li Q, Takeuchi Y, Wang J, Barcsai L, Pedraza LK, ... et al.. <a href="https://doi.org/10.1101/2022.02.01.478683" target="_blank">Reinstating olfactory bulb derived limbic gamma oscillations alleviates depression</a>. <span class="venue">bioRxiv</span>, 2022.</li>
+<li>Iacone Y, Morais TP, David F, Delicata F, Sandle J, ... et al.. <a href="https://doi.org/10.1111/epi.16926" target="_blank">Systemic administration of ivabradine, a hyperpolarization‐activated cyclic nucleotide‐gated channel inhibitor, blocks spontaneous absence seizures</a>. <span class="venue">Epilepsia</span>, 2021. <span class="cite-count">Citations: 21</span></li>
+<li>Gazea M, Furdan S, Sere P, Oesch L, Molnár B, ... et al.. <a href="https://doi.org/10.1523/JNEUROSCI.2850-20.2021" target="_blank">Reciprocal Lateral Hypothalamic and Raphe GABAergic Projections Promote Wakefulness</a>. <span class="venue">Journal of Neuroscience</span>, 2021. <span class="cite-count">Citations: 19</span></li>
+<li>Molnár B, Sere P, Bordé S, Koos K, Zsigri N, Horvath P, Lőrincz ML. <a href="https://doi.org/10.1093/texcom/tgab020" target="_blank">Cell Type-Specific Arousal-Dependent Modulation of Thalamic Activity in the Lateral Geniculate Nucleus</a>. <span class="venue">bioRxiv</span>, 2021. <span class="cite-count">Citations: 13</span></li>
+<li>Földi T, Lőrincz ML, Berényi A. <a href="https://doi.org/10.3389/fncir.2021.784085" target="_blank">Temporally Targeted Interactions With Pathologic Oscillations as Therapeutical Targets in Epilepsy and Beyond</a>. <span class="venue">Frontiers in Neural Circuits</span>, 2021. <span class="cite-count">Citations: 11</span></li>
+<li>Sere P, Zsigri N, Raffai T, Furdan S, Győri F, Crunelli V, Lőrincz ML. <a href="https://doi.org/10.3390/ijms22179466" target="_blank">Activity of the Lateral Hypothalamus during Genetically Determined Absence Seizures</a>. <span class="venue">International Journal of Molecular Sciences</span>, 2021. <span class="cite-count">Citations: 6</span></li>
+<li>Iacone Y, Morais TP, David F, Delicata F, Sandle J, ... et al.. <a href="https://doi.org/10.1101/2021.02.17.431588" target="_blank">Systemic administration of Ivabradine, an HCN channel inhibitor, blocks spontaneous absence seizures</a>. <span class="venue">bioRxiv</span>, 2021.</li>
+<li>Crunelli V, Lőrincz ML, McCafferty C, Lambert R, Leresche N, Giovanni GD, David F. <a href="https://doi.org/10.1093/brain/awaa072" target="_blank">Clinical and experimental insight into pathophysiology, comorbidity and therapy of absence seizures</a>. <span class="venue">Brain : a journal of neurology</span>, 2020. <span class="cite-count">Citations: 149</span></li>
+<li>Gazea M, Furdan S, Sere P, Oesch L, Molnár B, Giovanni GD, Dymecki S, Adamantidis A, Lőrincz ML. <a href="https://doi.org/10.1101/2020.11.04.367722" target="_blank">Disinhibition mediated by reciprocal hypothalamic and raphé GABAergic projections promotes wakefulness</a>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 1</span></li>
+<li>Lőrincz ML. <a href="https://doi.org/10.1111/ejn.14675/v1/review1" target="_blank">Review for &quot;Divergent neuronal activity patterns in the avian hippocampus and nidopallium&quot;</a>. 2019.</li>
+<li>McCafferty C, David F, Venzi M, Lőrincz ML, Delicata F, ... et al.. <a href="https://doi.org/10.1038/s41593-018-0130-4" target="_blank">Cortical drive and thalamic feed-forward inhibition control thalamic output synchrony during absence seizures</a>. <span class="venue">Nature Neuroscience</span>, 2018. <span class="cite-count">Citations: 110</span></li>
+<li>Crunelli V, Lőrincz ML, Connelly WM, David F, Hughes S, Lambert R, Leresche N, Errington A. <a href="https://doi.org/10.1038/nrn.2017.151" target="_blank">Dual function of thalamic low-vigilance state oscillations: rhythm-regulation and plasticity</a>. <span class="venue">Nature Reviews Neuroscience</span>, 2018. <span class="cite-count">Citations: 107</span></li>
+<li>David F, David F, Çarçak N, Çarçak N, Furdan S, ... et al.. <a href="https://doi.org/10.1523/JNEUROSCI.0896-17.2018" target="_blank">Suppression of Hyperpolarization-Activated Cyclic Nucleotide-Gated Channel Function in Thalamocortical Neurons Prevents Genetically Determined and Pharmacologically Induced Absence Seizures</a>. <span class="venue">Journal of Neuroscience</span>, 2018. <span class="cite-count">Citations: 31</span></li>
+<li>Lőrincz ML, Adamantidis A. <a href="https://doi.org/10.1016/j.pneurobio.2016.09.003" target="_blank">Monoaminergic control of brain states and sensory processing: Existing knowledge and recent insights obtained with optogenetics.</a>. <span class="venue">Progress in neurobiology</span>, 2017. <span class="cite-count">Citations: 47</span></li>
+<li>Lőrincz ML. <a href="https://doi.org/10.1016/J.CLINPH.2017.07.124" target="_blank">S113 The thalamo-cortical system as central actor of NREM sleep</a>. 2017.</li>
+<li>Crunelli V, David F, Lőrincz ML, Hughes S. <a href="https://doi.org/10.1016/j.conb.2014.09.001" target="_blank">The thalamocortical network as a single slow wave-generating unit.</a>. <span class="venue">Current Opinion in Neurobiology</span>, 2015. <span class="cite-count">Citations: 160</span></li>
+<li>Lőrincz ML, Gunner D, Bao Y, Connelly WM, Isaac J, Hughes S, Crunelli V. <a href="https://doi.org/10.1523/JNEUROSCI.3603-14.2015" target="_blank">A Distinct Class of Slow (∼0.2–2 Hz) Intrinsically Bursting Layer 5 Pyramidal Neurons Determines UP/DOWN State Dynamics in the Neocortex</a>. <span class="venue">Journal of Neuroscience</span>, 2015. <span class="cite-count">Citations: 57</span></li>
+<li>Adv S, Salin PA, Malleret G, Fort P, Luppi P, ... et al.. Neocortical Neurons Natural Waking and Sleep States: A View From Inside. 2015.</li>
+<li>Çarçak N, Lőrincz ML, McCafferty C, Venzi M, Onat F. Characterization of the cortical initiation site in mouse models of absence epilepsy. 2015.</li>
+<li>Hughes S, Lőrincz ML, Crunelli V. Infra-slow ( &lt; 0 . 1 Hz ) oscillations in thalamic relay nuclei : basic mechanisms and significance to health and disease states. 2012. <span class="cite-count">Citations: 10</span></li>
+<li>Crunelli V, Lőrincz ML, Bao Y, Errington A, Hughes S. <a href="https://doi.org/10.1007/s00424-011-1067-6" target="_blank">Erratum to: Activity of cortical and thalamic neurons during the slow (&lt;1 Hz) rhythm in the mouse in vivo</a>. <span class="venue">Pflügers Archiv: European Journal of Physiology</span>, 2012.</li>
+<li>Hughes S, Lőrincz ML, Blethyn KL, Kékesi K, Juhász G, Turmaine M, Parnavelas J, Crunelli V. <a href="https://doi.org/10.3389/fpsyg.2011.00193" target="_blank">Thalamic Gap Junctions Control Local Neuronal Synchrony and Influence Macroscopic Oscillation Amplitude during EEG Alpha Rhythms</a>. <span class="venue">Front. Psychology</span>, 2011. <span class="cite-count">Citations: 94</span></li>
+<li>Hughes S, Lőrincz ML, Parri H, Crunelli V. <a href="https://doi.org/10.1016/B978-0-444-53839-0.00010-7" target="_blank">Infraslow (&lt;0.1 Hz) oscillations in thalamic relay nuclei basic mechanisms and significance to health and disease states.</a>. <span class="venue">Progress in Brain Research</span>, 2011. <span class="cite-count">Citations: 92</span></li>
+<li>Crunelli V, Lőrincz ML, Errington A, Hughes S. <a href="https://doi.org/10.1007/s00424-011-1011-9" target="_blank">Activity of cortical and thalamic neurons during the slow (&lt;1 Hz) rhythm in the mouse in vivo</a>. <span class="venue">Pflügers Archiv: European Journal of Physiology</span>, 2011. <span class="cite-count">Citations: 32</span></li>
+<li>Hughes S, Lőrincz ML, Parri H, Crunelli V. <a href="https://doi.org/10.1016/b978-0-444-53839-0.00010-7" target="_blank">Infraslow (&lt;0.1Hz) oscillations in thalamic relay nuclei</a>. 2011. <span class="cite-count">Citations: 13</span></li>
+<li>Cope D, Giovanni GD, Fyson S, Orban G, Errington A, Lőrincz ML, Gould TM, Carter D, Crunelli V. <a href="https://doi.org/10.1038/nm.2058" target="_blank">Enhanced tonic GABAA inhibition in typical absence epilepsy</a>. <span class="venue">Nature Medicine</span>, 2009. <span class="cite-count">Citations: 422</span></li>
+<li>Lőrincz ML, Kékesi K, Juhász G, Crunelli V, Hughes S. <a href="https://doi.org/10.1016/j.neuron.2009.08.012" target="_blank">Temporal Framing of Thalamic Relay-Mode Firing by Phasic Inhibition during the Alpha Rhythm</a>. <span class="venue">Neuron</span>, 2009. <span class="cite-count">Citations: 336</span></li>
+<li>Lőrincz ML, Geall F, Bao Y, Crunelli V, Hughes S. <a href="https://doi.org/10.1371/journal.pone.0004447" target="_blank">ATP-Dependent Infra-Slow (&lt;0.1 Hz) Oscillations in Thalamic Networks</a>. <span class="venue">PLoS ONE</span>, 2009. <span class="cite-count">Citations: 111</span></li>
+<li>Hughes S, Errington A, Lőrincz ML, Kékesi K, Juhász G, Orban G, Cope D, Crunelli V. <a href="https://doi.org/10.1016/j.brainres.2008.06.029" target="_blank">Novel modes of rhythmic burst firing at cognitively-relevant frequencies in thalamocortical neurons.</a>. <span class="venue">Brain Research</span>, 2008. <span class="cite-count">Citations: 41</span></li>
+<li>Hughes S, Lőrincz ML, Cope D, Crunelli V. <a href="https://doi.org/10.1016/J.JNEUMETH.2007.10.014" target="_blank">NeuReal: an interactive simulation system for implementing artificial dendrites and large hybrid networks.</a>. <span class="venue">Journal of Neuroscience Methods</span>, 2008. <span class="cite-count">Citations: 22</span></li>
+<li>Papp A, Nyilas R, Szepesi Z, Lőrincz ML, Takács E, ... et al.. <a href="https://doi.org/10.1111/j.1471-4159.2007.04917.x" target="_blank">Visible light induces matrix metalloproteinase‐9 expression in rat eye</a>. <span class="venue">Journal of Neurochemistry</span>, 2007. <span class="cite-count">Citations: 12</span></li>
+<li>Galamboš R, Juhász G, Lőrincz ML, Szilágyi N. <a href="https://doi.org/10.1016/J.IJPSYCHO.2005.01.013" target="_blank">The human Retinal Functional Unit.</a>. <span class="venue">International Journal of Psychophysiology</span>, 2005. <span class="cite-count">Citations: 7</span></li>
+<li>McCafferty C, Lőrincz ML, Giovanni D, Giuseppe. Temporal dynamics of TC and NRT neuron firing in the GHB model. .</li></ul>
+<h2>At the Mainen Lab</h2>
+<div class="lab-role">Postdoc, 2009–2013</div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5ht-optogenetics">Serotonin Optogenetics</a></li></ul>
+</div>
+<script>
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+const stored = localStorage.getItem('ml-theme');
+if (stored) root.setAttribute('data-theme', stored);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\u2600' : '\u263E';
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('ml-theme', next);
+  toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+});
+</script>
+</body>
+</html>

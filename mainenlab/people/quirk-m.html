@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Michael Quirk — Mainen Lab</title>
+<title>Michael Quirk &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,15 +61,57 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Michael Quirk</h1>
+<h1>Michael Quirk <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Departed; no current affiliation listed</div>
-<div class="lab-role">Postdoc, 2001–2006</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>C. Feierstein, M. Quirk, N. Uchida, D. Sosulski, Z. Mainen (2009). <em><a href="https://doi.org/10.1016/j.neuron.2006.06.032" target="_blank">A defined network of fast-spiking interneurons in orbitofrontal cortex: responses to behavioral contingencies and ketamine administration</a></em>. <span class="journal">Front Syst Neurosci Nov09 (3), 13</span></li>
-<li>C. Feierstein, M. Quirk, N. Uchida, D. Sosulski, Z. Mainen (2006). <em><a href="https://doi.org/10.1016/j.neuron.2006.06.032" target="_blank">Representation of spatial goals in rat orbitofrontal cortex</a></em>. <span class="journal">Neuron 51, 495-507</span></li></ul>
-
-
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://www.semanticscholar.org/author/2373444" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Michael Quirk was a postdoc in the Mainen Lab from 2001-2006, where he contributed to research on neural ensemble dynamics and hippocampal memory systems. His research focuses on neuropharmacology and drug development, particularly positive allosteric modulators of NMDA and GABA receptors for treating neurological and psychiatric conditions. He has since moved into pharmaceutical research, developing neuroactive compounds including SAGE-217 and other therapeutic agents for cognitive impairment and mood disorders.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 21 | Total papers: 41 | Lab papers: 4 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Beckley JT, Aman TK, Ackley M, Kazdoba T, Lewis MC, ... et al.. <a href="https://doi.org/10.1111/bph.16235" target="_blank">Pharmacological characterization of SAGE‐718, a novel positive allosteric modulator of N‐methyl‐d‐aspartate receptors</a>. <span class="venue">British Journal of Pharmacology</span>, 2023. <span class="cite-count">Citations: 12</span></li>
+<li>Tang W, Beckley JT, Zhang J, Song R, Xu Y, ... et al.. <a href="https://doi.org/10.1007/s00018-022-04667-7" target="_blank">Novel neuroactive steroids as positive allosteric modulators of NMDA receptors: mechanism, site of action, and rescue pharmacology on GRIN variants associated with neurological conditions</a>. <span class="venue">Cellular and Molecular Life Sciences</span>, 2023. <span class="cite-count">Citations: 11</span></li>
+<li>Hill M, Blanco M, Salituro F, Bai Z, Beckley JT, ... et al.. <a href="https://doi.org/10.1021/acs.jmedchem.2c00313" target="_blank">SAGE-718: A First-in-Class N-Methyl-d-Aspartate Receptor Positive Allosteric Modulator for the Potential Treatment of Cognitive Impairment.</a>. <span class="venue">Journal of Medicinal Chemistry</span>, 2022. <span class="cite-count">Citations: 35</span></li>
+<li>Althaus A, Ackley M, Belfort GM, Gee S, Dai J, ... et al.. <a href="https://doi.org/10.1016/j.neuropharm.2020.108333" target="_blank">Preclinical characterization of zuranolone (SAGE-217), a selective neuroactive steroid GABAA receptor positive allosteric modulator</a>. <span class="venue">Neuropharmacology</span>, 2020. <span class="cite-count">Citations: 114</span></li>
+<li>Antonoudiou P, Colmers PL, Walton N, Weiss G, Smith AC, Nguyen DP, Lewis M, Quirk M, Melón L, Maguire J. <a href="https://doi.org/10.1101/2021.03.08.434156" target="_blank">Allopregnanolone mediates affective switching through modulation of oscillatory states in the basolateral amygdala</a>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 89</span></li>
+<li>Mannara F, Radosevic M, Planagumà J, Soto D, Aguilar E, ... et al.. <a href="https://doi.org/10.1093/brain/awaa195" target="_blank">Allosteric modulation of NMDA receptors prevents the antibody effects of patients with anti-NMDAR encephalitis.</a>. <span class="venue">Brain : a journal of neurology</span>, 2020. <span class="cite-count">Citations: 53</span></li>
+<li>La DS, Salituro F, Botella GM, Griffin A, Bai Z, ... et al.. <a href="https://doi.org/10.1021/acs.jmedchem.9b00591" target="_blank">Neuroactive Steroid N-Methyl-D-aspartate Receptor (NMDAR) Positive Allosteric Modulators: Synthesis, SAR and Pharmacological Activity.</a>. <span class="venue">Journal of Medicinal Chemistry</span>, 2019. <span class="cite-count">Citations: 17</span></li>
+<li>Warikoo N, Brunwasser SJ, Benz A, Shu H, Paul S, ... et al.. <a href="https://doi.org/10.1523/JNEUROSCI.3377-17.2018" target="_blank">Positive Allosteric Modulation as a Potential Therapeutic Strategy in Anti-NMDA Receptor Encephalitis</a>. <span class="venue">Journal of Neuroscience</span>, 2018. <span class="cite-count">Citations: 43</span></li>
+<li>Kanes S, Nomikos G, Quirk M, Raines S, Doherty J, Hoffmann E, Sankoh A, Colquhoun H. <a href="https://doi.org/10.1016/J.BIOPSYCH.2017.02.582" target="_blank">857. A Multiple-Ascending Dose Study of the Neuroactive Steroid SAGE-217</a>. 2017. <span class="cite-count">Citations: 1</span></li>
+<li>Kanes S, Nomikos G, Quirk M, Raines S, Doherty J, Hoffmann E, Sankoh A, Colquhoun H. <a href="https://doi.org/10.1016/J.BIOPSYCH.2017.02.086" target="_blank">75. A Single-Ascending Dose Study of the Neuroactive Steroid SAGE-217</a>. 2017. <span class="cite-count">Citations: 1</span></li>
+<li>Nomikos G, Colquhoun H, Quirk M, Raines S, Doherty J, Hoffmann E, Sankoh A, Kanes S. <a href="https://doi.org/10.1212/wnl.88.16_supplement.p6.017" target="_blank">Next-generation neuroactive steroid SAGE-217 in a single-ascending dose study (P6.017)</a>. <span class="venue">Neurology</span>, 2017.</li>
+<li>Nomikos G, Colquhoun H, Quirk M, Raines S, Doherty J, Hoffmann E, Sankoh A, Kanes S. <a href="https://doi.org/10.1212/wnl.88.16_supplement.p3.009" target="_blank">Next-generation neuroactive steroid SAGE-217 in a multiple-ascending dose study (P3.009)</a>. <span class="venue">Neurology</span>, 2017.</li>
+<li>Hammond R, Ackley M, Quirk M, Belfort GM, Doherty J. <a href="https://doi.org/10.1212/wnl.88.16_supplement.p6.068" target="_blank">Preclinical Pharmacology and Pharmacodynamic Interactions of SAGE-547: Relevance to Super Refractory Status Epilepticus (SRSE). (P6.068)</a>. <span class="venue">Neurology</span>, 2017.</li>
+<li>Sanacora G, Johnson MR, Khan A, Atkinson S, Riesenberg RR, ... et al.. <a href="https://doi.org/10.1038/npp.2016.224" target="_blank">Adjunctive Lanicemine (AZD6765) in Patients with Major Depressive Disorder and History of Inadequate Response to Antidepressants: A Randomized, Placebo-Controlled Study</a>. <span class="venue">Neuropsychopharmacology</span>, 2016. <span class="cite-count">Citations: 102</span></li>
+<li>Kanes S, Rosenthal E, Vaitkevicius H, Claassen J, Wainwright M, Hoffman E, Baird M, Quirk M, Colquhoun H. <a href="https://doi.org/10.1212/wnl.86.16_supplement.s14.003" target="_blank">547-SSE-201 for Super-Refractory Status Epilepticus: Response and Relationship to Underlying Patient Characteristics (S14.003)</a>. <span class="venue">Neurology</span>, 2016. <span class="cite-count">Citations: 4</span></li>
+<li>Rosenthal E, Colquhoun H, Quirk M. <a href="https://doi.org/10.1212/wnl.86.16_supplement.p4.197" target="_blank">Quantitative Burst Suppression as a Biomarker in the Phase 2 Trial of SAGE-547: Lessons Learned for the First International Phase 3, Randomized, Controlled Trial for Super-Refractory Status Epilepticus (The STATUS Trial) (P4.197)</a>. <span class="venue">Neurology</span>, 2016.</li>
+<li>Christian E, Snyder DH, Song W, Gurley D, Smolka J, ... et al.. <a href="https://doi.org/10.1152/jn.00539.2013" target="_blank">EEG-β/γ spectral power elevation in rat: a translatable biomarker elicited by GABA(Aα2/3)-positive allosteric modulators at nonsedating anxiolytic doses.</a>. <span class="venue">Journal of Neurophysiology</span>, 2015. <span class="cite-count">Citations: 58</span></li>
+<li>Christian E, Farley BJ, Leiser S, Doherty JJ, Gurley D, ... et al.. S 1 . 3 A re-evaluation of construct and predictive validity for rodent counterparts to the human MMN and P 300 event related potentials ( ERPs ). 2011.</li>
+<li>Quirk M, Johnson E, Moore WC, Doherty J, Bertrand D. <a href="https://doi.org/10.1016/S0924-977X(11)70392-3" target="_blank">P.1.c.001 Mechanisms of antidepressant activity for TC-5214: a selective, centrally-acting neuronal nicotinic channel modulator</a>. 2011.</li>
+<li>Farley BJ, Quirk M, Doherty JJ, Christian E. <a href="https://doi.org/10.1523/JNEUROSCI.2793-10.2010" target="_blank">Stimulus-Specific Adaptation in Auditory Cortex Is an NMDA-Independent Process Distinct from the Sensory Novelty Encoded by the Mismatch Negativity</a>. <span class="venue">Journal of Neuroscience</span>, 2010. <span class="cite-count">Citations: 174</span></li>
+<li>Shirey JK, Brady A, Jones PJ, Davis A, Bridges T, ... et al.. <a href="https://doi.org/10.1523/JNEUROSCI.3930-09.2009" target="_blank">A Selective Allosteric Potentiator of the M1 Muscarinic Acetylcholine Receptor Increases Activity of Medial Prefrontal Cortical Neurons and Restores Impairments in Reversal Learning</a>. <span class="venue">Journal of Neuroscience</span>, 2009. <span class="cite-count">Citations: 238</span></li>
+<li>Sydserff S, Sutton E, Song D, Quirk M, Maciag C, ... et al.. <a href="https://doi.org/10.1016/j.bcp.2009.07.005" target="_blank">Selective alpha7 nicotinic receptor activation by AZD0328 enhances cortical dopamine release and improves learning and attentional processes.</a>. <span class="venue">Biochemical Pharmacology</span>, 2009. <span class="cite-count">Citations: 100</span></li>
+<li class="lab-paper">Quirk M, Sosulski D, Feierstein C, Uchida N, Mainen Z. <a href="https://doi.org/10.3389/neuro.06.013.2009" target="_blank">A Defined Network of Fast-Spiking Interneurons in Orbitofrontal Cortex: Responses to Behavioral Contingencies and Ketamine Administration</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Frontiers in Systems Neuroscience</span>, 2009. <span class="cite-count">Citations: 72</span></li>
+<li class="lab-paper">Quirk M, Sosulski D, Feierstein C, Uchida N, Mainen Z. A defi ned network of fast-spiking interneurons in orbitofrontal cortex : responses to behavioral contingencies and ketamine administration <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2009. <span class="cite-count">Citations: 3</span></li>
+<li class="lab-paper">Quirk M, Sosulski D, Feierstein C, Uchida N, Mainen Z. A defi ned network of fast-spiking interneurons in orbitofrontal cortex : responses to behavioral contingencies and ketamine administration <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2009. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Feierstein C, Quirk M, Uchida N, Sosulski D, Mainen Z. <a href="https://doi.org/10.1016/J.NEURON.2006.06.032" target="_blank">Representation of spatial goals in rat orbitofrontal cortex.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Neuron</span>, 2006. <span class="cite-count">Citations: 271</span></li>
+<li>Sneider J, Chrobak JJ, Quirk M, Oler J, Oler J, Markus E. <a href="https://doi.org/10.1016/J.NEUROSCIENCE.2006.05.052" target="_blank">Differential behavioral state-dependence in the burst properties of CA3 and CA1 neurons.</a>. <span class="venue">Neuroscience</span>, 2006. <span class="cite-count">Citations: 30</span></li>
+<li>Barbieri R, Frank L, Nguyen DP, Quirk M, Solo V, Wilson M, Brown E. <a href="https://doi.org/10.1162/089976604322742038" target="_blank">Dynamic Analyses of Information Encoding in Neural Ensembles</a>. <span class="venue">Neural Computation</span>, 2004. <span class="cite-count">Citations: 158</span></li>
+<li>Barbieri R, Frank LM, Nguyen DP, Quirk M, Solo V, Wilson MA, Brown EN. <a href="https://doi.org/10.1109/IEMBS.2004.1404246" target="_blank">A Bayesian decoding algorithm for analysis of information encoding in neural ensembles</a>. <span class="venue">Annual International Conference of the IEEE Engineering in Medicine and Biology Society</span>, 2004. <span class="cite-count">Citations: 8</span></li>
+<li>Nakazawa K, Sun LD, Quirk M, Rondi-Reig L, Wilson M, Tonegawa S. <a href="https://doi.org/10.1016/S0896-6273(03)00165-X" target="_blank">Hippocampal CA3 NMDA receptors are crucial for memory acquisition of one-time experience.</a>. <span class="venue">Neuron</span>, 2003. <span class="cite-count">Citations: 497</span></li>
+<li>Nakazawa K, Quirk M, Chitwood R, Watanabe M, Yeckel M, ... et al.. <a href="https://doi.org/10.1126/SCIENCE.1071795" target="_blank">Requirement for Hippocampal CA3 NMDA Receptors in Associative Memory Recall</a>. <span class="venue">Science</span>, 2002. <span class="cite-count">Citations: 1103</span></li>
+<li>Barbieri R, Frank L, Quirk M, Solo V, Wilson M, Brown E. <a href="https://doi.org/10.1016/S0925-2312(02)00365-X" target="_blank">Construction and analysis of non-Gaussian spatial models of neural spiking activity</a>. <span class="venue">Neurocomputing</span>, 2002. <span class="cite-count">Citations: 8</span></li>
+<li>Quirk M. Neural mechanisms involved in memory formation and retrieval within the rodent hippocampus : an in vivo electrophysiological study. 2002.</li>
+<li>Barbieri R, Quirk M, Frank L, Wilson M, Brown E. <a href="https://doi.org/10.1016/S0165-0270(00)00344-7" target="_blank">Construction and analysis of non-Poisson stimulus-response models of neural spiking activity.</a>. <span class="venue">Journal of Neuroscience Methods</span>, 2001. <span class="cite-count">Citations: 221</span></li>
+<li>Quirk M, Blum K, Wilson M. <a href="https://doi.org/10.1523/JNEUROSCI.21-01-00240.2001" target="_blank">Experience-Dependent Changes in Extracellular Spike Amplitude May Reflect Regulation of Dendritic Action Potential Back-Propagation in Rat Hippocampal Pyramidal Cells</a>. <span class="venue">Journal of Neuroscience</span>, 2001. <span class="cite-count">Citations: 82</span></li>
+<li>Barbieri R, Frank L, Quirk M, Wilson M, Brown E. <a href="https://doi.org/10.1016/S0925-2312(01)00450-7" target="_blank">Diagnostic methods for statistical models of place cell spiking activity</a>. <span class="venue">Neurocomputing</span>, 2001. <span class="cite-count">Citations: 3</span></li>
+<li>Mehta M, Quirk M, Wilson M. <a href="https://doi.org/10.1016/S0896-6273(00)81072-7" target="_blank">Experience-dependent asymmetric shape of hippocampal receptive fields.</a>. <span class="venue">Neuron</span>, 2000. <span class="cite-count">Citations: 501</span></li>
+<li>Barbieri R, Frank L, Quirk M, Wilson M, Brown E. <a href="https://doi.org/10.1016/S0925-2312(00)00225-3" target="_blank">A time-dependent analysis of spatial information encoding in the rat hippocampus</a>. <span class="venue">Neurocomputing</span>, 2000. <span class="cite-count">Citations: 3</span></li>
+<li>Quirk M, Wilson M. <a href="https://doi.org/10.1016/S0165-0270(00)00199-0" target="_blank">Erratum to ‘Interaction between spike waveform classification and temporal sequence detection’</a>. 2000. <span class="cite-count">Citations: 1</span></li>
+<li>Quirk M, Wilson M. <a href="https://doi.org/10.1016/S0165-0270(99)00124-7" target="_blank">Interaction between spike waveform classification and temporal sequence detection.</a>. <span class="venue">Journal of Neuroscience Methods</span>, 1999. <span class="cite-count">Citations: 112</span></li>
+<li>Brown E, Frank L, Tang D, Quirk M, Wilson M. <a href="https://doi.org/10.1523/JNEUROSCI.18-18-07411.1998" target="_blank">A Statistical Paradigm for Neural Spike Train Decoding Applied to Position Prediction from Ensemble Firing Patterns of Rat Hippocampal Place Cells</a>. <span class="venue">Journal of Neuroscience</span>, 1998. <span class="cite-count">Citations: 599</span></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

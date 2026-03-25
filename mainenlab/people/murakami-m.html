@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Masayoshi Murakami — Mainen Lab</title>
+<title>Masayoshi Murakami &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,22 +61,45 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Masayoshi Murakami</h1>
+<h1>Masayoshi Murakami <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Departed (no current affiliation listed)</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0001-5511-1144" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/143863065" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Masayoshi Murakami was a postdoctoral researcher in the Mainen Lab from 2006-2018, where he worked on serotonin electrophysiology and studies of voluntary action and free will. His research has focused on the neural mechanisms underlying decision-making and action timing, particularly examining how serotonergic systems influence learning rates and waiting behavior, and investigating the role of frontal and cerebellar circuits in motor control and reward processing. He has since departed from the lab and his current institutional affiliation is not listed.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 13 | Total papers: 23 | Lab papers: 13 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li class="lab-paper">Cazettes F, Mazzucato L, Murakami M, Morais JP, Augusto E, Renart A, Mainen Z. <a href="https://doi.org/10.1038/s41593-023-01305-8" target="_blank">A reservoir of foraging decision variables in the mouse brain</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Neuroscience</span>, 2023. <span class="cite-count">Citations: 39</span></li>
+<li>Ikezoe K, Hidaka N, Manita S, Murakami M, Tsutsumi S, Isomura Y, Kano M, Kitamura K. <a href="https://doi.org/10.1038/s42003-023-05309-9" target="_blank">Cerebellar climbing fibers multiplex movement and reward signals during a voluntary movement task in mice</a>. <span class="venue">Communications Biology</span>, 2023. <span class="cite-count">Citations: 12</span></li>
+<li>Ikezoe K, Hidaka N, Manita S, Murakami M, Tsutsumi S, Isomura Y, Kano M, Kitamura K. <a href="https://doi.org/10.1101/2022.08.24.505210" target="_blank">Cerebellar climbing fibers convey behavioral information of multiplex modalities and form functional modules</a>. <span class="venue">bioRxiv</span>, 2022. <span class="cite-count">Citations: 2</span></li>
+<li class="lab-paper">Aguillon V, Angelaki D, Bayer HM, Bonacchi N, Carandini M, ... et al.. <a href="https://doi.org/10.7554/eLife.84310" target="_blank">Correction: Standardized and reproducible measurement of decision-making in mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">eLife</span>, 2022.</li>
+<li class="lab-paper">Cazettes F, Murakami M, Renart A, Mainen Z. <a href="https://doi.org/10.1101/2021.04.01.438090" target="_blank">Reservoir of decision strategies in the mouse brain</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2021. <span class="cite-count">Citations: 4</span></li>
+<li class="lab-paper">Aguillon-Rodriguez V, Angelaki D, Bayer H, Bonacchi N, Carandini M, ... et al.. <a href="https://doi.org/10.1101/2020.01.17.909838" target="_blank">Standardized and reproducible measurement of decision-making in mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 198</span></li>
+<li class="lab-paper">Recanatesi S, Pereira U, Murakami M, Mainen Z, Mazzucato L. <a href="https://doi.org/10.1101/2020.01.24.919217" target="_blank">Metastable attractors explain the variable timing of stable behavioral action sequences</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 71</span></li>
+<li class="lab-paper">Iigaya K, Fonseca MS, Murakami M, Mainen Z, Dayan P. <a href="https://doi.org/10.1038/s41467-018-04840-2" target="_blank">An effect of serotonergic stimulation on learning rates for rewards apparent after long intertrial intervals</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Communications</span>, 2018. <span class="cite-count">Citations: 103</span></li>
+<li>Ebbesen C, Insanally MN, Kopec CD, Murakami M, Saiki A, Erlich JC. <a href="https://doi.org/10.1523/JNEUROSCI.1671-18.2018" target="_blank">More than Just a “Motor”: Recent Surprises from the Frontal Cortex</a>. <span class="venue">Journal of Neuroscience</span>, 2018. <span class="cite-count">Citations: 84</span></li>
+<li class="lab-paper">Iigaya K, Fonseca MS, Murakami M, Mainen Z, Dayan P. <a href="https://doi.org/10.1101/215400" target="_blank">The Long and the Short of Serotonergic Stimulation: Optogenetic activation of dorsal raphe serotonergic neurons changes the learning rate for rewards</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2017. <span class="cite-count">Citations: 3</span></li>
+<li class="lab-paper">Murakami M, Shteingart H, Loewenstein Y, Mainen Z. <a href="https://doi.org/10.1101/088963" target="_blank">Distinct sources of deterministic and stochastic components of action timing decisions in rodent frontal cortex</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2016. <span class="cite-count">Citations: 87</span></li>
+<li class="lab-paper">Fonseca MS, Murakami M, Mainen Z. <a href="https://doi.org/10.1016/j.cub.2014.12.002" target="_blank">Activation of dorsal raphe serotonergic neurons promotes waiting but is not reinforcing.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Current Biology</span>, 2015. <span class="cite-count">Citations: 199</span></li>
+<li class="lab-paper">Murakami M, Mainen Z. <a href="https://doi.org/10.1016/j.conb.2015.01.005" target="_blank">Preparing and selecting actions with neural populations: toward cortical circuit mechanisms.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Current Opinion in Neurobiology</span>, 2015. <span class="cite-count">Citations: 38</span></li>
+<li>Inoue T, Murakami M, Watanabe S, Inokuma Y, Matsuo R, Kobayashi S, Tanaka Y, Ito E, Yamagishi M. MolluskOdor-Aversion Conditioning in a Terrestrial. 2015.</li>
+<li class="lab-paper">Murakami M, Vicente MI, Costa GM, Mainen Z. <a href="https://doi.org/10.1038/nn.3826" target="_blank">Neural antecedents of self-initiated actions in secondary motor cortex</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Neuroscience</span>, 2014. <span class="cite-count">Citations: 268</span></li>
+<li class="lab-paper">Rigato J, Murakami M, Mainen Z. <a href="https://doi.org/10.1101/sqb.2014.79.024810" target="_blank">Spontaneous Decisions and Free Will: Empirical Results and Philosophical Considerations.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Cold Spring Harbor Symposia on Quantitative Biology</span>, 2014. <span class="cite-count">Citations: 4</span></li>
+<li class="lab-paper">Fonseca MS, Murakami M, Mainen Z. <a href="https://doi.org/10.1101/012062" target="_blank">Activation of dorsal raphe serotonergic neurons promotes persistent waiting independently of reinforcing effects</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2014. <span class="cite-count">Citations: 1</span></li>
+<li>Inoue T, Murakami M, Watanabe S, Inokuma Y, Kirino Y. <a href="https://doi.org/10.1152/JN.00853.2005" target="_blank">In vitro odor-aversion conditioning in a terrestrial mollusk.</a>. <span class="venue">Journal of Neurophysiology</span>, 2006. <span class="cite-count">Citations: 34</span></li>
+<li>Murakami M, Kashiwadani H, Kirino Y, Mori K. <a href="https://doi.org/10.1016/J.NEURON.2005.02.025" target="_blank">State-dependent sensory gating in olfactory cortex.</a>. <span class="venue">Neuron</span>, 2005. <span class="cite-count">Citations: 196</span></li>
+<li>Murakami M, Kashiwadani H, Kirino Y, Mori K. <a href="https://doi.org/10.2142/BIOPHYS.45.S4_3" target="_blank">1SC01 State-Dependent Gating of Sensory Signals in Olfactory Cortex</a>. 2005. <span class="cite-count">Citations: 1</span></li>
+<li>Murakami M, Watanabe S, Inoue T, Kirino Y. <a href="https://doi.org/10.1002/NEU.10295" target="_blank">Odor-evoked responses in the olfactory center neurons in the terrestrial slug.</a>. <span class="venue">Journal of Neurobiology</span>, 2004. <span class="cite-count">Citations: 15</span></li>
+<li>Watanabe S, Inoue T, Murakami M, Inokuma Y, Kawahara S, Kirino Y. <a href="https://doi.org/10.1016/S0006-8993(00)03242-X" target="_blank">Modulation of oscillatory neural activities by cholinergic activation of interneurons in the olfactory center of a terrestrial slug.</a>. <span class="venue">Brain Research</span>, 2001. <span class="cite-count">Citations: 22</span></li>
+<li>Murakami M, Watanabe S, Kirino Y. <a href="https://doi.org/10.2142/BIOPHYS.41.S144_2" target="_blank">Analysis of odor representation in the olfactory center of the terrestrial slug</a>. 2001.</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2006–2018</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Fanny Cazettes, Luca Mazzucato, M. Murakami, João P. Morais, Elisabete Augusto, A. Renart, Z. Mainen (2023). <em><a href="https://doi.org/10.1038/s41593-023-01305-8" target="_blank">A reservoir of foraging decision variables in the mouse brain</a></em>. <span class="journal">https://doi.org/10.1038/s41593-023-01305-8</span></li>
-<li>Stefano Recanatesi, Ulises Pereira, M. Murakami, Z. Mainen, Luca Mazzucato (2021). <em><a href="https://doi.org/10.1016/j.neuron.2021.10.011" target="_blank">Metastable attractors explain the variable timing of stable behavioral action sequences</a></em>. <span class="journal">Neuron 110 (1): 139</span></li>
-<li>K. Iigaya, Madalena S. Fonseca, M. Murakami, Z. Mainen, P. Dayan (2018). <em><a href="https://doi.org/10.1038/s41467-018-04840-2" target="_blank">An effect of serotonergic stimulation on learning rates for rewards apparent after long intertrial intervals</a></em>. <span class="journal">Nat Commun 9 (1), 2477</span></li>
-<li>M. Murakami, H. Shteingart, Y. Loewenstein, Z. Mainen (2017). <em><a href="https://doi.org/10.1101/088963" target="_blank">Distinct sources of deterministic and stochastic components of action timing decisions in rodent frontal cortex</a></em>. <span class="journal">Neuron 94 (4), 908-919.e7</span></li>
-<li>M. Murakami, Z. Mainen (2015). <em><a href="https://doi.org/10.1016/j.conb.2015.01.005" target="_blank">Preparing and selecting actions with neural populations: toward cortical circuit mechanisms</a></em>. <span class="journal">Curr Opin Neurobiol 33 (C), 40–46</span></li>
-<li>Joana Rigato, M. Murakami, Z. Mainen (2015). <em><a href="https://doi.org/10.1101/sqb.2014.79.024810" target="_blank">Spontaneous Decisions and Free Will: Empirical Results and Philosophical Considerations</a></em>. <span class="journal">Cold Spring Harb Symp Quant Biol</span></li>
-<li>M. Murakami, M. I. Vicente, Gil M. Costa, Z. Mainen (2014). <em><a href="https://doi.org/10.1038/nn.3826" target="_blank">Neural antecedents of self-initiated actions in secondary motor cortex</a></em>. <span class="journal">Nat Neurosci 11, 1574-82</span></li>
-<li>Madalena S. Fonseca, M. Murakami, Z. Mainen (2014). <em><a href="https://doi.org/10.1101/012062" target="_blank">Activation of dorsal raphe serotonergic neurons promotes persistent waiting independently of reinforcing effects</a></em>. <span class="journal">Curr Biol 25 (3), 306-15</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-5ht-electrophysiology">Serotonin Electrophysiology</a></li>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5ht-electrophysiology">Serotonin Electrophysiology</a></li>
 <li><a href="../index.html#project-voluntary-action">Voluntary Action &amp; Free Will</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0001-5511-1144" target="_blank">ORCID</a></div>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

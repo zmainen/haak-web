@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adrian Razvan Sandru — Mainen Lab</title>
+<title>Adrian Razvan Sandru &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,16 +61,35 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Adrian Razvan Sandru</h1>
+<h1>Adrian Razvan Sandru <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Postdoctoral researcher in the Mainen Lab, Systems Neuroscience, Champalimaud Research.</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0002-1415-0160" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/1391169525" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Adrian Razvan Sandru is a postdoctoral researcher in the Mainen Lab who joined in 2020, bringing an interdisciplinary background spanning computer vision, machine learning, philosophy, and law. His research in the lab focuses on perceptual decision-making and sensory processing, particularly studying confidence in auditory perception and cross-modal interactions in flavor perception. Prior to neuroscience, his work encompassed deep learning applications for face recognition and pose estimation, as well as philosophical investigations into ontology and phenomenology.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 3 | Total papers: 11 | Lab papers: 0 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Sandru A. <a href="https://doi.org/10.1515/opphil-2024-0022" target="_blank">Relational or Object-Oriented? A Dialogue between Two Contemporary Ontologies</a>. <span class="venue">Open Philosophy</span>, 2024.</li>
+<li>Sandru A, Georgescu M, Ionescu RT. <a href="https://doi.org/10.1007/978-3-031-25056-9_22" target="_blank">Feature-level augmentation to improve robustness of deep neural networks to affine transformations</a>. <span class="venue">ECCV Workshops</span>, 2022. <span class="cite-count">Citations: 7</span></li>
+<li>Sandru A. <a href="https://doi.org/10.1515/witt-2022-0010" target="_blank">Unexpected Uncertainty in Adaptive Learning</a>. <span class="venue">Wittgenstein-Studien</span>, 2022.</li>
+<li>Mare T, Duta G, Georgescu M, Sandru A, Alexe B, Popescu M, Ionescu RT. A realistic approach to generate masked faces applied on two novel masked face recognition data sets. <span class="venue">NeurIPS Datasets and Benchmarks</span>, 2021. <span class="cite-count">Citations: 18</span></li>
+<li>Sandru A. The Use of Experts in Criminal Proceedings in Romania. Inquisitorial Background and Future Trends. 2021.</li>
+<li>Sandru A. <a href="https://doi.org/10.52507/2345-1106.2021-1.09" target="_blank">The measure of preventive arrest in the context of a global pandemic</a>. 2021.</li>
+<li>Sandru A, Duta G, Georgescu M, Ionescu RT. <a href="https://doi.org/10.1109/WACV48630.2021.00286" target="_blank">SuPEr - SAM: Using the Supervision Signal from a Pose Estimator to Train a Spatial Attention Module for Personal Protective Equipment Recognition</a>. <span class="venue">IEEE Workshop/Winter Conference on Applications of Computer Vision</span>, 2020. <span class="cite-count">Citations: 4</span></li>
+<li>Sandru A. <a href="https://doi.org/10.5922/0207-6918-2020-1-2" target="_blank">The Role of the Sublime in Kant’s Religion: Moral Motivation 
+and Empirical Possibility</a>. 2020.</li>
+<li>Sandru A. <a href="https://doi.org/10.3278/jos1802w044" target="_blank">Avoiding Discrimination: A Philosophical Approach on Diversity in Tutoring</a>. <span class="venue">Ausgabe 16: Peer-Learning in Writing</span>, 2018.</li>
+<li>Sandru A. <a href="https://doi.org/10.19079/pr.4.1.27" target="_blank">M. Barber, Religion and humor as emancipating provinces of meaning</a>. 2018.</li>
+<li>Sandru A. <a href="https://doi.org/10.1515/opth-2018-0035" target="_blank">Hermeneutics of Resistance in Marion’s Phenomenology of Givenness</a>. <span class="venue">Open Theology</span>, 2018.</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2020–present</div>
-
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-hearing">Confidence in Auditory Perception</a></li>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-hearing">Confidence in Auditory Perception</a></li>
 <li><a href="../index.html#project-sharing">Social Flavor Perception</a></li>
 <li><a href="../index.html#project-tasting">Imagery and Cross-Modal Flavor Perception</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0002-1415-0160" target="_blank">ORCID</a></div>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

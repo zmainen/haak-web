@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mattia Bergomi — Mainen Lab</title>
+<title>Mattia Bergomi &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,14 +61,54 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Mattia Bergomi</h1>
+<h1>Mattia Bergomi <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Departed; current affiliation unknown</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0002-3732-3108" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/34692472" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Mattia Bergomi was a postdoc in the lab from 2016-2020, where he worked on serotonin fMRI projects. His research spans computational topology, machine learning, and their applications to neuroscience and music analysis, with particular expertise in topological data analysis and persistence methods. His current affiliation following his departure from the lab is not known.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 11 | Total papers: 33 | Lab papers: 2 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Barutello V, Canneori GM, Ciccarelli R, Terracini S, Bergomi M, Vertechi P, Ferrario DL. <a href="https://doi.org/10.1016/j.cnsns.2025.109180" target="_blank">Equivariant optimisation for the gravitational n-body problem: A computational factory of symmetric orbits</a>. <span class="venue">Communications in nonlinear science &amp; numerical simulation</span>, 2024. <span class="cite-count">Citations: 3</span></li>
+<li>Lecce M, Miazza D, Muzio C, Parigi M, Miazza A, Bergomi M. <a href="https://doi.org/10.3389/fpsyg.2024.1383969" target="_blank">Visuospatial, oculomotor, and executive reading skills evolve in elementary school, and errors are significant: a topological RAN study</a>. <span class="venue">Frontiers in Psychology</span>, 2024. <span class="cite-count">Citations: 1</span></li>
+<li>Bergomi M, Ferri M. <a href="https://doi.org/10.20944/preprints202308.2079.v1" target="_blank">Exploring Graph and Digraph Persistence</a>. <span class="venue">Algorithms</span>, 2023. <span class="cite-count">Citations: 1</span></li>
+<li>Bergomi M, Vertechi P. <a href="https://doi.org/10.70930/tac/uhnx7enz" target="_blank">Addendum to “Rank-based persistence”</a>. <span class="venue">Theory and Applications of Categories</span>, 2023.</li>
+<li>Bergomi M, Ferri M, Mella A, Vertechi P. <a href="https://doi.org/10.3390/make5020021" target="_blank">Generalized Persistence for Equivariant Operators in Machine Learning</a>. <span class="venue">Machine Learning and Knowledge Extraction</span>, 2023.</li>
+<li>Bergomi M, Vertechi P. <a href="https://doi.org/10.48550/arXiv.2208.00809" target="_blank">Neural network layers as parametric spans</a>. <span class="venue">arXiv.org</span>, 2022. <span class="cite-count">Citations: 3</span></li>
+<li>Vertechi P, Bergomi M. <a href="https://doi.org/10.48550/arXiv.2204.12786" target="_blank">Machines of finite depth: towards a formalization of neural networks</a>. <span class="venue">AAAI Conference on Artificial Intelligence</span>, 2022. <span class="cite-count">Citations: 2</span></li>
+<li>Bergomi M, Ferri M, Mella A, Vertechi P. <a href="https://doi.org/10.48550/arXiv.2212.13985" target="_blank">Persistence-based operators in machine learning</a>. <span class="venue">arXiv.org</span>, 2022.</li>
+<li class="lab-paper">Quendera T, Deng D, Hamidi M, Bergomi M, Mainen Z, Agarwal G. <a href="https://doi.org/10.32470/ccn.2022.1277-0" target="_blank">Humans learning a complex task are picky and sticky</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">2022 Conference on Cognitive Computational Neuroscience</span>, 2022.</li>
+<li>And MEKJRGBMMAGNKLNDGP, Ganna MEKJRGBMMANKLND, Niemi MEK, Karjalainen J, Liao RG, ... et al.. <a href="https://doi.org/10.1038/s41586-021-03767-x" target="_blank">Mapping the human genetic architecture of COVID-19</a>. <span class="venue">Nature</span>, 2021. <span class="cite-count">Citations: 797</span></li>
+<li>Bergomi M, Baratè A. <a href="https://doi.org/10.1080/17459737.2020.1786745" target="_blank">Homological persistence in time series: an application to music classification</a>. <span class="venue">Journal of Mathematics and Music - Mathematical and Computational Approaches to Music Theory, Analysis, Composition and Performance</span>, 2020. <span class="cite-count">Citations: 15</span></li>
+<li class="lab-paper">Fonseca MS, Bergomi M, Mainen Z, Shemesh N. <a href="https://doi.org/10.1101/2020.04.16.044941" target="_blank">Functional MRI of large scale activity in behaving mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 12</span></li>
+<li>Bergomi M, Ferri M, Tavaglione A. <a href="https://doi.org/10.1007/s41468-022-00099-1" target="_blank">Steady and ranging sets in graph persistence</a>. <span class="venue">Journal of Applied and Computational Topology</span>, 2020. <span class="cite-count">Citations: 8</span></li>
+<li>Vertechi P, Frosini P, Bergomi M. Parametric machines: a fresh approach to architecture search. <span class="venue">arXiv.org</span>, 2020. <span class="cite-count">Citations: 2</span></li>
+<li>Romero-Ferrero F, Bergomi M, Hinz R, Heras FJH, Polavieja GDD. <a href="https://doi.org/10.1038/s41592-018-0295-5" target="_blank">idtracker.ai: tracking all individuals in small or large collectives of unmarked animals</a>. <span class="venue">Nature Methods</span>, 2019. <span class="cite-count">Citations: 312</span></li>
+<li>Bergomi M, Ferri M, Vertechi P, Zuffi L. <a href="https://doi.org/10.3390/math9233079" target="_blank">Beyond Topological Persistence: Starting from Networks</a>. <span class="venue">Mathematics</span>, 2019. <span class="cite-count">Citations: 16</span></li>
+<li>Bergomi M, Vertechi P. <a href="https://doi.org/10.70930/tac/rqcp3ycf" target="_blank">Rank-based persistence</a>. <span class="venue">Theory and Applications of Categories</span>, 2019. <span class="cite-count">Citations: 12</span></li>
+<li>Bergomi M, Frosini P, Giorgi D, Quercioli N. <a href="https://doi.org/10.1038/s42256-019-0087-3" target="_blank">Towards a topological–geometrical theory of group equivariant non-expansive operators for data analysis and machine learning</a>. <span class="venue">Nature Machine Intelligence</span>, 2018. <span class="cite-count">Citations: 64</span></li>
+<li>Romero-Ferrero F, Bergomi M, Hinz R, Heras FJH, Polavieja GDD. <a href="https://doi.org/10.1101/280735" target="_blank">idtracker.ai: Tracking all individuals in large collectives of unmarked animals</a>. <span class="venue">bioRxiv</span>, 2018. <span class="cite-count">Citations: 22</span></li>
+<li>Bergomi M, Ferri M, Zuffi L. <a href="https://doi.org/10.2478/caim-2020-0005" target="_blank">Topological graph persistence</a>. <span class="venue">Communications in Applied and Industrial Mathematics</span>, 2017. <span class="cite-count">Citations: 8</span></li>
+<li>Bergomi M, Baratè A, Fabio BD. <a href="https://doi.org/10.1007/978-3-319-39441-1_9" target="_blank">Towards a Topological Fingerprint of Music</a>. <span class="venue">International Workshop on Computational Topology in Image Context</span>, 2016. <span class="cite-count">Citations: 9</span></li>
+<li>Andreatta M, Bergomi M, Fabbri F. <a href="https://doi.org/10.4000/VOLUME.4723" target="_blank">Hey Maths ! Modèles formels et computationnels au service des Beatles</a>. 2016. <span class="cite-count">Citations: 2</span></li>
+<li>Ghisi D, Bergomi M. Concatenative synthesis via Chord-based Segmentation for an Experiment with Time. <span class="venue">International Conference on Mathematics and Computing</span>, 2016.</li>
+<li>Andreatta M, Bergomi M, Fabbri F. Hey Maths! Formal and Computational Models in the Service of the Beatles. 2016.</li>
+<li>Bergomi M. <a href="https://doi.org/10.13130/BERGOMI-MATTIA-GIUSEPPE_PHD2015-12-10" target="_blank">Dynamical and Topological Tools for (Modern) Music Analysis. (Outils dynamiques et topologiques pour l&#x27;analyse musicale)</a>. 2015. <span class="cite-count">Citations: 15</span></li>
+<li>Bergomi M, Andreatta M. MATH’N POP VERSUS MATH’N FOLK? A COMPUTATIONAL (ETHNO)MUSICOLOGICAL APPROACH. 2015. <span class="cite-count">Citations: 2</span></li>
+<li>Bergomi M, Andreatta M. Math&#x27;n Pop versus Math&#x27;n Folk?. 2015.</li>
+<li>Jones K, Brandenburg T, SilvermanJay L, Newton C, Lee, ... et al.. A Tale of Four Moguls: Interviews with Quincy Jones, Karlheinz Brandenburg, Tom Silverman, and Jay L. Cooper. 2015.</li>
+<li>Bergomi M, Jadanza R, Portaluri A. A mathematical model for voice leading and its complexity. 2015.</li>
+<li>Folgieri R, Bergomi M, Castellani S. <a href="https://doi.org/10.1007/978-1-4939-0536-2_9" target="_blank">EEG-Based Brain-Computer Interface for Emotional Involvement in Games Through Music</a>. <span class="venue">Digital Da Vinci</span>, 2014. <span class="cite-count">Citations: 11</span></li>
+<li>Baratè A, Bergomi M, Ludovico LA. <a href="https://doi.org/10.20368/1971-8829/834" target="_blank">Development of Serious Games for Music Education</a>. 2013. <span class="cite-count">Citations: 12</span></li>
+<li>Bergomi M, Portaluri A. Modes in modern music from a topological viewpoint. 2013. <span class="cite-count">Citations: 3</span></li>
+<li>Baratè A, Bergomi M, Luca A, Ludovico. 2 Game Tasks : Cognitive and Educational Benefits. 2013.</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2016–2020</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Madalena S. Fonseca, M. Bergomi, Z. Mainen, N. Shemesh (2020). <em><a href="https://doi.org/10.1101/2020.04.16.044941" target="_blank">Functional MRI of large scale activity in behaving mice</a></em>. <span class="journal">bioRxiv, doi: https://doi.org/10.1101/2020.04.16.044941</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-serotonin-fmri">Serotonin fMRI</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0002-3732-3108" target="_blank">ORCID</a></div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-serotonin-fmri">Serotonin fMRI</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

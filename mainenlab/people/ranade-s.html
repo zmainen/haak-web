@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sachin Ranade — Mainen Lab</title>
+<title>Sachin Ranade &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,15 +61,37 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Sachin Ranade</h1>
+<h1>Sachin Ranade <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Departed from active research affiliation</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://www.semanticscholar.org/author/1730587" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Sachin Ranade was a PhD student in the Mainen Lab from 2000-2007, where he focused on serotonin electrophysiology research. His work contributed to understanding how serotonin neurons in the dorsal raphe nucleus encode sensory, motor, and reward events during goal-directed behavior. Following his departure from active research affiliation, his broader research interests have encompassed neural circuits involved in addiction, cholinergic systems in learning, and cortical interneuron function.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 7 | Total papers: 17 | Lab papers: 5 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Ranade S. <a href="https://doi.org/10.1038/s41593-022-01034-4" target="_blank">Central insulin regulation</a>. <span class="venue">Nature Neuroscience</span>, 2022. <span class="cite-count">Citations: 1</span></li>
+<li>Ranade S. <a href="https://doi.org/10.1038/s41593-022-01231-1" target="_blank">A common voice for neural data</a>. <span class="venue">Nature Neuroscience</span>, 2022. <span class="cite-count">Citations: 1</span></li>
+<li>Ranade S. <a href="https://doi.org/10.1038/s41593-021-00993-4" target="_blank">Localizing spikes</a>. <span class="venue">Nature Neuroscience</span>, 2022.</li>
+<li>Ranade S. <a href="https://doi.org/10.1038/s41593-022-01142-1" target="_blank">Salience in the raphe</a>. <span class="venue">Nature Neuroscience</span>, 2022.</li>
+<li class="lab-paper">Ranade S. <a href="https://doi.org/10.1038/s41593-021-00958-7" target="_blank">Serotonin and addiction prevention</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Neuroscience</span>, 2021. <span class="cite-count">Citations: 4</span></li>
+<li>Ranade S. <a href="https://doi.org/10.1038/s41593-021-00979-2" target="_blank">Comforting in mice</a>. <span class="venue">Nature Neuroscience</span>, 2021.</li>
+<li>Ranade S. <a href="https://doi.org/10.1038/s41593-021-00934-1" target="_blank">Neural circuit for limiting heroin choice and relapse</a>. <span class="venue">Nature Neuroscience</span>, 2021.</li>
+<li>Hangya B, Laszlovszky T, Hegedus P, Ranade S, Lorenc M, Kepecs A. The role of the basal forebrain in associative learning. 2017.</li>
+<li>Hangya B, Ranade S, Lorenc M, Kepecs A. <a href="https://doi.org/10.1016/j.cell.2015.07.057" target="_blank">Central Cholinergic Neurons Are Rapidly Recruited by Reinforcement Feedback.</a>. <span class="venue">Cell</span>, 2015. <span class="cite-count">Citations: 364</span></li>
+<li>Hangya B, Pi H, Kvitsiani D, Ranade S, Kepecs A. Author &#x27; s personal copy From circuit motifs to computations : mapping the behavioral repertoire of cortical interneurons. 2014. <span class="cite-count">Citations: 87</span></li>
+<li class="lab-paper">Ranade S, Pi H, Kepecs A. <a href="https://doi.org/10.1016/j.cub.2014.07.024" target="_blank">Neuroscience: Waiting for Serotonin</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Current Biology</span>, 2014. <span class="cite-count">Citations: 57</span></li>
+<li>Kvitsiani D, Ranade S, Hangya B, Taniguchi H, Huang J, Kepecs A. <a href="https://doi.org/10.1038/nature12176" target="_blank">Distinct behavioural and network correlates of two interneuron types in prefrontal cortex</a>. <span class="venue">Nature</span>, 2013. <span class="cite-count">Citations: 498</span></li>
+<li>Ranade S, Hangya B, Kepecs A. <a href="https://doi.org/10.1523/JNEUROSCI.3874-12.2013" target="_blank">Multiple Modes of Phase Locking between Sniffing and Whisking during Active Exploration</a>. <span class="venue">Journal of Neuroscience</span>, 2013. <span class="cite-count">Citations: 86</span></li>
+<li class="lab-paper">Ranade S, Mainen Z. <a href="https://doi.org/10.1152/jn.00507.2009" target="_blank">Transient firing of dorsal raphe neurons encodes diverse and specific sensory, motor, and reward events.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Journal of Neurophysiology</span>, 2009. <span class="cite-count">Citations: 184</span></li>
+<li class="lab-paper">Ranade S, Mainen Z. Transient firing of dorsal raphe neurons specific sensory , motor and reward events <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2009.</li>
+<li class="lab-paper">Huber D, Petreanu L, Ghitani N, Ranade S, Hromádka T, Mainen Z, Svoboda K. <a href="https://doi.org/10.1038/nature06445" target="_blank">Sparse optical microstimulation in barrel cortex drives learned behaviour in freely moving mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature</span>, 2008. <span class="cite-count">Citations: 542</span></li>
+<li>Ranade S. Response profiles of neurons of the rat serotonergic dorsal raphe nucleus during goal directed behavior. 2007.</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">PhD Student, 2000–2007</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>S. Ranade, Z. Mainen (2009). <em><a href="https://doi.org/10.1152/jn.00507.2009" target="_blank">Transient firing of dorsal raphe neurons encodes diverse and specific sensory, motor, and reward events</a></em>. <span class="journal">J Neurophysiol 102, 3026-37</span></li>
-<li>D. Huber, L. Petreanu, Nima Ghitani, S. Ranade, T. Hromádka, Z. Mainen, K. Svoboda (2008). <em><a href="https://doi.org/10.1038/nature06445" target="_blank">Sparse optical microstimulation in barrel cortex drives learned behavior in freely moving mice</a></em>. <span class="journal">Nature 451, 61-4</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-5ht-electrophysiology">Serotonin Electrophysiology</a></li></ul>
-
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5ht-electrophysiology">Serotonin Electrophysiology</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

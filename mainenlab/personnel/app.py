@@ -28,10 +28,10 @@ app = Flask(__name__)
 app.secret_key = 'mainenlab-personnel-internal'
 
 BASE = Path(os.environ['HAAK_BASE']) if 'HAAK_BASE' in os.environ else Path(__file__).resolve().parent.parent.parent.parent.parent.parent
-PEOPLE_DIR = BASE / 'workspaces/zach/projects/mainen-lab/people'
-PROJECTS_DIR = BASE / 'workspaces/zach/projects/mainen-lab/projects'
-PUBS_DIR = BASE / 'workspaces/zach/projects/mainen-lab/publications'
-TAXONOMY_PATH = BASE / 'workspaces/zach/projects/mainen-lab/taxonomy.yaml'
+PEOPLE_DIR = BASE / 'home/zach/projects/mainen-lab/people'
+PROJECTS_DIR = BASE / 'home/zach/projects/mainen-lab/projects'
+PUBS_DIR = BASE / 'home/zach/projects/mainen-lab/publications'
+TAXONOMY_PATH = BASE / 'home/zach/projects/mainen-lab/taxonomy.yaml'
 
 # ---------------------------------------------------------------------------
 # Data loading
@@ -556,6 +556,7 @@ def profile(slug):
     <div class="field"><label>ORCID{orcid_link}</label><input name="orcid" value="{orcid_val}" placeholder="0000-0000-0000-0000"></div>
     <div class="field"><label>Website</label><input name="website" value="{p.get('website','')}" placeholder="https://..."></div>
     <div class="field"><label>Google Scholar</label><input name="scholar" value="{p.get('scholar','')}" placeholder="Scholar profile URL"></div>
+    <div class="field"><label>Semantic Scholar ID</label><input name="s2_id" value="{p.get('s2_id','')}" placeholder="e.g. 1741101"></div>
   </div>
 </div>
 
@@ -615,11 +616,11 @@ def save_person(slug):
     data = load_yaml(str(yf))
     form = request.form
 
-    for field in ('name','role','status','email','orcid','institution','current_position','notes','phone','website','scholar'):
+    for field in ('name','role','status','email','orcid','institution','current_position','notes','phone','website','scholar','s2_id'):
         val = form.get(field, '').strip()
         if val:
             data[field] = val
-        elif field in ('notes','current_position','orcid','phone','website','scholar'):
+        elif field in ('notes','current_position','orcid','phone','website','scholar','s2_id'):
             if field in data and not val:
                 data[field] = ''
 

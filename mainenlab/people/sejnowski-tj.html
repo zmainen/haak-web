@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Terrence J. Sejnowski — Mainen Lab</title>
+<title>Terrence J. Sejnowski &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,26 +61,17 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Terrence J. Sejnowski</h1>
+<h1>Terrence J. Sejnowski <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 
-<div class="lab-role">Collaborator, 1994–1998</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>A. Destexhe, Z. Mainen, T. Sejnowski (1998). <em><a href="https://doi.org/10.1007/bf00961734" target="_blank">Kinetic models of synaptic transmission</a></em>. <span class="journal">(Koch C, Segev I, eds), Cambridge, MA: MIT Press, pp 1-26</span></li>
-<li>Alain Destexhe (1998). <em>Kinetic Models of Synaptic Transmission</em>. <span class="journal"></span></li>
-<li>Zachary F. Mainen (1998). <em>Modeling Active Dendritic Processes in Pyramidal Neurons</em>. <span class="journal"></span></li>
-<li>Z. Mainen, T. Sejnowski (1996). <em><a href="https://doi.org/10.1038/382363a0" target="_blank">Influence of dendritic structure on firing pattern in model neocortical neurons</a></em>. <span class="journal">Nature 382, 363-6</span></li>
-<li>Z. Mainen, T. Sejnowski (1995). <em><a href="https://doi.org/10.1126/science.7770778" target="_blank">Reliability of spike timing in neocortical neurons</a></em>. <span class="journal">Science 268, 1503-6</span></li>
-<li>A. Destexhe, Z. Mainen, T. Sejnowski (1995). <em><a href="https://doi.org/10.1007/bf00961734" target="_blank">Elementary kinetics provide efficient models of synaptic transmission and neuromodulation</a></em>. <span class="journal">In: The Neurobiology of Computation (Bower J, ed) Norwell, MA: Kluwer Academic Press, pp 9-14</span></li>
-<li>A. Destexhe, Z. Mainen, T. Sejnowski (1995). <em><a href="https://doi.org/10.1007/bf00961734" target="_blank">Synaptic currents, neuromodulation and kinetic models</a></em>. <span class="journal">In: The Handbook of Brain Theory and Neural Networks (Arbib M, ed) Cambridge, MA: MIT Press, pp 956-959</span></li>
-<li>Z. Mainen, Z. Mainen, J. Joerges, J. Huguenard, T. Sejnowski, T. Sejnowski (1995). <em><a href="https://doi.org/10.1016/0896-6273(95" target="_blank">A model of spike initiation in neocortical pyramidal neurons</a></em>. <span class="journal">Neuron 15, 1427-39</span></li>
-<li>Alain Destexhe (1995). <em>Synaptic Currents, Neuromodulation, and Kinetic Models</em>. <span class="journal"></span></li>
-<li>Alain Destexhe (1995). <em>Synaptic Interactions</em>. <span class="journal"></span></li>
-<li>A. Destexhe, Z. Mainen, T. Sejnowski (1994). <em><a href="https://doi.org/10.1007/bf00961734" target="_blank">Synthesis of models for excitable membranes, synaptic transmission, and neuromodulation using a common kinetic framework</a></em>. <span class="journal">J Computational Neurosci 1, 195-230</span></li>
-<li>A. Destexhe, Z. Mainen, T. Sejnowski (1994). <em><a href="https://doi.org/10.1162/neco.1994.6.1.14" target="_blank">An efficient method for computing synaptic conductances based on a kinetic model of receptor binding</a></em>. <span class="journal">Neural Computation 6, 14-8</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-kinetic-models">Kinetic Models of Synapses &amp; Channels</a></li>
+<h2>About</h2>
+<div class="bio"><p>Based on the available data, I cannot write an accurate biographical profile for Terrence J. Sejnowski. The provided information indicates no publications, no Semantic Scholar profile, and minimal details about their specific role or contributions at the Mainen Lab. While projects related to kinetic models of synapses and channels, and spike generation and reliability are mentioned, there is insufficient verified information to write a factual profile without risking the invention of details.</p></div>
+<h2>At the Mainen Lab</h2>
+<div class="lab-role">Collaborator, 1994–present</div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-kinetic-models">Kinetic Models of Synapses &amp; Channels</a></li>
 <li><a href="../index.html#project-spike-reliability">Spike Generation &amp; Reliability</a></li></ul>
-
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

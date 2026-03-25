@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cindy Poo — Mainen Lab</title>
+<title>Cindy Poo &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,14 +61,33 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Cindy Poo</h1>
+<h1>Cindy Poo <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Senior Scientist, Allen Institute</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0003-1698-8394" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/5110035" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Cindy Poo was a postdoc in the Mainen Lab from 2011-2022, where she contributed to research on olfactory processing and COVID-19 screening approaches using household odorants. Her research focuses on olfactory system function, including spatial coding in piriform cortex during navigation, cortical feedback control of olfactory circuits, and the neural basis of odor representations. She is currently a Senior Scientist at the Allen Institute.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 8 | Total papers: 12 | Lab papers: 4 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Schoonover C, Fink AJ, Poo C, Yuan Q. <a href="https://doi.org/10.3389/fncel.2023.1146770" target="_blank">Editorial: Neuromodulation in olfaction, volume II</a>. <span class="venue">Frontiers in Cellular Neuroscience</span>, 2023. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Snitz K, Honigstein D, Weissgross R, Ravia A, Mishor E, ... et al.. <a href="https://doi.org/10.1038/s43856-022-00095-7" target="_blank">An olfactory self-test effectively screens for COVID-19</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Communications Medicine</span>, 2022. <span class="cite-count">Citations: 11</span></li>
+<li class="lab-paper">Snitz K, Honigstein D, Weissgross R, Ravia A, Mishor E, ... et al.. <a href="https://doi.org/10.1101/2021.02.18.21251422" target="_blank">Smelling Household-Odorants Effectively Screens for COVID-19</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">medRxiv</span>, 2021. <span class="cite-count">Citations: 4</span></li>
+<li class="lab-paper">Poo C, Agarwal G, Bonacchi N, Mainen Z. <a href="https://doi.org/10.1038/s41586-021-04242-3" target="_blank">Spatial maps in piriform cortex during olfactory navigation</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature</span>, 2020. <span class="cite-count">Citations: 95</span></li>
+<li>Uchida N, Poo C, Haddad R. <a href="https://doi.org/10.1146/annurev-neuro-071013-013941" target="_blank">Coding and transformations in the olfactory system.</a>. <span class="venue">Annual Review of Neuroscience</span>, 2014. <span class="cite-count">Citations: 162</span></li>
+<li>Boyd AM, Sturgill J, Poo C, Isaacson J. <a href="https://doi.org/10.1016/j.neuron.2012.10.020" target="_blank">Cortical feedback control of olfactory bulb circuits.</a>. <span class="venue">Neuron</span>, 2012. <span class="cite-count">Citations: 269</span></li>
+<li>Grabska-Barwinska A, Poo C. <a href="https://doi.org/10.1186/2042-1001-2-3" target="_blank">The 9th annual computational and systems neuroscience (cosyne) meeting</a>. <span class="venue">Neural Systems &amp; Circuits</span>, 2012. <span class="cite-count">Citations: 1</span></li>
+<li>Poo C, Isaacson J. <a href="https://doi.org/10.1016/j.neuron.2011.08.015" target="_blank">A major role for intracortical circuits in the strength and tuning of odor-evoked excitation in olfactory cortex.</a>. <span class="venue">Neuron</span>, 2011. <span class="cite-count">Citations: 135</span></li>
+<li class="lab-paper">Poo C. Odor representations in olfactory cortex <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2010. <span class="cite-count">Citations: 110</span></li>
+<li>Isaacson J, Poo C. <a href="https://doi.org/10.3410/f.5519962.5486062" target="_blank">Faculty Opinions recommendation of Dendritic discrimination of temporal input sequences in cortical neurons.</a>. 2010.</li>
+<li>Poo C, Isaacson J. <a href="https://doi.org/10.1016/j.neuron.2009.05.022" target="_blank">Odor representations in olfactory cortex: &quot;sparse&quot; coding, global inhibition, and oscillations.</a>. <span class="venue">Neuron</span>, 2009. <span class="cite-count">Citations: 495</span></li>
+<li>Poo C, Isaacson J. <a href="https://doi.org/10.1523/JNEUROSCI.1786-07.2007" target="_blank">An Early Critical Period for Long-Term Plasticity and Structural Modification of Sensory Synapses in Olfactory Cortex</a>. <span class="venue">Journal of Neuroscience</span>, 2007. <span class="cite-count">Citations: 79</span></li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2011–2022</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>C. Poo, Gautam Agarwal, Niccolò Bonacchi, Z. Mainen (2021). <em><a href="https://doi.org/10.1038/s41586-021-04242-3" target="_blank">Spatial maps in olfactory cortex during olfactory navigation</a></em>. <span class="journal">Nature 601, 595-599</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-covid-olfaction">COVID Olfactory Screening</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0003-1698-8394" target="_blank">ORCID</a></div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-covid-olfaction">COVID Olfactory Screening</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

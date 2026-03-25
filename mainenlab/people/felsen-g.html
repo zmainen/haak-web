@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gidon Felsen — Mainen Lab</title>
+<title>Gidon Felsen &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,15 +61,86 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Gidon Felsen</h1>
+<h1>Gidon Felsen <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Assoc. Prof., U. Colorado</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0003-0745-8279" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/4161467" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Gidon Felsen was a postdoc in the Mainen Lab from 2005-2009, where he worked on projects investigating the superior colliculus and orienting behaviors. His research focuses on the neural mechanisms underlying spatial attention and movement selection, with particular emphasis on the superior colliculus and basal ganglia circuits, as well as the intersection of neuroscience with ethics and public policy. He is currently an Associate Professor at the University of Colorado, where he continues his work on midbrain circuits and decision-making processes.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 20 | Total papers: 65 | Lab papers: 4 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Doykos TK, Yamauchi T, Buteau A, Hanson S, Dudman J, Felsen G, Stubblefield EA. <a href="https://doi.org/10.1016/j.neuroscience.2026.02.010" target="_blank">Correlates of head-fixed directional forelimb movements in mouse superior colliculus and substantia nigra pars reticulata.</a>. <span class="venue">Neuroscience</span>, 2026. <span class="cite-count">Citations: 1</span></li>
+<li>Hunt JB, Buteau A, Barreto J, Hanson S, Scholl B, Poleg-Polsky A, Felsen G. <a href="https://doi.org/10.1073/pnas.2425788122" target="_blank">Diverse and dynamic influences of saccades on visual representations in the mouse superior colliculus</a>. <span class="venue">Proceedings of the National Academy of Sciences of the United States of America</span>, 2025. <span class="cite-count">Citations: 2</span></li>
+<li>Vijayaraghavan S, Felsen G. <a href="https://doi.org/10.1201/9781032717791" target="_blank">Neuroscience and Society</a>. 2025.</li>
+<li>Doykos TK, Yamauchi T, Buteau A, Hanson S, Dudman J, Felsen G, Stubblefield EA. <a href="https://doi.org/10.1101/2025.05.02.651955" target="_blank">Correlates of head-fixed orienting movements in mouse superior colliculus and substantia nigra pars reticulata</a>. <span class="venue">bioRxiv</span>, 2025.</li>
+<li>Hunt JB, Buteau A, Hanson S, Poleg-Polsky A, Felsen G. <a href="https://doi.org/10.1101/2024.09.21.613770" target="_blank">Neural substrates for saccadic modulation of visual representations in mouse superior colliculus</a>. <span class="venue">bioRxiv</span>, 2024.</li>
+<li>Baker SK, Fenstermacher E, Davis RA, Kern DS, Thompson JA, Felsen G, Baumgartner AJ. <a href="https://doi.org/10.1016/j.jdbs.2023.11.001" target="_blank">Ethical considerations in closed loop deep brain stimulation</a>. <span class="venue">Deep Brain Stimulation</span>, 2023. <span class="cite-count">Citations: 7</span></li>
+<li>Baker SK, Tekriwal A, Felsen G, Christensen ED, Hirt L, Ojemann SG, Kramer D, Kern DS, Thompson JA. <a href="https://doi.org/10.1371/journal.pone.0275490" target="_blank">Automatic extraction of upper-limb kinematic activity using deep learning-based markerless tracking during deep brain stimulation implantation for Parkinson’s disease: A proof of concept study</a>. <span class="venue">PLoS ONE</span>, 2022. <span class="cite-count">Citations: 12</span></li>
+<li>Tekriwal A, Felsen G, Ojemann SG, Abosch A, Thompson JA. <a href="https://doi.org/10.1136/jnnp-2021-326962" target="_blank">Motor context modulates substantia nigra pars reticulata spike activity in patients with Parkinson’s disease</a>. <span class="venue">Journal of Neurology Neurosurgery &amp; Psychiatry</span>, 2022. <span class="cite-count">Citations: 6</span></li>
+<li>Tekriwal A, Baker SK, Christensen ED, Petersen‐Jones HG, Tien RN, Ojemann SG, Kern DS, Kramer D, Felsen G, Thompson JA. <a href="https://doi.org/10.1038/s41598-022-21860-7" target="_blank">Quantifying neuro-motor correlations during awake deep brain stimulation surgery using markerless tracking</a>. <span class="venue">Scientific Reports</span>, 2022. <span class="cite-count">Citations: 1</span></li>
+<li>Robles M, Hunt JB, Felsen G, Poleg-Polsky A. <a href="https://doi.org/10.1096/fasebj.2022.36.s1.l7560" target="_blank">Triggering eye movements in mice to understand stable visual perception</a>. <span class="venue">The FASEB Journal</span>, 2022.</li>
+<li>Essig J, Hunt JB, Felsen G. <a href="https://doi.org/10.1038/s42003-021-02248-1" target="_blank">Inhibitory neurons in the superior colliculus mediate selection of spatially-directed movements</a>. <span class="venue">Communications Biology</span>, 2021. <span class="cite-count">Citations: 36</span></li>
+<li>Niker F, Felsen G, Nagel S, Reiner PB. <a href="https://doi.org/10.1007/978-3-030-84494-3_6" target="_blank">Autonomy, Evidence-Responsiveness, and the Ethics of Influence</a>. <span class="venue">The Law and Ethics of Freedom of Thought, Volume 1</span>, 2021. <span class="cite-count">Citations: 11</span></li>
+<li>Tekriwal A, Lintz MJ, Thompson JA, Felsen G. <a href="https://doi.org/10.1152/jn.00001.2021" target="_blank">Disrupted basal ganglia output during movement preparation in hemi-parkinsonian mice is consistent with behavioral deficits.</a>. <span class="venue">Journal of Neurophysiology</span>, 2021. <span class="cite-count">Citations: 4</span></li>
+<li>Essig J, Felsen G. <a href="https://doi.org/10.1101/2021.04.25.441374" target="_blank">Functional coupling between target selection and acquisition in the superior colliculus</a>. <span class="venue">bioRxiv</span>, 2021. <span class="cite-count">Citations: 2</span></li>
+<li>Essig J, Hunt JB, Felsen G. <a href="https://doi.org/10.1038/s42003-021-02248-1" target="_blank">Inhibitory neurons in the superior colliculus mediate selection of spatially-directed movements</a>. <span class="venue">Communications Biology</span>, 2021.</li>
+<li>Doykos TK, Gilmer JI, Person A, Felsen G. <a href="https://doi.org/10.1002/cne.24888" target="_blank">Monosynaptic inputs to specific cell types of the intermediate and deep layers of the superior colliculus</a>. <span class="venue">The Journal of comparative neurology</span>, 2020. <span class="cite-count">Citations: 33</span></li>
+<li>Essig J, Hunt JB, Felsen G. <a href="https://doi.org/10.1101/2020.02.25.965699" target="_blank">Inhibitory midbrain neurons mediate decision making</a>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 2</span></li>
+<li>Felsen G. <a href="https://doi.org/10.1080/21507740.2020.1778124" target="_blank">Ethical Implications of BRAIN 2.0: Beyond Bioethics, Beyond Borders</a>. <span class="venue">AJOB Neuroscience</span>, 2020. <span class="cite-count">Citations: 1</span></li>
+<li>Tekriwal A, Lintz MJ, Thompson JA, Felsen G. <a href="https://doi.org/10.1101/2020.06.19.160457" target="_blank">Disrupted basal ganglia output during movement preparation in hemi-parkinsonian mice accounts for behavioral deficits</a>. <span class="venue">bioRxiv</span>, 2020.</li>
+<li>Allen CH, Vold K, Felsen G, Blumenthal-Barby JS, Aharoni E. <a href="https://doi.org/10.1371/journal.pone.0210584" target="_blank">Reconciling the opposing effects of neurobiological evidence on criminal sentencing judgments</a>. <span class="venue">PLoS ONE</span>, 2019. <span class="cite-count">Citations: 20</span></li>
+<li>Lintz MJ, Essig J, Zylberberg J, Felsen G. <a href="https://doi.org/10.1016/j.neuroscience.2019.04.002" target="_blank">Spatial representations in the superior colliculus are modulated by competition among targets.</a>. <span class="venue">Neuroscience</span>, 2019. <span class="cite-count">Citations: 14</span></li>
+<li>Tekriwal A, Afshar NM, Santiago‐Moreno J, Kuijper FM, Kern DS, Halpern C, Felsen G, Thompson JA. <a href="https://doi.org/10.3390/brainsci9070173" target="_blank">Neural Circuit and Clinical Insights from Intraoperative Recordings During Deep Brain Stimulation Surgery</a>. <span class="venue">Brain Science</span>, 2019. <span class="cite-count">Citations: 11</span></li>
+<li>Doykos TK, Gilmer JI, Person A, Felsen G. <a href="https://doi.org/10.1101/824250" target="_blank">Monosynaptic Inputs to Excitatory and Inhibitory Neurons of the Intermediate and Deep Layers of the Superior Colliculus</a>. <span class="venue">bioRxiv</span>, 2019. <span class="cite-count">Citations: 1</span></li>
+<li>Felsen G. <a href="https://doi.org/10.1177/1073110519897790" target="_blank">Research Ethics in Conscious Subjects: Old Questions, New Contexts</a>. <span class="venue">Journal of Law, Medicine &amp; Ethics</span>, 2019. <span class="cite-count">Citations: 1</span></li>
+<li>Niker F, Reiner P, Felsen G. <a href="https://doi.org/10.1007/S12152-015-9246-3" target="_blank">Updating our Selves: Synthesizing Philosophical and Neurobiological Perspectives on Incorporating New Information into our Worldview</a>. 2018. <span class="cite-count">Citations: 7</span></li>
+<li>Niker F, Reiner P, Felsen G. <a href="https://doi.org/10.3389/fpsyg.2018.01400" target="_blank">Perceptions of Undue Influence Shed Light on the Folk Conception of Autonomy</a>. <span class="venue">Frontiers in Psychology</span>, 2018. <span class="cite-count">Citations: 6</span></li>
+<li>Tekriwal A, Felsen G, Thompson JA. <a href="https://doi.org/10.1016/j.jneumeth.2018.05.004" target="_blank">Modular auditory decision-making behavioral task designed for intraoperative use in humans.</a>. <span class="venue">Journal of Neuroscience Methods</span>, 2018. <span class="cite-count">Citations: 5</span></li>
+<li>Wolf AB, Felsen G. <a href="https://doi.org/10.1017/bpp.2017.9" target="_blank">How public health policy can be informed by neuroscience</a>. <span class="venue">Behavioural Public Policy</span>, 2018. <span class="cite-count">Citations: 1</span></li>
+<li>Thompson JA, Tekriwal A, Felsen G, Ozturk M, Telkes I, Wu J, Ince N, Abosch A. <a href="https://doi.org/10.1136/jnnp-2017-316115" target="_blank">Sleep patterns in Parkinson’s disease: direct recordings from the subthalamic nucleus</a>. <span class="venue">Journal of Neurology Neurosurgery &amp; Psychiatry</span>, 2017. <span class="cite-count">Citations: 53</span></li>
+<li>Kolb R, Abosch A, Felsen G, Thompson JA. <a href="https://doi.org/10.14814/phy2.13322" target="_blank">Use of intraoperative local field potential spectral analysis to differentiate basal ganglia structures in Parkinson&#x27;s disease patients</a>. <span class="venue">Physiological Reports</span>, 2017. <span class="cite-count">Citations: 16</span></li>
+<li>Felsen G, Reiner P. <a href="https://doi.org/10.1080/21507740.2017.1320329" target="_blank">Quantitative Anticipatory Ethical Analysis Should Inform Neurotechnology Development</a>. 2017. <span class="cite-count">Citations: 1</span></li>
+<li>Thompson JA, Costabile JD, Felsen G. <a href="https://doi.org/10.7554/eLife.16572" target="_blank">Mesencephalic representations of recent experience influence decision making</a>. <span class="venue">eLife</span>, 2016. <span class="cite-count">Citations: 20</span></li>
+<li>Essig J, Felsen G. <a href="https://doi.org/10.1016/j.tins.2015.12.002" target="_blank">Warning! Dopaminergic Modulation of the Superior Colliculus.</a>. <span class="venue">Trends in Neurosciences</span>, 2016. <span class="cite-count">Citations: 20</span></li>
+<li>Lintz MJ, Felsen G. <a href="https://doi.org/10.7554/eLife.13833" target="_blank">Basal ganglia output reflects internally-specified movements</a>. <span class="venue">eLife</span>, 2016. <span class="cite-count">Citations: 12</span></li>
+<li>Niker F, Reiner P, Felsen G. <a href="https://doi.org/10.1080/15265161.2016.1159761" target="_blank">Pre-Authorization: A Novel Decision-Making Heuristic That May Promote Autonomy</a>. <span class="venue">American Journal of Bioethics</span>, 2016. <span class="cite-count">Citations: 3</span></li>
+<li>Thompson JA, Costabile JD, Felsen G. <a href="https://doi.org/10.7554/elife.16572.009" target="_blank">Author response: Mesencephalic representations of recent experience influence decision making</a>. 2016.</li>
+<li>Lintz MJ, Felsen G. <a href="https://doi.org/10.7554/ELIFE.13833.017" target="_blank">Author response: Basal ganglia output reflects internally-specified movements</a>. 2016.</li>
+<li>Wolf AB, Lintz MJ, Costabile JD, Thompson JA, Stubblefield EA, Felsen G. <a href="https://doi.org/10.1152/jn.00262.2015" target="_blank">An integrative role for the superior colliculus in selecting targets for movements.</a>. <span class="venue">Journal of Neurophysiology</span>, 2015. <span class="cite-count">Citations: 38</span></li>
+<li>Felsen G, Reiner P. <a href="https://doi.org/10.1007/S13164-015-0240-9" target="_blank">What can Neuroscience Contribute to the Debate Over Nudging?</a>. 2015. <span class="cite-count">Citations: 29</span></li>
+<li>Stubblefield EA, Thompson JA, Felsen G. <a href="https://doi.org/10.1152/jn.00917.2014" target="_blank">Optogenetic cholinergic modulation of the mouse superior colliculus in vivo.</a>. <span class="venue">Journal of Neurophysiology</span>, 2015. <span class="cite-count">Citations: 19</span></li>
+<li>Niker F, Reiner PB, Felsen G. <a href="https://doi.org/10.1007/s12152-015-9246-3" target="_blank">Updating our Selves: Synthesizing Philosophical and Neurobiological Perspectives on Incorporating New Information into our Worldview</a>. <span class="venue">Neuroethics</span>, 2015.</li>
+<li class="lab-paper">Mainen Z, Thompson JA, Felsen G, Teixeira S, Piedade R, Arias-Carrión Ó, Sampaio I, Bittencourt J, Velasques B. makingcontributions to sensorimotor decision <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2015.</li>
+<li>Felsen G, Reiner PB. <a href="https://doi.org/10.1007/s13164-015-0240-9" target="_blank">What can Neuroscience Contribute to the Debate Over Nudging?</a>. <span class="venue">Review of Philosophy and Psychology</span>, 2015.</li>
+<li class="lab-paper">Hikosaka O, Chen X, Scangos K, Stuphorn V, Felsen G, Mainen Z, Amemori K, Amemori S, Graybiel A. Superior Colliculus of the Macaque A Neural Correlate of Motivational Conflict in the <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2015.</li>
+<li>Felsen G, Castelo N, Reiner P. <a href="https://doi.org/10.1017/s1930297500005933" target="_blank">Decisional enhancement and autonomy: public attitudes towards overt and covert nudges</a>. <span class="venue">Judgment and Decision Making</span>, 2013. <span class="cite-count">Citations: 148</span></li>
+<li>Al-Juboori SI, Dondzillo A, Stubblefield EA, Felsen G, Lei TC, Klug A. <a href="https://doi.org/10.1371/journal.pone.0067626" target="_blank">Light Scattering Properties Vary across Different Regions of the Adult Mouse Brain</a>. <span class="venue">PLoS ONE</span>, 2013. <span class="cite-count">Citations: 131</span></li>
+<li>Stubblefield EA, Costabile JD, Felsen G. <a href="https://doi.org/10.1016/j.bbr.2013.04.040" target="_blank">Optogenetic investigation of the role of the superior colliculus in orienting movements.</a>. <span class="venue">Behavioural Brain Research</span>, 2013. <span class="cite-count">Citations: 49</span></li>
+<li>Thompson JA, Felsen G. <a href="https://doi.org/10.1152/jn.00464.2013" target="_blank">Activity in mouse pedunculopontine tegmental nucleus reflects action and outcome in a decision-making task.</a>. <span class="venue">Journal of Neurophysiology</span>, 2013. <span class="cite-count">Citations: 47</span></li>
+<li>Felsen G, Reiner P. <a href="https://doi.org/10.1080/21507740.2013.828112" target="_blank">Having the Capacity for Autonomy Is Insufficient to Provide Meaningful Autonomy</a>. 2013. <span class="cite-count">Citations: 2</span></li>
+<li class="lab-paper">Felsen G, Mainen Z. <a href="https://doi.org/10.1152/jn.01181.2011" target="_blank">Midbrain contributions to sensorimotor decision making.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Journal of Neurophysiology</span>, 2012. <span class="cite-count">Citations: 55</span></li>
+<li>Perry C, Felsen G. <a href="https://doi.org/10.1007/s10071-012-0471-4" target="_blank">Rats can make relative perceptual judgments about sequential stimuli</a>. <span class="venue">Animal Cognition</span>, 2012. <span class="cite-count">Citations: 7</span></li>
+<li>Castelo N, Reiner P, Felsen G. <a href="https://doi.org/10.1080/15265161.2011.634951" target="_blank">Balancing Autonomy and Decisional Enhancement: An Evidence-Based Approach</a>. <span class="venue">American Journal of Bioethics</span>, 2012. <span class="cite-count">Citations: 5</span></li>
+<li>Ojemann SG, Szentirmai O, Felsen G. <a href="https://doi.org/10.1016/B978-1-4160-6839-6.10116-9" target="_blank">Chapter 116 – Novel Targets in Deep Brain Stimulation for Movement Disorders</a>. 2012.</li>
+<li>Felsen G, Reiner P. <a href="https://doi.org/10.1080/21507740.2011.580489" target="_blank">How the Neuroscience of Decision Making Informs Our Conception of Autonomy</a>. 2011. <span class="cite-count">Citations: 55</span></li>
+<li>Rapela J, Felsen G, Touryan J, Mendel J, Grzywacz N. <a href="https://doi.org/10.3109/0954898X.2010.488714" target="_blank">ePPR: a new strategy for the characterization of sensory cells from input/output data</a>. <span class="venue">Network</span>, 2010. <span class="cite-count">Citations: 17</span></li>
+<li>Felsen G, Whiteley L, Nadler R, Reiner P. <a href="https://doi.org/10.1080/21507740.2010.514883" target="_blank">Neuroscience Evidence Should be Incorporated Into Our Ethical Practices</a>. 2010. <span class="cite-count">Citations: 3</span></li>
+<li>Perry C, Felsen G. <a href="https://doi.org/10.1080/15265161.2010.528511" target="_blank">Abortion Law Should Align With Evidence From Neuroscience</a>. <span class="venue">American Journal of Bioethics</span>, 2010. <span class="cite-count">Citations: 3</span></li>
+<li class="lab-paper">Felsen G, Mainen Z. <a href="https://doi.org/10.1016/j.neuron.2008.09.019" target="_blank">Neural substrates of sensory-guided locomotor decisions in the rat superior colliculus.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Neuron</span>, 2008. <span class="cite-count">Citations: 155</span></li>
+<li>Felsen G, Dan Y. <a href="https://doi.org/10.1038/nn1608" target="_blank">A natural approach to studying vision</a>. <span class="venue">Nature Neuroscience</span>, 2005. <span class="cite-count">Citations: 313</span></li>
+<li>Touryan J, Felsen G, Dan Y. <a href="https://doi.org/10.1016/J.NEURON.2005.01.029" target="_blank">Spatial structure of complex cell receptive fields measured with natural images.</a>. <span class="venue">Neuron</span>, 2005. <span class="cite-count">Citations: 229</span></li>
+<li>Felsen G, Touryan J, Han FQ, Dan Y. <a href="https://doi.org/10.1371/journal.pbio.0030342" target="_blank">Cortical Sensitivity to Visual Features in Natural Scenes</a>. <span class="venue">PLoS Biology</span>, 2005. <span class="cite-count">Citations: 164</span></li>
+<li>Felsen G, Touryan J, Dan Y. <a href="https://doi.org/10.1080/09548980500463347" target="_blank">Contextual modulation of orientation tuning contributes to efficient processing of natural stimuli</a>. <span class="venue">Network</span>, 2005. <span class="cite-count">Citations: 46</span></li>
+<li>Felsen G, Shen Y, Yao H, Spor G, Li C, Dan Y. <a href="https://doi.org/10.1016/S0896-6273(02)01011-5" target="_blank">Dynamic modification of cortical orientation tuning mediated by recurrent connections.</a>. <span class="venue">Neuron</span>, 2002. <span class="cite-count">Citations: 139</span></li>
+<li>Felsen G, Shen Y, Yao H, Spor G, Li C, Dan Y. Spatially , oriented stimuli in the surround can shift the. 2002.</li>
+<li>Felsen G, Shen Y, Yao H, Spor G, Li C, Dan Y. Spatially , oriented stimuli in the surround can shift the. 2002.</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2005–2009</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Gidon Felsen, Z. Mainen (2012). <em><a href="https://doi.org/10.1152/jn.01181.2011" target="_blank">Midbrain contributions to sensorimotor decision-making</a></em>. <span class="journal">J Neurophysiol 108 (1), 135-47</span></li>
-<li>Gidon Felsen, Z. Mainen (2008). <em><a href="https://doi.org/10.1016/j.neuron.2008.09.019" target="_blank">Neural substrates of sensory-guided locomotor decisions in the rat superior colliculus</a></em>. <span class="journal">Neuron 60, 137-48</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-superior-colliculus">Superior Colliculus &amp; Orienting</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0003-0745-8279" target="_blank">ORCID</a></div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-superior-colliculus">Superior Colliculus &amp; Orienting</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

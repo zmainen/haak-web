@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gautam Agarwal — Mainen Lab</title>
+<title>Gautam Agarwal &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,14 +61,24 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Gautam Agarwal</h1>
+<h1>Gautam Agarwal <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Departed; no current affiliation listed in Semantic Scholar</div>
-<div class="lab-role">Postdoc, 2001–2019</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>C. Poo, Gautam Agarwal, Niccolò Bonacchi, Z. Mainen (2021). <em><a href="https://doi.org/10.1038/s41586-021-04242-3" target="_blank">Spatial maps in olfactory cortex during olfactory navigation</a></em>. <span class="journal">Nature 601, 595-599</span></li></ul>
-
-
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://www.semanticscholar.org/author/49491351" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Gautam Agarwal was a postdoctoral researcher in the Mainen Lab from 2001-2019, where he contributed to the lab's research program over nearly two decades. His research focused on spatial coding and neural field dynamics, particularly studying how local field potentials in the hippocampus encode spatial information and investigating olfactory-guided navigation through spatial mapping in piriform cortex. He has since departed the lab and his current affiliation is not listed.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 6 | Total papers: 8 | Lab papers: 1 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li class="lab-paper">Poo C, Agarwal G, Bonacchi N, Mainen Z. <a href="https://doi.org/10.1038/s41586-021-04242-3" target="_blank">Spatial maps in piriform cortex during olfactory navigation</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature</span>, 2020. <span class="cite-count">Citations: 95</span></li>
+<li>Agarwal G, Stevenson IH, Berényi A, Mizuseki K, Buzsáki G, Sommer F. <a href="https://doi.org/10.1126/science.1250444" target="_blank">Spatially Distributed Local Fields in the Hippocampus Encode Rat Position</a>. <span class="venue">Science</span>, 2014. <span class="cite-count">Citations: 138</span></li>
+<li>Agarwal G. <a href="https://doi.org/10.1101/008557" target="_blank">Local Fields of the Hippocampus: More than Meets the Eye</a>. <span class="venue">bioRxiv</span>, 2014.</li>
+<li>Warp E, Agarwal G, Wyart C, Friedmann D, Oldfield CS, Conner A, Bene FD, Arrenberg AB, Baier H, Isacoff E. <a href="https://doi.org/10.1016/j.cub.2011.12.002" target="_blank">Emergence of patterned activity in the developing zebrafish spinal cord.</a>. <span class="venue">Current Biology</span>, 2012. <span class="cite-count">Citations: 184</span></li>
+<li>Agarwal G, Isacoff E. <a href="https://doi.org/10.1152/jn.00591.2010" target="_blank">Specializations of a pheromonal glomerulus in the Drosophila olfactory system.</a>. <span class="venue">Journal of Neurophysiology</span>, 2011. <span class="cite-count">Citations: 14</span></li>
+<li>Pathak MM, Yarov‐Yarovoy V, Agarwal G, Roux B, Barth P, Kohout SC, Tombola F, Isacoff E. <a href="https://doi.org/10.1016/J.NEURON.2007.09.023" target="_blank">Closing in on the resting state of the Shaker K(+) channel.</a>. <span class="venue">Neuron</span>, 2007. <span class="cite-count">Citations: 271</span></li>
+<li>Guerrero G, Reiff D, Agarwal G, Ball RW, Borst A, Goodman C, Isacoff E. <a href="https://doi.org/10.1038/nn1526" target="_blank">Heterogeneity in synaptic transmission along a Drosophila larval motor axon</a>. <span class="venue">Nature Neuroscience</span>, 2005. <span class="cite-count">Citations: 110</span></li>
+<li>Guerrero G, Rieff DF, Agarwal G, Ball RW, Borst A, Goodman C, Isacoff E. <a href="https://doi.org/10.1038/nn1005-1411a" target="_blank">Erratum: Heterogeneity in synaptic transmission along a Drosophila larval motor axon</a>. <span class="venue">Nature Neuroscience</span>, 2005.</li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

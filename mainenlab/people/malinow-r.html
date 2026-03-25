@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roberto Malinow — Mainen Lab</title>
+<title>Roberto Malinow &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,18 +61,16 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Roberto Malinow</h1>
+<h1>Roberto Malinow <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 
-<div class="lab-role">Collaborator, 1996–2000</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>R. Malinow, Z. Mainen, Y. Hayashi (2000). <em><a href="https://doi.org/10.1016/s0959-4388(00" target="_blank">LTP mechanisms: from silence to four-lane traffic</a></em>. <span class="journal">Curr Opin Neurobiol 10, 352-7</span></li>
-<li>Z. Mainen, R. Malinow, K. Svoboda (1999). <em><a href="https://doi.org/10.1038/20187" target="_blank">Synaptic calcium transients in single spines indicate that NMDA receptors are not saturated</a></em>. <span class="journal">Nature 399, 151-5</span></li>
-<li>Z. Mainen, M. Maletić-Savatić, Song-Hai Shi, Y. Hayashi, R. Malinow, K. Svoboda (1999). <em><a href="https://doi.org/10.1006/meth.1999.0776" target="_blank">Two-photon imaging in brain slices</a></em>. <span class="journal">Methods 18, 231-9</span></li>
-<li>Z. Mainen, Zhengping Jia, J. Roder, R. Malinow (1998). <em><a href="https://doi.org/10.1038/2812" target="_blank">Use-dependent AMPA receptor block in mice lacking GluR2 suggests postsynaptic site for LTP expression</a></em>. <span class="journal">Nat Neurosci 1, 579-86</span></li>
-<li>R. Malinow, Z. Mainen, S. Siegelbaum, V. Bolshakov (1996). <em><a href="https://doi.org/10.1126/science.271.5255.1604" target="_blank">Long-term potentiation in the CA1 hippocampus [technical comment]</a></em>. <span class="journal">Science 271, 1604-6</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-synaptic-plasticity">Synaptic Plasticity &amp; Imaging</a></li></ul>
-
+<h2>About</h2>
+<div class="bio"><p>Roberto Malinow was a member of the Mainen Lab, where he worked on synaptic plasticity and imaging projects. His research focused on understanding the mechanisms underlying synaptic changes in neural circuits. Limited information is available about his current position and specific contributions to the lab's research program.</p></div>
+<h2>At the Mainen Lab</h2>
+<div class="lab-role">Collaborator, 1996–present</div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-synaptic-plasticity">Synaptic Plasticity &amp; Imaging</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

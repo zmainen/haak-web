@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eran Lottem — Mainen Lab</title>
+<title>Eran Lottem &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,20 +61,46 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Eran Lottem</h1>
+<h1>Eran Lottem <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">No current institutional affiliation listed.</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0001-5852-928X" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/4099425" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Eran Lottem was a postdoc in the lab from 2011-2018, where he worked on serotonin optogenetics and computational decision theory. His research focused on understanding how serotonin neurons modulate behavior, particularly in the context of decision-making, cognitive flexibility, and foraging strategies, combining optogenetic manipulations with behavioral paradigms. He also contributed to studies on sensory processing across multiple modalities, including somatosensory and auditory systems.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 10 | Total papers: 24 | Lab papers: 11 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Araújo SC, Lacoste B, Moreira L, Horno O, Lottem E, Silva JAD, Gutkin B, Machens C, Lima SQ. <a href="https://doi.org/10.64898/2026.02.17.706366" target="_blank">Control of Male Mouse Copulatory Behavior by Midbrain Dopamine Neurons</a>. <span class="venue">bioRxiv</span>, 2026.</li>
+<li>Haim S, Ofir N, Deouell L, Landau AN, Lottem E. <a href="https://doi.org/10.1523/JNEUROSCI.2041-24.2025" target="_blank">Neural Signatures of Flexible Multiple Timing</a>. <span class="venue">Journal of Neuroscience</span>, 2025.</li>
+<li>Schwarcz J, Bauer J, Rajabi H, Marmur G, Reiner R, Lottem E, Kadmon J. <a href="https://doi.org/10.1101/2025.02.05.636696" target="_blank">Neural mechanisms of flexible perceptual inference</a>. <span class="venue">bioRxiv</span>, 2025.</li>
+<li>Hovav-Lixenberg A, Henshke Y, Kreisel T, Lottem E, Joshua M. <a href="https://doi.org/10.1101/2025.04.21.649760" target="_blank">Enhanced reward coding and condition-independent dynamics in optogenetically identified corticostriatal neurons in monkeys</a>. <span class="venue">bioRxiv</span>, 2025.</li>
+<li>Liu Z, Reiner R, Loewenstein Y, Lottem E. <a href="https://doi.org/10.1016/j.biopsych.2024.09.017" target="_blank">Value modulation of self-defeating impulsivity.</a>. <span class="venue">Biological Psychiatry</span>, 2024. <span class="cite-count">Citations: 1</span></li>
+<li>Haimson B, Gilday O, Lavi-Rudel A, Sagi H, Lottem E, Mizrahi A. <a href="https://doi.org/10.1126/sciadv.adp9816" target="_blank">Single neuron responses to perceptual difficulty in the mouse auditory cortex</a>. <span class="venue">Science Advances</span>, 2024. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Vertechi P, Lottem E, Sarra D, Godinho BS, Treves I, Quendera T, Lohuis MNO, Mainen Z. <a href="https://doi.org/10.1016/j.neuron.2020.01.017" target="_blank">Inference-Based Decisions in a Hidden State Foraging Task: Differential Contributions of Prefrontal Cortical Areas</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2019. <span class="cite-count">Citations: 79</span></li>
+<li class="lab-paper">Lottem E, Banerjee D, Vertechi P, Sarra D, Lohuis MO, Mainen Z. <a href="https://doi.org/10.1038/s41467-018-03438-y" target="_blank">Activation of serotonin neurons promotes active persistence in a probabilistic foraging task</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Communications</span>, 2018. <span class="cite-count">Citations: 120</span></li>
+<li class="lab-paper">Lottem E, Banerjee D, Vertechi P, Sarra D, Lohuis MO, Mainen Z. <a href="https://doi.org/10.1038/s41467-018-03438-y" target="_blank">Activation of serotonin neurons promotes active persistence in a probabilistic foraging task</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Communications</span>, 2018.</li>
+<li class="lab-paper">Matias S, Lottem E, Dugué G, Mainen Z. <a href="https://doi.org/10.7554/eLife.20552" target="_blank">Activity patterns of serotonin neurons underlying cognitive flexibility</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">eLife</span>, 2017. <span class="cite-count">Citations: 204</span></li>
+<li class="lab-paper">Correia PA, Lottem E, Banerjee D, Machado AS, Carey MR, Mainen Z. <a href="https://doi.org/10.7554/eLife.20975" target="_blank">Transient inhibition and long-term facilitation of locomotion by phasic optogenetic activation of serotonin neurons</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">eLife</span>, 2017. <span class="cite-count">Citations: 112</span></li>
+<li class="lab-paper">Matias S, Lottem E, Dugué G, Mainen Z. <a href="https://doi.org/10.7554/elife.20552.028" target="_blank">Author response: Activity patterns of serotonin neurons underlying cognitive flexibility</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2017. <span class="cite-count">Citations: 2</span></li>
+<li class="lab-paper">Lottem E, Banerjee D, Vertechi P, Sarra D, Lohuis MO, Mainen Z. <a href="https://doi.org/10.1101/170472" target="_blank">Activation of serotonin neurons promotes active exploitation in a probabilistic foraging task</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2017. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Lottem E, Lörincz ML, Mainen Z. <a href="https://doi.org/10.1523/JNEUROSCI.3008-15.2016" target="_blank">Optogenetic Activation of Dorsal Raphe Serotonin Neurons Rapidly Inhibits Spontaneous But Not Odor-Evoked Activity in Olfactory Cortex</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Journal of Neuroscience</span>, 2016. <span class="cite-count">Citations: 70</span></li>
+<li class="lab-paper">Matias S, Lottem E, Dugué G, Mainen Z. <a href="https://doi.org/10.1101/059758" target="_blank">Firing patterns of serotonin neurons underlying cognitive flexibility</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2016. <span class="cite-count">Citations: 7</span></li>
+<li class="lab-paper">Correia PA, Lottem E, Banerjee D, Machado AS, Carey MR, Mainen Z. <a href="https://doi.org/10.7554/elife.20975.016" target="_blank">Author response: Transient inhibition and long-term facilitation of locomotion by phasic optogenetic activation of serotonin neurons</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2016.</li>
+<li>Lottem E, Gugig E, Azouz R. <a href="https://doi.org/10.1152/jn.00485.2014" target="_blank">Parallel coding schemes of whisker velocity in the rat&#x27;s somatosensory system.</a>. <span class="venue">Journal of Neurophysiology</span>, 2015. <span class="cite-count">Citations: 10</span></li>
+<li>Kleinfeld D, Friedman W, Zeigler H, Keller A, Méndez JM, Mindlin G, Goller F, Lottem E, Gugig E, Azouz R. Mimics Exploratory Whisking Microstimulation to Motor Cortex in the Aroused Rat Vibrissa Movement Elicited by Rhythmic Electrical. 2015.</li>
+<li>Moxon K, Chiel H, Ting L, Ekeberg Ö, Hartmann M, ... et al.. Neurons Within the Rat Trigeminal Ganglion (RA and SA) and Vibrissal Receptive Field of Relationship Between Physiological Response Type. 2015.</li>
+<li class="lab-paper">Dugué G, Lörincz ML, Lottem E, Audero E, Matias S, Correia PA, Léna C, Mainen Z. <a href="https://doi.org/10.1371/journal.pone.0105941" target="_blank">Optogenetic Recruitment of Dorsal Raphe Serotonergic Neurons Acutely Decreases Mechanosensory Responsivity in Behaving Mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">PLoS ONE</span>, 2014. <span class="cite-count">Citations: 61</span></li>
+<li>Middlebrooks JC, Abolafia JM, Martinez-Garcia M, Deco G, Sanchez-Vives MV, Lyamzin D, Lesica N, Lottem E, Gugig E, Azouz R. Information-Bearing Features of Spike Patterns Cortical Representation of Auditory Space:. 2013.</li>
+<li>Lottem E, Azouz R. <a href="https://doi.org/10.1523/JNEUROSCI.6695-10.2011" target="_blank">A Unifying Framework Underlying Mechanotransduction in the Somatosensory System</a>. <span class="venue">Journal of Neuroscience</span>, 2011. <span class="cite-count">Citations: 38</span></li>
+<li>Lottem E, Azouz R. <a href="https://doi.org/10.1523/JNEUROSCI.0705-09.2009" target="_blank">Mechanisms of Tactile Information Transmission through Whisker Vibrations</a>. <span class="venue">Journal of Neuroscience</span>, 2009. <span class="cite-count">Citations: 64</span></li>
+<li>Lottem E, Azouz R. <a href="https://doi.org/10.1152/jn.90302.2008" target="_blank">Dynamic translation of surface coarseness into whisker vibrations.</a>. <span class="venue">Journal of Neurophysiology</span>, 2008. <span class="cite-count">Citations: 55</span></li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2011–2018</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Pietro Vertechi, Eran Lottem, Dario Sarra, Beatriz S. Godinho, Isaac Treves, T. Quendera, Matthijs N. oude Lohuis, Z. Mainen (2020). <em><a href="https://doi.org/10.1101/679142" target="_blank">Inference-based decisions in a hidden state foraging task: differential contributions of prefrontal areas</a></em>. <span class="journal">Neuron 106 (1), 166</span></li>
-<li>Eran Lottem, Dhruba Banerjee, Pietro Vertechi, Dario Sarra, M. O. Lohuis, Z. Mainen (2018). <em><a href="https://doi.org/10.1101/170472" target="_blank">Activation of serotonin neurons promotes active persistence in a probabilistic foraging task</a></em>. <span class="journal">Nat Commun 9 (1): 1000</span></li>
-<li>Patrícia A. Correia, Eran Lottem, Dhruba Banerjee, Ana S. Machado, Megan R. Carey, Z. Mainen (2017). <em><a href="https://doi.org/10.7554/elife.20975" target="_blank">Transient inhibition and long-term facilitation of locomotion by phasic optogenetic activation of serotonin neurons</a></em>. <span class="journal">eLife pii: e20975</span></li>
-<li>S. Matias, Eran Lottem, G. Dugué, Z. Mainen (2017). <em><a href="https://doi.org/10.7554/elife.20552.028" target="_blank">Activity patterns of serotonin neurons underlying cognitive flexibility</a></em>. <span class="journal">eLife pii: e20552</span></li>
-<li>Eran Lottem, Magor L Lörincz, Z. Mainen (2016). <em><a href="https://doi.org/10.1523/jneurosci.3008-15.2016" target="_blank">Optogenetic activation of dorsal raphe serotonin neurons rapidly inhibits spontaneous but not odor-evoked activity in olfactory cortex</a></em>. <span class="journal">J Neurosci 36 (1), 7-18</span></li>
-<li>G. Dugué, Magor L Lörincz, Eran Lottem, E. Audero, S. Matias, Patrícia A. Correia, C. Léna, Z. Mainen (2014). <em><a href="https://doi.org/10.1371/journal.pone.0105941" target="_blank">Optogenetic recruitment of dorsal raphe serotonergic neurons acutely decreases mechanosensory responsivity in behaving mice</a></em>. <span class="journal">PLoS ONE 9 (8), e105941</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-5ht-optogenetics">Serotonin Optogenetics</a></li>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5ht-optogenetics">Serotonin Optogenetics</a></li>
 <li><a href="../index.html#project-computational-decisions">Computational Decision Theory</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0001-5852-928X" target="_blank">ORCID</a></div>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

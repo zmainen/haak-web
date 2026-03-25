@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Claudia Feierstein — Mainen Lab</title>
+<title>Claudia Feierstein &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,17 +61,37 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Claudia Feierstein</h1>
+<h1>Claudia Feierstein <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">No current affiliation listed.</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0002-8002-922X" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/5476888" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Claudia Feierstein was a PhD student in the Mainen Lab from 2001-2007, where she worked on projects involving the orbitofrontal cortex, confidence, and decision-making. Her research focused on understanding how neural circuits in the orbitofrontal cortex represent spatial goals and behavioral outcomes, including detailed characterization of fast-spiking interneuron networks and their responses to behavioral contingencies. Her later work has expanded to include neural population analysis methods and whole-brain imaging approaches in zebrafish, as well as studies of adult neurogenesis and social behavior.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 10 | Total papers: 16 | Lab papers: 8 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Feierstein C, Goeij MHD, Ostrovsky A, Laborde A, Portugues R, Orger M, Machens C. <a href="https://doi.org/10.1101/2023.03.12.532285" target="_blank">Dimensionality reduction reveals separate translation and rotation populations in the zebrafish hindbrain</a>. <span class="venue">bioRxiv</span>, 2023. <span class="cite-count">Citations: 10</span></li>
+<li class="lab-paper">Kobak D, Brendel W, Constantinidis C, Feierstein C, Kepecs A, Mainen Z, Qi X, Romo R, Uchida N, Machens C. <a href="https://doi.org/10.7554/elife.10989.022" target="_blank">Author response: Demixed principal component analysis of neural population data</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2016. <span class="cite-count">Citations: 10</span></li>
+<li>Feierstein C, Portugues R, Orger M. <a href="https://doi.org/10.1016/j.neuroscience.2014.11.046" target="_blank">Seeing the whole picture: A comprehensive imaging approach to functional mapping of circuits in behaving zebrafish.</a>. <span class="venue">Neuroscience</span>, 2015. <span class="cite-count">Citations: 53</span></li>
+<li class="lab-paper">Kobak D, Brendel W, Constantinidis C, Feierstein C, Kepecs A, Mainen Z, Qi X, Romo R, Uchida N, Machens C. <a href="https://doi.org/10.7554/eLife.10989" target="_blank">Demixed principal component analysis of neural population data</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">eLife</span>, 2014. <span class="cite-count">Citations: 534</span></li>
+<li>Portugues R, Feierstein C, Engert F, Orger M. <a href="https://doi.org/10.1016/j.neuron.2014.01.019" target="_blank">Whole-brain activity maps reveal stereotyped, distributed networks for visuomotor behavior.</a>. <span class="venue">Neuron</span>, 2014. <span class="cite-count">Citations: 281</span></li>
+<li>Feierstein C. <a href="https://doi.org/10.3389/fnins.2012.00173" target="_blank">Linking adult olfactory neurogenesis to social behavior</a>. <span class="venue">Frontiers in Neuroscience</span>, 2012. <span class="cite-count">Citations: 42</span></li>
+<li>Feierstein C, Lazarini F, Wagner S, Gabellec M, Chaumont FD, Olivo-Marin J, Boussin F, Lledo P, Gheusi G. <a href="https://doi.org/10.3389/fnbeh.2010.00176" target="_blank">Disruption of Adult Neurogenesis in the Olfactory Bulb Affects Social Interaction but not Maternal Behavior</a>. <span class="venue">Frontiers in Behavioral Neuroscience</span>, 2010. <span class="cite-count">Citations: 99</span></li>
+<li class="lab-paper">Feierstein C, Mainen Z. <a href="https://doi.org/10.1016/j.neuron.2010.04.042" target="_blank">Listening to the crowd: neuronal ensembles rule.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Neuron</span>, 2010. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Quirk M, Sosulski D, Feierstein C, Uchida N, Mainen Z. <a href="https://doi.org/10.3389/neuro.06.013.2009" target="_blank">A Defined Network of Fast-Spiking Interneurons in Orbitofrontal Cortex: Responses to Behavioral Contingencies and Ketamine Administration</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Frontiers in Systems Neuroscience</span>, 2009. <span class="cite-count">Citations: 72</span></li>
+<li class="lab-paper">Quirk M, Sosulski D, Feierstein C, Uchida N, Mainen Z. A defi ned network of fast-spiking interneurons in orbitofrontal cortex : responses to behavioral contingencies and ketamine administration <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2009. <span class="cite-count">Citations: 3</span></li>
+<li class="lab-paper">Quirk M, Sosulski D, Feierstein C, Uchida N, Mainen Z. A defi ned network of fast-spiking interneurons in orbitofrontal cortex : responses to behavioral contingencies and ketamine administration <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2009. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Feierstein C. Representation of goals, actions and outcomes in rat orbitofrontal cortex <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2007.</li>
+<li class="lab-paper">Feierstein C, Quirk M, Uchida N, Sosulski D, Mainen Z. <a href="https://doi.org/10.1016/J.NEURON.2006.06.032" target="_blank">Representation of spatial goals in rat orbitofrontal cortex.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Neuron</span>, 2006. <span class="cite-count">Citations: 271</span></li>
+<li>Díaz-Torga G, Feierstein C, Libertun C, Gelman D, Kelly MA, Low M, Rubinstein M, Becu-Villalobos D. <a href="https://doi.org/10.1210/en.143.4.1270" target="_blank">Disruption of the D2 dopamine receptor alters GH and IGF-I secretion and causes dwarfism in male mice.</a>. <span class="venue">Endocrinology</span>, 2002. <span class="cite-count">Citations: 84</span></li>
+<li>Díaz-Torga G, Feierstein C, Libertun C, Gelman D, Kelly MA, Low MJ, Rubinstein M, Becu-Villalobos D. <a href="https://doi.org/10.1210/endo.143.4.8750" target="_blank">Disruption of the D2 Dopamine Receptor Alters GH and IGF-I Secretion and Causes Dwarfism in Male Mice.</a>. <span class="venue">Endocrinology</span>, 2002. <span class="cite-count">Citations: 15</span></li>
+<li>Iglesias AG, Suárez C, Feierstein C, Díaz-Torga G, Becu-Villalobos D. <a href="https://doi.org/10.1152/AJPENDO.2001.280.3.E462" target="_blank">Desensitization of angiotensin II: effect on [Ca2+]i, inositol triphosphate, and prolactin in pituitary cells.</a>. <span class="venue">American Journal of Physiology. Endocrinology and Metabolism</span>, 2001. <span class="cite-count">Citations: 20</span></li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">PhD Student, 2001–2007</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>D. Kobak, Wieland Brendel, C. Constantinidis, C. Feierstein, Adam Kepecs, Z. Mainen, Xue-Lian Qi, R. Romo, N. Uchida, C. Machens (2016). <em><a href="https://doi.org/10.7554/elife.10989.022" target="_blank">Demixed principal component analysis of neural population data</a></em>. <span class="journal">eLife (5), e10989</span></li>
-<li>C. Feierstein, Z. Mainen (2010). <em><a href="https://doi.org/10.1016/j.neuron.2010.04.042" target="_blank">Listening to the crowd: neuronal ensembles rule</a></em>. <span class="journal">Neuron 66 (3), 334-6</span></li>
-<li>C. Feierstein, M. Quirk, N. Uchida, D. Sosulski, Z. Mainen (2009). <em><a href="https://doi.org/10.1016/j.neuron.2006.06.032" target="_blank">A defined network of fast-spiking interneurons in orbitofrontal cortex: responses to behavioral contingencies and ketamine administration</a></em>. <span class="journal">Front Syst Neurosci Nov09 (3), 13</span></li>
-<li>C. Feierstein, M. Quirk, N. Uchida, D. Sosulski, Z. Mainen (2006). <em><a href="https://doi.org/10.1016/j.neuron.2006.06.032" target="_blank">Representation of spatial goals in rat orbitofrontal cortex</a></em>. <span class="journal">Neuron 51, 495-507</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-ofc-confidence">OFC, Confidence &amp; Decisions</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0002-8002-922X" target="_blank">ORCID</a></div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-ofc-confidence">OFC, Confidence &amp; Decisions</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

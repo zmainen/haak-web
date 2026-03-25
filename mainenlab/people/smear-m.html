@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matthew Smear &mdash; Mainen Lab</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
+}
+[data-theme="dark"] {
+  --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
+}
+.page { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+.back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
+.back:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
+.position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+.position a { color: var(--accent); text-decoration: none; }
+.position a:hover { text-decoration: underline; }
+.lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+.pub-list { list-style: none; padding: 0; }
+.pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
+.pub-list li a { color: var(--accent); text-decoration: none; }
+.pub-list li a:hover { text-decoration: underline; }
+.project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.project-list li a {
+  display: inline-block; font-size: 0.82rem; padding: 0.25rem 0.65rem;
+  border-radius: 999px; border: 1px solid var(--border); color: var(--accent);
+  text-decoration: none; transition: background 0.15s;
+}
+.project-list li a:hover { background: var(--hover); }
+#theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text); font-size: 0.85rem;
+}
+#theme-toggle:hover { background: var(--hover); }
+</style>
+</head>
+<body>
+<div class="page">
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+<h1>Matthew Smear <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
+<div class="position">Asst. Prof., U. Oregon</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0003-4689-388X" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/3591898" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Matthew Smear was a postdoc in the Mainen Lab from 2006-2008, where he worked on olfactory decision-making. His research focuses on the neural mechanisms underlying olfactory processing and behavior, with particular emphasis on how breathing patterns influence odor coding and how animals use olfactory cues to guide natural behaviors like foraging and navigation. He is now an Assistant Professor at the University of Oregon, where he continues to study the intersection of sensory processing and natural behavior.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 18 | Total papers: 25 | Lab papers: 0 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Rafilson SE, Hess NG, Findley TM, Smear MC. <a href="https://doi.org/10.1101/2024.11.08.622727" target="_blank">Challenges in inferring breathing rhythms from olfactory bulb local field potentials</a>. <span class="venue">bioRxiv</span>, 2025. <span class="cite-count">Citations: 1</span></li>
+<li>Sterrett SC, Findley TM, Rafilson SE, Brown MA, Weible A, ... et al.. <a href="https://doi.org/10.1101/2024.11.06.622362" target="_blank">Olfactory bulb tracks breathing rhythms and place in freely behaving mice</a>. <span class="venue">bioRxiv</span>, 2024.</li>
+<li>Miller CT, Gire DH, Hoke K, Huk A, Kelley DB, Leopold D, Smear MC, Theunissen F, Yartsev M, Niell C. <a href="https://doi.org/10.1016/j.cub.2022.03.031" target="_blank">Natural behavior is the language of the brain.</a>. <span class="venue">Current Biology</span>, 2022. <span class="cite-count">Citations: 129</span></li>
+<li>Brown MA, Zappitelli KM, Singh L, Yuan RC, Bemrose MA, Brogden V, Miller DJ, Smear MC, Cogan S, Gardner T. <a href="https://doi.org/10.1038/s41467-023-39152-7" target="_blank">Direct laser writing of 3D electrodes on flexible substrates</a>. <span class="venue">bioRxiv</span>, 2022. <span class="cite-count">Citations: 61</span></li>
+<li>Parker P, Martins DM, Leonard ESP, Casey NM, Sharp SL, Abe ETT, Smear MC, Yates JL, Mitchell JF, Niell C. <a href="https://doi.org/10.1038/s41593-023-01481-7" target="_blank">A dynamic sequence of visual processing initiated by gaze shifts</a>. <span class="venue">bioRxiv</span>, 2022. <span class="cite-count">Citations: 30</span></li>
+<li>Findley TM, Wyrick DG, Cramer JL, Brown MA, Holcomb B, ... et al.. <a href="https://doi.org/10.7554/ELIFE.58523.SA2" target="_blank">Author response: Sniff-synchronized, gradient-guided olfactory search by freely moving mice</a>. 2021.</li>
+<li>Smear MC. <a href="https://doi.org/10.7554/elife.71238.sa1" target="_blank">Decision letter: Most primary olfactory neurons have individually neutral effects on behavior</a>. 2021.</li>
+<li>Parker P, Brown MA, Smear MC, Niell C. <a href="https://doi.org/10.1016/j.tins.2020.05.005" target="_blank">Movement-Related Signals in Sensory Areas: Roles in Natural Behavior.</a>. <span class="venue">Trends in Neurosciences</span>, 2020. <span class="cite-count">Citations: 124</span></li>
+<li>Findley TM, Wyrick DG, Cramer JL, Brown MA, Holcomb B, ... et al.. <a href="https://doi.org/10.1101/2020.04.29.069252" target="_blank">Sniff-synchronized, gradient-guided olfactory search by freely moving mice</a>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 50</span></li>
+<li>Parabucki A, Bizer A, Morris G, Munoz AE, Bala ADS, Smear MC, Shusterman R. <a href="https://doi.org/10.1523/ENEURO.0396-18.2019" target="_blank">Odor Concentration Change Coding in the Olfactory Bulb</a>. <span class="venue">eNeuro</span>, 2019. <span class="cite-count">Citations: 29</span></li>
+<li>Baker KL, Dickinson M, Findley TM, Gire DH, Louis M, Suver MP, Verhagen JV, Nagel KI, Smear MC. <a href="https://doi.org/10.1523/JNEUROSCI.1668-18.2018" target="_blank">Algorithms for Olfactory Search across Species</a>. <span class="venue">Journal of Neuroscience</span>, 2018. <span class="cite-count">Citations: 133</span></li>
+<li>Shusterman R, Sirotin YB, Smear MC, Ahmadian Y, Rinberg D. <a href="https://doi.org/10.1523/ENEURO.0149-18.2018" target="_blank">Sniff Invariant Odor Coding</a>. <span class="venue">eNeuro</span>, 2017. <span class="cite-count">Citations: 27</span></li>
+<li>Parabucki A, Bizer A, Morris G, Smear MC, Shusterman R. <a href="https://doi.org/10.1101/114520" target="_blank">Odor concentration change detectors in the Olfactory Bulb</a>. <span class="venue">bioRxiv</span>, 2017. <span class="cite-count">Citations: 2</span></li>
+<li>Smear MC. <a href="https://doi.org/10.1007/978-3-319-12913-6_10" target="_blank">Beyond Localization of Function: Dissecting a Neural Code with Optogenetics</a>. 2015.</li>
+<li>Smear MC, Resulaj A, Zhang J, Bozza T, Rinberg D. <a href="https://doi.org/10.1186/2044-7248-3-S1-O11" target="_blank">Multiple perceptible signals from a single olfactory glomerulus</a>. <span class="venue">Nature Neuroscience</span>, 2014. <span class="cite-count">Citations: 69</span></li>
+<li>Reisert J, Golden GJ, Matsumura K, Smear MC, Rinberg D, Gelperin A. <a href="https://doi.org/10.1016/j.jneumeth.2013.09.006" target="_blank">Comparing thoracic and intra-nasal pressure transients to monitor active odor sampling during odor-guided decision making in the mouse.</a>. <span class="venue">Journal of Neuroscience Methods</span>, 2014. <span class="cite-count">Citations: 17</span></li>
+<li>Moore JD, Deschênes M, Furuta T, Huber D, Smear MC, Demers M, Kleinfeld D. <a href="https://doi.org/10.1038/nature12076" target="_blank">Hierarchy of orofacial rhythms revealed through whisking and breathing</a>. <span class="venue">Nature</span>, 2013. <span class="cite-count">Citations: 306</span></li>
+<li>Smear MC, Resulaj A, Zhang J, Bozza T, Rinberg D. <a href="https://doi.org/10.1038/nn.3519" target="_blank">Multiple perceptible signals from a single olfactory glomerulus</a>. <span class="venue">Nature Neuroscience</span>, 2013. <span class="cite-count">Citations: 65</span></li>
+<li>Shusterman R, Smear MC, Koulakov A, Rinberg D. <a href="https://doi.org/10.1038/nn.2877" target="_blank">Precise olfactory responses tile the sniff cycle</a>. <span class="venue">Nature Neuroscience</span>, 2011. <span class="cite-count">Citations: 374</span></li>
+<li>Smear MC, Shusterman R, O’Connor RP, Bozza T, Rinberg D. <a href="https://doi.org/10.1038/nature10521" target="_blank">Perception of sniff phase in mouse olfaction</a>. <span class="venue">Nature</span>, 2011. <span class="cite-count">Citations: 229</span></li>
+<li>Smear MC, Tao HW, Staub W, Orger M, Gosse N, Liu Y, Takahashi K, Poo M, Baier H. <a href="https://doi.org/10.1016/J.NEURON.2006.12.013" target="_blank">Vesicular glutamate transport at a central synapse limits the acuity of visual perception in zebrafish.</a>. <span class="venue">Neuron</span>, 2007. <span class="cite-count">Citations: 106</span></li>
+<li>Muto A, Orger M, Wehman A, Smear MC, Kay JN, ... et al.. <a href="https://doi.org/10.1371/JOURNAL.PGEN.0010066" target="_blank">Forward Genetic Analysis of Visual Behavior in Zebrafish</a>. <span class="venue">PLoS Genetics</span>, 2005. <span class="cite-count">Citations: 312</span></li>
+<li>Hua JY, Smear MC, Baier H, Smith SJ. <a href="https://doi.org/10.1038/nature03409" target="_blank">Regulation of axon growth in vivo by activity-based competition</a>. <span class="venue">Nature</span>, 2005. <span class="cite-count">Citations: 227</span></li>
+<li>Orger M, Gahtan E, Muto A, Page-McCaw PS, Smear MC, Baier H. <a href="https://doi.org/10.1016/S0091-679X(04)77003-X" target="_blank">Behavioral screening assays in zebrafish.</a>. <span class="venue">Methods in Cell Biology</span>, 2004. <span class="cite-count">Citations: 85</span></li>
+<li>Orger M, Smear MC, Anstis S, Baier H. <a href="https://doi.org/10.1038/80649" target="_blank">Perception of Fourier and non-Fourier motion by larval zebrafish</a>. <span class="venue">Nature Neuroscience</span>, 2000. <span class="cite-count">Citations: 206</span></li></ul>
+<h2>At the Mainen Lab</h2>
+<div class="lab-role">Postdoc, 2006–2008</div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-olfactory-decisions">Olfactory Decision-Making</a></li></ul>
+</div>
+<script>
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+const stored = localStorage.getItem('ml-theme');
+if (stored) root.setAttribute('data-theme', stored);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\u2600' : '\u263E';
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('ml-theme', next);
+  toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+});
+</script>
+</body>
+</html>

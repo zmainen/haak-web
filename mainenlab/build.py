@@ -12,7 +12,7 @@ Outputs:
   - web/mainenlab/index.html (complete static site, all CSS/JS inline)
 """
 
-import json, re, html as html_mod, hashlib, subprocess, time, argparse, shutil, urllib.request
+import json, re, sys, html as html_mod, hashlib, subprocess, time, argparse, shutil, urllib.request
 from pathlib import Path
 from datetime import datetime, timezone
 from collections import defaultdict
@@ -48,6 +48,35 @@ def parse_frontmatter(text):
     if end < 0:
         return {}, text
     return load_yaml(text[4:end]) or {}, text[end+4:].strip()
+
+QUALITY_TO_ROLE = {
+    "principal-investigator": "Principal Investigator",
+    "postdoc": "Postdoc", "phd-student": "PhD Student",
+    "msc-student": "MSc Student", "bsc-student": "BSc Student", "student": "MSc Student",
+    "technician": "Technician", "research-assistant": "Research Assistant",
+    "lab-manager": "Lab Manager",
+    "visiting-scientist": "Visiting Scientist", "collaborator": "Collaborator",
+    "summer-student": "Summer Student",
+    "project-lead": "Project Lead", "first-author": "First Author",
+    "senior-author": "Senior Author", "corresponding-author": "Corresponding Author",
+    "author": "Author", "contributor": "Contributor",
+}
+
+def quality_to_role(quality_str):
+    return QUALITY_TO_ROLE.get(quality_str, quality_str.replace("-", " ").title())
+
+def read_situation_frontmatter(path):
+    idx = Path(path) / "index.md"
+    try:
+        meta, _ = parse_frontmatter(idx.read_text(errors="replace"))
+    except (FileNotFoundError, OSError):
+        return []
+    if meta.get("type") != "situation" or not meta.get("belongings"):
+        return []
+    return [
+        {k: b.get(k) for k in ("entity", "quality", "since", "until")}
+        for b in meta["belongings"] if isinstance(b, dict) and b.get("entity")
+    ]
 
 def esc(s):
     return html_mod.escape(str(s)) if s else ""
@@ -96,58 +125,20 @@ def expand_themes(slugs, theme_children):
 
 # ── Role normalization ──
 
-ROLE_MAP = {
-    "principal investigator": "PI", "pi": "PI",
-    "postdoc": "Postdoc", "postdoc / visiting scientist": "Postdoc",
-    "postdoc / project manager": "Postdoc", "postdoc / student": "Postdoc",
-    "technician": "Technician", "research assistant": "Technician",
-    "student / ra": "Technician",
-    "lab manager": "Lab Manager", "lab manager / admin support": "Lab Manager",
-}
-
 def normalize_role(raw):
+    """Normalize free-text role strings via heuristics, falling through to quality_to_role."""
     r = raw.lower().strip()
-    if r in ROLE_MAP: return ROLE_MAP[r]
+    if not r: return "Other"
     if "principal" in r or r == "pi": return "PI"
     if "postdoc" in r: return "Postdoc"
     if "phd" in r: return "PhD Student"
     if "msc" in r or "bsc" in r: return "MSc Student"
     if "technician" in r or "tech" in r or "assistant" in r: return "Technician"
     if "lab manager" in r or "admin" in r: return "Lab Manager"
-    return raw or "Other"
+    return quality_to_role(r)
 
 ROLE_ORDER = ["PI", "Postdoc", "PhD Student", "MSc Student", "Technician", "Lab Manager", "Other"]
 
-INSTITUTION_URLS = {
-    "adam-kepecs": "https://neuroscience.wustl.edu/people/adam-kepecs-phd/",
-    "naoshige-uchida": "https://cbs.fas.harvard.edu/directory/naoshige-uchida/",
-    "karel-svoboda": "https://alleninstitute.org/person/karel-svoboda/",
-    "anthony-zador": "https://www.cshl.edu/research/faculty-staff/anthony-zador/",
-    "sejnowski": "https://www.salk.edu/scientist/terrence-sejnowski/",
-    "malinow": "https://profiles.ucsd.edu/roberto.malinow",
-    "veronica-egger": "https://www.uni-regensburg.de/biologie-vorklinische-medizin/tierphysiologie-egger/",
-    "steve-macknik": "https://macknik.neuralcorrelate.com/",
-    "cindy-poo": "https://alleninstitute.org/person/cindy-poo/",
-    "matthew-smear": "https://ion.uoregon.edu/research/faculty-page/270",
-    "gidon-felsen": "https://medschool.cuanschutz.edu/physiology/faculty/gidon-felsen-phd",
-    "armin-lak": "https://www.dpag.ox.ac.uk/team/armin-lak",
-    "alexandre-pouget": "https://neurocenter-unige.ch/research-groups/alexandre-pouget/",
-    "jan-drugowitsch": "https://dbmi.hms.harvard.edu/people/jan-drugowitsch",
-    "alfonso-renart": "https://www.fchampalimaud.org/research/groups/renart",
-    "fanny-cazettes": None,
-    "guillaume-dugue": None,
-    "romain-ligneul": None,
-    "magor-lorincz": None,
-    "luca-mazzucato": None,
-    "anne-churchland": "https://www.churchlandlab.org/",
-    "matteo-carandini": "https://www.carandinilab.net/",
-    "larry-abbott": None,
-    "davide-reato": "https://www.iit.it/people-details/-/people/davide-reato",
-    "torben-ott": "https://ottlab.org/",
-    "alex-gomez-marin": None,
-}
-
-ONGOING_COLLABORATORS = {"alexandre-pouget", "alfonso-renart", "luca-mazzucato", "dan-mcnamee"}
 
 # ── Publication-to-person matching ──
 
@@ -166,17 +157,26 @@ def match_pubs_to_people(publications, people):
             continue
         for pub in publications:
             for author in pub["authors"]:
-                if ln in author.lower():
+                if re.search(r'\b' + re.escape(ln) + r'\b', author.lower()):
                     result[slug].append(pub["slug"])
                     break
     return dict(result)
 
-def compute_collab_years(person_slug, matched_pubs, publications):
+def match_pubs_to_people_via_belongings(publications):
+    result = defaultdict(list)
+    for pub in publications:
+        for b in pub.get("belongings") or []:
+            if isinstance(b, dict) and b.get("entity"):
+                result[b["entity"]].append(pub["slug"])
+    return dict(result)
+
+def compute_collab_years(person, matched_pubs, publications):
     pub_by_slug = {p["slug"]: p for p in publications}
     years = [pub_by_slug[s]["year"] for s in matched_pubs if s in pub_by_slug and pub_by_slug[s]["year"]]
     if not years:
         return (None, None)
-    last_year = None if person_slug in ONGOING_COLLABORATORS else max(years)
+    ongoing = person.get("status") == "collaborator" and not person.get("end_date")
+    last_year = None if ongoing else max(years)
     return (min(years), last_year)
 
 def extract_institution(current_position):
@@ -189,22 +189,51 @@ def extract_institution(current_position):
 # ── Loaders ──
 
 def load_people():
+    # Build lookup from lab-level situation frontmatter (supports multiple stints per entity)
+    sit = read_situation_frontmatter(LAB)
+    sit_lookup = {}
+    for b in sit:
+        sit_lookup.setdefault(b["entity"], []).append(b)
+
     people = []
     for f in sorted((LAB / "people").glob("*/person.yaml")):
         d = load_yaml(f.read_text(errors="replace")) or {}
         if not d.get("name"): continue
+        slug = f.parent.name
+        stints = sit_lookup.get(slug)
+        if stints:
+            # Latest stint determines role and status
+            latest = max(stints, key=lambda s: int(str(s.get("since") or 0)[:4]))
+            role = quality_to_role(latest["quality"])
+            # Full span across all stints for timeline
+            all_starts = [int(str(s["since"])[:4]) for s in stints if s.get("since")]
+            all_ends = [str(s["until"])[:4] for s in stints if s.get("until")]
+            start = str(min(all_starts)) if all_starts else str(d.get("start_date", ""))[:4] or None
+            end = max(all_ends) if all_ends and len(all_ends) == len(stints) else str(d.get("end_date", ""))[:4] or None
+            if all(s.get("until") for s in stints):
+                status = "alumni"
+            elif latest["quality"] == "collaborator":
+                status = "collaborator"
+            else:
+                status = "active"
+        else:
+            role = normalize_role(d.get("role", ""))
+            start = str(d.get("start_date", ""))[:4] or None
+            end = str(d.get("end_date", ""))[:4] or None
+            status = d.get("status", "unknown")
         people.append({
-            "slug": f.parent.name,
+            "slug": slug,
             "name": d["name"],
-            "status": d.get("status", "unknown"),
-            "role": normalize_role(d.get("role", "")),
-            "start_date": str(d.get("start_date", ""))[:4] or None,
-            "end_date": str(d.get("end_date", ""))[:4] or None,
+            "status": status,
+            "role": role,
+            "start_date": start,
+            "end_date": end,
             "current_position": d.get("current_position", ""),
             "email": (d.get("email") or "").split(";")[0].strip(),
             "orcid": d.get("orcid", ""),
             "s2_id": str(d["s2_id"]) if d.get("s2_id") else "",
             "google_scholar": d.get("google_scholar", ""),
+            "institutional_url": d.get("institutional_url", ""),
         })
     return people
 
@@ -234,9 +263,77 @@ def load_publications():
             "scale": _as_list(meta.get("scale", [])),
             "organisms": _as_list(meta.get("organisms", [])),
             "settings": _as_list(meta.get("settings", [])),
+            "belongings": meta.get("belongings", []),
         })
     pubs.sort(key=lambda p: (-p["year"], -p["citations"]))
     return pubs
+
+# ── Semantic Scholar cache ──
+
+S2_CACHE_PATH = WEB / ".s2-cache.json"
+S2_API = "https://api.semanticscholar.org/graph/v1/author/{}/papers?fields=title,year,venue,externalIds,citationCount,authors&limit=1000"
+S2_CACHE_TTL = 7 * 86400  # 7 days
+
+def fetch_s2_publications(people):
+    cache = json.loads(S2_CACHE_PATH.read_text()) if S2_CACHE_PATH.exists() else {}
+    now = datetime.now(timezone.utc).timestamp()
+    result = {}
+    fetched = 0
+    errors = []
+    for person in people:
+        s2_id = person.get("s2_id", "")
+        if not s2_id:
+            continue
+        slug = person["slug"]
+        cached = cache.get(s2_id)
+        if cached and (now - cached.get("retrieved_ts", 0)) < S2_CACHE_TTL:
+            result[slug] = cached["papers"]
+            continue
+        url = S2_API.format(s2_id)
+        try:
+            req = urllib.request.Request(url, headers={"User-Agent": "mainenlab-site-builder/1.0"})
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                data = json.loads(resp.read())
+            papers = []
+            for p in data.get("data", []):
+                ext = p.get("externalIds") or {}
+                authors = [a.get("name", "") for a in (p.get("authors") or [])]
+                papers.append({
+                    "title": p.get("title", ""),
+                    "year": p.get("year"),
+                    "venue": p.get("venue", ""),
+                    "doi": ext.get("DOI", ""),
+                    "citation_count": p.get("citationCount", 0),
+                    "authors": authors,
+                })
+            cache[s2_id] = {"papers": papers, "retrieved_ts": now, "retrieved": datetime.now(timezone.utc).strftime("%Y-%m-%d")}
+            result[slug] = papers
+            fetched += 1
+            print(f"    {slug}: {len(papers)} papers")
+        except Exception as e:
+            errors.append(f"{slug} ({s2_id}): {e}")
+            if cached:
+                result[slug] = cached["papers"]
+        time.sleep(0.5)
+    S2_CACHE_PATH.write_text(json.dumps(cache, ensure_ascii=False, separators=(",", ":")))
+    print(f"  S2: {len(result)} people with data, {fetched} fetched, {len(errors)} errors")
+    for err in errors[:5]:
+        print(f"    error: {err}")
+    return result
+
+# ── Bio loader ──
+
+def load_bios(people_dir):
+    bios = {}
+    converter = md_lib.Markdown(extensions=["extra"])
+    for bio_path in people_dir.glob("*/bio.md"):
+        slug = bio_path.parent.name
+        text = bio_path.read_text(errors="replace")
+        _, body = parse_frontmatter(text)
+        if body.strip():
+            converter.reset()
+            bios[slug] = converter.convert(body.strip())
+    return bios
 
 def load_projects():
     projects = []
@@ -256,12 +353,21 @@ def load_projects():
             elif isinstance(p, str):
                 paper_ids.append(p)
         people_ids = []
-        for p in d.get("people", d.get("participants", [])):
-            if isinstance(p, dict):
-                pid = p.get("person_id", p.get("id", ""))
-                if pid: people_ids.append(pid)
-            elif isinstance(p, str):
-                people_ids.append(p)
+        people_roles = {}
+        belongings = read_situation_frontmatter(f.parent)
+        if belongings:
+            for b in belongings:
+                people_ids.append(b["entity"])
+                if b.get("quality"): people_roles[b["entity"]] = b["quality"]
+        else:
+            for p in d.get("people", d.get("participants", [])):
+                if isinstance(p, dict):
+                    pid = p.get("person_id", p.get("id", ""))
+                    if pid:
+                        people_ids.append(pid)
+                        if p.get("role"): people_roles[pid] = p["role"]
+                elif isinstance(p, str):
+                    people_ids.append(p)
         pub_desc = d.get("public_description", "").strip()
         int_desc = d.get("description", "").strip()
         projects.append({
@@ -278,6 +384,7 @@ def load_projects():
             "organisms": _as_list(d.get("organisms", [])),
             "settings": _as_list(d.get("settings", [])),
             "people": people_ids,
+            "people_roles": people_roles,
             "paper_refs": paper_ids,
         })
     return projects
@@ -473,7 +580,7 @@ def load_overrides():
     return overrides
 
 def load_programs():
-    programs_dir = WEB / "research" / "programs"
+    programs_dir = LAB / "programs"
     if not programs_dir.exists(): return []
     converter = md_lib.Markdown(extensions=["extra"])
     programs = []
@@ -527,7 +634,7 @@ HTML_TEMPLATE = r'''<!DOCTYPE html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mainen Lab &mdash; Systems Neuroscience</title>
+<title>Mainen Systems Neuroscience Lab</title>
 <meta name="description" content="The Mainen Lab at the Champalimaud Foundation studies how brains make decisions, interpret the world, and generate conscious experience.">
 <link rel="icon" type="image/svg+xml" href="favicon.svg">
 <style>
@@ -721,6 +828,7 @@ details[open] > .completed-toggle::before { transform: rotate(90deg); }
 .card-pub-list li a { color: var(--accent); text-decoration: none; }
 .card-pub-list li a:hover { text-decoration: underline; }
 .card-all-people { font-size: 0.82rem; margin-top: 0.5rem; }
+.participant-role { font-size: 0.7rem; color: var(--muted); opacity: 0.7; font-style: italic; }
 .expand-icon { color: var(--muted); font-size: 1rem; transition: transform 0.2s; flex-shrink: 0; }
 .card-detail.open ~ .card-header .expand-icon,
 .project-card.expanded .expand-icon { transform: rotate(180deg); }
@@ -927,7 +1035,7 @@ footer .sep { margin: 0 0.5rem; opacity: 0.4; }
 <div class="container">
 
 <header>
-  <h1>Mainen Lab &mdash; Systems Neuroscience</h1>
+  <h1>Mainen Systems Neuroscience Lab</h1>
   <div class="subtitle">Champalimaud Foundation, Lisbon</div>
   <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
 </header>
@@ -1253,13 +1361,18 @@ function makeProjectCard(p) {
   const span = p.start_year ? (p.status === 'active' ? p.start_year + '\u2013present' : p.start_year + (p.end_year ? '\u2013' + p.end_year : '')) : '';
   const peopleBySlug = {};
   DATA.people.forEach(pe => peopleBySlug[pe.slug] = pe);
+  const roles = p.participant_roles || {};
   function personLink(s) {
     const pe = peopleBySlug[s];
     if (!pe) return escHTML(s);
     return '<span class="person-link" onclick="event.stopPropagation();showBio(\'' + s + '\')">' + escHTML(pe.name) + '</span>';
   }
+  function personWithRole(s) {
+    const role = roles[s];
+    return personLink(s) + (role ? ' <span class="participant-role">' + escHTML(role) + '</span>' : '');
+  }
   const keyPeople = (p.participants || []).slice(0, 3).map(personLink).join(', ');
-  const allPeople = (p.participants || []).map(personLink).join(', ');
+  const allPeople = (p.participants || []).map(personWithRole).join(', ');
 
   const tags = [];
   ['themes','methods','scale','organisms','settings'].forEach(axis => {
@@ -1281,7 +1394,7 @@ function makeProjectCard(p) {
   card.innerHTML =
     '<div class="card-header" onclick="this.parentElement.classList.toggle(\'expanded\');this.parentElement.querySelector(\'.card-detail\').classList.toggle(\'open\')">' +
       '<div>' +
-        '<div class="card-title">' + escHTML(p.name) + '</div>' +
+        '<div class="card-title">' + escHTML(p.name) + ' <a href="http://127.0.0.1:18832/situation?path=home/zach/projects/mainen-lab/projects/' + p.slug + '/index.md" onclick="event.stopPropagation()" style="font-size:0.75em;color:#999;text-decoration:none" title="Edit in situation editor">&#9998;</a></div>' +
         '<div class="card-meta">' +
           (span ? '<span class="card-span">' + span + '</span>' : '') +
           '<span class="status-pill ' + p.status + '">' + p.status + '</span>' +
@@ -1314,22 +1427,24 @@ function renderStats() {
 // ── People ──
 let selectedPerson = null;
 
-function getPersonThemes(slug) {
-  const themes = {};
-  DATA.projects.forEach(p => {
-    if ((p.participants || []).indexOf(slug) !== -1) {
-      (p.themes || []).forEach(t => { themes[t] = (themes[t] || 0) + 1; });
-    }
-  });
-  return themes;
-}
-
-function getPrimaryTheme(themeMap) {
-  let best = null, max = 0;
-  for (const [slug, count] of Object.entries(themeMap)) {
-    if (count > max) { max = count; best = slug; }
-  }
-  return best;
+function getPersonProgramColor(slug) {
+  try {
+    if (!DATA.programs || !DATA.projects) return '#9ca3af';
+    const themeCounts = {};
+    DATA.projects.forEach(p => {
+      if ((p.participants || []).indexOf(slug) === -1) return;
+      (p.themes || []).forEach(t => { themeCounts[t] = (themeCounts[t] || 0) + 1; });
+    });
+    let best = null, max = 0;
+    DATA.programs.forEach(prog => {
+      if (!prog || !prog.themes) return;
+      let count = 0;
+      prog.themes.forEach(t => { count += themeCounts[t] || 0; });
+      if (count > max) { max = count; best = prog; }
+    });
+    if (!best || !best.color) return '#9ca3af';
+    return PROGRAM_COLORS[best.color] || '#9ca3af';
+  } catch(e) { return '#9ca3af'; }
 }
 
 function selectPerson(slug) {
@@ -1595,9 +1710,7 @@ function renderFullTimeline() {
   }
 
   function makePersonElements(p, isAlumni) {
-    const themes = getPersonThemes(p.slug);
-    const primary = getPrimaryTheme(themes);
-    const color = primary ? getThemeColor(primary) : '#9ca3af';
+    const color = getPersonProgramColor(p.slug);
 
     const isCollab = p.status === 'collaborator';
     let startYr, endYr;
@@ -1631,7 +1744,12 @@ function renderFullTimeline() {
     bar.style.width = widthPct + '%';
     bar.style.backgroundColor = color;
 
-    const themeNames = Object.keys(themes).map(t => findLabel('themes', t));
+    let themeNames = [];
+    try {
+      const personProjects = DATA.projects.filter(pr => (pr.participants || []).indexOf(slug) !== -1);
+      const themeSlugs = [...new Set(personProjects.flatMap(pr => pr.themes || []))];
+      themeNames = themeSlugs.map(t => findLabel('themes', t));
+    } catch(e) {}
     bar.addEventListener('mouseenter', function() {
       tooltip.querySelector('.tt-name').textContent = p.name;
       tooltip.querySelector('.tt-span').textContent = p.role + ' \u00b7 ' + (p.start_date || '?') + '\u2013' + (isAlumni ? (p.end_date || '?') : 'present');
@@ -1955,17 +2073,122 @@ def link_citations_in_programs(programs):
             )
         prog["body_html"] = body_before + body_after
 
+def link_people_in_programs(programs, people):
+    """Post-process program body_html to link person last names to their person pages."""
+    # Build last-name → slug mapping (skip short names and duplicates)
+    name_counts = defaultdict(list)
+    for p in people:
+        parts = p["name"].strip().split()
+        if not parts: continue
+        last = parts[-1]
+        name_counts[last].append(p["slug"])
+    ln_to_slug = {}
+    for last, slugs in name_counts.items():
+        if len(last) < 4: continue  # skip short names (Li, Ott, Poo, etc.)
+        if len(slugs) == 1:
+            ln_to_slug[last] = slugs[0]
+    if not ln_to_slug: return
+    total_links = 0
+    for prog in programs:
+        html = prog["body_html"]
+        # Split at <ol> to separate narrative from bibliography
+        ol_start = html.find('<ol>')
+        if ol_start > 0:
+            narrative = html[:ol_start]
+            biblio = html[ol_start:]
+        else:
+            narrative = html
+            biblio = ''
+        # --- Link in narrative text ---
+        for last_name, slug in sorted(ln_to_slug.items(), key=lambda x: -len(x[0])):
+            href = f'people/{slug}.html'
+            # Skip if already linked in this narrative
+            if href in narrative: continue
+            # Match whole-word last name, not inside HTML tags or existing <a> links
+            # Strategy: split on HTML tags, process only text segments
+            pat = re.compile(r'(?<![a-zA-Z\u00C0-\u024F])(' + re.escape(last_name) + r')(?![a-zA-Z\u00C0-\u024F])')
+            pieces = re.split(r'(<[^>]+>)', narrative)
+            in_a = 0
+            in_heading = 0
+            linked = False
+            for i, piece in enumerate(pieces):
+                if linked: break
+                if piece.startswith('<'):
+                    lower = piece.lower()
+                    if re.match(r'<a[\s>]', lower): in_a += 1
+                    elif lower.startswith('</a'): in_a = max(0, in_a - 1)
+                    if re.match(r'<h[1-3][\s>]', lower): in_heading += 1
+                    elif re.match(r'</h[1-3]', lower): in_heading = max(0, in_heading - 1)
+                    continue
+                if in_a or in_heading: continue
+                m = pat.search(piece)
+                if m:
+                    replacement = f'<a href="{href}" class="person-link">{m.group(1)}</a>'
+                    pieces[i] = piece[:m.start()] + replacement + piece[m.end():]
+                    linked = True
+                    total_links += 1
+            narrative = ''.join(pieces)
+        # --- Link in bibliography (<ol>) entries ---
+        if biblio:
+            # Process each <li> inside <ol>
+            def link_bib_authors(li_match):
+                nonlocal total_links
+                li_content = li_match.group(1)
+                # Find "LastName AB" or "LastName A" patterns (name + initials)
+                for last_name, slug in sorted(ln_to_slug.items(), key=lambda x: -len(x[0])):
+                    href = f'people/{slug}.html'
+                    if href in li_content: continue
+                    # Match LastName followed by space + 1-3 uppercase letters (initials)
+                    bib_pat = re.compile(
+                        r'(?<![a-zA-Z\u00C0-\u024F])(' + re.escape(last_name) + r'\s+[A-Z]{1,3})(?![a-zA-Z])'
+                    )
+                    m = bib_pat.search(li_content)
+                    if m:
+                        # Verify not inside an <a> tag
+                        before = li_content[:m.start()]
+                        if '<a ' in before and '</a>' not in before[before.rfind('<a '):]:
+                            continue
+                        replacement = f'<a href="{href}" class="person-link">{m.group(1)}</a>'
+                        li_content = li_content[:m.start()] + replacement + li_content[m.end():]
+                        total_links += 1
+                return f'<li{li_match.group(0)[len("<li"):li_match.group(0).find(">")+1-len("<li")]}{li_content}</li>'
+            # Handle <li> with possible id attribute
+            biblio = re.sub(r'<li[^>]*>(.*?)</li>', lambda m: '<li' + m.group(0)[len('<li'):m.group(0).find('>')] + '>' + (lambda c: c)(m.group(1)) + '</li>', biblio, flags=re.DOTALL)
+            # Simpler approach: process each <li>...</li>
+            def process_li(m):
+                nonlocal total_links
+                full_tag_open = m.group(0)[:m.group(0).find('>')+1]
+                content = m.group(1)
+                for last_name, slug in sorted(ln_to_slug.items(), key=lambda x: -len(x[0])):
+                    href = f'people/{slug}.html'
+                    if href in content: continue
+                    bib_pat = re.compile(
+                        r'(?<![a-zA-Z\u00C0-\u024F])(' + re.escape(last_name) + r'\s+[A-Z]{1,3})(?![a-zA-Z])'
+                    )
+                    bib_m = bib_pat.search(content)
+                    if bib_m:
+                        before = content[:bib_m.start()]
+                        if '<a ' in before and '</a>' not in before[before.rfind('<a '):]:
+                            continue
+                        replacement = f'<a href="{href}" class="person-link">{bib_m.group(1)}</a>'
+                        content = content[:bib_m.start()] + replacement + content[bib_m.end():]
+                        total_links += 1
+                return full_tag_open + content + '</li>'
+            biblio = re.sub(r'<li[^>]*>(.*?)</li>', process_li, biblio, flags=re.DOTALL)
+        prog["body_html"] = narrative + biblio
+    print(f"  Linked {total_links} person names in programs")
+
 # ── Person page generation ──
 
 PERSON_PAGE_CSS = r'''
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -1976,17 +2199,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -1996,9 +2226,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -2007,19 +2234,128 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 #theme-toggle:hover { background: var(--hover); }
 '''
 
-def generate_person_pages(people, site_data):
+PERSON_PAGE_JS = r'''
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+const stored = localStorage.getItem('ml-theme');
+if (stored) root.setAttribute('data-theme', stored);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\u2600' : '\u263E';
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('ml-theme', next);
+  toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+});
+'''
+
+def _normalize_doi(doi):
+    if not doi: return ""
+    doi = doi.lower().strip()
+    for prefix in ("https://doi.org/", "http://doi.org/", "doi:"):
+        if doi.startswith(prefix):
+            doi = doi[len(prefix):]
+    return doi
+
+def _normalize_title(title):
+    if not title: return ""
+    return re.sub(r'[^a-z0-9\s]', '', title.lower().strip())
+
+def _titles_match(t1, t2):
+    w1 = set(_normalize_title(t1).split())
+    w2 = set(_normalize_title(t2).split())
+    if not w1 or not w2: return False
+    smaller, larger = (w1, w2) if len(w1) <= len(w2) else (w2, w1)
+    overlap = len(smaller & larger) / len(smaller)
+    return overlap > 0.8
+
+def _format_s2_authors(authors, max_show=10, truncate_to=5):
+    if not authors: return ""
+    def _abbrev(name):
+        parts = name.strip().split()
+        if len(parts) <= 1: return name.strip()
+        last = parts[-1]
+        initials = "".join(p[0].upper() for p in parts[:-1] if p)
+        return f"{last} {initials}"
+    if len(authors) > max_show:
+        return ", ".join(_abbrev(a) for a in authors[:truncate_to]) + ", ... et al."
+    return ", ".join(_abbrev(a) for a in authors)
+
+def _compute_h_index(papers):
+    citations = sorted([p.get("citation_count", 0) for p in papers], reverse=True)
+    h = 0
+    for i, c in enumerate(citations):
+        if c >= i + 1:
+            h = i + 1
+        else:
+            break
+    return h
+
+def _build_fallback_bio(person):
+    name = person.get("name", "")
+    role = person.get("role", "")
+    start = person.get("start_date") or ""
+    start_y = str(start)[:4] if start else ""
+    is_active = person.get("status") == "active"
+    if person.get("status") == "collaborator":
+        cy = person.get("collab_years", [None, None])
+        if cy[0]:
+            end_y = "present" if is_active else (str(cy[1]) if cy[1] else "present")
+            span = f"from {cy[0]} to {end_y}"
+        else:
+            span = ""
+        role_desc = "a collaborator of"
+    else:
+        end = person.get("end_date") or ""
+        end_y = str(end)[:4] if end and not is_active else ("present" if is_active else "")
+        span = f"from {start_y} to {end_y}" if start_y and end_y else (f"since {start_y}" if start_y else "")
+        article = "an" if role and role[0].lower() in "aeiou" else "a"
+        role_desc = f"{article} {role} in" if role else "a member of"
+    parts = []
+    if span:
+        parts.append(f"{name} {'is' if is_active else 'was'} {role_desc} the Mainen Lab {span}.")
+    else:
+        parts.append(f"{name} {'is' if is_active else 'was'} {role_desc} the Mainen Lab.")
+    projects = person.get("projects", [])
+    if projects:
+        proj_names = ", ".join(p["name"] for p in projects[:4])
+        if len(projects) > 4:
+            proj_names += f", and {len(projects) - 4} other project{'s' if len(projects) - 4 > 1 else ''}"
+        parts.append(f"{'Their' if is_active else 'Their'} research {'involves' if is_active else 'involved'} {proj_names}.")
+    papers = person.get("papers", [])
+    if papers:
+        n = len(papers)
+        first = sorted(papers, key=lambda p: p.get("year", 9999))[0]
+        title = first.get("title", "")
+        year = first.get("year", "")
+        if n == 1:
+            parts.append(f"Their work with the lab includes the publication \"{title}\" ({year}).")
+        else:
+            parts.append(f"Their work with the lab includes {n} publications, including \"{title}\" ({year}).")
+    cur = person.get("current_position")
+    if cur and not is_active:
+        parts.append(f"They are currently {cur}.")
+    return " ".join(parts) if len(parts) > 1 or (parts and "member of" not in parts[0] and role) else ""
+
+def generate_person_pages(people, site_data, s2_pubs=None, bios=None):
+    s2_pubs = s2_pubs or {}
+    bios = bios or {}
     people_dir = WEB / "people"
     people_dir.mkdir(exist_ok=True)
     pub_by_slug = {p["slug"]: p for p in site_data["publications"]}
-    proj_by_slug = {p["slug"]: p for p in site_data["projects"]}
+    # Build set of lab DOIs and normalized titles for highlighting
+    lab_dois = {_normalize_doi(p["doi"]) for p in site_data["publications"] if p.get("doi")}
+    lab_titles = [p["title"] for p in site_data["publications"] if p.get("title")]
     count = 0
     for person in people:
         has_pubs = bool(person.get("papers"))
-        if not has_pubs and person.get("status") != "active":
+        has_s2 = person["slug"] in s2_pubs
+        has_bio = person["slug"] in bios
+        if not has_pubs and not has_s2 and not has_bio and person.get("status") != "active":
             continue
         slug = person["slug"]
         name = person["name"]
-        # Position line
+        # Position
         pos_html = ""
         if person.get("current_position"):
             pos_text = esc(person["current_position"])
@@ -2027,86 +2363,132 @@ def generate_person_pages(people, site_data):
                 pos_html = f'<a href="{person["institution_url"]}" target="_blank" rel="noopener">{pos_text}</a>'
             else:
                 pos_html = pos_text
-        # Lab role
+        # Lab role line
         role = person.get("role", "")
         start = person.get("start_date") or "?"
         if person.get("status") == "collaborator":
             cy = person.get("collab_years", [None, None])
             if cy[0]:
-                end = "present" if slug in ONGOING_COLLABORATORS else (str(cy[1]) if cy[1] else "present")
+                end = "present" if not person.get("end_date") else (str(cy[1]) if cy[1] else "present")
                 role_line = f"Collaborator, {cy[0]}\u2013{end}"
             else:
                 role_line = "Collaborator"
         else:
             end = "present" if person.get("status") == "active" else (person.get("end_date") or "?")
             role_line = f"{role}, {start}\u2013{end}"
-        # Publications
-        pubs_html = ""
-        papers = person.get("papers", [])
-        if papers:
-            sorted_papers = sorted(papers, key=lambda x: x["year"], reverse=True)
+
+        sections = []
+
+        # ── Profile links ──
+        links = []
+        if person.get("institution_url"):
+            links.append(f'<li><a href="{person["institution_url"]}" target="_blank" rel="noopener">Institutional page</a></li>')
+        if person.get("orcid"):
+            links.append(f'<li><a href="https://orcid.org/{person["orcid"]}" target="_blank" rel="noopener">ORCID</a></li>')
+        if person.get("s2_id"):
+            links.append(f'<li><a href="https://www.semanticscholar.org/author/{person["s2_id"]}" target="_blank" rel="noopener">Semantic Scholar</a></li>')
+        if person.get("google_scholar"):
+            links.append(f'<li><a href="{esc(person["google_scholar"])}" target="_blank" rel="noopener">Google Scholar</a></li>')
+        if links:
+            sections.append('<h2>Profile</h2>\n<ul class="profile-links">' + "\n".join(links) + '</ul>')
+
+        # ── About (bio.md or fallback) ──
+        bio_html = bios.get(slug, "")
+        is_stub = bio_html and ("No Semantic Scholar profile matched" in bio_html or "Profile limited to roster data" in bio_html)
+        if has_bio and not is_stub:
+            sections.append(f'<h2>About</h2>\n<div class="bio">{bio_html}</div>')
+        else:
+            fallback = _build_fallback_bio(person)
+            if fallback:
+                sections.append(f'<h2>About</h2>\n<div class="bio"><p>{esc(fallback)}</p></div>')
+
+        # ── Publications ──
+        if slug == "mainen-zf":
+            # For Mainen: show only belongings-matched (curated lab) publications, skip S2
+            lab_papers = person.get("papers", [])
+            if lab_papers:
+                sorted_lab = sorted(lab_papers, key=lambda p: -(p.get("year") or 0))
+                items = []
+                for pub in sorted_lab:
+                    title_text = esc(pub.get("title", ""))
+                    doi = pub.get("doi", "")
+                    year = pub.get("year") or ""
+                    journal = esc(pub.get("journal", ""))
+                    if doi:
+                        title_html = f'<a href="https://doi.org/{esc(doi)}" target="_blank">{title_text}</a>'
+                    else:
+                        title_html = title_text
+                    venue_part = f' <span class="venue">{journal}</span>,' if journal else ''
+                    items.append(f'<li>{title_html}.{venue_part} {year}.</li>')
+                meta_line = f'{len(sorted_lab)} lab publications'
+                sections.append(f'<h2>Selected Publications</h2>\n<div class="cv-meta">{esc(meta_line)}</div>\n<ul class="pub-list">' + "\n".join(items) + '</ul>')
+        elif has_s2:
+            s2_papers = s2_pubs[slug]
+            h_index = _compute_h_index(s2_papers)
+            s2_cache = json.loads(S2_CACHE_PATH.read_text()) if S2_CACHE_PATH.exists() else {}
+            s2_id = person.get("s2_id", "")
+            retrieved = s2_cache.get(s2_id, {}).get("retrieved", "unknown")
+            lab_count = sum(1 for p in s2_papers if _normalize_doi(p.get("doi", "")) in lab_dois or any(_titles_match(p.get("title", ""), lt) for lt in lab_titles) or any(a.lower() == "zachary mainen" or a.lower() == "zach mainen" or "mainen" in a.lower().split() for a in p.get("authors", [])))
+            meta_line = f'h-index: {h_index} | Total papers: {len(s2_papers)} | Lab papers: {lab_count} | Retrieved: {retrieved}'
+            sorted_s2 = sorted(s2_papers, key=lambda p: (-(p.get("year") or 0), -(p.get("citation_count") or 0)))
             items = []
-            for pub in sorted_papers:
-                full = pub_by_slug.get(pub["slug"])
-                authors = full["authors"] if full else []
-                author_str = ", ".join(a.split(",")[0] for a in authors) if authors else ""
-                title_text = esc(pub["title"])
-                if pub.get("doi"):
-                    title_html = f'<a href="https://doi.org/{pub["doi"]}" target="_blank">{title_text}</a>'
+            for pub in sorted_s2:
+                title_text = esc(pub.get("title", ""))
+                doi = pub.get("doi", "")
+                year = pub.get("year") or ""
+                venue = esc(pub.get("venue", ""))
+                cites = pub.get("citation_count", 0)
+                is_lab = False
+                ndoi = _normalize_doi(doi)
+                if ndoi and ndoi in lab_dois:
+                    is_lab = True
+                elif any(_titles_match(pub.get("title", ""), lt) for lt in lab_titles):
+                    is_lab = True
+                elif any(a.lower() == "zachary mainen" or a.lower() == "zach mainen" or "mainen" in a.lower().split() for a in pub.get("authors", [])):
+                    is_lab = True
+                li_class = ' class="lab-paper"' if is_lab else ''
+                authors_str = _format_s2_authors(pub.get("authors", []))
+                authors_html = esc(authors_str) + ". " if authors_str else ""
+                if doi:
+                    title_html = f'<a href="https://doi.org/{esc(doi)}" target="_blank">{title_text}</a>'
                 else:
                     title_html = title_text
-                journal = esc(pub.get("journal", ""))
-                items.append(f'<li>{author_str} ({pub["year"]}). <em>{title_html}</em>. <span class="journal">{journal}</span></li>')
-            pubs_html = '<ul class="pub-list">' + "\n".join(items) + '</ul>'
-        # Projects
-        projs_html = ""
+                venue_part = f' <span class="venue">{venue}</span>,' if venue else ''
+                cite_part = f' <span class="cite-count">Citations: {cites}</span>' if cites else ''
+                lab_badge = ' <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>' if is_lab else ''
+                items.append(f'<li{li_class}>{authors_html}{title_html}{lab_badge}.{venue_part} {year}.{cite_part}</li>')
+            sections.append(f'<h2>Complete Publications</h2>\n<div class="cv-meta">{esc(meta_line)}</div>\n<ul class="pub-list">' + "\n".join(items) + '</ul>')
+
+        # ── At the Mainen Lab ──
+        lab_parts = [f'<div class="lab-role">{esc(role_line)}</div>']
         projects = person.get("projects", [])
         if projects:
-            items = []
-            for proj in projects:
-                items.append(f'<li><a href="../index.html#project-{proj["slug"]}">{esc(proj["name"])}</a></li>')
-            projs_html = '<ul class="project-list">' + "\n".join(items) + '</ul>'
-        # Links
-        links = []
-        if person.get("orcid"):
-            links.append(f'<a href="https://orcid.org/{person["orcid"]}" target="_blank">ORCID</a>')
-        if person.get("institution_url"):
-            links.append(f'<a href="{person["institution_url"]}" target="_blank">Institution</a>')
-        links_html = '<div class="links">' + " ".join(links) + '</div>' if links else ""
+            items = [f'<li><a href="../index.html#project-{proj["slug"]}">{esc(proj["name"])}</a></li>' for proj in projects]
+            lab_parts.append('<h2>Projects</h2>\n<ul class="project-list">' + "\n".join(items) + '</ul>')
+        if projects:
+            sections.append('<h2>At the Mainen Lab</h2>\n' + "\n".join(lab_parts))
+
+        body_html = "\n".join(sections)
+        person_path = f"home/zach/projects/mainen-lab/people/{slug}"
+        edit_url = f"http://127.0.0.1:18832/situation?path={person_path}/index.md" if read_situation_frontmatter(LAB / "people" / slug) else "http://127.0.0.1:18832/situation?path=home/zach/projects/mainen-lab/index.md"
         page_html = f'''<!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{esc(name)} — Mainen Lab</title>
+<title>{esc(name)} &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>{PERSON_PAGE_CSS}</style>
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>{esc(name)}</h1>
+<h1>{esc(name)} <a href="{edit_url}" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 {f'<div class="position">{pos_html}</div>' if pos_html else ""}
-<div class="lab-role">{esc(role_line)}</div>
-{f'<div class="section-title">Publications with the lab</div>{pubs_html}' if pubs_html else ""}
-{f'<div class="section-title">Projects</div>{projs_html}' if projs_html else ""}
-{links_html}
+{body_html}
 </div>
-<script>
-const toggle = document.getElementById('theme-toggle');
-const root = document.documentElement;
-const stored = localStorage.getItem('ml-theme');
-if (stored) root.setAttribute('data-theme', stored);
-else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
-toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\\u2600' : '\\u263E';
-toggle.addEventListener('click', () => {{
-  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-  root.setAttribute('data-theme', next);
-  localStorage.setItem('ml-theme', next);
-  toggle.textContent = next === 'dark' ? '\\u2600' : '\\u263E';
-}});
-</script>
+<script>{PERSON_PAGE_JS}</script>
 </body>
 </html>'''
         (people_dir / f"{slug}.html").write_text(page_html)
@@ -2145,7 +2527,13 @@ def build(regenerate=False):
     print(f"  {len(active_proj)} active, {len(completed_proj)} completed/other")
 
     print("Enriching people with publications and projects...")
-    pub_matches = match_pubs_to_people(pubs, people)
+    belonging_matches = match_pubs_to_people_via_belongings(pubs)
+    pubs_without_belongings = [p for p in pubs if not p.get("belongings")]
+    fallback_matches = match_pubs_to_people(pubs_without_belongings, people)
+    pub_matches = defaultdict(list, fallback_matches)
+    for person_slug, pub_slugs in belonging_matches.items():
+        pub_matches[person_slug].extend(s for s in pub_slugs if s not in pub_matches[person_slug])
+    pub_matches = dict(pub_matches)
     pub_by_slug = {p["slug"]: p for p in pubs}
     proj_by_slug = {p["slug"]: p for p in projects}
     for person in people:
@@ -2162,18 +2550,20 @@ def build(regenerate=False):
             for p in projects if ps in p.get("people", [])
         ]
         if matched:
-            first_yr, last_yr = compute_collab_years(ps, matched, pubs)
+            first_yr, last_yr = compute_collab_years(person, matched, pubs)
             person["collab_years"] = [first_yr, last_yr]
         else:
             person["collab_years"] = [None, None]
         person["institution"] = extract_institution(person.get("current_position", ""))
-        person["institution_url"] = INSTITUTION_URLS.get(ps)
+        if not person.get("institution_url"):
+            person["institution_url"] = ""
     matched_count = sum(1 for p in people if pub_matches.get(p["slug"]))
     print(f"  {matched_count} people matched to publications")
 
     print("Loading programs...")
     programs = load_programs()
     link_citations_in_programs(programs)
+    link_people_in_programs(programs, people)
     print(f"  {len(programs)} programs")
 
     print("Generating narratives...")
@@ -2200,7 +2590,8 @@ def build(regenerate=False):
             "start_year": p["start_year"], "end_year": p["end_year"],
             "themes": p["themes"], "methods": p["methods"], "scale": p["scale"],
             "organisms": p["organisms"], "settings": p["settings"],
-            "participants": p["people"], "papers": p["papers"], "paper_count": p["paper_count"],
+            "participants": p["people"], "participant_roles": p.get("people_roles", {}),
+            "papers": p["papers"], "paper_count": p["paper_count"],
         } for p in projects],
         "publications": [{
             "slug": p["slug"], "title": p["title"], "year": p["year"],
@@ -2217,6 +2608,8 @@ def build(regenerate=False):
             "institution": p.get("institution", ""),
             "institution_url": p.get("institution_url"),
             "orcid": p.get("orcid", ""),
+            "s2_id": p.get("s2_id", ""),
+            "google_scholar": p.get("google_scholar", ""),
         } for p in people],
         "narratives": narratives,
         "programs": [{
@@ -2239,8 +2632,29 @@ def build(regenerate=False):
     out_path.write_text(html)
     print(f"  {len(html):,} bytes written to {out_path}")
 
+    print("Loading bios...")
+    bios = load_bios(LAB / "people")
+    # Merge cached AI-generated bios (override bio.md content)
+    bio_cache_path = WEB / ".bio-cache.json"
+    if bio_cache_path.exists():
+        ai_bios = json.loads(bio_cache_path.read_text())
+        converter = md_lib.Markdown(extensions=["extra"])
+        for slug, text in ai_bios.items():
+            converter.reset()
+            bios[slug] = converter.convert(text)
+        print(f"  {len(bios)} bios loaded ({len(ai_bios)} from AI cache)")
+    else:
+        print(f"  {len(bios)} bios loaded (no AI cache; run scripts/generate_bios.py)")
+
+    print("Fetching Semantic Scholar publications...")
+    s2_pubs = fetch_s2_publications(people)
+
     print("Generating person pages...")
-    generate_person_pages(people, site_data)
+    generate_person_pages(people, site_data, s2_pubs=s2_pubs, bios=bios)
+
+    print("Checking migration regressions...")
+    migration_warnings(people, pubs, projects)
+
     print(f"\nDone.")
 
 DEPLOY_REPO = "mainenlab/mainenlab.github.io"
@@ -2283,13 +2697,131 @@ def deploy():
     subprocess.run(["git", "push"], cwd=DEPLOY_CACHE, check=True)
     print(f"Deployed: {msg}")
 
+def migration_warnings(people, pubs, projects):
+    """Lightweight regression checks — runs every build, prints to stderr."""
+    warn = lambda msg: print(f"⚠️ MIGRATION: {msg}", file=sys.stderr)
+    warnings = 0
+
+    # 1. Project regression: project.yaml has people: but index.md lacks belongings
+    for f in (LAB / "projects").glob("*/project.yaml"):
+        d = load_yaml(f.read_text(errors="replace")) or {}
+        if d.get("people") or d.get("participants"):
+            if not read_situation_frontmatter(f.parent):
+                warn(f"project {f.parent.name}: has people in project.yaml but no belongings in index.md")
+                warnings += 1
+
+    # 2. Publication regression: paper.md has authors with lab member names but no belongings
+    people_last = {}
+    for p in people:
+        parts = p["name"].strip().split()
+        if parts:
+            people_last[parts[-1].lower()] = p["slug"]
+    for f in (LAB / "publications").glob("*/paper.md"):
+        try:
+            meta, _ = parse_frontmatter(f.read_text(errors="replace"))
+        except (FileNotFoundError, OSError):
+            continue
+        if meta.get("belongings"):
+            continue
+        authors = meta.get("authors", [])
+        if isinstance(authors, str):
+            authors = [authors]
+        for author in authors:
+            for ln in people_last:
+                if re.search(r'\b' + re.escape(ln) + r'\b', author.lower()):
+                    warn(f"publication {f.parent.name}: author '{author}' matches lab member {people_last[ln]} but no belongings")
+                    warnings += 1
+                    break
+
+    # 3. Person regression: person.yaml role/start_date disagrees with lab situation frontmatter
+    sit = read_situation_frontmatter(LAB)
+    sit_multi = {}
+    for b in sit:
+        sit_multi.setdefault(b["entity"], []).append(b)
+    for f in (LAB / "people").glob("*/person.yaml"):
+        d = load_yaml(f.read_text(errors="replace")) or {}
+        slug = f.parent.name
+        stints = sit_multi.get(slug)
+        if not stints:
+            continue
+        sb = max(stints, key=lambda s: int(str(s.get("since") or 0)[:4]))
+        yaml_role = (d.get("role") or "").lower().strip()
+        sit_quality = sb.get("quality", "")
+        if yaml_role and sit_quality:
+            norm_sit = quality_to_role(sit_quality).lower()
+            norm_yaml = normalize_role(yaml_role).lower()
+            if norm_yaml != norm_sit:
+                warn(f"person {slug}: person.yaml role '{yaml_role}' != situation quality '{sit_quality}'")
+                warnings += 1
+        all_starts = [int(str(s["since"])[:4]) for s in stints if s.get("since")]
+        yaml_start = str(d.get("start_date", ""))[:4]
+        sit_start = str(min(all_starts)) if all_starts else ""
+        if yaml_start and sit_start and yaml_start != sit_start:
+            warn(f"person {slug}: person.yaml start_date '{yaml_start}' != situation since '{sit_start}'")
+            warnings += 1
+
+    # 4. Phase 5 complete: ROLE_MAP, INSTITUTION_URLS, ONGOING_COLLABORATORS deleted.
+    #    institutional_url now lives in person.yaml; ongoing status derived from situation belongings.
+
+    if warnings:
+        print(f"  {warnings} migration warnings (see stderr)", file=sys.stderr)
+
+def migration_report():
+    err = lambda *a, **kw: print(*a, file=sys.stderr, **kw)
+    err("\n=== Situation Frontmatter Migration Report ===\n")
+
+    proj_dirs = sorted((LAB / "projects").glob("*/project.yaml"))
+    proj_slugs = [f.parent.name for f in proj_dirs]
+    with_fm = [s for s in proj_slugs if read_situation_frontmatter(LAB / "projects" / s)]
+    without_fm = [s for s in proj_slugs if s not in set(with_fm)]
+    err(f"Projects: {len(with_fm)}/{len(proj_slugs)} have situation frontmatter")
+    if without_fm:
+        for s in without_fm:
+            err(f"  MISSING  {s}")
+
+    pub_papers = sorted((LAB / "publications").glob("*/paper.md"))
+    pub_with, pub_without = [], []
+    for p in pub_papers:
+        try:
+            meta, _ = parse_frontmatter(p.read_text(errors="replace"))
+        except (FileNotFoundError, OSError):
+            meta = {}
+        (pub_with if meta.get("belongings") else pub_without).append(p.parent.name)
+    err(f"\nPublications: {len(pub_with)}/{len(pub_papers)} have belongings in paper.md")
+    if pub_without:
+        for s in pub_without[:10]:
+            err(f"  MISSING  {s}")
+        if len(pub_without) > 10:
+            err(f"  ... and {len(pub_without) - 10} more")
+
+    lab_belongings = read_situation_frontmatter(LAB)
+    lab_entities = {b["entity"] for b in lab_belongings}
+    people = load_people()
+    declared = [p for p in people if p["slug"] in lab_entities or any(
+        p["slug"] == e.replace("-", "") for e in lab_entities)]
+    err(f"\nPeople: {len(lab_entities)} declared in lab situation frontmatter / {len(people)} in person.yaml files")
+
+    web_programs = sorted((WEB / "research" / "programs").glob("*.md")) if (WEB / "research" / "programs").exists() else []
+    web_slugs = {f.stem for f in web_programs}
+    fs_slugs = {f.parent.name for f in proj_dirs}
+    err(f"\nPrograms: {len(web_slugs)} in web/mainenlab/research/programs, {len(fs_slugs)} project dirs in projects/mainen-lab/")
+    err("")
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Build mainenlab.org static site")
     parser.add_argument("--regenerate", action="store_true",
                         help="Regenerate all theme narratives (and project descriptions) via Claude API")
     parser.add_argument("--deploy", action="store_true",
                         help="Push built site to mainenlab.github.io after building")
+    parser.add_argument("--generate-bios", action="store_true",
+                        help="Generate AI bios before building (runs scripts/generate_bios.py)")
+    parser.add_argument("--migration-report", action="store_true",
+                        help="Print situation frontmatter coverage report to stderr")
     args = parser.parse_args()
+    if args.generate_bios:
+        subprocess.run([sys.executable, str(WEB / "scripts" / "generate_bios.py")], check=True)
     build(regenerate=args.regenerate)
+    if args.migration_report:
+        migration_report()
     if args.deploy:
         deploy()

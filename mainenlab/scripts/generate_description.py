@@ -32,7 +32,7 @@ except ImportError:
         with open(p, 'w') as f: yaml.dump(data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
     YAML_ENGINE = 'pyyaml'
 
-BASE = Path(__file__).resolve().parent.parent.parent.parent  # workspaces/zach
+BASE = Path(__file__).resolve().parent.parent.parent.parent  # home/zach
 LAB_ROOT = BASE / 'projects' / 'mainen-lab'
 PROJECTS_DIR = LAB_ROOT / 'projects'
 PUBS_DIR = LAB_ROOT / 'publications'

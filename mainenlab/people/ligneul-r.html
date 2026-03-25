@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Romain Ligneul — Mainen Lab</title>
+<title>Romain Ligneul &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,15 +61,45 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Romain Ligneul</h1>
+<h1>Romain Ligneul <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">PI, INSERM, France</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0003-4933-3976" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/48372198" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Romain Ligneul was a postdoc in the Mainen Lab from 2017-2022, where he worked on projects investigating serotonin and novelty. His research focuses on computational approaches to understanding decision-making, controllability, and social hierarchies, with particular emphasis on how neural systems process uncertainty and regulate exploratory behavior. He is now a Principal Investigator at INSERM in France.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 11 | Total papers: 24 | Lab papers: 2 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li class="lab-paper">Ligneul R, Mainen Z, Ly V, Cools R. <a href="https://doi.org/10.1038/s41562-022-01306-w" target="_blank">Stress-sensitive inference of task controllability</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Human Behaviour</span>, 2022. <span class="cite-count">Citations: 31</span></li>
+<li>Raab HA, Foord C, Ligneul R, Hartley CA. <a href="https://doi.org/10.1371/journal.pcbi.1010120" target="_blank">Developmental shifts in computations used to detect environmental controllability</a>. <span class="venue">PLoS Comput. Biol.</span>, 2022. <span class="cite-count">Citations: 9</span></li>
+<li class="lab-paper">Janet R, Ligneul R, Losecaat-Vermeer AB, Philippe R, Bellucci G, Derrington E, Park SQ, Dreher J. <a href="https://doi.org/10.1038/s41386-022-01378-2" target="_blank">Regulation of social hierarchy learning by serotonin transporter availability</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Neuropsychopharmacology</span>, 2022. <span class="cite-count">Citations: 9</span></li>
+<li>Obeso I, Herrero M, Ligneul R, Rothwell J, Jahanshahi M. <a href="https://doi.org/10.1016/j.neuroscience.2020.12.035" target="_blank">A causal role for the right dorsolateral prefrontal cortex in avoidance of risky choices and making advantageous choices.</a>. <span class="venue">Neuroscience</span>, 2021. <span class="cite-count">Citations: 25</span></li>
+<li>Ligneul R. <a href="https://doi.org/10.1016/j.tics.2021.02.009" target="_blank">Prediction or Causation? Towards a Redefinition of Task Controllability.</a>. <span class="venue">Trends in Cognitive Sciences</span>, 2021. <span class="cite-count">Citations: 24</span></li>
+<li>Ligneul R. <a href="https://doi.org/10.1007/978-3-319-19650-3_165" target="_blank">Male Dominance Hierarchies</a>. <span class="venue">Encyclopedia of Evolutionary Psychological Science</span>, 2021. <span class="cite-count">Citations: 2</span></li>
+<li>Hartley CA, Ligneul R. <a href="https://doi.org/10.7554/elife.64983.sa1" target="_blank">Decision letter: Humans use forward thinking to exploit social controllability</a>. 2021.</li>
+<li>Vijver IVD, Ligneul R. <a href="https://doi.org/10.1080/13825585.2019.1664389" target="_blank">Relevance of working memory for reinforcement learning in older adults varies with timescale of learning</a>. <span class="venue">Neuropsychology, development, and cognition. Section B, Aging, neuropsychology and cognition</span>, 2020. <span class="cite-count">Citations: 9</span></li>
+<li>Raab HA, Foord C, Ligneul R, Hartley CA. <a href="https://doi.org/10.31234/osf.io/xdt9p" target="_blank">Developmental shifts in computations used to detect environmental controllability</a>. 2020. <span class="cite-count">Citations: 6</span></li>
+<li>Ligneul R. <a href="https://doi.org/10.1371/journal.pcbi.1006989" target="_blank">Sequential exploration in the Iowa gambling task: Validation of a new computational model in a large dataset of young and old healthy participants</a>. <span class="venue">PLoS Comput. Biol.</span>, 2019. <span class="cite-count">Citations: 35</span></li>
+<li>Breton A, Ligneul R, Jerbi K, George N, Baudouin J, Henst JVD. <a href="https://doi.org/10.1016/j.neuropsychologia.2018.09.010" target="_blank">How occupational status influences the processing of faces: An EEG study</a>. <span class="venue">Neuropsychologia</span>, 2019. <span class="cite-count">Citations: 22</span></li>
+<li>Ligneul R, Mermillod M, Morisseau T. <a href="https://doi.org/10.1016/j.neuroimage.2018.07.038" target="_blank">From relief to surprise: Dual control of epistemic curiosity in the human brain</a>. <span class="venue">NeuroImage</span>, 2018. <span class="cite-count">Citations: 75</span></li>
+<li>Sescousse G, Ligneul R, Holst RV, Janssen LK, Boer F, Janssen MJR, Berry A, Jagust WJ, Cools R. <a href="https://doi.org/10.1016/j.biopsych.2018.02.794" target="_blank">F180. Spontaneous Eye Blink Rate: A Good Proxy for Dopamine?</a>. 2018.</li>
+<li>Ligneul R. <a href="https://doi.org/10.1101/387019" target="_blank">Directed exploration in the Iowa Gambling Task: model-free and model-based analyses in a large dataset of young and old healthy participants</a>. <span class="venue">bioRxiv</span>, 2018.</li>
+<li>Sescousse G, Ligneul R, Holst RV, Janssen LK, Boer F, Janssen MJR, Berry A, Jagust W, Cools R. Title Spontaneous eye blink rate and dopamine synthesis capacity : preliminary evidence for an absence of positive correlation Permalink. 2018.</li>
+<li>Qu C, Ligneul R, Henst JVD, Dreher J. <a href="https://doi.org/10.1016/j.tics.2017.08.004" target="_blank">An Integrative Interdisciplinary Perspective on Social Dominance Hierarchies.</a>. <span class="venue">Trends in Cognitive Sciences</span>, 2017. <span class="cite-count">Citations: 90</span></li>
+<li>Sescousse G, Ligneul R, Holst RVV, Janssen LK, Boer FED, Janssen MJR, Berry A, Jagust W, Cools R. <a href="https://doi.org/10.1111/ejn.13895" target="_blank">Spontaneous eye blink rate and dopamine synthesis capacity: preliminary evidence for an absence of positive correlation</a>. <span class="venue">bioRxiv</span>, 2017. <span class="cite-count">Citations: 75</span></li>
+<li>Trinkler I, Devignevielle S, Achaibou A, Ligneul R, Brugières P, Langavant LCD, Gelder BD, Scahill R, Schwartz S, Bachoud-Lévi A. <a href="https://doi.org/10.1016/j.cortex.2017.02.019" target="_blank">Embodied emotion impairment in Huntington&#x27;s Disease.</a>. <span class="venue">Cortex; a journal devoted to the study of the nervous system and behavior</span>, 2017. <span class="cite-count">Citations: 30</span></li>
+<li>Ligneul R, Girard R, Dreher J. <a href="https://doi.org/10.1038/srep45920" target="_blank">Social brains and divides: the interplay between social dominance orientation and the neural sensitivity to hierarchical ranks</a>. <span class="venue">Scientific Reports</span>, 2017. <span class="cite-count">Citations: 26</span></li>
+<li>Ligneul R, Dreher J. <a href="https://doi.org/10.1016/B978-0-12-805308-9.00017-8" target="_blank">Social Dominance Representations in the Human Brain</a>. 2017. <span class="cite-count">Citations: 9</span></li>
+<li>Ligneul R, Mermillod M, Morisseau T. <a href="https://doi.org/10.1101/157644" target="_blank">The control of epistemic curiosity in the human brain</a>. <span class="venue">bioRxiv</span>, 2017. <span class="cite-count">Citations: 2</span></li>
+<li>Ligneul R, Obeso I, Ruff C, Dreher J. <a href="https://doi.org/10.1016/j.cub.2016.09.015" target="_blank">Dynamical Representation of Dominance Relationships in the Human Rostromedial Prefrontal Cortex.</a>. <span class="venue">Current Biology</span>, 2016. <span class="cite-count">Citations: 80</span></li>
+<li>Ligneul R, Obeso I, Ruff C, Dreher J. Biology: Dynamical representation of dominance relationships in the human medial prefrontal cortex. 2016.</li>
+<li>Ligneul R, Sescousse G, Barbalat G, Domènech P, Dreher J, Dreher J. Psychological Medicine Shifted Risk Preferences in Pathological Gambling Shifted Risk Preferences in Pathological Gambling. .</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2017–2022</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Romain Ligneul, Z. Mainen (2023). <em><a href="https://doi.org/10.1016/j.cub.2023.09.068" target="_blank">Serotonin</a></em>. <span class="journal">Current Biology 33, R1209–R1221</span></li>
-<li>R. Ligneul, Z. Mainen, Verena Ly, R. Cools (2022). <em><a href="https://doi.org/10.1038/s41562-022-01306-w" target="_blank">Stress-sensitive inference of task controllability</a></em>. <span class="journal">Nat Hum Behav 6, 812</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-5HT-novelty-stefan">Serotonin &amp; Novelty</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0003-4933-3976" target="_blank">ORCID</a></div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5HT-novelty-stefan">Serotonin &amp; Novelty</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

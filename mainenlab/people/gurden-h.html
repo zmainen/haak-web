@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hirac Gurden — Mainen Lab</title>
+<title>Hirac Gurden &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,14 +61,76 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Hirac Gurden</h1>
+<h1>Hirac Gurden <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Departed researcher; current affiliation unknown.</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0003-0027-4717" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/145915367" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Hirac Gurden was a postdoc in the Mainen Lab from 2000-2005, where he worked on olfactory bulb circuitry. His research focuses on the intersection of olfaction with metabolism and cerebral blood flow, particularly in the context of obesity and diabetes, using optical imaging techniques including speckle imaging and two-photon microscopy. His current affiliation following his departure from the lab is unknown.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 18 | Total papers: 55 | Lab papers: 1 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Montaner M, Andreelli F, Magnan C, Gurden H. <a href="https://doi.org/10.1051/medsci/2026014" target="_blank">[Cross-regulation between olfaction and energy homeostasis in obesity and type 2 diabetes: from mouse models to humans].</a>. <span class="venue">Medecine sciences : M/S</span>, 2026.</li>
+<li>Soleimanzad H, Morisset C, Montaner M, Pain F, Magnan C, Tanter M, Gurden H. <a href="https://doi.org/10.1038/s41366-025-01711-x" target="_blank">Western diet since adolescence impairs brain functional hyperemia at adulthood in mice: rescue by a balanced ω-3:ω-6 polyunsaturated fatty acids ratio</a>. <span class="venue">International Journal of Obesity</span>, 2025. <span class="cite-count">Citations: 3</span></li>
+<li>Yu C, Chammas M, Gurden H, Lin H, Pain F. <a href="https://doi.org/10.1117/12.3017151" target="_blank">Fast analysis of multiple exposure speckle data to provide relative blood flow maps using convolutional neural networks</a>. <span class="venue">Photonics Europe</span>, 2024.</li>
+<li>Montaner M, Denom J, Simon V, Jiang W, Holt MK, ... et al.. <a href="https://doi.org/10.1038/s41467-024-51076-4" target="_blank">A neuronal circuit driven by GLP-1 in the olfactory bulb regulates insulin secretion</a>. <span class="venue">bioRxiv</span>, 2023. <span class="cite-count">Citations: 18</span></li>
+<li>Montaner M, Denom J, Jiang W, Magnan C, Trapp S, Gurden H. <a href="https://doi.org/10.1016/j.molmet.2023.101738" target="_blank">The local GLP-1 system in the olfactory bulb is required for odor-evoked cephalic phase of insulin release in mice</a>. <span class="venue">Molecular Metabolism</span>, 2023. <span class="cite-count">Citations: 18</span></li>
+<li>Yu C, Chammas M, Gurden H, Lin H, Pain F. <a href="https://doi.org/10.1364/boe.492739" target="_blank">Design and validation of a convolutional neural network for fast, model-free blood flow imaging with multiple exposure speckle imaging.</a>. <span class="venue">Biomedical Optics Express</span>, 2023. <span class="cite-count">Citations: 10</span></li>
+<li>Soleimanzad H, Morisset C, Montaner M, Pain F, Magnan C, Tanter M, Gurden H. <a href="https://doi.org/10.1101/2023.12.21.572595" target="_blank">Western diet feeding since adolescence impairs functional hyperemia probed by functional ultrasound imaging at adulthood and middle age: rescue by a balanced ω-3:ω-6 polyunsaturated fatty acids ratio in the diet</a>. <span class="venue">bioRxiv</span>, 2023. <span class="cite-count">Citations: 1</span></li>
+<li>Faour M, Magnan C, Gurden H, Martin C. <a href="https://doi.org/10.1016/j.neuropharm.2021.108923" target="_blank">Olfaction in the context of obesity and diabetes: Insights from animal models to humans.</a>. <span class="venue">Neuropharmacology</span>, 2021. <span class="cite-count">Citations: 32</span></li>
+<li>Denis F, Septans A, Périers L, Maillard J, Legoff F, Gurden H, Morinière S. <a href="https://doi.org/10.1101/2021.05.13.21257176" target="_blank">Olfactory training and visual stimulation assisted by web-application in patients with persistent olfactory dysfunction after SARS-CoV-2 infection: observational study.</a>. <span class="venue">medRxiv</span>, 2021. <span class="cite-count">Citations: 28</span></li>
+<li>Denis F, Septans A, Périers L, Maillard J, Legoff F, Gurden H, Morinière S. <a href="https://doi.org/10.2196/29583" target="_blank">Olfactory Training and Visual Stimulation Assisted by a Web Application for Patients With Persistent Olfactory Dysfunction After SARS-CoV-2 Infection: Observational Study</a>. <span class="venue">Journal of Medical Internet Research</span>, 2021. <span class="cite-count">Citations: 13</span></li>
+<li>Denis F, Septans A, Périers L, Maillard J, Legoff F, Gurden H, Morinière S. <a href="https://doi.org/10.2196/32120" target="_blank">Correction: Olfactory Training and Visual Stimulation Assisted by a Web Application for Patients With Persistent Olfactory Dysfunction After SARS-CoV-2 Infection: Observational Study</a>. <span class="venue">Journal of Medical Internet Research</span>, 2021. <span class="cite-count">Citations: 3</span></li>
+<li>Denis F, Septans A, Périers L, Maillard J, Legoff F, Gurden H, Morinière S. <a href="https://doi.org/10.21203/rs.3.rs-1078917/v1" target="_blank">Olfactory Training and Visual Stimulation Assisted by a Web-Application for Patients With Persistent Olfactory Dysfunction After SARS-CoV-2 Infection</a>. 2021. <span class="cite-count">Citations: 1</span></li>
+<li>Chammas M, Yu C, Gurden H, Lin HH, Pain F. <a href="https://doi.org/10.1117/12.2615436" target="_blank">Comparison of synthetic exposure and sequential exposure for multiple exposure speckle imaging of blood flow</a>. <span class="venue">European Conference on Biomedical Optics</span>, 2021.</li>
+<li>Soleimanzad H, Montaner M, Ternier G, Lemitre M, Silvestre J, Kassis N, Giacobini P, Magnan C, Pain F, Gurden H. <a href="https://doi.org/10.1002/oby.23051" target="_blank">Obesity in Midlife Hampers Resting and Sensory‐Evoked Cerebral Blood Flow in Mice</a>. <span class="venue">Obesity</span>, 2020. <span class="cite-count">Citations: 19</span></li>
+<li>Soleimanzad H, Juchaux M, Gurden H, Crépin D, Pain F. <a href="https://doi.org/10.1117/12.2544298" target="_blank">Evaluation of skull optical clearing process for longitudinal non invasive optical imaging</a>. <span class="venue">BiOS</span>, 2020. <span class="cite-count">Citations: 1</span></li>
+<li>Soleimanzad H, Juchaux M, Crépin D, Gurden H, Pain F. <a href="https://doi.org/10.1364/FIO.2020.FTH1A.2" target="_blank">Skull optical clearing for longitudinal non-invasive optical imaging</a>. <span class="venue">Frontiers in Optics / Laser Science</span>, 2020.</li>
+<li>Mortreux M, Foppen E, Denis R, Montaner M, Kassis N, ... et al.. <a href="https://doi.org/10.1016/j.molmet.2019.08.016" target="_blank">New roles for prokineticin 2 in feeding behavior, insulin resistance and type 2 diabetes: Studies in mice and humans</a>. <span class="venue">Molecular Metabolism</span>, 2019. <span class="cite-count">Citations: 24</span></li>
+<li>Soleimanzad H, Smekens F, Peyronnet J, Juchaux M, Lefebvre O, Bouville D, Magnan C, Gurden H, Pain F. <a href="https://doi.org/10.1117/1.NPh.6.1.015008" target="_blank">Multiple speckle exposure imaging for the study of blood flow changes induced by functional activation of barrel cortex and olfactory bulb in mice</a>. <span class="venue">Neurophotonics</span>, 2019. <span class="cite-count">Citations: 14</span></li>
+<li>Pain F, Soleimanzad H, Smekens F, Magnan C, Gurden H. <a href="https://doi.org/10.1117/12.2510077" target="_blank">Wide field speckle imaging for the investigation of cerebral blood flow in vivo in murine model of obesity</a>. <span class="venue">BiOS</span>, 2019.</li>
+<li>Soleimanzad H, Gurden H, Pain F. <a href="https://doi.org/10.1117/12.2309316" target="_blank">Wide-field speckle imaging and two-photon microscopy for the investigation of cerebral blood flow in vivo in mice models of obesity</a>. <span class="venue">Photonics Europe</span>, 2018. <span class="cite-count">Citations: 3</span></li>
+<li>Soleimanzad H, Gurden H, Pain F. <a href="https://doi.org/10.1364/TRANSLATIONAL.2018.JTU3A.57" target="_blank">Wide field speckle imaging and two photon microscopy close up for the Investigation of cerebral blood flow in vivo in murine model of obesity.</a>. 2018.</li>
+<li>Soleimanzad H, Gurden H, Pain F. <a href="https://doi.org/10.1117/1.JBO.22.1.010503" target="_blank">Optical properties of mice skull bone in the 455- to 705-nm range</a>. 2017. <span class="cite-count">Citations: 19</span></li>
+<li>Chelminski Y, Magnan C, Luquet S, Everard A, Meunier N, Gurden H, Martin C. <a href="https://doi.org/10.3389/fphys.2017.00002" target="_blank">Odor-Induced Neuronal Rhythms in the Olfactory Bulb Are Profoundly Modified in ob/ob Obese Mice</a>. <span class="venue">Frontiers in Physiology</span>, 2017. <span class="cite-count">Citations: 19</span></li>
+<li>Soleimanzad H, Gurden H, Pain F. <a href="https://doi.org/10.1117/12.2255816" target="_blank">Development of a multi-exposure speckle imaging for mice brain imaging</a>. <span class="venue">BiOS</span>, 2017. <span class="cite-count">Citations: 3</span></li>
+<li>Soleimanzad H, Gurden H, Pain F. <a href="https://doi.org/10.1117/1.JBO.22.4.049802" target="_blank">Errata: Optical properties of mice skull bone in the 455- to 705-nm range</a>. <span class="venue">Journal of Biomedical Optics</span>, 2017. <span class="cite-count">Citations: 3</span></li>
+<li>Nai Q, Ennis M, Chéry R, Gurden H, Martin C, Eckmeier D, Shea SD. olfactory bulb function in adult rodents Nonlinear effects of noradrenergic modulation of. 2015.</li>
+<li>Soria‐Gomez E, Bellocchio L, Reguero L, Lepousez G, Martin C, ... et al.. <a href="https://doi.org/10.1038/nn.3647" target="_blank">The endocannabinoid system controls food intake via olfactory processes</a>. <span class="venue">Nature Neuroscience</span>, 2014. <span class="cite-count">Citations: 245</span></li>
+<li>Chéry R, Gurden H, Martin C. <a href="https://doi.org/10.1152/jn.00261.2013" target="_blank">Anesthetic regimes modulate the temporal dynamics of local field potential in the mouse olfactory bulb.</a>. <span class="venue">Journal of Neurophysiology</span>, 2014. <span class="cite-count">Citations: 26</span></li>
+<li>Gurden H. <a href="https://doi.org/10.3389/fncel.2013.00021" target="_blank">Astrocytes: can they be the missing stars linking neuronal activity to neurofunctional imaging signals?</a>. <span class="venue">Frontiers in Cellular Neuroscience</span>, 2013. <span class="cite-count">Citations: 9</span></li>
+<li>Martin C, Houitte D, Guillermier M, Petit F, Bonvento G, Gurden H. <a href="https://doi.org/10.3389/fncir.2012.00001" target="_blank">Alteration of sensory-evoked metabolic and oscillatory activities in the olfactory bulb of GLAST-deficient mice</a>. <span class="venue">Front. Neural Circuits</span>, 2012. <span class="cite-count">Citations: 90</span></li>
+<li>Viggiano A, Marinesco S, Pain F, Meiller A, Gurden H. <a href="https://doi.org/10.1016/j.jneumeth.2012.01.013" target="_blank">Reconstruction of field excitatory post-synaptic potentials in the dentate gyrus from amperometric biosensor signals.</a>. <span class="venue">Journal of Neuroscience Methods</span>, 2012. <span class="cite-count">Citations: 18</span></li>
+<li>Gobbo O, Petit F, Gurden H, Dhenain M. <a href="https://doi.org/10.1002/mrm.23210" target="_blank">In vivo detection of excitotoxicity by manganese‐enhanced MRI: Comparison with physiological stimulation</a>. <span class="venue">Magnetic Resonance in Medicine</span>, 2012. <span class="cite-count">Citations: 10</span></li>
+<li>Renaud R, Martin C, Gurden H, Pain F. <a href="https://doi.org/10.1117/1.JBO.17.1.016012" target="_blank">Multispectral reflectance imaging of brain activation in rodents: methodological study of the differential path length estimations and first in vivo recordings in the rat olfactory bulb.</a>. <span class="venue">Journal of Biomedical Optics</span>, 2012. <span class="cite-count">Citations: 9</span></li>
+<li>Renaud R, Bendahmane M, Chéry R, Martin C, Gurden H, Pain F. <a href="https://doi.org/10.1117/12.922566" target="_blank">Optimization of wavelengths sets for multispectral reflectance imaging of rat olfactory bulb activation in vivo</a>. <span class="venue">Photonics Europe</span>, 2012.</li>
+<li>Pain F, L&#x27;Heureux B, Gurden H. <a href="https://doi.org/10.1007/s00018-011-0708-4" target="_blank">Visualizing odor representation in the brain: a review of imaging techniques for the mapping of sensory activity in the olfactory glomeruli</a>. <span class="venue">Cellular and Molecular Life Sciences</span>, 2011. <span class="cite-count">Citations: 130</span></li>
+<li>Renaud R, Gurden H, Chery R, Bendhamane M, Martin C, Pain F. <a href="https://doi.org/10.1117/12.874837" target="_blank">Multispectral imaging of the olfactory bulb activation: influence of realistic differential pathlength correction factors on the derivation of oxygenation and total hemoglobin concentration maps</a>. <span class="venue">BiOS</span>, 2011. <span class="cite-count">Citations: 2</span></li>
+<li>Jay T, Rocher C, Hotte M, Naudon L, Gurden H, Spedding M. <a href="https://doi.org/10.1007/BF03033225" target="_blank">Plasticity at hippocampal to prefrontal cortex synapses is impaired by loss of dopamine and stress: Importance for psychiatric diseases</a>. <span class="venue">Neurotoxicity research</span>, 2009. <span class="cite-count">Citations: 139</span></li>
+<li>L&#x27;Heureux B, Gurden H, Pain F. <a href="https://doi.org/10.1364/OE.17.009477" target="_blank">Autofluorescence imaging of NADH and flavoproteins in the rat brain: insights from Monte Carlo simulations.</a>. <span class="venue">Optics Express</span>, 2009. <span class="cite-count">Citations: 14</span></li>
+<li>Pain F, Dhenain M, Gurden H, Routier A, Françoise, Lefebvre, Mastrippolito R, Lanièce P. <a href="https://doi.org/10.1088/0031-9155/53/19/008" target="_blank">A method based on Monte Carlo simulations and voxelized anatomical atlases to evaluate and correct uncertainties on radiotracer accumulation quantitation in beta microprobe studies in the rat brain</a>. <span class="venue">Physics in Medicine and Biology</span>, 2008. <span class="cite-count">Citations: 12</span></li>
+<li>Desbrée A, Verdurand M, Godart J, Dubois A, Mastrippolito R, ... et al.. <a href="https://doi.org/10.2967/jnumed.107.050047" target="_blank">The Potential of a Radiosensitive Intracerebral Probe to Monitor 18F-MPPF Binding in Mouse Hippocampus In Vivo</a>. <span class="venue">Journal of Nuclear Medicine</span>, 2008. <span class="cite-count">Citations: 6</span></li>
+<li>Godart J, Clémens J, Delpierre P, Dinskespiler B, Pangaud P, ... et al.. PIXSIC: a Pixellated Radiosensitive Intracerebral Beta Microprobe Allowing the Kinetics Measurements of Radiotracer on Awake and Fully Freely Moving Small Animals. 2008.</li>
+<li>Desbrée A, Rbah L, Langlois J, Grenier D, Mastrippolito R, Pain F, Pinot L, Lanièce P, Zimmer L, Gurden H. <a href="https://doi.org/10.1007/s00259-007-0475-5" target="_blank">Simultaneous in vivo magnetic resonance imaging and radioactive measurements with the β-MicroProbe</a>. <span class="venue">European Journal of Nuclear Medicine and Molecular Imaging</span>, 2007. <span class="cite-count">Citations: 10</span></li>
+<li>L&#x27;Heureux B, Gurden H, Pinot L, Mastrippolito R, Lefèbvre F, Lanièce P, Pain F. <a href="https://doi.org/10.1117/12.728209" target="_blank">Physical limits to autofluorescence signals in vivo recordings in the rat olfactory bulb: a Monte Carlo study</a>. <span class="venue">European Conference on Biomedical Optics</span>, 2007. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Gurden H, Uchida N, Mainen Z. <a href="https://doi.org/10.1016/J.NEURON.2006.07.022" target="_blank">Sensory-evoked intrinsic optical signals in the olfactory bulb are coupled to glutamate release and uptake.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Neuron</span>, 2006. <span class="cite-count">Citations: 115</span></li>
+<li>Jan S, Desbrée A, Pain F, Guez D, Comtat C, ... et al.. <a href="https://doi.org/10.1109/NSSMIC.2005.1596637" target="_blank">Monte Carlo simulation of the microPET FOCUS system for small rodents imaging applications</a>. <span class="venue">IEEE Nuclear Science Symposium Conference Record</span>, 2005. <span class="cite-count">Citations: 27</span></li>
+<li>Desbrée A, Pain F, Gurden H, Pinot L, Grenier D, Zimmer L, Mastrippolito R, Lanièce P. <a href="https://doi.org/10.1109/TNS.2005.858216" target="_blank">A new multimodality system for quantitative in vivo studies in small animals: combination of nuclear magnetic resonance and the radiosensitive /spl beta/-microprobe</a>. <span class="venue">IEEE Symposium Conference Record Nuclear Science 2004.</span>, 2005. <span class="cite-count">Citations: 3</span></li>
+<li>Desbrée A, Pain F, Gurden H, Zimmer L, Pinot L, Lanièce P, Mastrippolito R. <a href="https://doi.org/10.1016/J.JNEUMETH.2004.03.029" target="_blank">Combining the radiosensitive Beta MicroProbe to nuclear magnetic resonance: theoretical approach for in vivo studies in small animals.</a>. <span class="venue">Journal of Neuroscience Methods</span>, 2004. <span class="cite-count">Citations: 8</span></li>
+<li>Jay T, Gurden H, Rocher C, Hotte M, Spedding M. <a href="https://doi.org/10.1007/1-4020-7949-4_5" target="_blank">Up and Down Regulation of Synaptic Strength at Hippocampal to Prefrontal Cortex Synapses</a>. 2004. <span class="cite-count">Citations: 3</span></li>
+<li>Desbrée A, Pain F, Gurden H, Pinot L, Grenier D, Zimmer L, Mastrippolito R, Lanièce P. <a href="https://doi.org/10.1109/NSSMIC.2004.1462716" target="_blank">A new multimodality system for quantitative in vivo studies in small animals: combination of nuclear magnetic resonance and the radiosensitive /spl beta/-MicroProbe</a>. <span class="venue">IEEE Transactions on Nuclear Science</span>, 2004. <span class="cite-count">Citations: 2</span></li>
+<li>Gurden H, Takita M, Jay T. <a href="https://doi.org/10.1523/JNEUROSCI.20-22-j0003.2000" target="_blank">Essential Role of D1 But Not D2 Receptors in the NMDA Receptor-Dependent Long-Term Potentiation at Hippocampal-Prefrontal Cortex Synapses In Vivo</a>. <span class="venue">Journal of Neuroscience</span>, 2000. <span class="cite-count">Citations: 386</span></li>
+<li>Gurden H, Tassin J, Jay T. <a href="https://doi.org/10.1016/S0306-4522(99)00395-4" target="_blank">Integrity of the mesocortical dopaminergic system is necessary for complete expression of in vivo hippocampal-prefrontal cortex long-term potentiation.</a>. <span class="venue">Neuroscience</span>, 1999. <span class="cite-count">Citations: 191</span></li>
+<li>Jay T, Gurden H, Yamaguchi T. <a href="https://doi.org/10.1046/j.1460-9568.1998.00389.x" target="_blank">Rapid increase in PKA activity during long‐term potentiation in the hippocampal afferent fibre system to the prefrontal cortex in vivo</a>. <span class="venue">European Journal of Neuroscience</span>, 1998. <span class="cite-count">Citations: 56</span></li>
+<li>Gurden H, Schiffmann S, Lemaire M, Böhme G, Parmentier M, Schurmans S. <a href="https://doi.org/10.1111/j.1460-9568.1998.00373.x" target="_blank">Calretinin expression as a critical component in the control of dentate gyrus long‐term potentiation induction in mice</a>. <span class="venue">European Journal of Neuroscience</span>, 1998. <span class="cite-count">Citations: 39</span></li>
+<li>Schiffman S, Schurmans S, Gurden H, Lemaire M, Lipp H, Pochet R, Imperato A, Bohme G, Parmentier M. Impaired LTP in the dentate gyrus of calretinin deficient mice. 1998.</li>
+<li>Schurmans S, Schiffmann S, Gurden H, Lemaire M, Lipp H, Schwam V, Pochet R, Imperato A, Böhme GA, Parmentier M. <a href="https://doi.org/10.1073/PNAS.94.19.10415" target="_blank">Impaired long-term potentiation induction in dentate gyrus of calretinin-deficient mice.</a>. <span class="venue">Proceedings of the National Academy of Sciences of the United States of America</span>, 1997. <span class="cite-count">Citations: 155</span></li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2000–2005</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>H. Gurden, N. Uchida, Z. Mainen (2006). <em><a href="https://doi.org/10.1016/j.neuron.2006.07.022" target="_blank">Sensory-evoked intrinsic optical signals in the olfactory bulb are coupled to glutamate release and uptake</a></em>. <span class="journal">Neuron 52, 335-45</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-olfactory-bulb">Olfactory Bulb Circuitry</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0003-0027-4717" target="_blank">ORCID</a></div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-olfactory-bulb">Olfactory Bulb Circuitry</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

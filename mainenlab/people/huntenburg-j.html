@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Julia Huntenburg &mdash; Mainen Lab</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
+}
+[data-theme="dark"] {
+  --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
+}
+.page { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+.back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
+.back:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
+.position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+.position a { color: var(--accent); text-decoration: none; }
+.position a:hover { text-decoration: underline; }
+.lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+.pub-list { list-style: none; padding: 0; }
+.pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
+.pub-list li a { color: var(--accent); text-decoration: none; }
+.pub-list li a:hover { text-decoration: underline; }
+.project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.project-list li a {
+  display: inline-block; font-size: 0.82rem; padding: 0.25rem 0.65rem;
+  border-radius: 999px; border: 1px solid var(--border); color: var(--accent);
+  text-decoration: none; transition: background 0.15s;
+}
+.project-list li a:hover { background: var(--hover); }
+#theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text); font-size: 0.85rem;
+}
+#theme-toggle:hover { background: var(--hover); }
+</style>
+</head>
+<body>
+<div class="page">
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+<h1>Julia Huntenburg <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
+<div class="position">Departed; current affiliation unknown as of last Semantic Scholar update.</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0003-0579-9811" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/8223789" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Julia Huntenburg was a postdoc in the Mainen Lab from 2018-2021, where she contributed to the International Brain Laboratory project investigating neural mechanisms of decision-making across multiple brain regions. Her research spans computational neuroimaging methods, cortical organization, and large-scale brain connectivity, with particular expertise in developing tools for high-resolution neuroimaging analysis and understanding functional gradients in cortical structure. She has since departed the lab, though her current affiliation is not publicly available.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 21 | Total papers: 51 | Lab papers: 2 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li class="lab-paper">Benson B, Benson J, Birman D, Bonacchi N, Carandini M, ... et al.. <a href="https://doi.org/10.1038/s41586-025-09235-0" target="_blank">A brain-wide map of neural activity during complex behaviour</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2024. <span class="cite-count">Citations: 112</span></li>
+<li class="lab-paper">Findling C, Hubert F, Acerbi L, Benson B, Benson J, ... et al.. <a href="https://doi.org/10.1038/s41586-025-09226-1" target="_blank">Brain-wide representations of prior information in mouse decision-making</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2024. <span class="cite-count">Citations: 82</span></li>
+<li>Banga K, Benson J, Bhagat J, Biderman D, Birman D, ... et al.. <a href="https://doi.org/10.1101/2022.05.09.491042" target="_blank">Reproducibility of in vivo electrophysiological measurements in mice</a>. <span class="venue">bioRxiv</span>, 2024. <span class="cite-count">Citations: 44</span></li>
+<li>Biderman D, Whiteway MR, Hurwitz CL, Greenspan N, Lee RS, ... et al.. <a href="https://doi.org/10.1038/s41592-024-02319-1" target="_blank">Lightning Pose: improved animal pose estimation via semi-supervised learning, Bayesian ensembling and cloud-native open-source tools</a>. <span class="venue">Nature Methods</span>, 2024. <span class="cite-count">Citations: 18</span></li>
+<li>Birman D, Chapuis GA, Faulkner M, Rossant C, Benson J, ... et al.. <a href="https://doi.org/10.1101/2024.06.07.597950" target="_blank">Interactive data exploration websites for large-scale electrophysiology</a>. <span class="venue">bioRxiv</span>, 2024. <span class="cite-count">Citations: 2</span></li>
+<li>Biderman D, Whiteway MR, Hurwitz C, Greenspan N, Lee RS, ... et al.. <a href="https://doi.org/10.1101/2023.04.28.538703" target="_blank">Lightning Pose: improved animal pose estimation via semi-supervised learning, Bayesian ensembling, and cloud-native open-source tools</a>. <span class="venue">bioRxiv</span>, 2023. <span class="cite-count">Citations: 40</span></li>
+<li>Jäger AP, Bailey A, Huntenburg JM, Tardif CL, Villringer A, Gauthier C, Nikulin V, Bazin P, Steele C. <a href="https://doi.org/10.1002/hbm.26539" target="_blank">Decreased long‐range temporal correlations in the resting‐state functional magnetic resonance imaging blood‐oxygen‐level‐dependent signal reflect motor sequence learning up to 2 weeks following training</a>. <span class="venue">Human Brain Mapping</span>, 2023. <span class="cite-count">Citations: 2</span></li>
+<li>Bonacchi N, Chapuis GA, Churchland A, DeWitt EEJ, Faulkner M, ... et al.. <a href="https://doi.org/10.1038/s41592-022-01742-6" target="_blank">A modular architecture for organizing, processing and sharing neurophysiology data</a>. <span class="venue">Nature Methods</span>, 2022. <span class="cite-count">Citations: 11</span></li>
+<li>Gau R, Noble S, Heuer K, Bottenhorn KL, Bilgin I, ... et al.. <a href="https://doi.org/10.1016/j.neuron.2021.04.001" target="_blank">Brainhack: Developing a culture of open, inclusive, community-driven neuroscience.</a>. <span class="venue">Neuron</span>, 2021. <span class="cite-count">Citations: 35</span></li>
+<li>Jäger AP, Huntenburg JM, Tremblay S, Schneider U, Grahl S, ... et al.. <a href="https://doi.org/10.1007/s00429-021-02412-7" target="_blank">Motor sequences; separating the sequence from the motor. A longitudinal rsfMRI study</a>. <span class="venue">Brain Structure and Function</span>, 2021. <span class="cite-count">Citations: 9</span></li>
+<li>Gau R, Noble S, Heuer K, Bottenhorn KL, Bilgin I, Yang Y, Huntenburg JM, Bayer JMM, Bethlehem R, Rhoads SA. <a href="https://doi.org/10.17605/OSF.IO/4SZCT" target="_blank">Brainhack: developing a culture of open, inclusive, community-driven neuroscience</a>. 2021.</li>
+<li>Huntenburg JM, Yeow LY, Mandino F, Grandjean J. <a href="https://doi.org/10.1101/2020.03.04.976860" target="_blank">Gradients of functional connectivity in the mouse cortex reflect neocortical evolution</a>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 35</span></li>
+<li>Lifshitz M, Sacchet MD, Huntenburg JM, Thiery T, Fan Y, ... et al.. <a href="https://doi.org/10.1159/000501170" target="_blank">Mindfulness-Based Therapy Regulates Brain Connectivity in Major Depression</a>. <span class="venue">Psychotherapy and Psychosomatics</span>, 2019. <span class="cite-count">Citations: 21</span></li>
+<li>Barnhofer T, Reess T, Fissler M, Winnebeck E, Grimm S, ... et al.. <a href="https://doi.org/10.1097/PSY.0000000000000955" target="_blank">Effects of Mindfulness Training on Emotion Regulation in Patients With Depression: Reduced Dorsolateral Prefrontal Cortex Activation Indexes Early Beneficial Changes</a>. <span class="venue">Psychosomatic Medicine</span>, 2019. <span class="cite-count">Citations: 16</span></li>
+<li>Fissler M, Winnebeck E, Schroeter TA, Gummersbach M, Huntenburg JM, Gaertner M, Barnhofer T. <a href="https://doi.org/10.1007/s12671-019-01109-7" target="_blank">Correction to: An Investigation of the Effects of Brief Mindfulness Training on Self-Reported Interoceptive Awareness, the Ability to Decenter, and Their Role in the Reduction of Depressive Symptoms</a>. <span class="venue">Mindfulness</span>, 2019. <span class="cite-count">Citations: 5</span></li>
+<li>Fissler M, Winnebeck E, Schroeter TA, Gummersbach M, Huntenburg JM, Gaertner M, Barnhofer T. <a href="https://doi.org/10.1007/s12671-019-01109-7" target="_blank">Correction to: An Investigation of the Effects of Brief Mindfulness Training on Self-Reported Interoceptive Awareness, the Ability to Decenter, and Their Role in the Reduction of Depressive Symptoms</a>. <span class="venue">Mindfulness</span>, 2019. <span class="cite-count">Citations: 4</span></li>
+<li>Huntenburg JM, Bazin P, Margulies D. <a href="https://doi.org/10.1016/j.tics.2017.11.002" target="_blank">Large-Scale Gradients in Human Cortical Organization.</a>. <span class="venue">Trends in Cognitive Sciences</span>, 2018. <span class="cite-count">Citations: 809</span></li>
+<li>Huntenburg JM, Steele C, Bazin P. <a href="https://doi.org/10.1093/gigascience/giy082" target="_blank">Nighres: processing tools for high-resolution neuroimaging</a>. <span class="venue">GigaScience</span>, 2018. <span class="cite-count">Citations: 86</span></li>
+<li>Huntenburg JM. <a href="https://doi.org/10.17169/refubium-11515" target="_blank">A core organizing axis of the human cerebral cortex</a>. 2018. <span class="cite-count">Citations: 4</span></li>
+<li>Fissler M, Winnebeck E, Schroeter TA, Gummbersbach M, Huntenburg JM, Gärtner M, Barnhofer T. <a href="https://doi.org/10.3758/s13415-018-00675-y" target="_blank">Correction to: Brief training in mindfulness may normalize a blunted error-related negativity in chronically depressed patients</a>. <span class="venue">Cognitive, Affective, &amp; Behavioral Neuroscience</span>, 2018.</li>
+<li>Jäger AP, Huntenburg JM, Tardif CL, Gauthier C, Villringer A, Steele C, Bazin P. Preserving maximal spatial specificity in resting state group analysis at 7 tesla. 2018.</li>
+<li>Fissler M, Winnebeck E, Schroeter TA, Gummbersbach M, Huntenburg JM, Gärtner M, Barnhofer T. <a href="https://doi.org/10.3758/s13415-018-00675-y" target="_blank">Correction to: Brief training in mindfulness may normalize a blunted error-related negativity in chronically depressed patients</a>. <span class="venue">Cognitive, Affective, &amp; Behavioral Neuroscience</span>, 2018.</li>
+<li>Huntenburg JM, Bazin P, Goulas A, Tardif CL, Villringer A, Margulies D. <a href="https://doi.org/10.1093/cercor/bhx030" target="_blank">A Systematic Relationship Between Functional Connectivity and Intracortical Myelin in the Human Cerebral Cortex</a>. <span class="venue">Cerebral Cortex</span>, 2017. <span class="cite-count">Citations: 260</span></li>
+<li>Golchert J, Smallwood J, Jefferies E, Seli P, Huntenburg JM, ... et al.. <a href="https://doi.org/10.1016/j.neuroimage.2016.11.025" target="_blank">Individual variation in intentionality in the mind‐wandering state is reflected in the integration of the default‐mode, fronto‐parietal, and limbic networks</a>. <span class="venue">NeuroImage</span>, 2017. <span class="cite-count">Citations: 152</span></li>
+<li>Mendes N, Oligschläger S, Lauckner ME, Golchert J, Huntenburg JM, ... et al.. <a href="https://doi.org/10.1038/sdata.2018.307" target="_blank">A functional connectome phenotyping dataset including cognitive state and personality measures</a>. <span class="venue">Scientific Data</span>, 2017. <span class="cite-count">Citations: 82</span></li>
+<li>Beyer F, Masouleh SK, Huntenburg JM, Lampe L, Luck T, ... et al.. <a href="https://doi.org/10.1002/hbm.23605" target="_blank">Higher body mass index is associated with reduced posterior default mode connectivity in older adults</a>. <span class="venue">Human Brain Mapping</span>, 2017. <span class="cite-count">Citations: 68</span></li>
+<li>Fissler M, Winnebeck E, Schroeter TA, Gummbersbach M, Huntenburg JM, Gärtner M, Barnhofer T. <a href="https://doi.org/10.3758/s13415-017-0540-x" target="_blank">Brief training in mindfulness may normalize a blunted error-related negativity in chronically depressed patients</a>. <span class="venue">Cognitive, Affective, &amp; Behavioral Neuroscience</span>, 2017. <span class="cite-count">Citations: 41</span></li>
+<li>Golchert J, Smallwood J, Jefferies E, Liem F, Huntenburg JM, Falkiewicz M, Lauckner ME, Oligschläger S, Villringer A, Margulies D. <a href="https://doi.org/10.1016/j.neuroimage.2016.10.041" target="_blank">In need of constraint: Understanding the role of the cingulate cortex in the impulsive mind</a>. <span class="venue">NeuroImage</span>, 2017. <span class="cite-count">Citations: 32</span></li>
+<li>Gärtner M, Irrmischer M, Winnebeck E, Fissler M, Huntenburg JM, Schroeter TA, Bajbouj M, Linkenkaer-Hansen K, Nikulin V, Barnhofer T. <a href="https://doi.org/10.3389/fnhum.2017.00340" target="_blank">Aberrant Long-Range Temporal Correlations in Depression Are Attenuated after Psychological Treatment</a>. <span class="venue">Frontiers in Human Neuroscience</span>, 2017. <span class="cite-count">Citations: 19</span></li>
+<li>Huntenburg JM, Abraham A, Loula J, Liem F, Dadi K, Varoquaux G. <a href="https://doi.org/10.3897/RIO.3.E12342" target="_blank">Loading and plotting of cortical surface representations in Nilearn</a>. 2017. <span class="cite-count">Citations: 12</span></li>
+<li>Huntenburg JM, Wagstyl K, Steele C, Funck T, Bethlehem R, Foubet O, Larrat B, Borrell V, Bazin P. <a href="https://doi.org/10.3897/RIO.3.E12346" target="_blank">Laminar Python: Tools for cortical depth-resolved analysis of high-resolution brain imaging data in Python</a>. 2017. <span class="cite-count">Citations: 5</span></li>
+<li>Fissler M, Winnebeck E, Schroeter TA, Gummbersbach M, Huntenburg JM, Gärtner M, Barnhofer T. <a href="https://doi.org/10.3758/s13415-017-0540-x" target="_blank">Brief training in mindfulness may normalize a blunted error-related negativity in chronically depressed patients</a>. <span class="venue">Cognitive, Affective, &amp; Behavioral Neuroscience</span>, 2017.</li>
+<li>Margulies D, Ghosh SS, Ghosh SS, Goulas A, Falkiewicz M, ... et al.. <a href="https://doi.org/10.1073/pnas.1608282113" target="_blank">Situating the default-mode network along a principal gradient of macroscale cortical organization</a>. <span class="venue">Proceedings of the National Academy of Sciences of the United States of America</span>, 2016. <span class="cite-count">Citations: 1989</span></li>
+<li>Liem F, Varoquaux G, Kynast J, Beyer F, Masouleh SK, ... et al.. <a href="https://doi.org/10.1016/j.neuroimage.2016.11.005" target="_blank">Predicting brain-age from multimodal imaging data captures cognitive impairment</a>. <span class="venue">bioRxiv</span>, 2016. <span class="cite-count">Citations: 488</span></li>
+<li>Fissler M, Winnebeck E, Schroeter TA, Gummersbach M, Huntenburg JM, Gaertner M, Barnhofer T. <a href="https://doi.org/10.1007/S12671-016-0559-Z" target="_blank">An Investigation of the Effects of Brief Mindfulness Training on Self-Reported Interoceptive Awareness, the Ability to Decenter, and Their Role in the Reduction of Depressive Symptoms</a>. 2016. <span class="cite-count">Citations: 118</span></li>
+<li>Oligschläger S, Huntenburg JM, Golchert J, Lauckner ME, Bonnen T, Margulies D. <a href="https://doi.org/10.1007/s00429-016-1333-7" target="_blank">Gradients of connectivity distance are anchored in primary cortex</a>. <span class="venue">Brain Structure and Function</span>, 2016. <span class="cite-count">Citations: 62</span></li>
+<li>Bellec LP, Margules DS, Badhwar A, Kennedy D, Poline J, ... et al.. <a href="https://doi.org/10.1186/s13742-016-0147-0" target="_blank">2015 Brainhack Proceedings</a>. <span class="venue">GigaScience</span>, 2016. <span class="cite-count">Citations: 43</span></li>
+<li>Gorgolewski KJ, Andberg SK, Gerhard S, Linkersdörfer J, Stadler J, ... et al.. <a href="https://doi.org/10.5281/ZENODO.50186" target="_blank">Nipype: a flexible, lightweight and extensible neuroimaging data processing framework in Python. 0.12.0-rc1</a>. 2016. <span class="cite-count">Citations: 24</span></li>
+<li>Barnhofer T, Huntenburg JM, Lifshitz M, Wild J, Antonova E, Margulies D. <a href="https://doi.org/10.1177/2167702615595036" target="_blank">How Mindfulness Training May Help to Reduce Vulnerability for Recurrent Depression</a>. 2016. <span class="cite-count">Citations: 15</span></li>
+<li>Fissler M, Winnebeck E, Schroeter TA, Gummersbach M, Huntenburg JM, Gaertner M, Barnhofer T. <a href="https://doi.org/10.1007/s12671-016-0559-z" target="_blank">An Investigation of the Effects of Brief Mindfulness Training on Self-Reported Interoceptive Awareness, the Ability to Decenter, and Their Role in the Reduction of Depressive Symptoms</a>. <span class="venue">Mindfulness</span>, 2016. <span class="cite-count">Citations: 7</span></li>
+<li>Huntenburg JM, Bazin P, Goulas A, Margulies D. Investigating the relationship of myeloarchitecture and connectivity in the human cortex using MRI. 2016.</li>
+<li>Oligschläger S, Huntenburg JM, Lauckner ME, Golchert J, Margulies D. Characterizing the spatial organization of the human cortex using distance of connectivity. 2016.</li>
+<li>Osoianu A, Oligschläger S, Huntenburg JM, Margulies D. Investigating cortical morphology through the dual-origin theory. 2016.</li>
+<li>Huntenburg JM, Bazin P, Goulas A, Tardif CL, Margulies D. A systematic relationship between intracortical myelin and functional connectivity in the human cerebral cortex. 2016.</li>
+<li>Oligschläger S, Huntenburg JM, Golchert J, Lauckner ME, Bonnen T, Margulies D. <a href="https://doi.org/10.1007/s00429-016-1333-7" target="_blank">Gradients of connectivity distance are anchored in primary cortex</a>. <span class="venue">Brain Structure and Function</span>, 2016.</li>
+<li>Oligschläger S, Huntenburg JM, Golchert J, Lauckner ME, Bonnen T, Margulies D. The spatial organization of connectivity distance in the human cortex. 2016.</li>
+<li>Dähne S, Huntenburg JM, Babayan A, Erbey M, Kumral D, ... et al.. Detecting resting-state networks using scalable multi-subject spatial canonical correlation analysis. 2016.</li>
+<li>Farrugia N, Huntenburg JM, Margulies D, Gripon V. Identifying spatiotemporal patterns of functional connectivity using dictionary learning. 2016.</li>
+<li>Huntenburg JM, Gorgolewski KJ, Anwander A, Margulies D. <a href="https://doi.org/10.7490/F1000RESEARCH.1096036.1" target="_blank">Evaluating nonlinear coregistration of BOLD EPI and T1 images</a>. 2014. <span class="cite-count">Citations: 45</span></li>
+<li>Schaare HL, Rohr CS, Schäfer A, Huntenburg JM, Margulies D, ... et al.. Resting-state functional connectivity associated with blood pressure. 2014.</li>
+<li>Mayer C, Huntenburg JM, Nandan A, Schmitt E, Czeloth N, Sparwasser T. <a href="https://doi.org/10.1016/j.jaut.2013.08.008" target="_blank">CD4 blockade directly inhibits mouse and human CD4(+) T cell functions independent of Foxp3(+) Tregs.</a>. <span class="venue">Journal of Autoimmunity</span>, 2013. <span class="cite-count">Citations: 15</span></li></ul>
+<h2>At the Mainen Lab</h2>
+<div class="lab-role">Postdoc, 2018–2021</div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-ibl">International Brain Laboratory</a></li></ul>
+</div>
+<script>
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+const stored = localStorage.getItem('ml-theme');
+if (stored) root.setAttribute('data-theme', stored);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\u2600' : '\u263E';
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('ml-theme', next);
+  toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+});
+</script>
+</body>
+</html>

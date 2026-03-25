@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Hatim Zariwala — Mainen Lab</title>
+<title>Hatim Zariwala &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,15 +61,41 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Hatim Zariwala</h1>
+<h1>Hatim Zariwala <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">No current affiliation listed; departed from research.</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://www.semanticscholar.org/author/3409226" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Hatim Zariwala was a PhD student in the Mainen Lab from 2000-2007, where he worked on olfactory decision-making during the lab's early years at Cold Spring Harbor Laboratory. His research focused on understanding how animals process odor information to make behavioral choices. He has since departed from research.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 11 | Total papers: 21 | Lab papers: 4 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Kropp LE, Handler A, Zariwala HA, Park Y, Ciallella J, Wakefield J, Brown DA. <a href="https://doi.org/10.1016/j.bbabio.2024.149475" target="_blank">Cellular protection and preservation of bioenergetics by the novel compound SBT-589 in a fibroblast model of Leigh syndrome</a>. <span class="venue">Biochimica et Biophysica Acta</span>, 2024.</li>
+<li>Gautam M, Genç B, Helmold B, Ahrens A, Kuka J, ... et al.. <a href="https://doi.org/10.1016/j.nbd.2023.106022" target="_blank">SBT-272 improves TDP-43 pathology in ALS upper motor neurons by modulating mitochondrial integrity, motility, and function.</a>. <span class="venue">Neurobiology of Disease</span>, 2023. <span class="cite-count">Citations: 20</span></li>
+<li>Stachel SJ, Wang D, Ginnetti AT, Niroomand S, Ma L, ... et al.. <a href="https://doi.org/10.1016/j.bmcl.2023.129537" target="_blank">Virtual screening for early identification of potent and selective histone deacetylase 6 inhibitor series.</a>. <span class="venue">Bioorganic &amp; Medicinal Chemistry Letters</span>, 2023.</li>
+<li>Gautam M, Genç B, Helmold B, Ahrens A, Kuka J, ... et al.. <a href="https://doi.org/10.1101/2022.10.04.510854" target="_blank">SBT-272 improves TDP-43 pathology in the ALS motor cortex by modulating mitochondrial integrity, motility, and function</a>. <span class="venue">bioRxiv</span>, 2022.</li>
+<li>Kropp LE, Zariwala HA, Park Y, Redmon MP, Brown DA, Handler A. <a href="https://doi.org/10.1016/j.bbabio.2022.148869" target="_blank">Preservation of bioenergetics and inhibition of ferroptosis with the novel compound SBT-588 in Friedreich’s ataxia cell models</a>. <span class="venue">Biochimica et Biophysica Acta</span>, 2022.</li>
+<li>Schultz M, Gentzel R, Usenovic M, Gretzula C, Ware C, Parmentier‐Batteur S, Schachter J, Zariwala HA. <a href="https://doi.org/10.1016/j.nbd.2018.07.003" target="_blank">Pharmacogenetic neuronal stimulation increases human tau pathology and trans-synaptic spread of tau to distal brain regions in mice.</a>. <span class="venue">Neurobiology of Disease</span>, 2018. <span class="cite-count">Citations: 40</span></li>
+<li>Zhao F, Wang X, Zariwala HA, Uslaner JM, Houghton A, Evelhoch J, Hostetler E, Winkelmann C, Hines C. <a href="https://doi.org/10.1016/j.neuroimage.2017.01.068" target="_blank">fMRI study of the role of glutamate NMDA receptor in the olfactory adaptation in rats: Insights into cellular and molecular mechanisms of olfactory adaptation</a>. <span class="venue">NeuroImage</span>, 2017. <span class="cite-count">Citations: 12</span></li>
+<li>Zhao F, Wang X, Zariwala HA, Uslaner JM, Houghton A, Evelhoch J, Williams DS, Winkelmann C. <a href="https://doi.org/10.1016/j.neuroimage.2015.10.080" target="_blank">fMRI study of olfaction in the olfactory bulb and high olfactory structures of rats: Insight into their roles in habituation</a>. <span class="venue">NeuroImage</span>, 2016. <span class="cite-count">Citations: 26</span></li>
+<li>Ghafurian S, Chen A, Hines C, Dogdas B, Bone A, ... et al.. <a href="https://doi.org/10.1117/12.2217534" target="_blank">Automatic pose correction for image-guided nonhuman primate brain surgery planning</a>. <span class="venue">SPIE Medical Imaging</span>, 2016. <span class="cite-count">Citations: 3</span></li>
+<li>Chen A, Bone A, Hines C, Dogdas B, Montgomery TO, ... et al.. <a href="https://doi.org/10.1117/12.2217539" target="_blank">Image-guided intracranial cannula placement for awake in vivo microdialysis in nonhuman primates</a>. <span class="venue">SPIE Medical Imaging</span>, 2016.</li>
+<li>Chen A, Hines C, Dogdas B, Bone A, Lodge K, ... et al.. <a href="https://doi.org/10.1117/12.2081620" target="_blank">Targeting of deep-brain structures in nonhuman primates using MR and CT Images</a>. <span class="venue">Medical Imaging</span>, 2015. <span class="cite-count">Citations: 2</span></li>
+<li>Hsu YA, Wang SD, Wang S, Morton G, Zariwala HA, Iglesia HODL, Turner E. <a href="https://doi.org/10.1523/JNEUROSCI.1861-14.2014" target="_blank">Role of the Dorsal Medial Habenula in the Regulation of Voluntary Activity, Motor Function, Hedonic State, and Primary Reinforcement</a>. <span class="venue">Journal of Neuroscience</span>, 2014. <span class="cite-count">Citations: 115</span></li>
+<li class="lab-paper">Zariwala HA, Kepecs A, Uchida N, Hirokawa J, Mainen Z. <a href="https://doi.org/10.1016/j.neuron.2013.02.010" target="_blank">The limits of deliberation in a perceptual decision task.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Neuron</span>, 2013. <span class="cite-count">Citations: 80</span></li>
+<li>Zariwala HA, Borghuis B, Hoogland T, Madisen L, Tian L, Zeeuw CDD, Zeng H, Looger L, Svoboda K, Chen T. <a href="https://doi.org/10.1523/JNEUROSCI.4469-11.2012" target="_blank">A Cre-Dependent GCaMP3 Reporter Mouse for Neuronal Imaging In Vivo</a>. <span class="venue">Journal of Neuroscience</span>, 2012. <span class="cite-count">Citations: 377</span></li>
+<li>Zariwala HA, Madisen L, Ahrens KF, Bernard A, Lein E, Jones AR, Zeng H. <a href="https://doi.org/10.3389/fnsys.2010.00162" target="_blank">Visual Tuning Properties of Genetically Identified Layer 2/3 Neuronal Types in the Primary Visual Cortex of Cre-Transgenic Mice</a>. <span class="venue">Frontiers in Systems Neuroscience</span>, 2011. <span class="cite-count">Citations: 62</span></li>
+<li>Madisen L, Zwingman T, Sunkin S, Oh SW, Zariwala HA, ... et al.. <a href="https://doi.org/10.1038/nn.2467" target="_blank">A robust and high-throughput Cre reporting and characterization system for the whole mouse brain</a>. <span class="venue">Nature Neuroscience</span>, 2009. <span class="cite-count">Citations: 6286</span></li>
+<li class="lab-paper">Kepecs A, Uchida N, Zariwala HA, Mainen Z. <a href="https://doi.org/10.1038/nature07200" target="_blank">Neural correlates, computation and behavioural impact of decision confidence</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature</span>, 2008. <span class="cite-count">Citations: 809</span></li>
+<li>Zariwala HA. Temporal bounds on olfactory discrimination based decisions in rats. 2007. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Zariwala HA, Kepecs A, Uchida N, Mainen Z. Temporal anticipation affects decision-making in an olfactory discrimination task <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2007.</li>
+<li>Zariwala HA, Miller AC, Faumont S, Lockery S. <a href="https://doi.org/10.1523/jneurosci.23-10-04369.2003" target="_blank">Step Response Analysis of Thermotaxis in Caenorhabditis elegans</a>. <span class="venue">Journal of Neuroscience</span>, 2003. <span class="cite-count">Citations: 53</span></li>
+<li class="lab-paper">Kepecs A, Uchida N, Zariwala HA, Mainen Z. Neural Correlates, Computation and Behavioural Impact of Decision Confidence <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. .</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">PhD Student, 2000–2007</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Hatim A. Zariwala, Adam Kepecs, N. Uchida, Junya Hirokawa, Z. Mainen (2013). <em><a href="https://doi.org/10.1016/j.neuron.2013.02.010" target="_blank">The limits of deliberation in a perceptual decision task</a></em>. <span class="journal">Neuron 78 (2), 339-51</span></li>
-<li>Adam Kepecs, N. Uchida, Hatim A. Zariwala, Z. Mainen (2008). <em><a href="https://doi.org/10.1038/nature07200" target="_blank">Neural correlates, computation and behavioral impact of decision confidence</a></em>. <span class="journal">Nature 455, 227-31</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-olfactory-decisions">Olfactory Decision-Making</a></li></ul>
-
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-olfactory-decisions">Olfactory Decision-Making</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

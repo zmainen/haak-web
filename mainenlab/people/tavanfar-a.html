@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alireza Tavanfar &mdash; Mainen Lab</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
+}
+[data-theme="dark"] {
+  --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
+}
+.page { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+.back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
+.back:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
+.position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+.position a { color: var(--accent); text-decoration: none; }
+.position a:hover { text-decoration: underline; }
+.lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+.pub-list { list-style: none; padding: 0; }
+.pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
+.pub-list li a { color: var(--accent); text-decoration: none; }
+.pub-list li a:hover { text-decoration: underline; }
+.project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.project-list li a {
+  display: inline-block; font-size: 0.82rem; padding: 0.25rem 0.65rem;
+  border-radius: 999px; border: 1px solid var(--border); color: var(--accent);
+  text-decoration: none; transition: background 0.15s;
+}
+.project-list li a:hover { background: var(--hover); }
+#theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text); font-size: 0.85rem;
+}
+#theme-toggle:hover { background: var(--hover); }
+</style>
+</head>
+<body>
+<div class="page">
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+<h1>Alireza Tavanfar <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
+<div class="position">Visiting Scientist, Mainen Lab (2024-present)</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0002-9447-5095" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/103350717" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Alireza Tavanfar was a postdoc in the Mainen Lab from 2020, focusing on theoretical physics research spanning quantum mechanics, holographic theories, and gravitational physics, with particular expertise in black hole physics and quantum field theory. He is currently a Visiting Scientist in the lab, continuing his research at the intersection of quantum theory and gravity. His work explores fundamental questions about unitarity, quantum information, and the holographic principle in various gravitational contexts.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 12 | Total papers: 29 | Lab papers: 0 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Tavanfar A, Alipour S, Rezakhani A. <a href="https://doi.org/10.3390/universe11050162" target="_blank">Does Quantum Mechanics Breed Larger, More Intricate Quantum Theories? The Case for Experience-Centric Quantum Theory and the Interactome of Quantum Theories</a>. <span class="venue">Universe</span>, 2023. <span class="cite-count">Citations: 3</span></li>
+<li>Mansoori SAH, Luongo O, Mancini S, Mirjalali M, Rafiee M, Tavanfar A. <a href="https://doi.org/10.1103/PhysRevD.106.126018" target="_blank">Planar black holes in holographic axion gravity: Islands, Page times, and scrambling times</a>. <span class="venue">Physical Review D</span>, 2022. <span class="cite-count">Citations: 17</span></li>
+<li>Tavanfar A, Parvizi A, Pezzutto M. <a href="https://doi.org/10.22331/q-2023-05-15-1007" target="_blank">Unitary Evolutions Sourced By Interacting Quantum Memories: Closed Quantum Systems Directing Themselves Using Their State Histories</a>. <span class="venue">Quantum</span>, 2022. <span class="cite-count">Citations: 3</span></li>
+<li>Tavanfar A. HoloQuantum HyperNetwork Theory. 2018. <span class="cite-count">Citations: 2</span></li>
+<li>Tavanfar A. HoloQuantum Network Theory. 2018.</li>
+<li>Gharechahi R, Nouri-Zonoz M, Tavanfar A. <a href="https://doi.org/10.1142/S0219887818500470" target="_blank">A tale of two velocities: Threading versus slicing</a>. 2015. <span class="cite-count">Citations: 7</span></li>
+<li>Koohbor J, Nouri-Zonoz M, Tavanfar A. Causal Unitarity Modes Versus The Optimal Jumbler: Holographic Lessons On The Observer&#x27;s Causal-Patch Unitarity. 2015.</li>
+<li>Koohbor J, Tavanfar A, Nouri-Zonoz M. Hawking Modes And The Optimal Jumbler: Lessons On Unitarity. 2015.</li>
+<li>Gharechahi R, Nouri-Zonoz M, Tavanfar A. A tale of two velocities: Threading vs Foliation. 2015.</li>
+<li>Koohbor J, Nouri-Zonoz M, Tavanfar A. <a href="https://doi.org/10.1088/2399-6528/aab8e0" target="_blank">Hawking modes and the optimal disperser: holographic lessons from the observer&#x27;s causal-patch unitarity</a>. 2015.</li>
+<li>Hartnoll S, Tavanfar A. <a href="https://doi.org/10.1103/PhysRevD.83.046003" target="_blank">Electron stars for holographic metallic criticality</a>. 2010. <span class="cite-count">Citations: 222</span></li>
+<li>Heckman J, Tavanfar A, Vafa C. <a href="https://doi.org/10.1007/JHEP08(2010)040" target="_blank">The point of E8 in F-theory GUTs</a>. 2009. <span class="cite-count">Citations: 119</span></li>
+<li>Bartels J, Borras K, Gustafson G, Jung H, Kutak K, ... et al.. Proceedings of the 38th International Symposium on Multiparticle Dynamics (ISMD08). 2009. <span class="cite-count">Citations: 17</span></li>
+<li>Alvarez-Gaumé L, Gómez C, Vazquez-Mozo MA, Vera A, Tavanfar A. <a href="https://doi.org/10.3204/DESY-PROC-2009-01/111" target="_blank">High energy scattering in QCD vs. tiny black holes</a>. 2009.</li>
+<li>Alvarez-Gaumé L, Gómez C, Vera A, Tavanfar A, Vazquez-Mozo MA. <a href="https://doi.org/10.1088/1126-6708/2009/02/009" target="_blank">Critical formation of trapped surfaces in the collision of gravitational shock waves</a>. 2008. <span class="cite-count">Citations: 82</span></li>
+<li>Heckman J, Tavanfar A, Vafa C. <a href="https://doi.org/10.1007/JHEP04(2010)054" target="_blank">Cosmology of F-theory GUTs</a>. 2008. <span class="cite-count">Citations: 46</span></li>
+<li>Alvarez-Gaumé L, Gómez C, Vera A, Tavanfar A, Vazquez-Mozo MA. <a href="https://doi.org/10.1016/j.nuclphysb.2008.08.016" target="_blank">Critical gravitational collapse: towards a holographic understanding of the Regge region</a>. 2008. <span class="cite-count">Citations: 26</span></li>
+<li>Alvarez-Gaumé L, Gómez C, Vera A, Tavanfar A, Vazquez-Mozo MA. O ct 2 00 7 Gluon Saturation and Black Hole Criticality. 2008.</li>
+<li>Huang M, Klemm A, Mariño M, Tavanfar A. <a href="https://doi.org/10.1103/PhysRevD.79.066001" target="_blank">Black holes and large order quantum geometry</a>. 2007. <span class="cite-count">Citations: 31</span></li>
+<li>Alvarez-Gaume L, Gómez C, Vera A, Tavanfar A, Cern MAV, Madrid, Autonoma U, Ipm, Tehran, Salamanca U. Gluon Saturation and Black Hole Criticality. 2007. <span class="cite-count">Citations: 14</span></li>
+<li>Bartels J, Borras K, Diehl M, Jung H, Abramowicz H, ... et al.. 12th International Conference on Elastic and Diffractive Scattering (Blois Workshop) - Forward Physics and QCD. 2007. <span class="cite-count">Citations: 4</span></li>
+<li>Bartels J, Kepka O, Werner K, Blümlein J, Vera A, ... et al.. Proceedings, 12th International Conference on Elastic and Diffractive Scattering (Blois Workshop) - Forward Physics and QCD (EDS 2007). 2007.</li>
+<li>Chandrasekhar B, Parvizi S, Tavanfar A, Yavartanoo H. <a href="https://doi.org/10.1088/1126-6708/2006/08/004" target="_blank">Non-supersymmetric attractors in R**2 gravities</a>. 2006. <span class="cite-count">Citations: 76</span></li>
+<li>Parvizi S, Tavanfar A. <a href="https://doi.org/10.1142/S0217732308026005" target="_blank">PARTITION FUNCTION OF NON-SUPERSYMMETRIC BLACK HOLES IN THE SUPERGRAVITY LIMIT</a>. 2006. <span class="cite-count">Citations: 22</span></li>
+<li>Chandrasekhar B, Parvizi S, Tavanfar A, Yavartanoo H. THE ABDUS SALAM INTERNATIONAL CENTRE FOR THEORETICAL PHYSICS NON-SUPERSYMMETRIC ATTRACTORS IN R2 GRAVITIES. 2006.</li>
+<li>Parvizi S, Tavanfar A. <a href="https://doi.org/10.1063/1.2393149" target="_blank">Minimal redefinition of the OSV ensemble</a>. 2005. <span class="cite-count">Citations: 6</span></li>
+<li>Nouri-Zonoz M, Tavanfar A. <a href="https://doi.org/10.1088/1126-6708/2003/02/059" target="_blank">Gauged motion in general relativity and in Kaluza-Klein theories</a>. 2002. <span class="cite-count">Citations: 7</span></li>
+<li>Nouri-Zonoz M, Tavanfar A. <a href="https://doi.org/10.1088/0264-9381/18/20/308" target="_blank">Plane-symmetric analogue of NUT space</a>. 2001. <span class="cite-count">Citations: 15</span></li>
+<li>Nouri-Zonoz M, Tavanfar A. J un 2 00 1 Plane symmetric analogue of NUT space. 2001.</li></ul>
+</div>
+<script>
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+const stored = localStorage.getItem('ml-theme');
+if (stored) root.setAttribute('data-theme', stored);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\u2600' : '\u263E';
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('ml-theme', next);
+  toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+});
+</script>
+</body>
+</html>

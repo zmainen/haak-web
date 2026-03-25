@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ines Laranjeira — Mainen Lab</title>
+<title>Ines Laranjeira &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,15 +61,33 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Ines Laranjeira</h1>
+<h1>Ines Laranjeira <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">PhD Student in Mainen Lab (co-supervised by McNamee), active 2022–present</div>
-<div class="lab-role">PhD Student, 2017–present</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Guido T. Meijer, J. A. Catarino, Laura Freitas-Silva, Inês Laranjeira, Z. Mainen (2025). <em><a href="https://doi.org/10.1101/2025.08.01.668048" target="_blank">Serotonin modulates neural dynamics in a subspace orthogonal to the choice space</a></em>. <span class="journal">bioRxiv</span></li>
-<li>Anne E. Urai, Valeria Aguillon-Rodriguez, Inês Laranjeira, Fanny Cazettes, Z. Mainen, A. Churchland (2021). <em><a href="https://doi.org/10.1101/2020.03.02.973016" target="_blank">Citric Acid as an alternative to water restrictions for high-yield mouse behavior</a></em>. <span class="journal">eNeuro 11 January 2021, ENEURO.0230-20.2020</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-5ht-neuropixels">Serotonin &amp; Brain-Wide Modulation</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0003-2961-6709" target="_blank">ORCID</a></div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0003-2961-6709" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/145438812" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Ines Laranjeira is a PhD student in the Mainen Lab, co-supervised by McNamee, studying serotonin and brain-wide modulation since 2017. Her research focuses on understanding how serotonin shapes neural dynamics and decision-making processes, with recent work examining serotonin's modulatory effects in neural subspaces orthogonal to choice-related activity. She has contributed to the lab's collaborative efforts in developing standardized approaches for measuring decision-making in mice and advancing computational methods for analyzing complex learning behaviors.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 4 | Total papers: 12 | Lab papers: 5 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Bayer HM, Birman D, Chapuis GA, DeWitt EEJ, Freitas-Silva L, ... et al.. <a href="https://doi.org/10.1016/j.neuron.2026.01.012" target="_blank">20 lessons in team science: Learning from the experience of the International Brain Laboratory.</a>. <span class="venue">Neuron</span>, 2026.</li>
+<li>Bruijns SA, Bougrova K, Laranjeira I, Lau P, Meijer GT, ... et al.. <a href="https://doi.org/10.1038/s41593-025-02130-x" target="_blank">Infinite hidden Markov models can dissect the complexities of learning</a>. <span class="venue">Nature Neuroscience</span>, 2025. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Meijer GT, Catarino JA, Freitas-Silva L, Laranjeira I, Mainen Z. <a href="https://doi.org/10.1101/2025.08.01.668048" target="_blank">Serotonin modulates neural dynamics in a subspace orthogonal to the choice space</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2025.</li>
+<li>Bruijns SA, Bougrova K, Laranjeira I, Lau P, Meijer GT, ... et al.. <a href="https://doi.org/10.1101/2023.12.22.573001" target="_blank">Dissecting the Complexities of Learning With Infinite Hidden Markov Models</a>. <span class="venue">bioRxiv</span>, 2023. <span class="cite-count">Citations: 9</span></li>
+<li>Bonacchi N, Chapuis GA, Churchland A, DeWitt EEJ, Faulkner M, ... et al.. <a href="https://doi.org/10.1038/s41592-022-01742-6" target="_blank">A modular architecture for organizing, processing and sharing neurophysiology data</a>. <span class="venue">Nature Methods</span>, 2022. <span class="cite-count">Citations: 11</span></li>
+<li class="lab-paper">Aguillon V, Angelaki D, Bayer HM, Bonacchi N, Carandini M, ... et al.. <a href="https://doi.org/10.7554/eLife.84310" target="_blank">Correction: Standardized and reproducible measurement of decision-making in mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">eLife</span>, 2022.</li>
+<li>Laranjeira I, Ua C, DeCA FI, Mota JA. <a href="https://doi.org/10.24140/IJFMA.V6.N1.04" target="_blank">O T H E R V I S U A L : Onto the Audiovisual Cooking</a>. 2021.</li>
+<li class="lab-paper">Aguillon-Rodriguez V, Angelaki D, Bayer H, Bonacchi N, Carandini M, ... et al.. <a href="https://doi.org/10.1101/2020.01.17.909838" target="_blank">Standardized and reproducible measurement of decision-making in mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 198</span></li>
+<li class="lab-paper">Urai AE, Aguillon-Rodriguez V, Laranjeira I, Cazettes F, Mainen Z, Churchland A. <a href="https://doi.org/10.1523/ENEURO.0230-20.2020" target="_blank">Citric Acid Water as an Alternative to Water Restriction for High-Yield Mouse Behavior</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">eNeuro</span>, 2020. <span class="cite-count">Citations: 44</span></li>
+<li class="lab-paper">Urai AE, Aguillon-Rodriguez V, Laranjeira I, Cazettes F, Mainen Z, Churchland A. <a href="https://doi.org/10.1101/2020.03.02.973016" target="_blank">Citric Acid water as an alternative to water scheduling in behaving mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2020. <span class="cite-count">Citations: 3</span></li>
+<li>Laranjeira I. Optogenetic modulation of the corticostriatal circuitry in chronic pain. 2017. <span class="cite-count">Citations: 1</span></li>
+<li>Pinto R, Franqueira T, Afonso A, Mendonça R, Laranjeira I. <a href="https://doi.org/10.1145/2347504.2347507" target="_blank">Bees: new creative agents</a>. <span class="venue">Designing Pleasurable Products and Interfaces</span>, 2011. <span class="cite-count">Citations: 2</span></li></ul>
+<h2>At the Mainen Lab</h2>
+<div class="lab-role">PhD Student, 2022–present</div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5ht-neuropixels">Serotonin &amp; Brain-Wide Modulation</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

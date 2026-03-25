@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Veronica Egger — Mainen Lab</title>
+<title>Veronica Egger &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,15 +61,71 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Veronica Egger</h1>
+<h1>Veronica Egger <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Prof., Regensburg University</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0002-5869-8523" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/6813480" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Veronica Egger was a postdoc in the Mainen Lab from 2000-2004, where she worked on olfactory bulb circuitry. Her research focuses on the cellular and synaptic mechanisms underlying olfactory processing, with particular emphasis on granule cell dendritic integration, reciprocal synapses, and neuromodulatory influences on olfactory bulb function. She is currently a Professor at Regensburg University, where she continues her work on olfactory system neurobiology.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 17 | Total papers: 50 | Lab papers: 2 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Jahan I, Kindler L, Reichardt N, Suyama H, Egger V. <a href="https://doi.org/10.1101/2025.01.29.635425" target="_blank">Local olfactory nerve stimulation triggers patchy activation of columns across rat olfactory bulb</a>. <span class="venue">bioRxiv</span>, 2025.</li>
+<li>Reichardt N, Kindler L, Pino E, Lukas M, Egger V, Suyama H. <a href="https://doi.org/10.1101/2025.01.28.635198" target="_blank">Synergistic olfactory nerve input and cholinergic neuromodulation can activate ERK in rat olfactory bulb vasopressin cells</a>. <span class="venue">bioRxiv</span>, 2025.</li>
+<li>Salameh LJ, Bitzenhofer S, Hanganu-Opatz I, Dutschmann M, Egger V. <a href="https://doi.org/10.1126/science.adk8511" target="_blank">Blood pressure pulsations modulate central neuronal activity via mechanosensitive ion channels</a>. <span class="venue">Science</span>, 2024. <span class="cite-count">Citations: 95</span></li>
+<li>Salameh LJ, Bitzenhofer S, Hanganu-Opatz I, Dutschmann M, Egger V. <a href="https://doi.org/10.1101/2023.07.27.550787" target="_blank">Blood pressure pulsations modulate olfactory bulb neuronal activity via mechanosensitive ion channels</a>. <span class="venue">bioRxiv</span>, 2023. <span class="cite-count">Citations: 2</span></li>
+<li>Aghvami SS, Kubota Y, Egger V. <a href="https://doi.org/10.3389/fncir.2022.933201" target="_blank">Anatomical and Functional Connectivity at the Dendrodendritic Reciprocal Mitral Cell–Granule Cell Synapse: Impact on Recurrent and Lateral Inhibition</a>. <span class="venue">Frontiers in Neural Circuits</span>, 2022. <span class="cite-count">Citations: 4</span></li>
+<li>Suyama H, Egger V, Lukas M. <a href="https://doi.org/10.1515/nf-2022-0004" target="_blank">Mammalian social memory relies on neuromodulation in the olfactory bulb</a>. <span class="venue">Neuroforum</span>, 2022. <span class="cite-count">Citations: 1</span></li>
+<li>Oliveira VEM, Lukas M, Wolf HN, Durante E, Lorenz A, ... et al.. <a href="https://doi.org/10.1038/s41467-021-23064-5" target="_blank">Oxytocin and vasopressin within the ventral and dorsal lateral septum modulate aggression in female rats</a>. <span class="venue">Nature Communications</span>, 2021. <span class="cite-count">Citations: 105</span></li>
+<li>Egger V, Kuner T. <a href="https://doi.org/10.1007/s00441-020-03402-7" target="_blank">Olfactory bulb granule cells: specialized to link coactive glomerular columns for percept generation and discrimination of odors</a>. <span class="venue">Cell and Tissue Research</span>, 2021. <span class="cite-count">Citations: 19</span></li>
+<li>Suyama H, Egger V, Lukas M. <a href="https://doi.org/10.1038/s42003-021-02129-7" target="_blank">Top-down acetylcholine signaling via olfactory bulb vasopressin cells contributes to social discrimination in rats</a>. <span class="venue">Communications Biology</span>, 2021. <span class="cite-count">Citations: 16</span></li>
+<li>Egger V, Kuner T. <a href="https://doi.org/10.1007/s00441-020-03402-7" target="_blank">Olfactory bulb granule cells: specialized to link coactive glomerular columns for percept generation and discrimination of odors</a>. <span class="venue">Cell and Tissue Research</span>, 2021.</li>
+<li>Mueller M, Egger V. <a href="https://doi.org/10.1371/journal.pbio.3000873" target="_blank">Dendritic integration in olfactory bulb granule cells upon simultaneous multispine activation: Low thresholds for nonlocal spiking activity</a>. <span class="venue">PLoS Biology</span>, 2020. <span class="cite-count">Citations: 11</span></li>
+<li>Lage-Rupprecht V, Zhou L, Bianchini G, Aghvami SS, Mueller M, Rózsa B, Sassoè-Pognetto M, Egger V. <a href="https://doi.org/10.7554/eLife.63737" target="_blank">Presynaptic NMDARs cooperate with local spikes toward GABA release from the reciprocal olfactory bulb granule cell spine</a>. <span class="venue">eLife</span>, 2020. <span class="cite-count">Citations: 5</span></li>
+<li>Mueller M, Egger V. <a href="https://doi.org/10.1101/2020.01.10.901397" target="_blank">Dendritic integration in olfactory bulb granule cells: Thresholds for lateral inhibition and role of active conductances upon simultaneous activation</a>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 4</span></li>
+<li>Oliveira VEM, Lukas M, Wolf HN, Durante E, Lorenz A, ... et al.. <a href="https://doi.org/10.1101/2020.07.28.224873" target="_blank">Concerted but segregated actions of oxytocin and vasopressin within the ventral and dorsal lateral septum determine female aggression</a>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 4</span></li>
+<li>Jodar TO, Lage-Rupprecht V, Abraham NM, Rose C, Egger V. <a href="https://doi.org/10.3389/fnsyn.2020.551691" target="_blank">Local Postsynaptic Signaling on Slow Time Scales in Reciprocal Olfactory Bulb Granule Cell Spines Matches Asynchronous Release</a>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 4</span></li>
+<li>Egger V, Diamond J. <a href="https://doi.org/10.3389/fncel.2020.600537" target="_blank">A17 Amacrine Cells and Olfactory Granule Cells: Parallel Processors of Early Sensory Information</a>. <span class="venue">Frontiers in Cellular Neuroscience</span>, 2020. <span class="cite-count">Citations: 4</span></li>
+<li>Suyama H, Egger V, Lukas M. <a href="https://doi.org/10.1101/2020.11.09.373845" target="_blank">Top-down acetylcholine contributes to social discrimination via enabling action potentials in olfactory bulb vasopressin cells</a>. 2020.</li>
+<li>Go MA, Mueller M, Castañares M, Egger V, Daria V. <a href="https://doi.org/10.1371/journal.pone.0210564" target="_blank">A compact holographic projector module for high-resolution 3D multi-site two-photon photostimulation</a>. <span class="venue">PLoS ONE</span>, 2019. <span class="cite-count">Citations: 13</span></li>
+<li>Lukas M, Suyama H, Egger V. <a href="https://doi.org/10.1523/ENEURO.0431-18.2019" target="_blank">Vasopressin Cells in the Rodent Olfactory Bulb Resemble Non-Bursting Superficial Tufted Cells and Are Primarily Inhibited upon Olfactory Nerve Stimulation</a>. <span class="venue">eNeuro</span>, 2019. <span class="cite-count">Citations: 12</span></li>
+<li>Aghvami SS, Müller M, Araabi BN, Egger V. <a href="https://doi.org/10.1523/JNEUROSCI.1798-18.2018" target="_blank">Coincidence Detection within the Excitable Rat Olfactory Bulb Granule Cell Spines</a>. <span class="venue">Journal of Neuroscience</span>, 2019. <span class="cite-count">Citations: 11</span></li>
+<li>Lage-Rupprecht V, Zhou L, Bianchini G, Aghvami SS, Rózsa B, Sassoé-Pognetto M, Egger V. Local reciprocal release of GABA from olfactory bulb granule cell spines: Cooperation of 2 conventional release mechanisms and NMDA receptors. 2019. <span class="cite-count">Citations: 2</span></li>
+<li>Lage-Rupprecht V, Zhou L, Bianchini G, Aghvami SS, Mueller M, Rózsa B, Sassoè-Pognetto M, Egger V. <a href="https://doi.org/10.1101/440198" target="_blank">Presynaptic NMDA receptors cooperate with local action potentials to implement activity-dependent GABA release from the reciprocal olfactory bulb granule cell spine</a>. <span class="venue">bioRxiv</span>, 2018. <span class="cite-count">Citations: 9</span></li>
+<li>Lage-Rupprecht V, Ona-Jodar T, Yeghiazaryan G, Rózsa B, Egger V. Local reciprocal release of GABA from dendritic spines of olfactory bulb granule cells. 2018. <span class="cite-count">Citations: 4</span></li>
+<li>Lukas M, Holthoff K, Egger V. <a href="https://doi.org/10.1007/978-1-4939-8609-5_13" target="_blank">Long-Term Plasticity at the Mitral and Tufted Cell to Granule Cell Synapse of the Olfactory Bulb Investigated with a Custom Multielectrode in Acute Brain Slice Preparations.</a>. <span class="venue">Methods in molecular biology</span>, 2018. <span class="cite-count">Citations: 2</span></li>
+<li>Wagner L, Pannicke T, Rupprecht V, Frommherz I, Volz C, ... et al.. <a href="https://doi.org/10.1002/glia.23144" target="_blank">Suppression of SNARE‐dependent exocytosis in retinal glial cells and its effect on ischemia‐induced neurodegeneration</a>. <span class="venue">Glia</span>, 2017. <span class="cite-count">Citations: 20</span></li>
+<li>Ona-Jodar T, Gerkau NJ, Aghvami SS, Rose C, Egger V. <a href="https://doi.org/10.3389/fncel.2017.00050" target="_blank">Two-Photon Na+ Imaging Reports Somatically Evoked Action Potentials in Rat Olfactory Bulb Mitral and Granule Cell Neurites</a>. <span class="venue">Frontiers in Cellular Neuroscience</span>, 2017. <span class="cite-count">Citations: 17</span></li>
+<li>Bywalez WG, Ona-Jodar T, Lukas M, Ninkovic J, Egger V. <a href="https://doi.org/10.3389/fnana.2016.00127" target="_blank">Dendritic Arborization Patterns of Small Juxtaglomerular Cell Subtypes within the Rodent Olfactory Bulb</a>. <span class="venue">Frontiers in Neuroanatomy</span>, 2017. <span class="cite-count">Citations: 14</span></li>
+<li>Pallarés FPDLC, Bautista TG, Stanić D, Egger V, Dutschmann M. <a href="https://doi.org/10.1016/j.resp.2016.07.008" target="_blank">Brainstem-mediated sniffing and respiratory modulation during odor stimulation.</a>. <span class="venue">Respiratory Physiology &amp; Neurobiology</span>, 2016. <span class="cite-count">Citations: 16</span></li>
+<li>Chatterjee M, Pallarés FPDLC, Loebel A, Lukas M, Egger V. <a href="https://doi.org/10.1155/2016/9124986" target="_blank">Sniff-Like Patterned Input Results in Long-Term Plasticity at the Rat Olfactory Bulb Mitral and Tufted Cell to Granule Cell Synapse</a>. <span class="venue">Journal of Neural Transplantation and Plasticity</span>, 2016. <span class="cite-count">Citations: 15</span></li>
+<li>Bywalez WG, Patirniche D, Rupprecht V, Stemmler MB, Herz AV, Pálfi D, Rózsa B, Egger V. <a href="https://doi.org/10.1016/j.neuron.2016.02.029" target="_blank">Local Postsynaptic Voltage-Gated Sodium Channel Activation in Dendritic Spines of Olfactory Bulb Granule Cells.</a>. <span class="venue">Neuron</span>, 2016. <span class="cite-count">Citations: 6</span></li>
+<li>Rupprecht V, Bywalez WG, Patirniche D, Stemmler MB, Herz A, Rózsa B, Pálfi D, Egger V. <a href="https://doi.org/10.1093/CHEMSE/BJW091" target="_blank">[Corrigendeum] Local sodium spikes in dendritic spines of olfactory bulb granule cells</a>. 2016.</li>
+<li>Bywalez WG, Patirniche D, Rupprecht V, Stemmler MB, Herz A, Pálfi D, Rózsa B, Egger V. <a href="https://doi.org/10.1016/j.neuron.2014.12.051" target="_blank">Local postsynaptic voltage-gated sodium channel activation in dendritic spines of olfactory bulb granule cells.</a>. <span class="venue">Neuron</span>, 2015. <span class="cite-count">Citations: 52</span></li>
+<li>Rammes G, Gravius A, Ruitenberg M, Wegener N, Chambon C, ... et al.. <a href="https://doi.org/10.1016/j.neuropharm.2014.12.037" target="_blank">MRZ-99030 - A novel modulator of Aβ aggregation: II - Reversal of Aβ oligomer-induced deficits in long-term potentiation (LTP) and cognitive performance in rats and mice.</a>. <span class="venue">Neuropharmacology</span>, 2015. <span class="cite-count">Citations: 23</span></li>
+<li>Pallarés FPDLC, Stanić D, Farmer D, Dutschmann M, Egger V. <a href="https://doi.org/10.1152/jn.01048.2014" target="_blank">An arterially perfused nose-olfactory bulb preparation of the rat.</a>. <span class="venue">Journal of Neurophysiology</span>, 2015. <span class="cite-count">Citations: 6</span></li>
+<li>Gelperin A, Stroh O, Freichel M, Kretz O, Birnbaumer L, ... et al.. BulbSynapse in the Rat Main Olfactory Release at the Mitral/Tufted to Granule Cell Presynaptic Muscarinic Receptors Enhance Glutamate. 2015.</li>
+<li>Pallarés FPDLC, Stanić D, Farmer D, Mathias, Dutschmann, Egger V. 1 2 An Arterially Perfused Nose-Olfactory Bulb Preparation of the Rat 3 4. 2015.</li>
+<li>Egger V, Feldmeyer D. <a href="https://doi.org/10.1007/978-3-642-10769-6_7" target="_blank">Electrical Activity in Neurons</a>. 2013. <span class="cite-count">Citations: 2</span></li>
+<li>Stroh O, Freichel M, Kretz O, Birnbaumer L, Hartmann J, Egger V. <a href="https://doi.org/10.1523/JNEUROSCI.3753-11.2012" target="_blank">NMDA Receptor-Dependent Synaptic Activation of TRPC Channels in Olfactory Bulb Granule Cells</a>. <span class="venue">Journal of Neuroscience</span>, 2012. <span class="cite-count">Citations: 64</span></li>
+<li>Abraham NM, Egger V, Shimshek D, Renden RB, Fukunaga I, ... et al.. <a href="https://doi.org/10.1016/j.neuron.2010.01.009" target="_blank">Synaptic inhibition in the olfactory bulb accelerates odor discrimination in mice.</a>. <span class="venue">Neuron</span>, 2010. <span class="cite-count">Citations: 265</span></li>
+<li>Egger V, Stroh O. <a href="https://doi.org/10.1113/jphysiol.2009.174540" target="_blank">Calcium buffering in rodent olfactory bulb granule cells and mitral cells</a>. <span class="venue">Journal of Physiology</span>, 2009. <span class="cite-count">Citations: 29</span></li>
+<li>Egger V, Nevian T, Bruno R. <a href="https://doi.org/10.1093/CERCOR/BHM126" target="_blank">Subcolumnar dendritic and axonal organization of spiny stellate and star pyramid neurons within a barrel in rat somatosensory cortex.</a>. <span class="venue">Cerebral Cortex</span>, 2008. <span class="cite-count">Citations: 97</span></li>
+<li>Egger V. <a href="https://doi.org/10.1111/j.1460-9568.2008.06170.x" target="_blank">Synaptic sodium spikes trigger long‐lasting depolarizations and slow calcium entry in rat olfactory bulb granule cells</a>. <span class="venue">European Journal of Neuroscience</span>, 2008. <span class="cite-count">Citations: 47</span></li>
+<li>Egger V. <a href="https://doi.org/10.1113/jphysiol.2007.136036" target="_blank">Imaging the activity of neuronal populations: when spikes don&#x27;t flash and flashes don&#x27;t spike</a>. <span class="venue">Journal of Physiology</span>, 2007. <span class="cite-count">Citations: 2</span></li>
+<li>Egger V, Urban N. <a href="https://doi.org/10.1016/J.SEMCDB.2006.04.006" target="_blank">Dynamic connectivity in the mitral cell-granule cell microcircuit.</a>. <span class="venue">Seminars in Cell and Developmental Biology</span>, 2006. <span class="cite-count">Citations: 118</span></li>
+<li class="lab-paper">Egger V, Svoboda K, Mainen Z. <a href="https://doi.org/10.1523/JNEUROSCI.4746-04.2005" target="_blank">Dendrodendritic Synaptic Signals in Olfactory Bulb Granule Cells: Local Spine Boost and Global Low-Threshold Spike</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Journal of Neuroscience</span>, 2005. <span class="cite-count">Citations: 166</span></li>
+<li class="lab-paper">Egger V, Svoboda K, Mainen Z. <a href="https://doi.org/10.1523/JNEUROSCI.23-20-07551.2003" target="_blank">Mechanisms of Lateral Inhibition in the Olfactory Bulb: Efficiency and Modulation of Spike-Evoked Calcium Influx into Granule Cells</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Journal of Neuroscience</span>, 2003. <span class="cite-count">Citations: 183</span></li>
+<li>Lübke JHR, Egger V, Sakmann B, Feldmeyer D. <a href="https://doi.org/10.1523/JNEUROSCI.20-14-05300.2000" target="_blank">Columnar Organization of Dendrites and Axons of Single and Synaptically Coupled Excitatory Spiny Neurons in Layer 4 of the Rat Barrel Cortex</a>. <span class="venue">Journal of Neuroscience</span>, 2000. <span class="cite-count">Citations: 367</span></li>
+<li>Feldmeyer D, Egger V, Lübke JHR, Sakmann B. <a href="https://doi.org/10.1111/j.1469-7793.1999.00169.x" target="_blank">Reliable synaptic connections between pairs of excitatory layer 4 neurones within a single ‘barrel’ of developing rat somatosensory cortex</a>. <span class="venue">Journal of Physiology</span>, 1999. <span class="cite-count">Citations: 439</span></li>
+<li>Egger V, Feldmeyer D, Sakmann B. <a href="https://doi.org/10.1038/16026" target="_blank">Coincidence detection and changes of synaptic efficacy in spiny stellate neurons in rat barrel cortex</a>. <span class="venue">Nature Neuroscience</span>, 1999. <span class="cite-count">Citations: 399</span></li>
+<li>Rammes G, Gravius A, Ruitenberg M, Wegener N, Chambon C, ... et al.. MRZ-99030 e A novel modulator of Ab aggregation: II e Reversal of Ab oligomer-induced deficits in long-term potentiation (LTP) and cognitive performance in rats and mice. .</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2000–2004</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Veronica Egger, K. Svoboda, Z. Mainen (2005). <em><a href="https://doi.org/10.1523/jneurosci.4746-04.2005" target="_blank">Dendrodendritic synaptic signals in olfactory bulb granule cells: local spine boost and global low-threshold spike</a></em>. <span class="journal">J Neurosci 25, 3521-30</span></li>
-<li>Veronica Egger, K. Svoboda, Z. Mainen (2003). <em><a href="https://doi.org/10.1523/jneurosci.23-20-07551.2003" target="_blank">Mechanisms of lateral inhibition in the olfactory bulb: efficiency and modulation of spike-evoked calcium influx into granule cells</a></em>. <span class="journal">J Neurosci 23, 7551-8</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-olfactory-bulb">Olfactory Bulb Circuitry</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0002-5869-8523" target="_blank">ORCID</a></div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-olfactory-bulb">Olfactory Bulb Circuitry</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

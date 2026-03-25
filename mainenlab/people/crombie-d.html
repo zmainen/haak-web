@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Davide Crombie — Mainen Lab</title>
+<title>Davide Crombie &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,15 +61,32 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Davide Crombie</h1>
+<h1>Davide Crombie <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0003-3424-3249" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/153345835" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Davide Crombie is a postdoctoral researcher who joined the Mainen Lab in 2024. His research focuses on visual thalamic circuits, particularly examining how corticothalamic feedback and behavioral state modulate neural activity in the dorsal lateral geniculate nucleus across multiple timescales. In the lab, he contributes to projects involving the International Brain Laboratory and studies of LSD effects on neural population dynamics.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 4 | Total papers: 10 | Lab papers: 0 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Schmors L, Kotkat AH, Bauer Y, Huang Z, Crombie D, Meyerolbersleben LS, Sokoloski S, Berens P, Busse L. <a href="https://doi.org/10.1016/j.isci.2025.112481" target="_blank">Effects of corticothalamic feedback depend on visual responsiveness and stimulus type</a>. <span class="venue">iScience</span>, 2025. <span class="cite-count">Citations: 1</span></li>
+<li>Schmors L, Kotkat AH, Bauer Y, Huang Z, Crombie D, Meyerolbersleben LS, Sokoloski S, Berens P, Busse L. <a href="https://doi.org/10.1101/2023.10.18.562960" target="_blank">The combination of stimulus-driven and modulatory inputs in visual thalamus depend on visual responsiveness and stimulus type</a>. <span class="venue">bioRxiv</span>, 2024.</li>
+<li>Spacek MA, Crombie D, Bauer Y, Born G, Liu X, Katzner S, Busse L. <a href="https://doi.org/10.1101/776237" target="_blank">Robust effects of corticothalamic feedback and behavioral state on movie responses in mouse dLGN</a>. <span class="venue">bioRxiv</span>, 2022. <span class="cite-count">Citations: 21</span></li>
+<li>Crombie D, Spacek MA, Leibold C, Busse L. <a href="https://doi.org/10.1371/journal.pbio.3002614" target="_blank">Spiking activity in the visual thalamus is coupled to pupil dynamics across temporal scales</a>. <span class="venue">bioRxiv</span>, 2021. <span class="cite-count">Citations: 14</span></li>
+<li>Crombie D, Spacek MA, Leibold C, Busse L. Modulation of dLGN firing mode across multiple timescales. 2021. <span class="cite-count">Citations: 3</span></li>
+<li>Crombie D, Spacek MA, Leibold C, Busse L. <a href="https://doi.org/10.2139/SSRN.3832144" target="_blank">Pupil Size Dynamics Predict dLGN Firing Mode Over a Wide Range of Timescales</a>. <span class="venue">Social Science Research Network</span>, 2021. <span class="cite-count">Citations: 2</span></li>
+<li>Crombie D, Busse L. <a href="https://doi.org/10.1016/j.neuron.2021.11.005" target="_blank">Should I stay or should I go? A thalamic circuit for modulating behavioral responses to visual threat.</a>. <span class="venue">Neuron</span>, 2021. <span class="cite-count">Citations: 2</span></li>
+<li>Zuo X, Honey C, Barense MD, Crombie D, Norman K, Hasson U, Chen J. <a href="https://doi.org/10.1101/713180" target="_blank">Temporal integration of narrative information in a hippocampal amnesic patient</a>. <span class="venue">bioRxiv</span>, 2019. <span class="cite-count">Citations: 26</span></li>
+<li>Spacek MA, Born G, Crombie D, Bauer Y, Liu X, Katzner S, Busse L. <a href="https://doi.org/10.1101/776237" target="_blank">Robust effects of corticothalamic feedback during naturalistic visual stimulation</a>. 2019. <span class="cite-count">Citations: 5</span></li>
+<li>Spacek MA, Born G, Crombie D, Katzner S, Busse L. <a href="https://doi.org/10.1101/776237" target="_blank">Robust effects of cortical feedback on thalamic firing mode during naturalistic stimulation</a>. 2019. <span class="cite-count">Citations: 4</span></li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2024–present</div>
-
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-ibl">International Brain Laboratory</a></li>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-ibl">International Brain Laboratory</a></li>
 <li><a href="../index.html#project-mouse-lsd">LSD &amp; Neural Population Dynamics</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0003-3424-3249" target="_blank">ORCID</a></div>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

@@ -27,10 +27,10 @@ app = Flask(__name__)
 app.secret_key = 'mainenlab-projects-internal'
 
 BASE = Path(os.environ['HAAK_BASE']) if 'HAAK_BASE' in os.environ else Path(__file__).resolve().parent.parent.parent.parent.parent.parent
-PEOPLE_DIR = BASE / 'workspaces/zach/projects/mainen-lab/people'
-PROJECTS_DIR = BASE / 'workspaces/zach/projects/mainen-lab/projects'
-PUBS_DIR = BASE / 'workspaces/zach/projects/mainen-lab/publications'
-TAXONOMY_PATH = BASE / 'workspaces/zach/projects/mainen-lab/taxonomy.yaml'
+PEOPLE_DIR = BASE / 'home/zach/projects/mainen-lab/people'
+PROJECTS_DIR = BASE / 'home/zach/projects/mainen-lab/projects'
+PUBS_DIR = BASE / 'home/zach/projects/mainen-lab/publications'
+TAXONOMY_PATH = BASE / 'home/zach/projects/mainen-lab/taxonomy.yaml'
 
 PERSONNEL_URL = 'http://127.0.0.1:18830'
 
@@ -765,7 +765,7 @@ def save_project(slug):
     return redirect(f'/project/{slug}?msg=Saved')
 
 
-GENERATE_SCRIPT = BASE / 'workspaces/zach/web/mainenlab/scripts/generate_description.py'
+GENERATE_SCRIPT = BASE / 'home/zach/web/mainenlab/scripts/generate_description.py'
 
 @app.route('/project/<slug>/generate-description', methods=['POST'])
 def generate_description_endpoint(slug):

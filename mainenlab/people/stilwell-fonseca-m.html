@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Madalena Stilwell Fonseca &mdash; Mainen Lab</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
+}
+[data-theme="dark"] {
+  --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
+}
+.page { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+.back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
+.back:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
+.position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+.position a { color: var(--accent); text-decoration: none; }
+.position a:hover { text-decoration: underline; }
+.lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+.pub-list { list-style: none; padding: 0; }
+.pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
+.pub-list li a { color: var(--accent); text-decoration: none; }
+.pub-list li a:hover { text-decoration: underline; }
+.project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.project-list li a {
+  display: inline-block; font-size: 0.82rem; padding: 0.25rem 0.65rem;
+  border-radius: 999px; border: 1px solid var(--border); color: var(--accent);
+  text-decoration: none; transition: background 0.15s;
+}
+.project-list li a:hover { background: var(--hover); }
+#theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text); font-size: 0.85rem;
+}
+#theme-toggle:hover { background: var(--hover); }
+</style>
+</head>
+<body>
+<div class="page">
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+<h1>Madalena Stilwell Fonseca <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
+<div class="position">No current affiliation listed</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://www.semanticscholar.org/author/50988110" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Madalena Stilwell Fonseca was a PhD student in the lab from 2013-2020, where she investigated serotonin's role in learning and behavior using electrophysiological and fMRI approaches. Her research focused on how serotonergic stimulation affects learning rates for rewards and waiting behavior, demonstrating that activation of dorsal raphe serotonergic neurons promotes waiting but is not inherently reinforcing. She also contributed to developing functional MRI techniques for studying large-scale brain activity in behaving mice.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 5 | Total papers: 8 | Lab papers: 6 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li class="lab-paper">Salvan P, Fonseca MS, Winkler A, Beauchamp A, Lerch J, Johansen-Berg H. <a href="https://doi.org/10.1038/s41593-022-01213-3" target="_blank">Serotonin regulation of behavior via large-scale neuromodulation of serotonin receptor networks</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Neuroscience</span>, 2022. <span class="cite-count">Citations: 80</span></li>
+<li class="lab-paper">Fonseca MS, Bergomi M, Mainen Z, Shemesh N. <a href="https://doi.org/10.1101/2020.04.16.044941" target="_blank">Functional MRI of large scale activity in behaving mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 12</span></li>
+<li class="lab-paper">Iigaya K, Fonseca MS, Murakami M, Mainen Z, Dayan P. <a href="https://doi.org/10.1038/s41467-018-04840-2" target="_blank">An effect of serotonergic stimulation on learning rates for rewards apparent after long intertrial intervals</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Communications</span>, 2018. <span class="cite-count">Citations: 103</span></li>
+<li>Gomes D, Fonseca MS, Garrotes M, Lima MRL, Mendonça M, Pereira M, Lourenço M, Oliveira E, Lavrador J. <a href="https://doi.org/10.4103/0976-3147.193549" target="_blank">Corpus Callosum and Neglect Syndrome: Clinical Findings After Meningioma Removal and Anatomical Review</a>. <span class="venue">Journal of Neurosciences in Rural Practice</span>, 2017. <span class="cite-count">Citations: 9</span></li>
+<li class="lab-paper">Iigaya K, Fonseca MS, Murakami M, Mainen Z, Dayan P. <a href="https://doi.org/10.1101/215400" target="_blank">The Long and the Short of Serotonergic Stimulation: Optogenetic activation of dorsal raphe serotonergic neurons changes the learning rate for rewards</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2017. <span class="cite-count">Citations: 3</span></li>
+<li>Fonseca MS. The role of information format in financial decision-making : bridging psychology, neuroscience and accounting research. 2016.</li>
+<li class="lab-paper">Fonseca MS, Murakami M, Mainen Z. <a href="https://doi.org/10.1016/j.cub.2014.12.002" target="_blank">Activation of dorsal raphe serotonergic neurons promotes waiting but is not reinforcing.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Current Biology</span>, 2015. <span class="cite-count">Citations: 199</span></li>
+<li class="lab-paper">Fonseca MS, Murakami M, Mainen Z. <a href="https://doi.org/10.1101/012062" target="_blank">Activation of dorsal raphe serotonergic neurons promotes persistent waiting independently of reinforcing effects</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2014. <span class="cite-count">Citations: 1</span></li></ul>
+<h2>At the Mainen Lab</h2>
+<div class="lab-role">PhD Student, 2013–2020</div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5ht-electrophysiology">Serotonin Electrophysiology</a></li>
+<li><a href="../index.html#project-serotonin-fmri">Serotonin fMRI</a></li></ul>
+</div>
+<script>
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+const stored = localStorage.getItem('ml-theme');
+if (stored) root.setAttribute('data-theme', stored);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\u2600' : '\u263E';
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('ml-theme', next);
+  toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+});
+</script>
+</body>
+</html>

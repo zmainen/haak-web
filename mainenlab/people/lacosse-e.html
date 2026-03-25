@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eric Lacosse &mdash; Mainen Lab</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
+}
+[data-theme="dark"] {
+  --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
+}
+.page { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+.back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
+.back:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
+.position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+.position a { color: var(--accent); text-decoration: none; }
+.position a:hover { text-decoration: underline; }
+.lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+.pub-list { list-style: none; padding: 0; }
+.pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
+.pub-list li a { color: var(--accent); text-decoration: none; }
+.pub-list li a:hover { text-decoration: underline; }
+.project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.project-list li a {
+  display: inline-block; font-size: 0.82rem; padding: 0.25rem 0.65rem;
+  border-radius: 999px; border: 1px solid var(--border); color: var(--accent);
+  text-decoration: none; transition: background 0.15s;
+}
+.project-list li a:hover { background: var(--hover); }
+#theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text); font-size: 0.85rem;
+}
+#theme-toggle:hover { background: var(--hover); }
+</style>
+</head>
+<body>
+<div class="page">
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+<h1>Eric Lacosse <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
+<div class="position">Staff Scientist, Digital Therapeutics Programme</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0009-0003-3400-7526" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/51388669" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Eric Lacosse was a postdoc in the lab from 2022-2024, bringing expertise in neuroimaging methods and computational approaches to brain data analysis. His research focused on developing statistical methods for fMRI analysis, predicting brain activation patterns from resting-state data, and improving the reproducibility of neuroimaging studies. He is now a Staff Scientist in the Digital Therapeutics Programme.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 6 | Total papers: 9 | Lab papers: 0 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Lohmann G, Lacosse E, Ethofer T, Kumar V, Scheffler K, Jost J. <a href="https://doi.org/10.1101/2021.03.18.435935" target="_blank">Predicting intelligence from fMRI data of the human brain in a few minutes of scan time</a>. <span class="venue">bioRxiv</span>, 2021. <span class="cite-count">Citations: 10</span></li>
+<li>Lacosse E, Scheffler K, Lohmann G, Martius G. <a href="https://doi.org/10.1038/s41598-021-82681-8" target="_blank">Jumping over baselines with new methods to predict activation maps from resting-state fMRI</a>. <span class="venue">Scientific Reports</span>, 2020. <span class="cite-count">Citations: 7</span></li>
+<li>Bause J, Polimeni J, Stelzer J, In M, Ehses P, Kraemer-Fernandez P, Aghaeifar A, Lacosse E, Pohmann R, Scheffler K. <a href="https://doi.org/10.1016/j.neuroimage.2019.116434" target="_blank">Impact of prospective motion correction, distortion correction methods and large vein bias on the spatial accuracy of cortical laminar fMRI at 9.4 Tesla</a>. <span class="venue">NeuroImage</span>, 2019. <span class="cite-count">Citations: 37</span></li>
+<li>Stelzer J, Lacosse E, Bause J, Scheffler K, Lohmann G. <a href="https://doi.org/10.3389/fnins.2019.00972" target="_blank">Brainglance: Visualizing Group Level MRI Data at One Glance</a>. <span class="venue">Frontiers in Neuroscience</span>, 2019. <span class="cite-count">Citations: 6</span></li>
+<li>Lohmann G, Stelzer J, Lacosse E, Kumar V, Mueller K, Kuehn E, Grodd W, Scheffler K. <a href="https://doi.org/10.1038/s41467-018-06304-z" target="_blank">LISA improves statistical analysis for fMRI</a>. <span class="venue">Nature Communications</span>, 2018. <span class="cite-count">Citations: 38</span></li>
+<li>Lacosse E, Lohmann G, Himmelbach M, Scheffler K, Martius G. Task fMRI Prediction from Task Free Resting State Measurements. 2018.</li>
+<li>Lohmann G, Stelzer J, Mueller K, Lacosse E, Buschmann T, Kumar V, Grodd W, Scheffler K. <a href="https://doi.org/10.1101/122788" target="_blank">Inflated false negative rates undermine reproducibility in task-based fMRI</a>. <span class="venue">bioRxiv</span>, 2017. <span class="cite-count">Citations: 14</span></li>
+<li>Lacosse E, Bause J, Lohmann G, Scheffler K, Schaal S, Sternad D. Neural Control of Discrete and Rhythmic Movements. 2016. <span class="cite-count">Citations: 1</span></li>
+<li>Lacosse E, Lohmann G, Sternad D, Schaal S. Investigating human rhythmic and discrete arm movement at 3 and 9.4T. 2015.</li></ul>
+</div>
+<script>
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+const stored = localStorage.getItem('ml-theme');
+if (stored) root.setAttribute('data-theme', stored);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\u2600' : '\u263E';
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('ml-theme', next);
+  toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+});
+</script>
+</body>
+</html>

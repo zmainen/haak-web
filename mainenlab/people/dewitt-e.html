@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Eric DeWitt — Mainen Lab</title>
+<title>Eric DeWitt &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,15 +61,33 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Eric DeWitt</h1>
+<h1>Eric DeWitt <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">No current affiliation listed.</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0001-9182-8257" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/35058834" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Eric DeWitt was a postdoc in the Mainen Lab from 2010-2018, where he worked on computational decision theory. His research focuses on the neural mechanisms of decision-making and perceptual learning, with particular interest in how learning impacts speed-accuracy tradeoffs in behavioral choices. He has also contributed to large-scale collaborative neuroscience initiatives, including standardized approaches to measuring decision-making in mice and the development of educational programs in computational neuroscience.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 8 | Total papers: 12 | Lab papers: 6 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Bayer HM, Birman D, Chapuis GA, DeWitt EEJ, Freitas-Silva L, ... et al.. <a href="https://doi.org/10.1016/j.neuron.2026.01.012" target="_blank">20 lessons in team science: Learning from the experience of the International Brain Laboratory.</a>. <span class="venue">Neuron</span>, 2026.</li>
+<li class="lab-paper">Benson B, Benson J, Birman D, Bonacchi N, Carandini M, ... et al.. <a href="https://doi.org/10.1038/s41586-025-09235-0" target="_blank">A brain-wide map of neural activity during complex behaviour</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2024. <span class="cite-count">Citations: 112</span></li>
+<li class="lab-paper">Findling C, Hubert F, Acerbi L, Benson B, Benson J, ... et al.. <a href="https://doi.org/10.1038/s41586-025-09226-1" target="_blank">Brain-wide representations of prior information in mouse decision-making</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2024. <span class="cite-count">Citations: 82</span></li>
+<li>Bonacchi N, Chapuis GA, Churchland A, DeWitt EEJ, Faulkner M, ... et al.. <a href="https://doi.org/10.1038/s41592-022-01742-6" target="_blank">A modular architecture for organizing, processing and sharing neurophysiology data</a>. <span class="venue">Nature Methods</span>, 2022. <span class="cite-count">Citations: 11</span></li>
+<li>Hart BM’, Achakulvisut T, Akrami A, Alicea B, Beierholm U, ... et al.. <a href="https://doi.org/10.21105/jose.00118" target="_blank">Neuromatch Academy: a 3-week, online summer school in computational neuroscience</a>. <span class="venue">Journal of Open Source Education</span>, 2022. <span class="cite-count">Citations: 8</span></li>
+<li class="lab-paper">Aguillon V, Angelaki D, Bayer HM, Bonacchi N, Carandini M, ... et al.. <a href="https://doi.org/10.7554/eLife.84310" target="_blank">Correction: Standardized and reproducible measurement of decision-making in mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">eLife</span>, 2022.</li>
+<li>Hart BM’, Achakulvisut T, Akrami A, Alicea B, Beierholm UR, ... et al.. <a href="https://doi.org/10.31219/osf.io/9fp4v" target="_blank">Neuromatch Academy: a 3-week, online summer school in computational neuroscience</a>. 2021. <span class="cite-count">Citations: 1</span></li>
+<li class="lab-paper">Aguillon-Rodriguez V, Angelaki D, Bayer H, Bonacchi N, Carandini M, ... et al.. <a href="https://doi.org/10.1101/2020.01.17.909838" target="_blank">Standardized and reproducible measurement of decision-making in mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2020. <span class="cite-count">Citations: 198</span></li>
+<li>Viegen TV, Akrami A, Bonnen K, DeWitt EEJ, Hyafil A, ... et al.. <a href="https://doi.org/10.1016/j.tics.2021.03.018" target="_blank">Neuromatch Academy: Teaching Computational Neuroscience with Global Accessibility.</a>. <span class="venue">Trends in Cognitive Sciences</span>, 2020. <span class="cite-count">Citations: 33</span></li>
+<li class="lab-paper">Mendonça AG, Drugowitsch J, Vicente MI, DeWitt EEJ, Pouget A, Mainen Z. <a href="https://doi.org/10.1038/s41467-020-16196-7" target="_blank">The impact of learning on perceptual decisions and its implication for speed-accuracy tradeoffs</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Communications</span>, 2020.</li>
+<li class="lab-paper">Mendonça AG, Drugowitsch J, Vicente MI, DeWitt EEJ, Pouget A, Mainen Z. <a href="https://doi.org/10.1038/s41467-020-16196-7" target="_blank">The impact of learning on perceptual decisions and its implication for speed-accuracy tradeoffs</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2018. <span class="cite-count">Citations: 55</span></li>
+<li>DeWitt EEJ. <a href="https://doi.org/10.1016/j.cub.2014.02.055" target="_blank">Neuroeconomics: a formal test of dopamine&#x27;s role in reinforcement learning.</a>. <span class="venue">Current Biology</span>, 2014. <span class="cite-count">Citations: 19</span></li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2010–2018</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>The IBL, Aguillon-Rodriguez V, Angelaki DE, Bayer HM, Bonacchi N, Carandini M, Cazettes F, Chapuis GA, Churchland AK, Dan Y, Dewitt EE, Faulkner M, Forrest H, Haetzel LM, Hausser M (2021). <em><a href="https://doi.org/10.7554/eLife.63711" target="_blank">A standardized and reproducible method to measure decision-making in mice</a></em>. <span class="journal">doi: 10.7554/eLife.63711</span></li>
-<li>André G. Mendonça, Jan Drugowitsch, M. I. Vicente, Eric E. J. DeWitt, A. Pouget, Z. Mainen (2020). <em><a href="https://doi.org/10.1101/501858" target="_blank">The impact of learning on perceptual decisions and its implication for speed-accuracy tradeoffs</a></em>. <span class="journal">Nat Comm 11 (1): 2757</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-computational-decisions">Computational Decision Theory</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0001-9182-8257" target="_blank">ORCID</a></div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-computational-decisions">Computational Decision Theory</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

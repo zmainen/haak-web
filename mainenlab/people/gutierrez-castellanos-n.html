@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nicolas Gutierrez-Castellanos — Mainen Lab</title>
+<title>Nicolas Gutierrez-Castellanos &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,14 +61,45 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Nicolas Gutierrez-Castellanos</h1>
+<h1>Nicolas Gutierrez-Castellanos <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Departed researcher with no current affiliation listed.</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://www.semanticscholar.org/author/1398540911" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Nicolas Gutierrez-Castellanos was a postdoc in the Mainen Lab from 2016-2018, where he worked on serotonin circuits. His research focuses on the neural mechanisms underlying sexual behavior and reproductive cycles, with particular emphasis on hypothalamic and limbic circuits that control female sexual rejection, male copulatory behavior, and hormonal modulation of neural plasticity. He has also investigated cerebellar motor learning, chemosensory processing in the amygdala, and the maturation of cortical inputs to brainstem neuromodulatory centers.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 12 | Total papers: 25 | Lab papers: 2 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Dias IC, Gutierrez-Castellanos N, Ferreira L, Rasteiro A, Duarte MA, Lima SQ. <a href="https://doi.org/10.64898/2026.01.20.700523" target="_blank">Neural substrates of female sexual rejection: hypothalamic pathways to the periaqueductal gray</a>. <span class="venue">bioRxiv</span>, 2026.</li>
+<li>Dias IC, Gutierrez-Castellanos N, Lenschow C, Lima SQ. <a href="https://doi.org/10.1016/j.conb.2025.103069" target="_blank">Ready or not: Neural mechanisms regulating female sexual behavior.</a>. <span class="venue">Current Opinion in Neurobiology</span>, 2025. <span class="cite-count">Citations: 2</span></li>
+<li>Lenschow C, Mendes AR, Ferreira L, Lacoste B, Marques H, Gutierrez-Castellanos N, Quilgars C, Bertrand SS, Lima SQ. <a href="https://doi.org/10.1038/s41467-025-63877-2" target="_blank">A galanin-positive population of lumbar spinal cord neurons modulates sexual arousal and copulatory behavior in male mice</a>. <span class="venue">Nature Communications</span>, 2025. <span class="cite-count">Citations: 1</span></li>
+<li>Gutierrez-Castellanos N, Dias IC, Husain BF, Lima SQ. <a href="https://doi.org/10.1111/jne.13447" target="_blank">Functional diversity along the anteroposterior axis of the ventromedial hypothalamus</a>. <span class="venue">Journal of neuroendocrinology</span>, 2024. <span class="cite-count">Citations: 4</span></li>
+<li class="lab-paper">Gutierrez-Castellanos N, Sarra D, Godinho BS, Mainen Z. <a href="https://doi.org/10.7554/eLife.93485" target="_blank">Maturation of cortical input to dorsal raphe nucleus increases behavioral persistence in mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">eLife</span>, 2024. <span class="cite-count">Citations: 2</span></li>
+<li>Gutierrez-Castellanos N, Husain BF, Dias IC, Nomoto K, Duarte MA, Ferreira L, Lacoste B, Lima SQ. <a href="https://doi.org/10.1101/2023.01.30.526259" target="_blank">A hypothalamic node for the cyclical control of female sexual rejection</a>. <span class="venue">bioRxiv</span>, 2023. <span class="cite-count">Citations: 10</span></li>
+<li>López-Sánchez M, Vila-Martín ME, Cádiz-Moretti B, Gutierrez-Castellanos N, Teruel-Martí V, Lanuza E, Pardo-Bellver C. <a href="https://doi.org/10.1016/j.ibneur.2023.08.1990" target="_blank">TOPOGRAPHIC ORGANIZATION OF PROJECTIONS BETWEEN THE CHEMOSENSORY AMYGDALA AND THE ENTORHINAL CORTEX IN MOUSE BRAIN</a>. <span class="venue">IBRO Neuroscience Reports</span>, 2023.</li>
+<li>Gutierrez-Castellanos N, Husain BF, Dias IC, Lima SQ. <a href="https://doi.org/10.1016/j.tem.2022.09.001" target="_blank">Neural and behavioral plasticity across the female reproductive cycle.</a>. <span class="venue">Trends in endocrinology and metabolism</span>, 2022. <span class="cite-count">Citations: 23</span></li>
+<li class="lab-paper">Gutierrez-Castellanos N, Sarra D, Godinho BS, Mainen Z. <a href="https://doi.org/10.1101/2022.01.01.474690" target="_blank">Maturation of prefrontal input to dorsal raphe nucleus increases behavioral persistence in mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2022. <span class="cite-count">Citations: 2</span></li>
+<li>Dias IC, Gutierrez-Castellanos N, Ferreira L, Lima SQ. <a href="https://doi.org/10.1523/ENEURO.0049-21.2021" target="_blank">The Structural and Electrophysiological Properties of Progesterone Receptor-Expressing Neurons Vary along the Anterior-Posterior Axis of the Ventromedial Hypothalamus and Undergo Local Changes across the Reproductive Cycle</a>. <span class="venue">eNeuro</span>, 2021. <span class="cite-count">Citations: 11</span></li>
+<li>Guirado R, Pérez-Rando M, Ferragud A, Gutierrez-Castellanos N, Umemori J, Carceller H, Nácher J, Castillo-Gómez E. <a href="https://doi.org/10.3389/fnbeh.2020.00051" target="_blank">A Critical Period for Prefrontal Network Configurations Underlying Psychiatric Disorders and Addiction</a>. <span class="venue">Frontiers in Behavioral Neuroscience</span>, 2020. <span class="cite-count">Citations: 16</span></li>
+<li>Gutierrez-Castellanos N, Silva-Matos CMD, Zhou K, Canto CB, Renner MC, Koene LMC, Ozyildirim O, Sprengel R, Kessels H, Zeeuw CDD. <a href="https://doi.org/10.1016/j.neuron.2016.11.046" target="_blank">Motor Learning Requires Purkinje Cell Synaptic Potentiation through Activation of AMPA-Receptor Subunit GluA3</a>. <span class="venue">Neuron</span>, 2017. <span class="cite-count">Citations: 107</span></li>
+<li>Renner MC, Albers EH, Gutierrez-Castellanos N, Reinders N, Huijstee ANV, Xiong H, Lodder TR, Kessels HW. <a href="https://doi.org/10.7554/eLife.25462" target="_blank">Synaptic plasticity through activation of GluA3-containing AMPA-receptors</a>. <span class="venue">eLife</span>, 2017. <span class="cite-count">Citations: 41</span></li>
+<li>Renner MC, Albers EH, Gutierrez-Castellanos N, Reinders N, Huijstee ANV, Xiong H, Lodder TR, Kessels H. <a href="https://doi.org/10.7554/ELIFE.25462.023" target="_blank">Author response: Synaptic plasticity through activation of GluA3-containing AMPA-receptors</a>. 2017. <span class="cite-count">Citations: 30</span></li>
+<li>Gutierrez-Castellanos N, Zhou K, Renner MC, Koene LMC, Ozyildirim O, Sprengel R, Kessels H, Zeeuw CI. Chapter 2 . 1 Motor Learning Requires Purkinje Cell Synaptic Potentiation through Activation of AMPA-Receptor subunit GluA 3. 2017.</li>
+<li>Renner MC, Albers EH, Gutierrez-Castellanos N, Lodder TR, Reinders N, Zeeuw CI, Kessels H. Synaptic plasticity through activation of AMPA-receptor subunit GluA3. 2016.</li>
+<li>Gutierrez-Castellanos N. Memory Formation and Suppression through AMPA Receptor Dependent Synaptic Plasticity. 2015.</li>
+<li>Gutierrez-Castellanos N, Pardo-Bellver C, Martínez-García F, Lanuza E. <a href="https://doi.org/10.1111/ejn.12393" target="_blank">The vomeronasal cortex – afferent and efferent projections of the posteromedial cortical nucleus of the amygdala in mice</a>. <span class="venue">European Journal of Neuroscience</span>, 2014. <span class="cite-count">Citations: 55</span></li>
+<li>Gutierrez-Castellanos N, Winkelman B, Tolosa-Rodriguez L, Devenney B, Reeves R, Zeeuw CDD. <a href="https://doi.org/10.1523/JNEUROSCI.2198-13.2013" target="_blank">Size Does Not Always Matter: Ts65Dn Down Syndrome Mice Show Cerebellum-Dependent Motor Learning Deficits that Cannot Be Rescued by Postnatal SAG Treatment</a>. <span class="venue">Journal of Neuroscience</span>, 2013. <span class="cite-count">Citations: 27</span></li>
+<li>Gutierrez-Castellanos N, Winkelman B, Tolosa-Rodriguez L, Gruijl JDD, Zeeuw CDD. <a href="https://doi.org/10.1016/j.neurobiolaging.2013.06.012" target="_blank">Impact of aging on long-term ocular reflex adaptation.</a>. <span class="venue">Neurobiology of Aging</span>, 2013. <span class="cite-count">Citations: 20</span></li>
+<li>Martínez-García F, Novejarque A, Gutierrez-Castellanos N, Lanuza E. <a href="https://doi.org/10.1016/B978-0-12-369497-3.10006-8" target="_blank">Piriform Cortex and Amygdala</a>. 2012. <span class="cite-count">Citations: 40</span></li>
+<li>Novejarque A, Gutierrez-Castellanos N, Lanuza E, Martínez-García F. <a href="https://doi.org/10.3389/fnana.2011.00054" target="_blank">Amygdaloid Projections to the Ventral Striatum in Mice: Direct and Indirect Chemosensory Inputs to the Brain Reward System</a>. <span class="venue">Frontiers in Neuroanatomy</span>, 2011. <span class="cite-count">Citations: 45</span></li>
+<li>Úbeda-Banon I, Pró‐Sistiaga P, Mohedano-Moriano A, Saiz-Sánchez D, Rosa-Prieto CDL, Gutierrez-Castellanos N, Lanuza E, Martínez-García F, Martínez-Marcos A. <a href="https://doi.org/10.3389/fnana.2011.00003" target="_blank">Cladistic Analysis of Olfactory and Vomeronasal Systems</a>. <span class="venue">Frontiers in Neuroanatomy</span>, 2010. <span class="cite-count">Citations: 42</span></li>
+<li>Gutierrez-Castellanos N, Martínez-Marcos A, Martínez-García F, Lanuza E. <a href="https://doi.org/10.1016/S0083-6729(10)83007-9" target="_blank">Chemosensory function of the amygdala.</a>. <span class="venue">Vitamins and hormones</span>, 2010. <span class="cite-count">Citations: 40</span></li>
+<li>Gutierrez-Castellanos N, Martínez-Marcos A, Martínez-García F, Lanuza E. Olfactory and Vomeronasal of the Amygdala 167 BST bed nucleus of the stria terminalis. 2010.</li></ul>
+<h2>At the Mainen Lab</h2>
 <div class="lab-role">Postdoc, 2016–2018</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Nicolas Gutierrez-Castellanos, Dario Sarra, Beatriz S. Godinho, Z. Mainen (2022). <em><a href="https://doi.org/10.1101/2022.01.01.474690" target="_blank">Maturation of prefrontal input to dorsal raphe increases behavioral persistence in mice</a></em>. <span class="journal">doi: https://doi.org/10.1101/2022.01.01.474690</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-5ht-circuits">Serotonin Circuits</a></li></ul>
-
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5ht-circuits">Serotonin Circuits</a></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

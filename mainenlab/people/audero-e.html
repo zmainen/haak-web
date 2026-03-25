@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Enrica Audero — Mainen Lab</title>
+<title>Enrica Audero &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,14 +61,46 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Enrica Audero</h1>
+<h1>Enrica Audero <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Departed researcher; no current affiliation listed.</div>
-<div class="lab-role">Postdoc, 2011–2014</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>G. Dugué, Magor L Lörincz, Eran Lottem, E. Audero, S. Matias, Patrícia A. Correia, C. Léna, Z. Mainen (2014). <em><a href="https://doi.org/10.1371/journal.pone.0105941" target="_blank">Optogenetic recruitment of dorsal raphe serotonergic neurons acutely decreases mechanosensory responsivity in behaving mice</a></em>. <span class="journal">PLoS ONE 9 (8), e105941</span></li></ul>
-
-<div class="links"><a href="https://orcid.org/0000-0002-6138-244X" target="_blank">ORCID</a></div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0002-6138-244X" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/50501589" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Enrica Audero was a postdoctoral researcher in the Mainen Lab from 2011-2014, where she contributed to research on serotonergic systems and behavior. Her work focuses on the role of serotonin in regulating anxiety, aggression, sleep-wake cycles, and autonomic functions, with particular expertise in optogenetic manipulation of dorsal raphe serotonin neurons and the function of serotonin 1A receptors. She has since departed the lab and her current institutional affiliation is not available.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 18 | Total papers: 29 | Lab papers: 11 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Loos R, Carola V, Audero E, Brini E, Iacono LL, Moles A, Bertone P, Gross C. <a href="https://doi.org/10.1101/2020.08.15.252239" target="_blank">A maternal effect regulates global DNA methylation patterns</a>. <span class="venue">bioRxiv</span>, 2020.</li>
+<li class="lab-paper">Smith HR, Leibold N, Rappoport D, Ginapp CM, Purnell B, ... et al.. <a href="https://doi.org/10.1523/JNEUROSCI.2182-17.2018" target="_blank">Dorsal Raphe Serotonin Neurons Mediate CO2-Induced Arousal from Sleep</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Journal of Neuroscience</span>, 2018. <span class="cite-count">Citations: 69</span></li>
+<li class="lab-paper">Piszczek L, Piszczek A, Kuczmanska J, Audero E, Gross C. <a href="https://doi.org/10.3389/fnbeh.2015.00048" target="_blank">Modulation of anxiety by cortical serotonin 1A receptors</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Frontiers in Behavioral Neuroscience</span>, 2015. <span class="cite-count">Citations: 23</span></li>
+<li class="lab-paper">Dugué G, Lörincz ML, Lottem E, Audero E, Matias S, Correia PA, Léna C, Mainen Z. <a href="https://doi.org/10.1371/journal.pone.0105941" target="_blank">Optogenetic Recruitment of Dorsal Raphe Serotonergic Neurons Acutely Decreases Mechanosensory Responsivity in Behaving Mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">PLoS ONE</span>, 2014. <span class="cite-count">Citations: 61</span></li>
+<li class="lab-paper">Audero E, Mlinar B, Baccini G, Skachokova Z, Corradetti R, Gross C. <a href="https://doi.org/10.1523/JNEUROSCI.2067-12.2013" target="_blank">Suppression of Serotonin Neuron Firing Increases Aggression in Mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Journal of Neuroscience</span>, 2013. <span class="cite-count">Citations: 106</span></li>
+<li>Batti L, Mukhtarov M, Audero E, Ivanov A, Paolicelli R, Zurborg S, Gross C, Bregestovski P, Heppenstall P. <a href="https://doi.org/10.3389/fnmol.2013.00011" target="_blank">Transgenic mouse lines for non-invasive ratiometric monitoring of intracellular chloride</a>. <span class="venue">Frontiers in Molecular Neuroscience</span>, 2013. <span class="cite-count">Citations: 21</span></li>
+<li class="lab-paper">Piszczek L, Schlax K, Wyrzykowska A, Piszczek A, Audero E, Gross CT. <a href="https://doi.org/10.1111/ejn.12260" target="_blank">Serotonin 1A auto‐receptors are not sufficient to modulate anxiety in mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">European Journal of Neuroscience</span>, 2013. <span class="cite-count">Citations: 11</span></li>
+<li class="lab-paper">Carnevali L, Mastorci F, Audero E, Graiani G, Rossi S, ... et al.. <a href="https://doi.org/10.1371/journal.pone.0041184" target="_blank">Stress-Induced Susceptibility to Sudden Cardiac Death in Mice with Altered Serotonin Homeostasis</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">PLoS ONE</span>, 2012. <span class="cite-count">Citations: 42</span></li>
+<li class="lab-paper">Baccini G, Mlinar B, Audero E, Gross C, Corradetti R. <a href="https://doi.org/10.1371/journal.pone.0045072" target="_blank">Impaired Chemosensitivity of Mouse Dorsal Raphe Serotonergic Neurons Overexpressing Serotonin 1A (Htr1a) Receptors</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">PLoS ONE</span>, 2012. <span class="cite-count">Citations: 11</span></li>
+<li class="lab-paper">Audero E, Mlinar B, Skachokova Z, Corradetti R, Gross C. <a href="https://doi.org/10.1016/S0924-977X(10)70135-8" target="_blank">S.04.06 Altered aggressive behaviour following genetic and pharmacological manipulation of serotonin autoinhibition</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2010.</li>
+<li class="lab-paper">Audero E, Gross C. <a href="https://doi.org/10.1203/PDR.0b013e318197b954" target="_blank">Could Serotonin Play a Role in Sudden Infant Death?</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Pediatric Research</span>, 2009. <span class="cite-count">Citations: 2</span></li>
+<li class="lab-paper">Carola V, Frazzetto G, Pascucci T, Audero E, Puglisi-Allegra S, Cabib S, Lesch K, Gross C. <a href="https://doi.org/10.1016/J.BIOPSYCH.2007.08.013" target="_blank">Identifying molecular substrates in a mouse model of the serotonin transporter x environment risk factor for anxiety and depression.</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Biological Psychiatry</span>, 2008. <span class="cite-count">Citations: 137</span></li>
+<li class="lab-paper">Audero E, Coppi E, Mlinar B, Rossetti T, Caprioli A, Banchaabouchi M, Corradetti R, Gross C. <a href="https://doi.org/10.1126/science.1157871" target="_blank">Sporadic Autonomic Dysregulation and Death Associated with Excessive Serotonin Autoinhibition</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Science</span>, 2008. <span class="cite-count">Citations: 111</span></li>
+<li>Mirabeau O, Perlas E, Severini C, Audero E, Gascuel O, Possenti R, Birney E, Rosenthal N, Gross C. <a href="https://doi.org/10.1101/GR.5755407" target="_blank">Identification of novel peptide hormones in the human proteome by hidden Markov model screening.</a>. <span class="venue">Genome Research</span>, 2007. <span class="cite-count">Citations: 295</span></li>
+<li>Checa SK, Audero E, Pontel LB, Soncini FC. Dissecting the Salmonella response to copper Martı́n Espariz , 3. 2007.</li>
+<li>Rosenthal N, Gross C, Mirabeau O, Perlas E, Severini C, Audero E, Gascuel O, Possenti R. hidden Markov model screening Identification of novel peptide hormones in the human proteome by. 2007.</li>
+<li>Audero E, Cascone I, Maniero F, Napione L, Arese M, Lanfrancone L, Bussolino F. <a href="https://doi.org/10.1074/jbc.M307456200" target="_blank">Adaptor ShcA Protein Binds Tyrosine Kinase Tie2 Receptor and Regulates Migration and Sprouting but Not Survival of Endothelial Cells*</a>. <span class="venue">Journal of Biological Chemistry</span>, 2004. <span class="cite-count">Citations: 55</span></li>
+<li>Sfiligoi C, Luca AD, Cascone I, Sorbello V, Fuso L, ... et al.. <a href="https://doi.org/10.1002/ijc.10851" target="_blank">Angiopoietin‐2 expression in breast cancer correlates with lymph node invasion and short survival</a>. <span class="venue">International Journal of Cancer</span>, 2003. <span class="cite-count">Citations: 209</span></li>
+<li>Cascone I, Audero E, Giraudo E, Napione L, Maniero F, Philips M, Collard JG, Serini G, Bussolino F. <a href="https://doi.org/10.1182/BLOOD-2003-03-0670" target="_blank">Tie-2-dependent activation of RhoA and Rac1 participates in endothelial cell motility triggered by angiopoietin-1.</a>. <span class="venue">Blood</span>, 2003. <span class="cite-count">Citations: 75</span></li>
+<li>Bussolino F, Arese M, Audero E, Giraudo E, Marchiò S, Mitola S, Primo L, Serini G. <a href="https://doi.org/10.1201/9780203494899.CH1" target="_blank">Biological Aspects of Tumour Angiogenesis</a>. 2003. <span class="cite-count">Citations: 23</span></li>
+<li>Marziliano N, Crovella S, Audero E, Pecile V, Bussolino F, Amoroso A, Garagna S. <a href="https://doi.org/10.1159/000015466" target="_blank">Genetic mapping1 of the mouse homologue of the human angiopoietin-1 gene (Agpt) to mouse chromosome 9E2 by in situ hybridization</a>. <span class="venue">Cytogenetic and Genome Research</span>, 2000. <span class="cite-count">Citations: 2</span></li>
+<li>Piao J, Matsuda Y, Nakamura H, Sano K, Tonachini L, ... et al.. <a href="https://doi.org/10.1159/000015457" target="_blank">Revised guidelines for authors of gene mapping reports</a>. <span class="venue">Cytogenetic and Genome Research</span>, 2000.</li>
+<li>Piao J, Matsuda Y, Nakamura H, Sano K, Tonachini L, ... et al.. <a href="https://doi.org/10.1159/000015455" target="_blank">Subject Index Vol. 87, 1999</a>. <span class="venue">Cytogenetic and Genome Research</span>, 2000.</li>
+<li>Piao J, Matsuda Y, Nakamura H, Sano K, Tonachini L, ... et al.. <a href="https://doi.org/10.1159/000015456" target="_blank">Contents Vol. 87, 1999</a>. <span class="venue">Cytogenetic and Genome Research</span>, 2000.</li>
+<li>Bardelli A, Basile ML, Audero E, Giordano S, Wennström S, Ménard S, Comoglio P, Ponzetto C. <a href="https://doi.org/10.1038/sj.onc.1202607" target="_blank">Concomitant activation of pathways downstream of Grb2 and PI 3-kinase is required for MET-mediated metastasis</a>. <span class="venue">Oncogene</span>, 1999. <span class="cite-count">Citations: 80</span></li>
+<li>Giraudo E, Primo L, Audero E, Gerber H, Koolwijk P, Soker S, Klagsbrun M, Ferrara N, Bussolino F. <a href="https://doi.org/10.1074/jbc.273.34.22128" target="_blank">Tumor Necrosis Factor-α Regulates Expression of Vascular Endothelial Growth Factor Receptor-2 and of Its Co-receptor Neuropilin-1 in Human Vascular Endothelial Cells*</a>. <span class="venue">Journal of Biological Chemistry</span>, 1998. <span class="cite-count">Citations: 266</span></li>
+<li>Giraudo E, Primo L, Audero E, Gerber H, Koolwijk P, Soker S, Klagsbrun M, Ferrara N, Bussolino F. Tumor necrosis factor-alpha regulates expression of vascular endothelial growth factor receptor-2 and of its co-receptor neuropilin-1 in human vascular endothelial cells.. <span class="venue">Journal of Biological Chemistry</span>, 1998. <span class="cite-count">Citations: 94</span></li>
+<li>Maina F, Casagranda F, Audero E, Simeone A, Comoglio P, Klein R, Ponzetto C. <a href="https://doi.org/10.1016/S0092-8674(00)81372-0" target="_blank">Uncoupling of Grb2 from the Met receptor in vivo reveals complex roles in muscle development.</a>. <span class="venue">Cell</span>, 1996. <span class="cite-count">Citations: 308</span></li>
+<li>Ponzetto C, Zhen Z, Audero E, Maina F, Bardelli A, Basile ML, Giordano S, Narsimhan R, Comoglio P. <a href="https://doi.org/10.1074/JBC.271.24.14119" target="_blank">Specific Uncoupling of GRB2 from the Met Receptor</a>. <span class="venue">Journal of Biological Chemistry</span>, 1996. <span class="cite-count">Citations: 162</span></li></ul>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

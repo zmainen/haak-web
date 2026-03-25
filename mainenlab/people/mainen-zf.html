@@ -3,17 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Zachary F. Mainen — Mainen Lab</title>
+<title>Zachary F. Mainen &mdash; Mainen Lab</title>
 <link rel="icon" type="image/svg+xml" href="../favicon.svg">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 :root {
   --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
-  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
 }
 [data-theme="dark"] {
   --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
-  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
 }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -24,17 +24,24 @@ body {
 .back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
 .back:hover { text-decoration: underline; }
 h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
 .position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
 .position a { color: var(--accent); text-decoration: none; }
 .position a:hover { text-decoration: underline; }
 .lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.section-title {
-  font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
-  letter-spacing: 0.08em; color: var(--muted); margin: 1.5rem 0 0.5rem;
-}
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
 .pub-list { list-style: none; padding: 0; }
 .pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
-.pub-list li .journal { color: var(--muted); }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
 .pub-list li a { color: var(--accent); text-decoration: none; }
 .pub-list li a:hover { text-decoration: underline; }
 .project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
@@ -44,9 +51,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
   text-decoration: none; transition: background 0.15s;
 }
 .project-list li a:hover { background: var(--hover); }
-.links { margin-top: 1.5rem; font-size: 0.85rem; }
-.links a { color: var(--accent); text-decoration: none; margin-right: 1.2rem; }
-.links a:hover { text-decoration: underline; }
 #theme-toggle {
   position: fixed; top: 1rem; right: 1rem;
   background: none; border: 1px solid var(--border); border-radius: 6px;
@@ -57,111 +61,120 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 </head>
 <body>
 <div class="page">
-<a href="../index.html" class="back">&larr; Back to Mainen Lab</a>
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
 <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
-<h1>Zachary F. Mainen</h1>
+<h1>Zachary F. Mainen <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
 <div class="position">Principal Investigator</div>
-<div class="lab-role">PI, 1999–present</div>
-<div class="section-title">Publications with the lab</div><ul class="pub-list"><li>Guido T. Meijer, J. A. Catarino, Laura Freitas-Silva, Inês Laranjeira, Z. Mainen (2025). <em><a href="https://doi.org/10.1101/2025.08.01.668048" target="_blank">Serotonin modulates neural dynamics in a subspace orthogonal to the choice space</a></em>. <span class="journal">bioRxiv</span></li>
-<li>Fanny Cazettes, Davide Reato, Elisabete Augusto, A. Renart, Z. Mainen (2024). <em><a href="https://doi.org/10.1038/s41593-025-02071-5" target="_blank">Facial expressions in mice reveal latent cognitive variables and their neural correlates</a></em>. <span class="journal">Nature Neuroscience</span></li>
-<li>Fanny Cazettes, Luca Mazzucato, M. Murakami, João P. Morais, Elisabete Augusto, A. Renart, Z. Mainen (2023). <em><a href="https://doi.org/10.1038/s41593-023-01305-8" target="_blank">A reservoir of foraging decision variables in the mouse brain</a></em>. <span class="journal">https://doi.org/10.1038/s41593-023-01305-8</span></li>
-<li>Romain Ligneul, Z. Mainen (2023). <em><a href="https://doi.org/10.1016/j.cub.2023.09.068" target="_blank">Serotonin</a></em>. <span class="journal">Current Biology 33, R1209–R1221</span></li>
-<li>R. Ligneul, Z. Mainen, Verena Ly, R. Cools (2022). <em><a href="https://doi.org/10.1038/s41562-022-01306-w" target="_blank">Stress-sensitive inference of task controllability</a></em>. <span class="journal">Nat Hum Behav 6, 812</span></li>
-<li>Christof Koch, K. Svoboda, Amy Bernard, M. Basso, A. Churchland, A. Fairhall, Peter A. Groblewski, J. Lecoq, Z. Mainen, Mackenzie W. Mathis, Shawn R. Olsen, John W. Phillips, A. Pouget, S. Saxena, J. Siegle (2022). <em><a href="https://doi.org/10.1016/j.neuron.2022.09.033" target="_blank">Next-generation brain observatories</a></em>. <span class="journal">Neuron 110</span></li>
-<li>Nicolas Gutierrez-Castellanos, Dario Sarra, Beatriz S. Godinho, Z. Mainen (2022). <em><a href="https://doi.org/10.1101/2022.01.01.474690" target="_blank">Maturation of prefrontal input to dorsal raphe increases behavioral persistence in mice</a></em>. <span class="journal">doi: https://doi.org/10.1101/2022.01.01.474690</span></li>
-<li>C. Poo, Gautam Agarwal, Niccolò Bonacchi, Z. Mainen (2021). <em><a href="https://doi.org/10.1038/s41586-021-04242-3" target="_blank">Spatial maps in olfactory cortex during olfactory navigation</a></em>. <span class="journal">Nature 601, 595-599</span></li>
-<li>Stefano Recanatesi, Ulises Pereira, M. Murakami, Z. Mainen, Luca Mazzucato (2021). <em><a href="https://doi.org/10.1016/j.neuron.2021.10.011" target="_blank">Metastable attractors explain the variable timing of stable behavioral action sequences</a></em>. <span class="journal">Neuron 110 (1): 139</span></li>
-<li>Fanny Cazettes, D. Reato, João P. Morais, A. Renart, Z. Mainen (2021). <em><a href="https://doi.org/10.1101/2020.06.25.171637" target="_blank">Phasic activation of dorsal raphe serotonergic neurons increases pupil-linked arousal</a></em>. <span class="journal">Curr Biol 31 (1), 192–197</span></li>
-<li>Anne E. Urai, Valeria Aguillon-Rodriguez, Inês Laranjeira, Fanny Cazettes, Z. Mainen, A. Churchland (2021). <em><a href="https://doi.org/10.1101/2020.03.02.973016" target="_blank">Citric Acid as an alternative to water restrictions for high-yield mouse behavior</a></em>. <span class="journal">eNeuro 11 January 2021, ENEURO.0230-20.2020</span></li>
-<li>Pietro Vertechi, Eran Lottem, Dario Sarra, Beatriz S. Godinho, Isaac Treves, T. Quendera, Matthijs N. oude Lohuis, Z. Mainen (2020). <em><a href="https://doi.org/10.1101/679142" target="_blank">Inference-based decisions in a hidden state foraging task: differential contributions of prefrontal areas</a></em>. <span class="journal">Neuron 106 (1), 166</span></li>
-<li>André G. Mendonça, Jan Drugowitsch, M. I. Vicente, Eric E. J. DeWitt, A. Pouget, Z. Mainen (2020). <em><a href="https://doi.org/10.1101/501858" target="_blank">The impact of learning on perceptual decisions and its implication for speed-accuracy tradeoffs</a></em>. <span class="journal">Nat Comm 11 (1): 2757</span></li>
-<li>Madalena S. Fonseca, M. Bergomi, Z. Mainen, N. Shemesh (2020). <em><a href="https://doi.org/10.1101/2020.04.16.044941" target="_blank">Functional MRI of large scale activity in behaving mice</a></em>. <span class="journal">bioRxiv, doi: https://doi.org/10.1101/2020.04.16.044941</span></li>
-<li>B. Iravani, A. Arshamian, A. Ravia, E. Mishor, K. Snitz, S. Shushan, Y. Roth, Ofer Perl, D. Honigstein, R. Weissgross, S. Karagach, G. Ernst, M. Okamoto, Z. Mainen, E. Monteleone (2020). <em><a href="https://doi.org/10.1101/2020.05.07.20094516" target="_blank">Relationship Between Odor Intensity Estimates and COVID-19 Prevalence Prediction in a Swedish Population</a></em>. <span class="journal">Chem Senses 45 (6), 449–456</span></li>
-<li>Jan Drugowitsch, André G. Mendonça, Z. Mainen, A. Pouget (2019). <em><a href="https://doi.org/10.1073/pnas.1906787116" target="_blank">Learning optimal decisions with confidence</a></em>. <span class="journal">PNAS 116 (49), 24872</span></li>
-<li>Jose L. Pardo-Vazquez, Juan R. Castiñeiras-de Saa, Mafalda Valente, Iris Damião, Tiago Costa, M. I. Vicente, André G. Mendonça, Z. Mainen, A. Renart (2019). <em><a href="https://doi.org/10.1038/s41593-019-0439-7" target="_blank">The mechanistic foundation of Weber&#x27;s law</a></em>. <span class="journal">Nat Neurosci 22 (9)</span></li>
-<li>Joana Rigato, Scott M. Rennie, Z. Mainen (2019). <em><a href="https://doi.org/10.1007/s11229-019-02136-6" target="_blank">The overlooked ubiquity of first-person experience in the cognitive sciences</a></em>. <span class="journal">Synthese 198, 8005–8041</span></li>
-<li>K. Iigaya, Madalena S. Fonseca, M. Murakami, Z. Mainen, P. Dayan (2018). <em><a href="https://doi.org/10.1038/s41467-018-04840-2" target="_blank">An effect of serotonergic stimulation on learning rates for rewards apparent after long intertrial intervals</a></em>. <span class="journal">Nat Commun 9 (1), 2477</span></li>
-<li>Eran Lottem, Dhruba Banerjee, Pietro Vertechi, Dario Sarra, M. O. Lohuis, Z. Mainen (2018). <em><a href="https://doi.org/10.1101/170472" target="_blank">Activation of serotonin neurons promotes active persistence in a probabilistic foraging task</a></em>. <span class="journal">Nat Commun 9 (1): 1000</span></li>
-<li>Patrícia A. Correia, Eran Lottem, Dhruba Banerjee, Ana S. Machado, Megan R. Carey, Z. Mainen (2017). <em><a href="https://doi.org/10.7554/elife.20975" target="_blank">Transient inhibition and long-term facilitation of locomotion by phasic optogenetic activation of serotonin neurons</a></em>. <span class="journal">eLife pii: e20975</span></li>
-<li>M. Murakami, H. Shteingart, Y. Loewenstein, Z. Mainen (2017). <em><a href="https://doi.org/10.1101/088963" target="_blank">Distinct sources of deterministic and stochastic components of action timing decisions in rodent frontal cortex</a></em>. <span class="journal">Neuron 94 (4), 908-919.e7</span></li>
-<li>Larry F. Dora E. Matteo Anne K. Yang Peter Sophie Ila Su Abbott Angelaki Carandini Churchland Dan Dayan Den, L. Abbott, D. Angelaki, M. Carandini, A. Churchland, Y. Dan, P. Dayan, S. Denéve, I. Fiete, S. Ganguli, K. Harris, M. Häusser, S. Hofer, P. Latham, Z. Mainen (2017). <em><a href="https://doi.org/10.35802/216324" target="_blank">An International Laboratory for Systems and Computational Neuroscience</a></em>. <span class="journal">Neuron 96 (6):1213-1218</span></li>
-<li>A. Grabska-Barwinska, S. Barthelmé, J. Beck, Z. Mainen, A. Pouget, P. Latham (2017). <em><a href="https://doi.org/10.1038/nn.4444" target="_blank">A probabilistic approach to demixing odors</a></em>. <span class="journal">Nat Neurosci 20, 98–106</span></li>
-<li>Patrícia A. Correia, S. Matias, Z. Mainen (2017). <em><a href="https://doi.org/10.21769/bioprotoc.2549" target="_blank">Stereotaxic adeno-associated virus injection and cannula implantation in the dorsal raphe nucleus of mice</a></em>. <span class="journal">Bio-protocol 7 (18), e2549</span></li>
-<li>S. Matias, Eran Lottem, G. Dugué, Z. Mainen (2017). <em><a href="https://doi.org/10.7554/elife.20552.028" target="_blank">Activity patterns of serotonin neurons underlying cognitive flexibility</a></em>. <span class="journal">eLife pii: e20552</span></li>
-<li>Eran Lottem, Magor L Lörincz, Z. Mainen (2016). <em><a href="https://doi.org/10.1523/jneurosci.3008-15.2016" target="_blank">Optogenetic activation of dorsal raphe serotonin neurons rapidly inhibits spontaneous but not odor-evoked activity in olfactory cortex</a></em>. <span class="journal">J Neurosci 36 (1), 7-18</span></li>
-<li>Z. Mainen, M. Häusser, A. Pouget (2016). <em><a href="https://doi.org/10.1038/539159a" target="_blank">A better way to crack the brain</a></em>. <span class="journal">Nature 539, 159-161</span></li>
-<li>A. Gomez-Marin, Z. Mainen (2016). <em><a href="https://doi.org/10.1101/037192" target="_blank">Expanding perspectives on cognition in humans, animals, and machines</a></em>. <span class="journal">Curr Opin Neurobiol 37, 85–91</span></li>
-<li>D. Kobak, Wieland Brendel, C. Constantinidis, C. Feierstein, Adam Kepecs, Z. Mainen, Xue-Lian Qi, R. Romo, N. Uchida, C. Machens (2016). <em><a href="https://doi.org/10.7554/elife.10989.022" target="_blank">Demixed principal component analysis of neural population data</a></em>. <span class="journal">eLife (5), e10989</span></li>
-<li>Florent Meyniel, M. Sigman, Z. Mainen (2015). <em><a href="https://doi.org/10.1016/j.neuron.2015.09.039" target="_blank">Confidence as bayesian probability: from neural origins to behavior</a></em>. <span class="journal">Neuron 88 (1), 78–92</span></li>
-<li>M. Murakami, Z. Mainen (2015). <em><a href="https://doi.org/10.1016/j.conb.2015.01.005" target="_blank">Preparing and selecting actions with neural populations: toward cortical circuit mechanisms</a></em>. <span class="journal">Curr Opin Neurobiol 33 (C), 40–46</span></li>
-<li>Joana Rigato, M. Murakami, Z. Mainen (2015). <em><a href="https://doi.org/10.1101/sqb.2014.79.024810" target="_blank">Spontaneous Decisions and Free Will: Empirical Results and Philosophical Considerations</a></em>. <span class="journal">Cold Spring Harb Symp Quant Biol</span></li>
-<li>P. Bush, Z. Mainen (2015). <em><a href="https://doi.org/10.1371/journal.pone.0119072" target="_blank">Columnar architecture improves noise robustness in a model cortical network</a></em>. <span class="journal">PLoS One 10 (3), e0119072</span></li>
-<li>A. Gomez-Marin, Joseph J. Paton, A. R. Kampff, R. Costa, Z. Mainen (2014). <em><a href="https://doi.org/10.1101/006809" target="_blank">Big behavioral data: psychology, ethology and the foundations of neuroscience</a></em>. <span class="journal">Nat Neurosci (17), 1455–1462</span></li>
-<li>M. Murakami, M. I. Vicente, Gil M. Costa, Z. Mainen (2014). <em><a href="https://doi.org/10.1038/nn.3826" target="_blank">Neural antecedents of self-initiated actions in secondary motor cortex</a></em>. <span class="journal">Nat Neurosci 11, 1574-82</span></li>
-<li>Armin Lak, Gil M. Costa, E. Romberg, A. Koulakov, Z. Mainen, Adam Kepecs (2014). <em><a href="https://doi.org/10.1016/j.neuron.2014.08.039" target="_blank">Orbitofrontal Cortex Is Required for Optimal Waiting Based on Decision Confidence</a></em>. <span class="journal">Neuron 84, 190-201</span></li>
-<li>F. Tecuapetla, S. Matias, G. Dugué, Z. Mainen, R. Costa (2014). <em><a href="https://doi.org/10.1038/ncomms5315" target="_blank">Balanced activity in basal ganglia projection pathways is critical for contraversive movements</a></em>. <span class="journal">Nat Comm 5, 4315</span></li>
-<li>G. Dugué, Magor L Lörincz, Eran Lottem, E. Audero, S. Matias, Patrícia A. Correia, C. Léna, Z. Mainen (2014). <em><a href="https://doi.org/10.1371/journal.pone.0105941" target="_blank">Optogenetic recruitment of dorsal raphe serotonergic neurons acutely decreases mechanosensory responsivity in behaving mice</a></em>. <span class="journal">PLoS ONE 9 (8), e105941</span></li>
-<li>Z. Mainen, Alexandre Pouget (2014). <em><a href="https://doi.org/10.1038/511534b" target="_blank">Put brain project back on course</a></em>. <span class="journal">Nature, 511,534</span></li>
-<li>Adam Kepecs, Z. Mainen (2014). <em><a href="https://doi.org/10.1007/978-3-642-45190-4_6" target="_blank">A Computational Framework for the Study of Confidence Across Species</a></em>. <span class="journal">Springer Berlin Heidelberg</span></li>
-<li>Madalena S. Fonseca, M. Murakami, Z. Mainen (2014). <em><a href="https://doi.org/10.1101/012062" target="_blank">Activation of dorsal raphe serotonergic neurons promotes persistent waiting independently of reinforcing effects</a></em>. <span class="journal">Curr Biol 25 (3), 306-15</span></li>
-<li>Hatim A. Zariwala, Adam Kepecs, N. Uchida, Junya Hirokawa, Z. Mainen (2013). <em><a href="https://doi.org/10.1016/j.neuron.2013.02.010" target="_blank">The limits of deliberation in a perceptual decision task</a></em>. <span class="journal">Neuron 78 (2), 339-51</span></li>
-<li>Scott M. Rennie, Marta M. Moita, Z. Mainen (2013). <em><a href="https://doi.org/10.1016/j.tics.2013.04.011" target="_blank">Social cognition in the rodent: nothing to be sniffed at</a></em>. <span class="journal">Trends Cogn Sci 17 (7), 306-7</span></li>
-<li>Arber S, Ehlers MD, Frégnac Y, Mainen ZF, Raymond J, Isaacs T (2013). <em><a href="https://doi.org/10.1016/j.cell.2013.09.037" target="_blank">BRAIN Initiative and Human Brain Project: Hopes and Reservations</a></em>. <span class="journal">Cell 155(2): 265-266</span></li>
-<li>Adam Kepecs, Z. Mainen (2012). <em><a href="https://doi.org/10.1098/rstb.2012.0037" target="_blank">A computational framework for the study of confidence in humans and animals</a></em>. <span class="journal">367 (1594), 1322-37</span></li>
-<li>K. Miura, Z. Mainen, N. Uchida (2012). <em><a href="https://doi.org/10.1016/j.neuron.2012.04.021" target="_blank">Odor Representations in Olfactory Cortex: Distributed Rate Coding and Decorrelated Population Activity</a></em>. <span class="journal">Neuron 74 (6), 1087-98</span></li>
-<li>Gidon Felsen, Z. Mainen (2012). <em><a href="https://doi.org/10.1152/jn.01181.2011" target="_blank">Midbrain contributions to sensorimotor decision-making</a></em>. <span class="journal">J Neurophysiol 108 (1), 135-47</span></li>
-<li>M. I. Vicente, Z. Mainen (2011). <em><a href="https://doi.org/10.1016/j.neuron.2011.03.019" target="_blank">Convergence in the piriform cortex</a></em>. <span class="journal">Neuron 70 (1), 1-2</span></li>
-<li>C. Feierstein, Z. Mainen (2010). <em><a href="https://doi.org/10.1016/j.neuron.2010.04.042" target="_blank">Listening to the crowd: neuronal ensembles rule</a></em>. <span class="journal">Neuron 66 (3), 334-6</span></li>
-<li>C. Feierstein, M. Quirk, N. Uchida, D. Sosulski, Z. Mainen (2009). <em><a href="https://doi.org/10.1016/j.neuron.2006.06.032" target="_blank">A defined network of fast-spiking interneurons in orbitofrontal cortex: responses to behavioral contingencies and ketamine administration</a></em>. <span class="journal">Front Syst Neurosci Nov09 (3), 13</span></li>
-<li>S. Ranade, Z. Mainen (2009). <em><a href="https://doi.org/10.1152/jn.00507.2009" target="_blank">Transient firing of dorsal raphe neurons encodes diverse and specific sensory, motor, and reward events</a></em>. <span class="journal">J Neurophysiol 102, 3026-37</span></li>
-<li>Z. Mainen, Adam Kepecs (2009). <em><a href="https://doi.org/10.1016/j.conb.2009.03.010" target="_blank">Neural representation of behavioral outcomes in the orbitofrontal cortex</a></em>. <span class="journal">Curr Opin Neurobiol 19 , 84-91</span></li>
-<li>G. Dugué, Z. Mainen (2009). <em><a href="https://doi.org/10.1038/nn0609-673" target="_blank">How serotonin gates olfactory information flow</a></em>. <span class="journal">Nat Neurosci 12, 673-5</span></li>
-<li>Adam Kepecs, N. Uchida, Hatim A. Zariwala, Z. Mainen (2008). <em><a href="https://doi.org/10.1038/nature07200" target="_blank">Neural correlates, computation and behavioral impact of decision confidence</a></em>. <span class="journal">Nature 455, 227-31</span></li>
-<li>D. Huber, L. Petreanu, Nima Ghitani, S. Ranade, T. Hromádka, Z. Mainen, K. Svoboda (2008). <em><a href="https://doi.org/10.1038/nature06445" target="_blank">Sparse optical microstimulation in barrel cortex drives learned behavior in freely moving mice</a></em>. <span class="journal">Nature 451, 61-4</span></li>
-<li>Gidon Felsen, Z. Mainen (2008). <em><a href="https://doi.org/10.1016/j.neuron.2008.09.019" target="_blank">Neural substrates of sensory-guided locomotor decisions in the rat superior colliculus</a></em>. <span class="journal">Neuron 60, 137-48</span></li>
-<li>N. Uchida, Z. Mainen (2008). <em><a href="https://doi.org/10.3389/neuro.06.003.2007" target="_blank">Odor concentration invariance by chemical ratio coding</a></em>. <span class="journal">Apr 08 (1), 3</span></li>
-<li>M. Ines, Vicente, Z. Mainen, Paul Szyszka, Alexander Galkin, Randolf Menzel (2008). <em><a href="https://doi.org/10.3389/neuro.01.041.2008" target="_blank">Towards an image of a memory trace</a></em>. <span class="journal">Front Sys Neurosci Dec 08 (2), 131</span></li>
-<li>Takashi R. Sato, Noah W. Gray, Z. Mainen, K. Svoboda (2007). <em><a href="https://doi.org/10.1371/journal.pbio.0050189" target="_blank">The functional microarchitecture of the mouse barrel cortex</a></em>. <span class="journal">PLoS Biol 5 (7), e189</span></li>
-<li>Adam Kepecs, N. Uchida, Z. Mainen (2007). <em><a href="https://doi.org/10.1152/jn.00071.2007" target="_blank">Rapid and precise control of sniffing during olfactory discrimination in rats</a></em>. <span class="journal">J Neurophysiol 98, 205-13</span></li>
-<li>X. Yun, Donghwi Kim, M. Stanaćević, Z. Mainen (2007). <em><a href="https://doi.org/10.1109/iembs.2007.4352804" target="_blank">Low-power high-resolution 32-channel neural recording system</a></em>. <span class="journal">Conf Proc IEEE Eng Med Biol Soc, 2373-2376</span></li>
-<li>Z. Mainen (2007). <em><a href="https://doi.org/10.1038/nn1207-1511" target="_blank">The main olfactory bulb and innate behavior: different perspectives on an olfactory scene</a></em>. <span class="journal">Nat Neurosci 10, 1511-2</span></li>
-<li>Z. Mainen, L. Abbott (2007). <em><a href="https://doi.org/10.1093/acprof:oso/9780198566564.003.0018" target="_blank">Functional plasticity at dendritic synapses</a></em>. <span class="journal">Oxford: Oxford University Press</span></li>
-<li>Rachel I. Wilson, Z. Mainen (2006). <em><a href="https://doi.org/10.1146/annurev.neuro.29.051605.112950" target="_blank">Early events in olfactory processing</a></em>. <span class="journal">Annu Rev Neurosci 29, 163-201</span></li>
-<li>Adam Kepecs, N. Uchida, Z. Mainen (2006). <em><a href="https://doi.org/10.1093/chemse/bjj016" target="_blank">The sniff as a unit of olfactory processing</a></em>. <span class="journal">Chem Senses 31, 167-79</span></li>
-<li>C. Feierstein, M. Quirk, N. Uchida, D. Sosulski, Z. Mainen (2006). <em><a href="https://doi.org/10.1016/j.neuron.2006.06.032" target="_blank">Representation of spatial goals in rat orbitofrontal cortex</a></em>. <span class="journal">Neuron 51, 495-507</span></li>
-<li>N. Uchida, Adam Kepecs, Z. Mainen (2006). <em><a href="https://doi.org/10.1038/nrn1933" target="_blank">Seeing at a glance: Limits on temporal integration in perception</a></em>. <span class="journal">Nature Rev Neurosci 7, 485-91</span></li>
-<li>H. Gurden, N. Uchida, Z. Mainen (2006). <em><a href="https://doi.org/10.1016/j.neuron.2006.07.022" target="_blank">Sensory-evoked intrinsic optical signals in the olfactory bulb are coupled to glutamate release and uptake</a></em>. <span class="journal">Neuron 52, 335-45</span></li>
-<li>Z. Mainen (2006). <em><a href="https://doi.org/10.1016/j.conb.2006.06.003" target="_blank">Behavioral analysis of olfactory coding and computation in rodents</a></em>. <span class="journal">Curr Opin Neurobiol 16, 429-34</span></li>
-<li>Veronica Egger, K. Svoboda, Z. Mainen (2005). <em><a href="https://doi.org/10.1523/jneurosci.4746-04.2005" target="_blank">Dendrodendritic synaptic signals in olfactory bulb granule cells: local spine boost and global low-threshold spike</a></em>. <span class="journal">J Neurosci 25, 3521-30</span></li>
-<li>N. Uchida, Z. Mainen (2003). <em><a href="https://doi.org/10.1038/nn1142" target="_blank">Speed and accuracy of olfactory discrimination in the rat</a></em>. <span class="journal">Nat Neurosci 6, 1224-9</span></li>
-<li>Veronica Egger, K. Svoboda, Z. Mainen (2003). <em><a href="https://doi.org/10.1523/jneurosci.23-20-07551.2003" target="_blank">Mechanisms of lateral inhibition in the olfactory bulb: efficiency and modulation of spike-evoked calcium influx into granule cells</a></em>. <span class="journal">J Neurosci 23, 7551-8</span></li>
-<li>M. Maravall, Z. Mainen, B. Sabatini, K. Svoboda (2000). <em><a href="https://doi.org/10.1016/s0006-3495(00" target="_blank">Estimating intracellular calcium concentrations and buffering without wavelength rationing</a></em>. <span class="journal">Biophys J 78, 2655-67</span></li>
-<li>R. Malinow, Z. Mainen, Y. Hayashi (2000). <em><a href="https://doi.org/10.1016/s0959-4388(00" target="_blank">LTP mechanisms: from silence to four-lane traffic</a></em>. <span class="journal">Curr Opin Neurobiol 10, 352-7</span></li>
-<li>Z. Mainen (2000). <em><a href="https://doi.org/10.1038/78751" target="_blank">Thinking about feeling</a></em>. <span class="journal">Nat Neurosci 3, 857</span></li>
-<li>Z. Mainen, R. Malinow, K. Svoboda (1999). <em><a href="https://doi.org/10.1038/20187" target="_blank">Synaptic calcium transients in single spines indicate that NMDA receptors are not saturated</a></em>. <span class="journal">Nature 399, 151-5</span></li>
-<li>Z. Mainen, M. Maletić-Savatić, Song-Hai Shi, Y. Hayashi, R. Malinow, K. Svoboda (1999). <em><a href="https://doi.org/10.1006/meth.1999.0776" target="_blank">Two-photon imaging in brain slices</a></em>. <span class="journal">Methods 18, 231-9</span></li>
-<li>K. Svoboda, Z. Mainen (1999). <em><a href="https://doi.org/10.1016/s0896-6273(00" target="_blank">Synaptic calcium: Intracellular stores spill their guts</a></em>. <span class="journal">Neuron 22, 427-30</span></li>
-<li>Z. Mainen, L. Abbott (1999). <em><a href="https://doi.org/10.1093/acprof:oso/9780198566564.003.0014" target="_blank">Functional plasticity at dendritic synapses</a></em>. <span class="journal">Oxford: Oxford University Press, pp 310-338</span></li>
-<li>A. Destexhe, Z. Mainen, T. Sejnowski (1998). <em><a href="https://doi.org/10.1007/bf00961734" target="_blank">Kinetic models of synaptic transmission</a></em>. <span class="journal">(Koch C, Segev I, eds), Cambridge, MA: MIT Press, pp 1-26</span></li>
-<li>Z. Mainen, Zhengping Jia, J. Roder, R. Malinow (1998). <em><a href="https://doi.org/10.1038/2812" target="_blank">Use-dependent AMPA receptor block in mice lacking GluR2 suggests postsynaptic site for LTP expression</a></em>. <span class="journal">Nat Neurosci 1, 579-86</span></li>
-<li>Alain Destexhe (1998). <em>Kinetic Models of Synaptic Transmission</em>. <span class="journal"></span></li>
-<li>Zachary F. Mainen (1998). <em>Modeling Active Dendritic Processes in Pyramidal Neurons</em>. <span class="journal"></span></li>
-<li>Z. Mainen, T. Sejnowski (1996). <em><a href="https://doi.org/10.1038/382363a0" target="_blank">Influence of dendritic structure on firing pattern in model neocortical neurons</a></em>. <span class="journal">Nature 382, 363-6</span></li>
-<li>Z. Mainen, N. Carnevale, A. Zador, B. Claiborne, Thomas H. Brown (1996). <em><a href="https://doi.org/10.1152/jn.1996.76.3.1904" target="_blank">Electrotonic architecture of hippocampal CA1 pyramidal neurons based on three-dimensional reconstructions</a></em>. <span class="journal">J Neurophysiol 76, 1904-23</span></li>
-<li>R. Malinow, Z. Mainen, S. Siegelbaum, V. Bolshakov (1996). <em><a href="https://doi.org/10.1126/science.271.5255.1604" target="_blank">Long-term potentiation in the CA1 hippocampus [technical comment]</a></em>. <span class="journal">Science 271, 1604-6</span></li>
-<li>Z. Mainen, T. Sejnowski (1995). <em><a href="https://doi.org/10.1126/science.7770778" target="_blank">Reliability of spike timing in neocortical neurons</a></em>. <span class="journal">Science 268, 1503-6</span></li>
-<li>A. Destexhe, Z. Mainen, T. Sejnowski (1995). <em><a href="https://doi.org/10.1007/bf00961734" target="_blank">Elementary kinetics provide efficient models of synaptic transmission and neuromodulation</a></em>. <span class="journal">In: The Neurobiology of Computation (Bower J, ed) Norwell, MA: Kluwer Academic Press, pp 9-14</span></li>
-<li>A. Destexhe, Z. Mainen, T. Sejnowski (1995). <em><a href="https://doi.org/10.1007/bf00961734" target="_blank">Synaptic currents, neuromodulation and kinetic models</a></em>. <span class="journal">In: The Handbook of Brain Theory and Neural Networks (Arbib M, ed) Cambridge, MA: MIT Press, pp 956-959</span></li>
-<li>Z. Mainen, Z. Mainen, J. Joerges, J. Huguenard, T. Sejnowski, T. Sejnowski (1995). <em><a href="https://doi.org/10.1016/0896-6273(95" target="_blank">A model of spike initiation in neocortical pyramidal neurons</a></em>. <span class="journal">Neuron 15, 1427-39</span></li>
-<li>Alain Destexhe (1995). <em>Synaptic Currents, Neuromodulation, and Kinetic Models</em>. <span class="journal"></span></li>
-<li>Alain Destexhe (1995). <em>Synaptic Interactions</em>. <span class="journal"></span></li>
-<li>A. Destexhe, Z. Mainen, T. Sejnowski (1994). <em><a href="https://doi.org/10.1007/bf00961734" target="_blank">Synthesis of models for excitable membranes, synaptic transmission, and neuromodulation using a common kinetic framework</a></em>. <span class="journal">J Computational Neurosci 1, 195-230</span></li>
-<li>A. Destexhe, Z. Mainen, T. Sejnowski (1994). <em><a href="https://doi.org/10.1162/neco.1994.6.1.14" target="_blank">An efficient method for computing synaptic conductances based on a kinetic model of receptor binding</a></em>. <span class="journal">Neural Computation 6, 14-8</span></li>
-<li>Thomas H. Brown (1993). <em><a href="https://doi.org/10.21236/ada309810" target="_blank">Self-organization of Hebbian Synapses in Hippocampal Neurons</a></em>. <span class="journal"></span></li>
-<li>B. Claiborne, A. Zador, Z. Mainen, T. H. Brown (1992). <em><a href="https://doi.org/10.1016/b978-0-12-484815-3.50009-8" target="_blank">Computational models of the principal classes of hippocampal neurons</a></em>. <span class="journal">In: Single Neuron Computation (McKenna T, Davis J, Zornetzer SF, eds) New York: Academic Press, pp 61-80</span></li>
-<li>E. W. Kairiss, Z. Mainen, B. Claiborne, T. H. Brown (1992). <em><a href="https://doi.org/10.1007/978-1-4615-4010-6_7" target="_blank">Dendritic control of hebbian computations</a></em>. <span class="journal">In: Analysis and Modeling of Neural Systems (Eeckman FH, ed) Boston: Kluwer Academic Publishers</span></li>
-<li>B. Claiborne, A. Zador, Z. Mainen, T. H. Brown (1991). <em><a href="https://doi.org/10.1016/b978-0-12-484815-3.50009-8" target="_blank">Self-organization and non-linear processing in hippocampal neurons</a></em>. <span class="journal">In: Advances in neural information processing systems 3 (Lippman RP, Moody JE, Touretzky DS, eds) San Mateo, CA: Morgan Kaufmann, pp 39-45</span></li></ul>
-<div class="section-title">Projects</div><ul class="project-list"><li><a href="../index.html#project-5HT-SPE-felix">Serotonin State Prediction Error</a></li>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0001-7913-9109" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/1855194" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Zachary F. Mainen is the Principal Investigator of the Mainen Lab, where his research focuses on understanding how serotonin modulates neural circuits and behavior, particularly in the context of decision-making, learning, and exploratory behavior. His work combines quantitative behavioral paradigms with electrophysiological and optogenetic techniques to study neural coding and computation, with recent publications examining serotonin's role in neural dynamics, behavioral persistence, and brain-wide activity patterns. He founded and directs the lab's diverse research program, which spans from fundamental neuroscience questions about neuromodulation to applied work on topics such as COVID-19 olfactory screening and perioperative anxiety.</p></div>
+<h2>Selected Publications</h2>
+<div class="cv-meta">99 lab publications</div>
+<ul class="pub-list"><li><a href="https://doi.org/10.1101/2025.08.01.668048" target="_blank">Serotonin modulates neural dynamics in a subspace orthogonal to the choice space</a>. <span class="venue">bioRxiv</span>, 2025.</li>
+<li><a href="https://doi.org/10.1038/s41593-025-02071-5" target="_blank">Facial expressions in mice reveal latent cognitive variables and their neural correlates</a>. <span class="venue">Nature Neuroscience</span>, 2024.</li>
+<li><a href="https://doi.org/10.1038/s41593-023-01305-8" target="_blank">A reservoir of foraging decision variables in the mouse brain</a>. <span class="venue">https://doi.org/10.1038/s41593-023-01305-8</span>, 2023.</li>
+<li><a href="https://doi.org/10.1016/j.cub.2023.09.068" target="_blank">Serotonin</a>. <span class="venue">Current Biology 33, R1209–R1221</span>, 2023.</li>
+<li><a href="https://doi.org/10.1038/s41562-022-01306-w" target="_blank">Stress-sensitive inference of task controllability</a>. <span class="venue">Nat Hum Behav 6, 812</span>, 2022.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2022.09.033" target="_blank">Next-generation brain observatories</a>. <span class="venue">Neuron 110</span>, 2022.</li>
+<li><a href="https://doi.org/10.1101/2022.01.01.474690" target="_blank">Maturation of prefrontal input to dorsal raphe increases behavioral persistence in mice</a>. <span class="venue">doi: https://doi.org/10.1101/2022.01.01.474690</span>, 2022.</li>
+<li><a href="https://doi.org/10.1038/s41586-021-04242-3" target="_blank">Spatial maps in olfactory cortex during olfactory navigation</a>. <span class="venue">Nature 601, 595-599</span>, 2021.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2021.10.011" target="_blank">Metastable attractors explain the variable timing of stable behavioral action sequences</a>. <span class="venue">Neuron 110 (1): 139</span>, 2021.</li>
+<li><a href="https://doi.org/10.1101/2020.06.25.171637" target="_blank">Phasic activation of dorsal raphe serotonergic neurons increases pupil-linked arousal</a>. <span class="venue">Curr Biol 31 (1), 192–197</span>, 2021.</li>
+<li><a href="https://doi.org/10.1101/2020.03.02.973016" target="_blank">Citric Acid as an alternative to water restrictions for high-yield mouse behavior</a>. <span class="venue">eNeuro 11 January 2021, ENEURO.0230-20.2020</span>, 2021.</li>
+<li><a href="https://doi.org/10.1101/679142" target="_blank">Inference-based decisions in a hidden state foraging task: differential contributions of prefrontal areas</a>. <span class="venue">Neuron 106 (1), 166</span>, 2020.</li>
+<li><a href="https://doi.org/10.1101/501858" target="_blank">The impact of learning on perceptual decisions and its implication for speed-accuracy tradeoffs</a>. <span class="venue">Nat Comm 11 (1): 2757</span>, 2020.</li>
+<li><a href="https://doi.org/10.1101/2020.04.16.044941" target="_blank">Functional MRI of large scale activity in behaving mice</a>. <span class="venue">bioRxiv, doi: https://doi.org/10.1101/2020.04.16.044941</span>, 2020.</li>
+<li><a href="https://doi.org/10.1101/2020.05.07.20094516" target="_blank">Relationship Between Odor Intensity Estimates and COVID-19 Prevalence Prediction in a Swedish Population</a>. <span class="venue">Chem Senses 45 (6), 449–456</span>, 2020.</li>
+<li><a href="https://doi.org/10.1073/pnas.1906787116" target="_blank">Learning optimal decisions with confidence</a>. <span class="venue">PNAS 116 (49), 24872</span>, 2019.</li>
+<li><a href="https://doi.org/10.1038/s41593-019-0439-7" target="_blank">The mechanistic foundation of Weber&#x27;s law</a>. <span class="venue">Nat Neurosci 22 (9)</span>, 2019.</li>
+<li><a href="https://doi.org/10.1007/s11229-019-02136-6" target="_blank">The overlooked ubiquity of first-person experience in the cognitive sciences</a>. <span class="venue">Synthese 198, 8005–8041</span>, 2019.</li>
+<li><a href="https://doi.org/10.1038/s41467-018-04840-2" target="_blank">An effect of serotonergic stimulation on learning rates for rewards apparent after long intertrial intervals</a>. <span class="venue">Nat Commun 9 (1), 2477</span>, 2018.</li>
+<li><a href="https://doi.org/10.1101/170472" target="_blank">Activation of serotonin neurons promotes active persistence in a probabilistic foraging task</a>. <span class="venue">Nat Commun 9 (1): 1000</span>, 2018.</li>
+<li><a href="https://doi.org/10.7554/elife.20975" target="_blank">Transient inhibition and long-term facilitation of locomotion by phasic optogenetic activation of serotonin neurons</a>. <span class="venue">eLife pii: e20975</span>, 2017.</li>
+<li><a href="https://doi.org/10.1101/088963" target="_blank">Distinct sources of deterministic and stochastic components of action timing decisions in rodent frontal cortex</a>. <span class="venue">Neuron 94 (4), 908-919.e7</span>, 2017.</li>
+<li><a href="https://doi.org/10.35802/216324" target="_blank">An International Laboratory for Systems and Computational Neuroscience</a>. <span class="venue">Neuron 96 (6):1213-1218</span>, 2017.</li>
+<li><a href="https://doi.org/10.1038/nn.4444" target="_blank">A probabilistic approach to demixing odors</a>. <span class="venue">Nat Neurosci 20, 98–106</span>, 2017.</li>
+<li><a href="https://doi.org/10.21769/bioprotoc.2549" target="_blank">Stereotaxic adeno-associated virus injection and cannula implantation in the dorsal raphe nucleus of mice</a>. <span class="venue">Bio-protocol 7 (18), e2549</span>, 2017.</li>
+<li><a href="https://doi.org/10.7554/elife.20552.028" target="_blank">Activity patterns of serotonin neurons underlying cognitive flexibility</a>. <span class="venue">eLife pii: e20552</span>, 2017.</li>
+<li><a href="https://doi.org/10.1523/jneurosci.3008-15.2016" target="_blank">Optogenetic activation of dorsal raphe serotonin neurons rapidly inhibits spontaneous but not odor-evoked activity in olfactory cortex</a>. <span class="venue">J Neurosci 36 (1), 7-18</span>, 2016.</li>
+<li><a href="https://doi.org/10.1038/539159a" target="_blank">A better way to crack the brain</a>. <span class="venue">Nature 539, 159-161</span>, 2016.</li>
+<li><a href="https://doi.org/10.1101/037192" target="_blank">Expanding perspectives on cognition in humans, animals, and machines</a>. <span class="venue">Curr Opin Neurobiol 37, 85–91</span>, 2016.</li>
+<li><a href="https://doi.org/10.7554/elife.10989.022" target="_blank">Demixed principal component analysis of neural population data</a>. <span class="venue">eLife (5), e10989</span>, 2016.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2015.09.039" target="_blank">Confidence as bayesian probability: from neural origins to behavior</a>. <span class="venue">Neuron 88 (1), 78–92</span>, 2015.</li>
+<li><a href="https://doi.org/10.1016/j.conb.2015.01.005" target="_blank">Preparing and selecting actions with neural populations: toward cortical circuit mechanisms</a>. <span class="venue">Curr Opin Neurobiol 33 (C), 40–46</span>, 2015.</li>
+<li><a href="https://doi.org/10.1101/sqb.2014.79.024810" target="_blank">Spontaneous Decisions and Free Will: Empirical Results and Philosophical Considerations</a>. <span class="venue">Cold Spring Harb Symp Quant Biol</span>, 2015.</li>
+<li><a href="https://doi.org/10.1371/journal.pone.0119072" target="_blank">Columnar architecture improves noise robustness in a model cortical network</a>. <span class="venue">PLoS One 10 (3), e0119072</span>, 2015.</li>
+<li><a href="https://doi.org/10.1101/006809" target="_blank">Big behavioral data: psychology, ethology and the foundations of neuroscience</a>. <span class="venue">Nat Neurosci (17), 1455–1462</span>, 2014.</li>
+<li><a href="https://doi.org/10.1038/nn.3826" target="_blank">Neural antecedents of self-initiated actions in secondary motor cortex</a>. <span class="venue">Nat Neurosci 11, 1574-82</span>, 2014.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2014.08.039" target="_blank">Orbitofrontal Cortex Is Required for Optimal Waiting Based on Decision Confidence</a>. <span class="venue">Neuron 84, 190-201</span>, 2014.</li>
+<li><a href="https://doi.org/10.1038/ncomms5315" target="_blank">Balanced activity in basal ganglia projection pathways is critical for contraversive movements</a>. <span class="venue">Nat Comm 5, 4315</span>, 2014.</li>
+<li><a href="https://doi.org/10.1371/journal.pone.0105941" target="_blank">Optogenetic recruitment of dorsal raphe serotonergic neurons acutely decreases mechanosensory responsivity in behaving mice</a>. <span class="venue">PLoS ONE 9 (8), e105941</span>, 2014.</li>
+<li><a href="https://doi.org/10.1038/511534b" target="_blank">Put brain project back on course</a>. <span class="venue">Nature, 511,534</span>, 2014.</li>
+<li><a href="https://doi.org/10.1007/978-3-642-45190-4_6" target="_blank">A Computational Framework for the Study of Confidence Across Species</a>. <span class="venue">Springer Berlin Heidelberg</span>, 2014.</li>
+<li><a href="https://doi.org/10.1101/012062" target="_blank">Activation of dorsal raphe serotonergic neurons promotes persistent waiting independently of reinforcing effects</a>. <span class="venue">Curr Biol 25 (3), 306-15</span>, 2014.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2013.02.010" target="_blank">The limits of deliberation in a perceptual decision task</a>. <span class="venue">Neuron 78 (2), 339-51</span>, 2013.</li>
+<li><a href="https://doi.org/10.1016/j.tics.2013.04.011" target="_blank">Social cognition in the rodent: nothing to be sniffed at</a>. <span class="venue">Trends Cogn Sci 17 (7), 306-7</span>, 2013.</li>
+<li><a href="https://doi.org/10.1016/j.cell.2013.09.037" target="_blank">BRAIN Initiative and Human Brain Project: Hopes and Reservations</a>. <span class="venue">Cell 155(2): 265-266</span>, 2013.</li>
+<li><a href="https://doi.org/10.1098/rstb.2012.0037" target="_blank">A computational framework for the study of confidence in humans and animals</a>. <span class="venue">367 (1594), 1322-37</span>, 2012.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2012.04.021" target="_blank">Odor Representations in Olfactory Cortex: Distributed Rate Coding and Decorrelated Population Activity</a>. <span class="venue">Neuron 74 (6), 1087-98</span>, 2012.</li>
+<li><a href="https://doi.org/10.1152/jn.01181.2011" target="_blank">Midbrain contributions to sensorimotor decision-making</a>. <span class="venue">J Neurophysiol 108 (1), 135-47</span>, 2012.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2011.03.019" target="_blank">Convergence in the piriform cortex</a>. <span class="venue">Neuron 70 (1), 1-2</span>, 2011.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2010.04.042" target="_blank">Listening to the crowd: neuronal ensembles rule</a>. <span class="venue">Neuron 66 (3), 334-6</span>, 2010.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2006.06.032" target="_blank">A defined network of fast-spiking interneurons in orbitofrontal cortex: responses to behavioral contingencies and ketamine administration</a>. <span class="venue">Front Syst Neurosci Nov09 (3), 13</span>, 2009.</li>
+<li><a href="https://doi.org/10.1152/jn.00507.2009" target="_blank">Transient firing of dorsal raphe neurons encodes diverse and specific sensory, motor, and reward events</a>. <span class="venue">J Neurophysiol 102, 3026-37</span>, 2009.</li>
+<li><a href="https://doi.org/10.1016/j.conb.2009.03.010" target="_blank">Neural representation of behavioral outcomes in the orbitofrontal cortex</a>. <span class="venue">Curr Opin Neurobiol 19 , 84-91</span>, 2009.</li>
+<li><a href="https://doi.org/10.1038/nn0609-673" target="_blank">How serotonin gates olfactory information flow</a>. <span class="venue">Nat Neurosci 12, 673-5</span>, 2009.</li>
+<li><a href="https://doi.org/10.1038/nature07200" target="_blank">Neural correlates, computation and behavioral impact of decision confidence</a>. <span class="venue">Nature 455, 227-31</span>, 2008.</li>
+<li><a href="https://doi.org/10.1038/nature06445" target="_blank">Sparse optical microstimulation in barrel cortex drives learned behavior in freely moving mice</a>. <span class="venue">Nature 451, 61-4</span>, 2008.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2008.09.019" target="_blank">Neural substrates of sensory-guided locomotor decisions in the rat superior colliculus</a>. <span class="venue">Neuron 60, 137-48</span>, 2008.</li>
+<li><a href="https://doi.org/10.3389/neuro.06.003.2007" target="_blank">Odor concentration invariance by chemical ratio coding</a>. <span class="venue">Apr 08 (1), 3</span>, 2008.</li>
+<li><a href="https://doi.org/10.3389/neuro.01.041.2008" target="_blank">Towards an image of a memory trace</a>. <span class="venue">Front Sys Neurosci Dec 08 (2), 131</span>, 2008.</li>
+<li><a href="https://doi.org/10.1371/journal.pbio.0050189" target="_blank">The functional microarchitecture of the mouse barrel cortex</a>. <span class="venue">PLoS Biol 5 (7), e189</span>, 2007.</li>
+<li><a href="https://doi.org/10.1152/jn.00071.2007" target="_blank">Rapid and precise control of sniffing during olfactory discrimination in rats</a>. <span class="venue">J Neurophysiol 98, 205-13</span>, 2007.</li>
+<li><a href="https://doi.org/10.1109/iembs.2007.4352804" target="_blank">Low-power high-resolution 32-channel neural recording system</a>. <span class="venue">Conf Proc IEEE Eng Med Biol Soc, 2373-2376</span>, 2007.</li>
+<li><a href="https://doi.org/10.1038/nn1207-1511" target="_blank">The main olfactory bulb and innate behavior: different perspectives on an olfactory scene</a>. <span class="venue">Nat Neurosci 10, 1511-2</span>, 2007.</li>
+<li><a href="https://doi.org/10.1093/acprof:oso/9780198566564.003.0018" target="_blank">Functional plasticity at dendritic synapses</a>. <span class="venue">Oxford: Oxford University Press</span>, 2007.</li>
+<li><a href="https://doi.org/10.1146/annurev.neuro.29.051605.112950" target="_blank">Early events in olfactory processing</a>. <span class="venue">Annu Rev Neurosci 29, 163-201</span>, 2006.</li>
+<li><a href="https://doi.org/10.1093/chemse/bjj016" target="_blank">The sniff as a unit of olfactory processing</a>. <span class="venue">Chem Senses 31, 167-79</span>, 2006.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2006.06.032" target="_blank">Representation of spatial goals in rat orbitofrontal cortex</a>. <span class="venue">Neuron 51, 495-507</span>, 2006.</li>
+<li><a href="https://doi.org/10.1038/nrn1933" target="_blank">Seeing at a glance: Limits on temporal integration in perception</a>. <span class="venue">Nature Rev Neurosci 7, 485-91</span>, 2006.</li>
+<li><a href="https://doi.org/10.1016/j.neuron.2006.07.022" target="_blank">Sensory-evoked intrinsic optical signals in the olfactory bulb are coupled to glutamate release and uptake</a>. <span class="venue">Neuron 52, 335-45</span>, 2006.</li>
+<li><a href="https://doi.org/10.1016/j.conb.2006.06.003" target="_blank">Behavioral analysis of olfactory coding and computation in rodents</a>. <span class="venue">Curr Opin Neurobiol 16, 429-34</span>, 2006.</li>
+<li><a href="https://doi.org/10.1523/jneurosci.4746-04.2005" target="_blank">Dendrodendritic synaptic signals in olfactory bulb granule cells: local spine boost and global low-threshold spike</a>. <span class="venue">J Neurosci 25, 3521-30</span>, 2005.</li>
+<li><a href="https://doi.org/10.1038/nn1142" target="_blank">Speed and accuracy of olfactory discrimination in the rat</a>. <span class="venue">Nat Neurosci 6, 1224-9</span>, 2003.</li>
+<li><a href="https://doi.org/10.1523/jneurosci.23-20-07551.2003" target="_blank">Mechanisms of lateral inhibition in the olfactory bulb: efficiency and modulation of spike-evoked calcium influx into granule cells</a>. <span class="venue">J Neurosci 23, 7551-8</span>, 2003.</li>
+<li><a href="https://doi.org/10.1016/s0006-3495(00" target="_blank">Estimating intracellular calcium concentrations and buffering without wavelength rationing</a>. <span class="venue">Biophys J 78, 2655-67</span>, 2000.</li>
+<li><a href="https://doi.org/10.1016/s0959-4388(00" target="_blank">LTP mechanisms: from silence to four-lane traffic</a>. <span class="venue">Curr Opin Neurobiol 10, 352-7</span>, 2000.</li>
+<li><a href="https://doi.org/10.1038/78751" target="_blank">Thinking about feeling</a>. <span class="venue">Nat Neurosci 3, 857</span>, 2000.</li>
+<li><a href="https://doi.org/10.1038/20187" target="_blank">Synaptic calcium transients in single spines indicate that NMDA receptors are not saturated</a>. <span class="venue">Nature 399, 151-5</span>, 1999.</li>
+<li><a href="https://doi.org/10.1006/meth.1999.0776" target="_blank">Two-photon imaging in brain slices</a>. <span class="venue">Methods 18, 231-9</span>, 1999.</li>
+<li><a href="https://doi.org/10.1016/s0896-6273(00" target="_blank">Synaptic calcium: Intracellular stores spill their guts</a>. <span class="venue">Neuron 22, 427-30</span>, 1999.</li>
+<li><a href="https://doi.org/10.1093/acprof:oso/9780198566564.003.0014" target="_blank">Functional plasticity at dendritic synapses</a>. <span class="venue">Oxford: Oxford University Press, pp 310-338</span>, 1999.</li>
+<li><a href="https://doi.org/10.1007/bf00961734" target="_blank">Kinetic models of synaptic transmission</a>. <span class="venue">(Koch C, Segev I, eds), Cambridge, MA: MIT Press, pp 1-26</span>, 1998.</li>
+<li><a href="https://doi.org/10.1038/2812" target="_blank">Use-dependent AMPA receptor block in mice lacking GluR2 suggests postsynaptic site for LTP expression</a>. <span class="venue">Nat Neurosci 1, 579-86</span>, 1998.</li>
+<li>Kinetic Models of Synaptic Transmission. 1998.</li>
+<li>Modeling Active Dendritic Processes in Pyramidal Neurons. 1998.</li>
+<li><a href="https://doi.org/10.1038/382363a0" target="_blank">Influence of dendritic structure on firing pattern in model neocortical neurons</a>. <span class="venue">Nature 382, 363-6</span>, 1996.</li>
+<li><a href="https://doi.org/10.1152/jn.1996.76.3.1904" target="_blank">Electrotonic architecture of hippocampal CA1 pyramidal neurons based on three-dimensional reconstructions</a>. <span class="venue">J Neurophysiol 76, 1904-23</span>, 1996.</li>
+<li><a href="https://doi.org/10.1126/science.271.5255.1604" target="_blank">Long-term potentiation in the CA1 hippocampus [technical comment]</a>. <span class="venue">Science 271, 1604-6</span>, 1996.</li>
+<li><a href="https://doi.org/10.1126/science.7770778" target="_blank">Reliability of spike timing in neocortical neurons</a>. <span class="venue">Science 268, 1503-6</span>, 1995.</li>
+<li><a href="https://doi.org/10.1007/bf00961734" target="_blank">Elementary kinetics provide efficient models of synaptic transmission and neuromodulation</a>. <span class="venue">In: The Neurobiology of Computation (Bower J, ed) Norwell, MA: Kluwer Academic Press, pp 9-14</span>, 1995.</li>
+<li><a href="https://doi.org/10.1007/bf00961734" target="_blank">Synaptic currents, neuromodulation and kinetic models</a>. <span class="venue">In: The Handbook of Brain Theory and Neural Networks (Arbib M, ed) Cambridge, MA: MIT Press, pp 956-959</span>, 1995.</li>
+<li><a href="https://doi.org/10.1016/0896-6273(95" target="_blank">A model of spike initiation in neocortical pyramidal neurons</a>. <span class="venue">Neuron 15, 1427-39</span>, 1995.</li>
+<li>Synaptic Currents, Neuromodulation, and Kinetic Models. 1995.</li>
+<li>Synaptic Interactions. 1995.</li>
+<li><a href="https://doi.org/10.1007/bf00961734" target="_blank">Synthesis of models for excitable membranes, synaptic transmission, and neuromodulation using a common kinetic framework</a>. <span class="venue">J Computational Neurosci 1, 195-230</span>, 1994.</li>
+<li><a href="https://doi.org/10.1162/neco.1994.6.1.14" target="_blank">An efficient method for computing synaptic conductances based on a kinetic model of receptor binding</a>. <span class="venue">Neural Computation 6, 14-8</span>, 1994.</li>
+<li><a href="https://doi.org/10.21236/ada309810" target="_blank">Self-organization of Hebbian Synapses in Hippocampal Neurons</a>. 1993.</li>
+<li><a href="https://doi.org/10.1016/b978-0-12-484815-3.50009-8" target="_blank">Computational models of the principal classes of hippocampal neurons</a>. <span class="venue">In: Single Neuron Computation (McKenna T, Davis J, Zornetzer SF, eds) New York: Academic Press, pp 61-80</span>, 1992.</li>
+<li><a href="https://doi.org/10.1007/978-1-4615-4010-6_7" target="_blank">Dendritic control of hebbian computations</a>. <span class="venue">In: Analysis and Modeling of Neural Systems (Eeckman FH, ed) Boston: Kluwer Academic Publishers</span>, 1992.</li>
+<li><a href="https://doi.org/10.1016/b978-0-12-484815-3.50009-8" target="_blank">Self-organization and non-linear processing in hippocampal neurons</a>. <span class="venue">In: Advances in neural information processing systems 3 (Lippman RP, Moody JE, Touretzky DS, eds) San Mateo, CA: Morgan Kaufmann, pp 39-45</span>, 1991.</li></ul>
+<h2>At the Mainen Lab</h2>
+<div class="lab-role">Principal Investigator, 2007–present</div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5HT-SPE-felix">Serotonin State Prediction Error</a></li>
 <li><a href="../index.html#project-5HT-movement-stefan">Serotonin &amp; Exploratory Movement</a></li>
 <li><a href="../index.html#project-5HT-novelty-solene">Serotonin &amp; Learning</a></li>
 <li><a href="../index.html#project-5HT-novelty-stefan">Serotonin &amp; Novelty</a></li>
@@ -177,7 +190,6 @@ h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom
 <li><a href="../index.html#project-sharing">Social Flavor Perception</a></li>
 <li><a href="../index.html#project-tasting">Imagery and Cross-Modal Flavor Perception</a></li>
 <li><a href="../index.html#project-vr-surgery">VR and Perioperative Anxiety</a></li></ul>
-<div class="links"><a href="https://orcid.org/0000-0001-7913-9109" target="_blank">ORCID</a></div>
 </div>
 <script>
 const toggle = document.getElementById('theme-toggle');

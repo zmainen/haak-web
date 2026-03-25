@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guillaume Dugue &mdash; Mainen Lab</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
+}
+[data-theme="dark"] {
+  --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
+}
+.page { max-width: 700px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+.back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
+.back:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.2rem; }
+h2 { font-size: 0.72rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin: 1.8rem 0 0.5rem; }
+.position { color: var(--muted); font-size: 0.92rem; margin-bottom: 1rem; }
+.position a { color: var(--accent); text-decoration: none; }
+.position a:hover { text-decoration: underline; }
+.lab-role { font-size: 0.9rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
+.profile-links { list-style: none; padding: 0; margin: 0; text-align: center; }
+.profile-links li { font-size: 0.88rem; margin-bottom: 0.3rem; }
+.profile-links li a { color: var(--accent); text-decoration: none; }
+.profile-links li a:hover { text-decoration: underline; }
+.bio { font-size: 0.92rem; line-height: 1.7; color: var(--text); }
+.bio p { margin-bottom: 0.8rem; }
+.bio h1, .bio h2, .bio h3 { font-size: 0.95rem; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 1rem 0 0.4rem; }
+.cv-meta { font-size: 0.8rem; color: var(--muted); margin-bottom: 0.8rem; }
+.pub-list { list-style: none; padding: 0; }
+.pub-list li { font-size: 0.88rem; color: var(--text); margin-bottom: 0.6rem; line-height: 1.55; }
+.pub-list li.lab-paper { background: var(--highlight); padding: 0.35rem 0.5rem; border-radius: 4px; margin-left: -0.5rem; margin-right: -0.5rem; }
+.pub-list li .journal, .pub-list li .venue { color: var(--muted); }
+.pub-list li .cite-count { color: var(--muted); font-size: 0.82rem; }
+.pub-list li a { color: var(--accent); text-decoration: none; }
+.pub-list li a:hover { text-decoration: underline; }
+.project-list { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.project-list li a {
+  display: inline-block; font-size: 0.82rem; padding: 0.25rem 0.65rem;
+  border-radius: 999px; border: 1px solid var(--border); color: var(--accent);
+  text-decoration: none; transition: background 0.15s;
+}
+.project-list li a:hover { background: var(--hover); }
+#theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text); font-size: 0.85rem;
+}
+#theme-toggle:hover { background: var(--hover); }
+</style>
+</head>
+<body>
+<div class="page">
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+<h1>Guillaume Dugue <a href="http://127.0.0.1:18832/situation?path=workspaces/zach/projects/mainen-lab/index.md" style="font-size:0.5em;color:#999;text-decoration:none;vertical-align:middle" title="Edit in situation editor">&#9998;</a></h1>
+<div class="position">PI, College de France / CNRS</div>
+<h2>Profile</h2>
+<ul class="profile-links"><li><a href="https://orcid.org/0000-0002-4106-6132" target="_blank" rel="noopener">ORCID</a></li>
+<li><a href="https://www.semanticscholar.org/author/2093991" target="_blank" rel="noopener">Semantic Scholar</a></li></ul>
+<h2>About</h2>
+<div class="bio"><p>Guillaume Dugue was a postdoc in the Mainen Lab from 2007-2012, where he worked on serotonin optogenetics projects, contributing to early applications of optogenetic techniques to study serotonergic neural circuits. His research spans cerebellar function, sensorimotor processing, and the neural basis of movement control, with particular expertise in developing technical approaches including optogenetics, electrophysiology, and inertial measurement systems for behavioral studies. He is now a Principal Investigator at the Collège de France and CNRS.</p></div>
+<h2>Complete Publications</h2>
+<div class="cv-meta">h-index: 15 | Total papers: 24 | Lab papers: 6 | Retrieved: 2026-03-23</div>
+<ul class="pub-list"><li>Tarpin T, Llobet V, Dugué G, Piwkowska Z, Varani AP, Khilkevich A, DiGregorio D, Popa D, Léna C. <a href="https://doi.org/10.1007/978-1-0716-2026-7_10" target="_blank">Multi-site Extracellular Electrode Neuronal in the Rodent Cerebellar and Nuclei</a>. <span class="venue">Neuromethods</span>, 2022.</li>
+<li>Fayat R, Betancourt V, Goyallon T, Petremann M, Liaudet P, Descossy V, Revéret L, Dugué G. <a href="https://doi.org/10.3390/s21186318" target="_blank">Inertial Measurement of Head Tilt in Rodents: Principles and Applications to Vestibular Research</a>. <span class="venue">Italian National Conference on Sensors</span>, 2021. <span class="cite-count">Citations: 7</span></li>
+<li>Otsu Y, Lecca S, Pietrajtis K, Rousseau CV, Marcaggi P, Dugué G, Mailhes-Hamon C, Mameli M, Diana MA. <a href="https://doi.org/10.1016/j.celrep.2017.12.064" target="_blank">Functional Principles of Posterior Septal Inputs to the Medial Habenula</a>. <span class="venue">Cell Reports</span>, 2018. <span class="cite-count">Citations: 25</span></li>
+<li>Senova S, Poupon C, Dauguet J, Stewart H, Dugué G, ... et al.. <a href="https://doi.org/10.1038/s41598-018-21486-8" target="_blank">Optogenetic Tractography for anatomo-functional characterization of cortico-subcortical neural circuits in non-human primates</a>. <span class="venue">Scientific Reports</span>, 2018. <span class="cite-count">Citations: 15</span></li>
+<li class="lab-paper">Matias S, Lottem E, Dugué G, Mainen Z. <a href="https://doi.org/10.7554/eLife.20552" target="_blank">Activity patterns of serotonin neurons underlying cognitive flexibility</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">eLife</span>, 2017. <span class="cite-count">Citations: 204</span></li>
+<li>Dugué G, Tihy M, Gourévitch B, Léna C. <a href="https://doi.org/10.1101/126086" target="_blank">Cerebellar re-encoding of self-generated head movements</a>. <span class="venue">bioRxiv</span>, 2017. <span class="cite-count">Citations: 29</span></li>
+<li class="lab-paper">Matias S, Lottem E, Dugué G, Mainen Z. <a href="https://doi.org/10.7554/elife.20552.028" target="_blank">Author response: Activity patterns of serotonin neurons underlying cognitive flexibility</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. 2017. <span class="cite-count">Citations: 2</span></li>
+<li>Pasquet MO, Tihy M, Gourgeon A, Pompili MN, Godsil B, Lena C, Dugué G. <a href="https://doi.org/10.1038/srep35689" target="_blank">Wireless inertial measurement of head kinematics in freely-moving rats</a>. <span class="venue">Scientific Reports</span>, 2016. <span class="cite-count">Citations: 36</span></li>
+<li class="lab-paper">Matias S, Lottem E, Dugué G, Mainen Z. <a href="https://doi.org/10.1101/059758" target="_blank">Firing patterns of serotonin neurons underlying cognitive flexibility</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">bioRxiv</span>, 2016. <span class="cite-count">Citations: 7</span></li>
+<li>Giber K, Diana MA, Plattner VM, Dugué G, Bokor H, ... et al.. <a href="https://doi.org/10.1038/nn.3951" target="_blank">A subcortical inhibitory signal for behavioral arrest in the thalamus</a>. <span class="venue">Nature Neuroscience</span>, 2015. <span class="cite-count">Citations: 71</span></li>
+<li>Dugué G, Tricoire L. <a href="https://doi.org/10.1051/medsci/20153103015" target="_blank">[Principles and applications of optogenetics in neuroscience].</a>. <span class="venue">Medecine sciences : M/S</span>, 2015. <span class="cite-count">Citations: 9</span></li>
+<li>Schutter E, Silver A, Dieudonné S, Schwartz E, Rothman J, ... et al.. LayerNetwork Model of the Cerebellar Granule Cell Synchronization of Golgi and Granule Cell Firing in a. 2015.</li>
+<li>Liu Y, Birnstiel S, Kumar SS, Huguenard J, Silver R, ... et al.. Granule and Unipolar Brush Cells NMDA Receptor-Mediated Currents in Rat Cerebellar. 2015.</li>
+<li>Proville RD, Spolidoro M, Guyon N, Dugué G, Selimi F, Isope P, Popa D, Léna C. <a href="https://doi.org/10.1038/nn.3773" target="_blank">Cerebellum involvement in cortical sensorimotor circuits for the control of voluntary movements</a>. <span class="venue">Nature Neuroscience</span>, 2014. <span class="cite-count">Citations: 241</span></li>
+<li class="lab-paper">Tecuapetla F, Matias S, Dugué G, Mainen Z, Costa R. <a href="https://doi.org/10.1038/ncomms5315" target="_blank">Balanced activity in basal ganglia projection pathways is critical for contraversive movements</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Communications</span>, 2014. <span class="cite-count">Citations: 190</span></li>
+<li class="lab-paper">Dugué G, Lörincz ML, Lottem E, Audero E, Matias S, Correia PA, Léna C, Mainen Z. <a href="https://doi.org/10.1371/journal.pone.0105941" target="_blank">Optogenetic Recruitment of Dorsal Raphe Serotonergic Neurons Acutely Decreases Mechanosensory Responsivity in Behaving Mice</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">PLoS ONE</span>, 2014. <span class="cite-count">Citations: 61</span></li>
+<li>Chaumont J, Guyon N, Valera AM, Dugué G, Popa D, ... et al.. <a href="https://doi.org/10.1073/pnas.1302310110" target="_blank">Clusters of cerebellar Purkinje cells control their afferent climbing fiber discharge</a>. <span class="venue">Proceedings of the National Academy of Sciences of the United States of America</span>, 2013. <span class="cite-count">Citations: 137</span></li>
+<li>Dugué G, Akemann W, Knöpfel T. <a href="https://doi.org/10.1016/B978-0-444-59426-6.00001-X" target="_blank">A comprehensive concept of optogenetics.</a>. <span class="venue">Progress in Brain Research</span>, 2012. <span class="cite-count">Citations: 83</span></li>
+<li>Rousseau CV, Dugué G, Dumoulin A, Mugnaini E, Dieudonné S, Diana MA. <a href="https://doi.org/10.1523/JNEUROSCI.5122-11.2012" target="_blank">Mixed Inhibitory Synaptic Balance Correlates with Glutamatergic Synaptic Phenotype in Cerebellar Unipolar Brush Cells</a>. <span class="venue">Journal of Neuroscience</span>, 2012. <span class="cite-count">Citations: 48</span></li>
+<li>Schwartz E, Rothman J, Dugué G, Diana MA, Rousseau CV, Silver R, Dieudonné S. <a href="https://doi.org/10.1523/JNEUROSCI.5736-11.2012" target="_blank">NMDA Receptors with Incomplete Mg2+ Block Enable Low-Frequency Transmission through the Cerebellar Cortex</a>. <span class="venue">Journal of Neuroscience</span>, 2012. <span class="cite-count">Citations: 46</span></li>
+<li class="lab-paper">Dugué G, Mainen Z. <a href="https://doi.org/10.1038/nn0609-673" target="_blank">How serotonin gates olfactory information flow</a> <span style="display:inline-block;background:#0d9488;color:white;font-size:0.7em;padding:0.1em 0.45em;border-radius:3px;margin-left:0.4em;vertical-align:middle;font-weight:600;">lab</span>. <span class="venue">Nature Neuroscience</span>, 2009. <span class="cite-count">Citations: 28</span></li>
+<li>Otsu Y, Bormuth V, Wong J, Mathieu B, Dugué G, Feltz A, Dieudonné S. <a href="https://doi.org/10.1016/j.jneumeth.2008.06.015" target="_blank">Optical monitoring of neuronal activity at high frame rate with a digital random-access multiphoton (RAMP) microscope.</a>. <span class="venue">Journal of Neuroscience Methods</span>, 2008. <span class="cite-count">Citations: 87</span></li>
+<li>Dugué G, Dumoulin A, Triller A, Dieudonné S. <a href="https://doi.org/10.1523/JNEUROSCI.1500-05.2005" target="_blank">Target-Dependent Use of Coreleased Inhibitory Transmitters at Central Synapses</a>. <span class="venue">Journal of Neuroscience</span>, 2005. <span class="cite-count">Citations: 244</span></li>
+<li>Frey P, Maisiak R, Dugué G. <a href="https://doi.org/10.1037//0097-7403.2.2.175" target="_blank">Unconditional stimulus characteristics in rabbit eyelid conditioning.</a>. <span class="venue">Journal of experimental psychology. Animal behavior processes</span>, 1976. <span class="cite-count">Citations: 13</span></li></ul>
+<h2>At the Mainen Lab</h2>
+<div class="lab-role">Postdoc, 2007–2012</div>
+<h2>Projects</h2>
+<ul class="project-list"><li><a href="../index.html#project-5ht-optogenetics">Serotonin Optogenetics</a></li></ul>
+</div>
+<script>
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+const stored = localStorage.getItem('ml-theme');
+if (stored) root.setAttribute('data-theme', stored);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\u2600' : '\u263E';
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('ml-theme', next);
+  toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+});
+</script>
+</body>
+</html>
