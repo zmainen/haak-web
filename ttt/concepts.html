@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>TTT — Topological Theory of Things</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0a0e1a; --bg2: #0f1424; --cream: #e8e0d4; --cream2: #7a8580;
+  --gold: #c9a96e; --gold-dim: #2a2318; --silver: #8a7898; --line: #1a2028; --line2: #242d38;
+  --thing: #dbb545; --thing-dim: #c9a96e; --relation: #4a9eff; --relation-dim: #7eb8ff;
+  --situation: #3ecf8e; --situation-dim: #6ee7b7; --bridge: #c8c8c8;
+}
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: 'Crimson Pro', Georgia, serif; line-height: 1.6; }
+a { color: var(--gold); text-decoration: none; cursor: pointer; }
+a:hover { opacity: 0.8; }
+
+nav { padding: 16px 28px; display: flex; justify-content: space-between; align-items: center; max-width: 1400px; margin: 0 auto; }
+.nav-home { font-family: 'Gloock', serif; font-size: 18px; color: var(--cream); }
+.nav-links { display: flex; gap: 16px; align-items: center; }
+.nav-links a, .nav-links button {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--silver); background: none; border: none; cursor: pointer;
+}
+.nav-links a:hover, .nav-links button:hover { color: var(--gold); }
+
+.back-link {
+  position: fixed; top: 20px; left: 20px; z-index: 100;
+  font-family: 'Crimson Pro', serif; font-style: italic;
+  font-size: 14px; color: var(--silver); text-decoration: none;
+}
+.back-link:hover { color: var(--gold); opacity: 1; }
+
+.reset-view {
+  position: fixed; bottom: 48px; right: 16px; z-index: 100;
+  background: var(--bg2); border: 1px solid var(--line2); border-radius: 6px;
+  color: var(--cream2); font-family: 'IBM Plex Mono', monospace; font-size: 13px;
+  padding: 5px 8px; cursor: pointer; letter-spacing: 0; line-height: 1;
+  opacity: 0.7; transition: opacity 0.2s, border-color 0.2s, color 0.2s;
+}
+.reset-view:hover { color: var(--gold); border-color: var(--gold); opacity: 1; }
+
+.epigraph {
+  text-align: center; padding: 12px 28px 0;
+  font-family: 'Instrument Serif', serif; font-style: italic;
+  font-size: clamp(13px, 1.4vw, 16px); color: var(--cream2); opacity: 0.6;
+}
+
+.search-float {
+  position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 100;
+  font-family: 'Crimson Pro', serif; font-size: 15px; padding: 7px 18px;
+  border: 1px solid var(--line2); border-radius: 20px; background: var(--bg2);
+  color: var(--cream); outline: none; width: 180px; transition: width 0.3s, border-color 0.3s;
+}
+.search-float:focus { width: 280px; border-color: var(--gold); }
+
+.active-filters { position: fixed; top: 48px; left: 50%; transform: translateX(-50%); z-index: 100;
+  display: flex; gap: 4px; flex-wrap: wrap; justify-content: center; }
+.filter-pill { font-family: 'IBM Plex Mono', monospace; font-size: 9px; padding: 2px 8px;
+  border-radius: 10px; background: var(--bg2); border: 1px solid var(--line2); color: var(--cream2);
+  cursor: pointer; display: flex; align-items: center; gap: 4px; }
+.filter-pill:hover { border-color: var(--gold); }
+.filter-pill .x { font-size: 11px; }
+
+.graph-wrap { width: 100%; height: calc(100vh - 80px); min-height: 500px; position: relative; overflow: hidden; cursor: grab; }
+.graph-wrap:active { cursor: grabbing; }
+.graph-wrap svg { position: absolute; top: 0; left: 0; }
+
+.tooltip {
+  position: fixed; z-index: 200; pointer-events: none;
+  background: var(--bg2); border: 1px solid var(--line2); border-radius: 6px;
+  padding: 8px 12px; max-width: 280px; opacity: 0; transition: opacity 0.15s;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+.tooltip.visible { opacity: 1; }
+.tooltip .tt-name { font-family: 'Gloock', serif; font-size: 14px; color: var(--cream); margin-bottom: 2px; }
+.tooltip .tt-def { font-family: 'Crimson Pro', serif; font-size: 12px; font-weight: 300;
+  color: var(--cream2); line-height: 1.4;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+
+.panel-overlay {
+  position: fixed; top: 0; right: -420px; width: 400px; max-width: 90vw; height: 100vh;
+  background: var(--bg2); border-left: 1px solid var(--line2); z-index: 300;
+  overflow-y: auto; transition: right 0.3s ease; padding: 32px 28px;
+  box-shadow: -8px 0 40px rgba(0,0,0,0.4);
+}
+.panel-overlay.open { right: 0; }
+.panel-close { position: absolute; top: 16px; right: 16px; background: none; border: none;
+  color: var(--cream2); font-size: 20px; cursor: pointer; line-height: 1; }
+.panel-close:hover { color: var(--cream); }
+
+.card-title { font-family: 'Gloock', serif; font-size: 26px; font-weight: 400; color: var(--cream); margin-bottom: 4px; line-height: 1.15; }
+.card-alt { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--cream2); }
+.card-badges { display: flex; gap: 6px; flex-wrap: wrap; margin: 12px 0; }
+.badge { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 2px 8px; border-radius: 3px; }
+.badge-ring { border: 1px solid var(--gold); color: var(--gold); }
+.badge-family { border: 1px solid; padding: 2px 8px; }
+.badge-maturity { color: #fff; }
+.badge-mat-formalized { background: #2d8a6a; }
+.badge-mat-polished { background: #3a9a6a; }
+.badge-mat-developed { background: #3a7a9a; }
+.badge-mat-sketched { background: #b89a3a; }
+.badge-mat-stub { background: #b84a4a; }
+.badge-mat-proposed { background: #8a5aaa; }
+.badge-type { background: transparent; color: var(--silver); border: 1px solid var(--silver); }
+.badge-author { border-radius: 50%; width: 22px; height: 22px; display: flex; align-items: center;
+  justify-content: center; font-size: 8px; font-weight: 700; }
+.badge-author-zm { background: #c9a96e22; color: #c9a96e; border: 1px solid #c9a96e; }
+.badge-author-rs { background: #4a9eff22; color: #4a9eff; border: 1px solid #4a9eff; }
+.badge-author-gg { background: #3ecf8e22; color: #3ecf8e; border: 1px solid #3ecf8e; }
+.badge-author-collab { background: #c8c8c822; color: #c8c8c8; border: 1px solid #c8c8c8; }
+
+.card-def { font-family: 'Crimson Pro', serif; font-size: 16px; font-weight: 300;
+  line-height: 1.65; color: var(--cream2); margin: 16px 0; }
+.card-fields { display: grid; grid-template-columns: 100px 1fr; gap: 6px 12px; font-size: 14px; }
+.card-label { font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--silver); padding-top: 3px; }
+.card-value { color: var(--cream2); font-family: 'Crimson Pro', serif; font-weight: 300; line-height: 1.5; }
+.card-value a { color: var(--gold); cursor: pointer; }
+.card-value a:hover { text-decoration: underline; }
+.haak-callout { margin: 12px 0; padding: 10px 14px; border-left: 2px solid var(--gold-dim);
+  background: rgba(201,169,110,0.04); border-radius: 0 4px 4px 0; }
+.haak-callout .card-label { margin-bottom: 4px; }
+
+.pill { display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  padding: 2px 8px; border: 1px solid var(--line2); border-radius: 12px;
+  color: var(--gold); cursor: pointer; margin: 2px 2px; transition: background 0.2s; }
+.pill:hover { background: var(--gold-dim); }
+.belongings-list { list-style: none; padding: 0; font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px; line-height: 1.8; color: var(--cream2); }
+.belongings-list .bq { color: var(--silver); font-style: italic; }
+
+.stats-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 100;
+  display: flex; justify-content: center; align-items: center; gap: 16px; padding: 8px 20px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.06em;
+  color: var(--cream2); background: var(--bg); border-top: 1px solid var(--line); }
+.stat-dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; margin-right: 4px; }
+
+.filters-toggle { position: fixed; top: 16px; right: 16px; z-index: 100;
+  background: var(--bg2); border: 1px solid var(--line2); border-radius: 6px;
+  color: var(--cream2); font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  padding: 6px 10px; cursor: pointer; letter-spacing: 0.1em; }
+.filters-toggle:hover { color: var(--cream); border-color: var(--gold); }
+.filters-panel { position: fixed; top: 48px; right: 16px; z-index: 100;
+  background: var(--bg2); border: 1px solid var(--line2); border-radius: 6px;
+  padding: 16px; display: none; flex-direction: column; gap: 8px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+.filters-panel.open { display: flex; }
+.filters-panel label { font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cream2);
+  display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.filters-panel select {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; padding: 4px 8px;
+  border: 1px solid var(--line2); border-radius: 3px; background: var(--bg);
+  color: var(--cream); cursor: pointer; outline: none; }
+
+.genealogy-section { padding: 60px 28px 80px; max-width: 1100px; margin: 0 auto;
+  border-top: 1px solid var(--line2); }
+.genealogy-section h2 { font-family: 'Gloock', serif; font-size: 26px; font-weight: 400;
+  color: var(--cream); margin-bottom: 20px; }
+.genealogy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; }
+.gen-card { border: 1px solid var(--line2); border-radius: 4px; padding: 16px 20px; background: var(--bg2); }
+.gen-name { font-family: 'Gloock', serif; font-size: 16px; color: var(--cream); margin-bottom: 8px; }
+.gen-body { font-family: 'Crimson Pro', serif; font-size: 14px; font-weight: 300; line-height: 1.6; color: var(--cream2); }
+.gen-takes { color: #3a9a6a; }
+.gen-rejects { color: #b84a4a; }
+.gen-pillar-dots { display: flex; gap: 4px; margin-top: 8px; }
+.gen-pillar-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+footer { border-top: 1px solid var(--line2); padding: 20px 28px;
+  max-width: 1100px; margin: 0 auto;
+  display: flex; justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cream2); }
+
+
+@media (max-width: 700px) {
+  .panel-overlay { width: 100vw; max-width: 100vw; }
+  .search-float { width: 140px; }
+  .search-float:focus { width: 220px; }
+  .genealogy-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<a href="index.html" class="back-link">&larr; TTT</a>
+<nav>
+  <div></div>
+  <div class="nav-links"><a href="#genealogy">genealogy</a><a href="paper.html">paper &rarr;</a></div>
+</nav>
+
+<div class="epigraph">This catalog is a situation: TTT's concepts are the materials, HAAK's ontology is the method, and the structure exemplifies what it describes.</div>
+
+<input type="text" class="search-float" id="search-input" placeholder="Search concepts...">
+<button class="filters-toggle" id="filters-toggle">filters</button>
+<button class="reset-view" id="reset-view" title="Reset view">⊙</button>
+<div class="filters-panel" id="filters-panel">
+  <select id="filter-ring"><option value="">All rings</option>
+    <option value="0">Center (pillars)</option><option value="1">Ring 1 (axioms)</option>
+    <option value="2">Ring 2 (features)</option><option value="3">Ring 3 (operators)</option>
+    <option value="4">Ring 4 (dynamics)</option><option value="5">Ring 5 (experience)</option>
+    <option value="6">Ring 6 (knowledge)</option><option value="7">Ring 7 (applied)</option>
+  </select>
+  <select id="filter-family"><option value="">All families</option>
+    <option value="thing">Thing</option><option value="relation">Relation</option>
+    <option value="situation">Situation</option><option value="bridge">Bridge</option>
+  </select>
+  <select id="filter-maturity"><option value="">All maturity</option>
+    <option value="formalized">Formalized</option><option value="polished">Polished</option>
+    <option value="developed">Developed</option><option value="sketched">Sketched</option>
+    <option value="proposed">Proposed</option><option value="stub">Stub</option>
+  </select>
+  <select id="filter-author"><option value="">All authors</option>
+    <option value="ZM">ZM</option><option value="RS">RS</option>
+    <option value="GG">GG</option><option value="collaborative">Collaborative</option>
+  </select>
+</div>
+<div class="active-filters" id="active-filters"></div>
+
+<div class="tooltip" id="tooltip"><div class="tt-name"></div><div class="tt-def"></div></div>
+
+<div class="graph-wrap" id="graph-wrap"><svg id="graph"></svg></div>
+
+<div class="panel-overlay" id="panel">
+  <button class="panel-close" id="panel-close">&times;</button>
+  <div id="panel-content"></div>
+</div>
+
+<div class="stats-bar" id="stats-bar"></div>
+
+<section class="genealogy-section" id="genealogy">
+  <h2>Genealogy</h2>
+  <div class="genealogy-grid" id="genealogy-grid"></div>
+</section>
+
+<footer><span>TTT Concept Browser</span><span>HAAK 2026</span></footer>
+
+<script>
+
+const CONCEPTS = [
+  {id:"plurality",num:1,name:"Plurality",alt:"Equivalency",layer:0,type:"quality-like",def:"Everything that exists is a set of equivalent, elemental things. No thing is ordered above or below any other; all share equal ontological status. There is more than one thing.",presupposes:[],maturity:"developed",author:"ZM",source:"ttt-v1-0.md",haak:"R4 (ontology/02) resolves the apparent divergence: axis-roles are qualities of BELONGINGS, not types of ENTITIES. TTT's ontological equivalence is preserved at the entity level.",belongings:["Plurality \u2192 TTT-corpus (member)","Plurality \u2192 ZM (author)","Plurality \u2192 ttt-v1-0.md (defined-in)","Plurality \u2192 R4/ontology-02 [HAAK] (correspondence)"]},
+  {id:"relationality",num:2,name:"Relationality",alt:"Qualities",layer:0,type:"quality-like",def:"The qualities of things are their relations to other things. Relations do not exist apart from the things they relate. The substance of things is in their relations rather than in intrinsic, independent properties.",presupposes:[],maturity:"formalized",author:"ZM / collaborative",source:"ttt-v1-0.md, relationality-vs.md",haak:"Ontology 02-relations (relations as constitutive, not external)",belongings:["Relationality \u2192 TTT-corpus (member)","Relationality \u2192 ZM (author)","Relationality \u2192 ttt-v1-0.md (defined-in)","Relationality \u2192 Ontology-02 [HAAK] (correspondence)"]},
+  {id:"situationality",num:3,name:"Situationality",layer:0,type:"quality-like",def:"Situations are non-exclusive limited subsets of things and their relations. The same thing inhabits multiple situations simultaneously. Situations are characterized by transience, provisionality, and dynamism.",presupposes:[],maturity:"formalized",author:"ZM / collaborative",source:"ttt-v1-0.md, situation.md",haak:"Ontology 01-objects Def. 10 (Situation as descriptive token compound)",belongings:["Situationality \u2192 TTT-corpus (member)","Situationality \u2192 ZM (author)","Situationality \u2192 ttt-v1-0.md (defined-in)","Situationality \u2192 Ontology-01 Def.10 [HAAK] (correspondence)"]},
+  {id:"infinity",num:4,name:"Infinity",alt:"Orders of Reality",layer:0,type:"quality-like",def:"There is no complete world, no all-encompassing top situation, no fundamental bedrock situation. Things have unlimited kinds of relationships and are thus infinite and mostly inaccessible. Situations are finite; things are inexhaustible.",presupposes:[],maturity:"polished",author:"ZM / collaborative",source:"ttt-v1-0.md, elements.md",haak:"HAAK achieves infinity through openness \u2014 the quality graph is finite at any snapshot but has no closure axiom.",belongings:["Infinity \u2192 TTT-corpus (member)","Infinity \u2192 ZM (author)","Infinity \u2192 ttt-v1-0.md (defined-in)","Infinity \u2192 open quality graph [HAAK] (correspondence)"]},
+  {id:"thing",num:5,name:"Thing",layer:1,type:"entity-like",def:"An element of existence; not reducible to its relations but constituted by them. Everything that is not exhausted by any one situation. Defined not by a substantial core but by infinite relational character.",presupposes:["plurality"],maturity:"polished",author:"ZM / RS",source:"thing.md",haak:"Entity (ontology/01 Def. 1)",belongings:["Thing \u2192 Plurality (presupposition)","Thing \u2192 TTT-corpus (member)","Thing \u2192 ZM (author)","Thing \u2192 thing.md (defined-in)","Thing \u2192 Entity [HAAK] (correspondence)"]},
+  {id:"relation",num:6,name:"Relation",layer:1,type:"quality-like",def:"The fundamental fabric of reality. Relations are what things are, not what connects them. A thing is a complex of relations without needing an underlying substance. TTT's textile register uses \"fiber\" as an alternative name for relation.",presupposes:["relationality"],maturity:"developed",author:"collaborative",source:"ttt-v1-0.md, how-relations-coil-up-short.md",haak:"Ontology 02-relations (relations formalized as typed edges in situation graphs)",belongings:["Relation \u2192 Relationality (presupposition)","Relation \u2192 TTT-corpus (member)","Relation \u2192 collaborative (author)","Relation \u2192 ttt-v1-0.md (defined-in)","Relation \u2192 Ontology-02 [HAAK] (correspondence)"]},
+  {id:"situation",num:7,name:"Situation",layer:1,type:"situation-like",def:"A concrete, finite configuration of things and their relations. The primary site where things become manifest and interact. Always provisional and non-exclusive.",presupposes:["situationality","relationality","plurality"],maturity:"polished",author:"collaborative",source:"situation.md, why-everything-is-a-situation.md",haak:"Ontology 01-objects Def. 10 (Situation = descriptive token in actor \u00d7 method \u00d7 domain)",belongings:["Situation \u2192 Situationality (presupposition)","Situation \u2192 Relationality (presupposition)","Situation \u2192 Plurality (presupposition)","Situation \u2192 TTT-corpus (member)","Situation \u2192 collaborative (author)","Situation \u2192 situation.md (defined-in)","Situation \u2192 Ontology-01 Def.10 [HAAK] (correspondence)"]},
+  {id:"mess",num:8,name:"Mess",alt:"Undifferentiated Multiplicity",layer:1,type:"quality-like",def:"The pre-ontological ground \u2014 pure relationality without identifiable individual entities. Not a limit of the ontology but its precondition. You cannot represent mess as an entity because representing IS the act of differentiating.",presupposes:["relationality"],maturity:"sketched",author:"ZM",source:"different-different-but-same.md",haak:"The count-for-one operation (entity creation as first belonging appended to ledger)",belongings:["Mess \u2192 Relationality (presupposition)","Mess \u2192 TTT-corpus (member)","Mess \u2192 ZM (author)","Mess \u2192 different-different-but-same.md (defined-in)","Mess \u2192 entity-creation [HAAK] (correspondence)"]},
+  {id:"quality",num:9,name:"Quality",alt:"as Relation",layer:2,type:"quality-like",def:"Not an inherent property but the relational way a thing presents itself within a situation. Qualities are the relations through which a thing is present to itself and other things as a specific something.",presupposes:["thing","relation","situation"],maturity:"developed",author:"collaborative",source:"qualities-as-relations.md",haak:"Ontology 02-relations (qualities as typed relation values)",belongings:["Quality \u2192 Thing (presupposition)","Quality \u2192 Relation (presupposition)","Quality \u2192 Situation (presupposition)","Quality \u2192 TTT-corpus (member)","Quality \u2192 collaborative (author)","Quality \u2192 qualities-as-relations.md (defined-in)","Quality \u2192 Ontology-02 [HAAK] (correspondence)"]},
+  {id:"topology",num:10,name:"Topology",layer:2,type:"quality-like",def:"The stable style of relational configuration that defines identity through time while allowing geometrical variation. The invariant structure of a relational pattern that remains constant across geometric variations.",presupposes:["relation","thing"],maturity:"formalized",author:"ZM / collaborative",source:"different-different-but-same.md, plural-manifesto.md",haak:"Ontology 01-objects Def. 8 (Pattern = descriptive type compound)",belongings:["Topology \u2192 Relation (presupposition)","Topology \u2192 Thing (presupposition)","Topology \u2192 TTT-corpus (member)","Topology \u2192 ZM (author)","Topology \u2192 different-different-but-same.md (defined-in)","Topology \u2192 Ontology-01 Def.8 [HAAK] (correspondence)"]},
+  {id:"geometry",num:11,name:"Geometry",layer:2,type:"quality-like",def:"The specific spatial or configurational instantiation of a topology. Multiple geometries are compatible with a single topology, creating \"wiggle room\" \u2014 determination via topology, freedom via geometric variation.",presupposes:["topology"],maturity:"developed",author:"ZM",source:"different-different-but-same.md",haak:"Ontology 01-objects Def. 9/10 (type/token distinction)",belongings:["Geometry \u2192 Topology (presupposition)","Geometry \u2192 TTT-corpus (member)","Geometry \u2192 ZM (author)","Geometry \u2192 different-different-but-same.md (defined-in)","Geometry \u2192 Ontology-01 Def.9/10 [HAAK] (correspondence)"]},
+  {id:"coil",num:12,name:"Coil",layer:2,type:"quality-like",def:"A locality or domain within undifferentiated relational multiplicity; a partial grouping of relations that exhibits structure and pattern. Coils impose ordering on the mess by virtue of their structure.",presupposes:["mess","topology"],maturity:"developed",author:"ZM",source:"different-different-but-same.md",haak:null,belongings:["Coil \u2192 Mess (presupposition)","Coil \u2192 Topology (presupposition)","Coil \u2192 TTT-corpus (member)","Coil \u2192 ZM (author)","Coil \u2192 different-different-but-same.md (defined-in)"]},
+  {id:"domain",num:13,name:"Domain",layer:2,type:"situation-like",def:"A type of situational entanglement sharing analogous relational structures. A set of one or more qualities defining a space of interaction for things that share those qualities.",presupposes:["situation","quality"],maturity:"developed",author:"collaborative",source:"plural-manifesto.md",haak:"Ontology 01-objects Def. 4 (Domain = bounded context for action)",belongings:["Domain \u2192 Situation (presupposition)","Domain \u2192 Quality (presupposition)","Domain \u2192 TTT-corpus (member)","Domain \u2192 collaborative (author)","Domain \u2192 plural-manifesto.md (defined-in)","Domain \u2192 Ontology-01 Def.4 [HAAK] (correspondence)"]},
+  {id:"realm",num:14,name:"Realm",layer:2,type:"situation-like",def:"A set of situations sharing a common set of things and relations \u2014 a field, area, sense, or layer of reality. All realms are equally real.",presupposes:["situation","breadth"],maturity:"developed",author:"collaborative",source:"realm.md",haak:null,belongings:["Realm \u2192 Situation (presupposition)","Realm \u2192 Breadth (presupposition)","Realm \u2192 TTT-corpus (member)","Realm \u2192 collaborative (author)","Realm \u2192 realm.md (defined-in)"]},
+  {id:"entanglement",num:15,name:"Entanglement",layer:2,type:"situation-like",def:"A unique, delimited clustering of relations and things constituting a situation. Every entanglement is different from every other; an endless inexhaustible manifold exists.",presupposes:["relation","situation"],maturity:"developed",author:"collaborative",source:"plural-manifesto.md",haak:"Ontology 09-situation-graph (situation as a subgraph of relations)",belongings:["Entanglement \u2192 Relation (presupposition)","Entanglement \u2192 Situation (presupposition)","Entanglement \u2192 TTT-corpus (member)","Entanglement \u2192 collaborative (author)","Entanglement \u2192 plural-manifesto.md (defined-in)","Entanglement \u2192 Ontology-09 [HAAK] (correspondence)"]},
+  {id:"intersectionality",num:16,name:"Intersectionality",layer:2,type:"quality-like",def:"The relational complexity of things that occupy various situations simultaneously. Any one situation only exhibits a part of a thing's qualities because it contains only a limited part of its relations.",presupposes:["thing","situation","depth"],maturity:"developed",author:"ZM / collaborative",source:"situation.md",haak:"Ontology 12-situation-nesting (situations nest and overlap)",belongings:["Intersectionality \u2192 Thing (presupposition)","Intersectionality \u2192 Situation (presupposition)","Intersectionality \u2192 Depth (presupposition)","Intersectionality \u2192 TTT-corpus (member)","Intersectionality \u2192 ZM (author)","Intersectionality \u2192 situation.md (defined-in)","Intersectionality \u2192 Ontology-12 [HAAK] (correspondence)"]},
+  {id:"depth",num:17,name:"Depth",layer:2,type:"quality-like",def:"How many different aspects or relations of things a situation captures. A deep situation includes many different relations. Because any situation excludes some aspects, a thing is always deeper than what it exposes.",presupposes:["relation","situation"],maturity:"developed",author:"ZM / collaborative",source:"depth.md",haak:null,belongings:["Depth \u2192 Relation (presupposition)","Depth \u2192 Situation (presupposition)","Depth \u2192 TTT-corpus (member)","Depth \u2192 ZM (author)","Depth \u2192 depth.md (defined-in)"]},
+  {id:"breadth",num:18,name:"Breadth",layer:2,type:"quality-like",def:"How many different things a situation encompasses. Broad situations include many things; breadth and depth tend to be inversely related.",presupposes:["situation","thing"],maturity:"developed",author:"ZM / collaborative",source:"breadth.md",haak:null,belongings:["Breadth \u2192 Situation (presupposition)","Breadth \u2192 Thing (presupposition)","Breadth \u2192 TTT-corpus (member)","Breadth \u2192 ZM (author)","Breadth \u2192 breadth.md (defined-in)"]},
+  {id:"specificity",num:19,name:"Specificity",layer:2,type:"quality-like",def:"The unique relational configuration that makes each thing distinct. Even the undifferentiated mess has complete specificity because every bit is entangled with every other in a different way.",presupposes:["relation"],maturity:"sketched",author:"ZM",source:"different-different-but-same.md",haak:null,belongings:["Specificity \u2192 Relation (presupposition)","Specificity \u2192 TTT-corpus (member)","Specificity \u2192 ZM (author)","Specificity \u2192 different-different-but-same.md (defined-in)"]},
+  {id:"difference",num:20,name:"Difference",layer:2,type:"method-like",def:"The classification of things as not the same. Both the shallowest and broadest realm; the foundation for language and mathematics.",presupposes:["thing","plurality"],maturity:"developed",author:"ZM",source:"breadth.md",haak:null,belongings:["Difference \u2192 Thing (presupposition)","Difference \u2192 Plurality (presupposition)","Difference \u2192 TTT-corpus (member)","Difference \u2192 ZM (author)","Difference \u2192 breadth.md (defined-in)"]},
+  {id:"flattening",num:21,name:"Flattening",layer:3,type:"method-like",def:"The substitution of a thing by a limited set of its relationships. Increasing breadth while decreasing depth. Not a loss of reality but a perspectival compression that makes interaction possible. Ubiquitous, necessary, and dangerous.",presupposes:["depth","breadth","thing","situation"],maturity:"formalized",author:"ZM / collaborative",source:"flattening.md",haak:null,belongings:["Flattening \u2192 Depth (presupposition)","Flattening \u2192 Breadth (presupposition)","Flattening \u2192 Thing (presupposition)","Flattening \u2192 Situation (presupposition)","Flattening \u2192 TTT-corpus (member)","Flattening \u2192 ZM (author)","Flattening \u2192 flattening.md (defined-in)"]},
+  {id:"focusing",num:22,name:"Focusing",layer:3,type:"method-like",def:"Increasing depth while decreasing breadth; concentrating relational intensity on fewer entanglements. The complementary operation to flattening.",presupposes:["depth","breadth"],maturity:"sketched",author:"collaborative",source:"plural-manifesto.md",haak:null,belongings:["Focusing \u2192 Depth (presupposition)","Focusing \u2192 Breadth (presupposition)","Focusing \u2192 TTT-corpus (member)","Focusing \u2192 collaborative (author)","Focusing \u2192 plural-manifesto.md (defined-in)"]},
+  {id:"reach",num:23,name:"Reach",layer:3,type:"quality-like",def:"The product of breadth and depth. If reach is conserved, change in depth implies reciprocal change in breadth.",presupposes:["breadth","depth"],maturity:"sketched",author:"collaborative",source:"plural-manifesto.md",haak:null,belongings:["Reach \u2192 Breadth (presupposition)","Reach \u2192 Depth (presupposition)","Reach \u2192 TTT-corpus (member)","Reach \u2192 collaborative (author)","Reach \u2192 plural-manifesto.md (defined-in)"]},
+  {id:"knot",num:24,name:"Knot",alt:"Topological Knot",layer:3,type:"entity-like",def:"An entanglement with persistent topology \u2014 persistent homologous relations. Knots correspond to objects or processes; relatively stable clusters of relations maintaining identity through change.",presupposes:["topology","entanglement"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:"Ontology 01-objects Def. 8 (Pattern as persistent relational structure)",belongings:["Knot \u2192 Topology (presupposition)","Knot \u2192 Entanglement (presupposition)","Knot \u2192 TTT-corpus (member)","Knot \u2192 collaborative (author)","Knot \u2192 Ontology-01 Def.8 [HAAK] (correspondence)"]},
+  {id:"pattern",num:25,name:"Pattern",layer:3,type:"quality-like",def:"A shared or common topology appearing across different situational entanglements; regular relational configurations that permit transfer of knowledge between situations.",presupposes:["topology","domain"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:"Ontology 01-objects Def. 8 (Pattern = descriptive type compound)",belongings:["Pattern \u2192 Topology (presupposition)","Pattern \u2192 Domain (presupposition)","Pattern \u2192 TTT-corpus (member)","Pattern \u2192 collaborative (author)","Pattern \u2192 Ontology-01 Def.8 [HAAK] (correspondence)"]},
+  {id:"tension",num:26,name:"Tension",layer:3,type:"quality-like",def:"Stresses that form as things weave with each other in their situations. The relational pressures emerging from interlacing of things.",presupposes:["relation","situation"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Tension \u2192 Relation (presupposition)","Tension \u2192 Situation (presupposition)","Tension \u2192 TTT-corpus (member)","Tension \u2192 collaborative (author)"]},
+  {id:"possible",num:27,name:"Possible",layer:3,type:"quality-like",def:"The full range of relations and configurations that could exist; unlimited and unknowable in totality. Cognitively dependent but not cognitively determined.",presupposes:["relation","situation"],maturity:"developed",author:"GG / RS",source:"possibility.md",haak:null,belongings:["Possible \u2192 Relation (presupposition)","Possible \u2192 Situation (presupposition)","Possible \u2192 TTT-corpus (member)","Possible \u2192 GG (author)","Possible \u2192 possibility.md (defined-in)"]},
+  {id:"actual",num:28,name:"Actual",layer:3,type:"quality-like",def:"The relations and configurations currently manifesting in a situation. The present configuration of things. Narrower than both potential and possible.",presupposes:["situation"],maturity:"developed",author:"GG / collaborative",source:"intercontextual-nature-of-experience.md",haak:"Ontology 01-objects Def. 10 (Situation = what is actually happening)",belongings:["Actual \u2192 Situation (presupposition)","Actual \u2192 TTT-corpus (member)","Actual \u2192 GG (author)","Actual \u2192 Ontology-01 Def.10 [HAAK] (correspondence)"]},
+  {id:"potential",num:29,name:"Potential",layer:3,type:"quality-like",def:"Between the possible and the actual. The subset of possibilities realizable given current circumstances and constraints.",presupposes:["possible","actual","situation"],maturity:"developed",author:"GG",source:"intercontextual-nature-of-experience.md",haak:null,belongings:["Potential \u2192 Possible (presupposition)","Potential \u2192 Actual (presupposition)","Potential \u2192 Situation (presupposition)","Potential \u2192 TTT-corpus (member)","Potential \u2192 GG (author)"]},
+  {id:"time",num:30,name:"Time",layer:3,type:"quality-like",def:"Not a container but a relational structure. The relation of situations extending from current state to future possibilities. Encompasses chronological (Chronos) and generative (Kairos) aspects.",presupposes:["relation","situation"],maturity:"sketched",author:"GG / RS / collaborative",source:"time.md",haak:"Ontology 01-objects (time as property of all objects)",belongings:["Time \u2192 Relation (presupposition)","Time \u2192 Situation (presupposition)","Time \u2192 TTT-corpus (member)","Time \u2192 GG (author)","Time \u2192 time.md (defined-in)","Time \u2192 Ontology-01 [HAAK] (correspondence)"]},
+  {id:"change",num:31,name:"Change",layer:3,type:"method-like",def:"An ordering of things manifested across situations as possible relations actualize. Can occur within a situation (reconfiguration) or between situations (creation, destruction, discovery).",presupposes:["relation","actual","situation"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Change \u2192 Relation (presupposition)","Change \u2192 Actual (presupposition)","Change \u2192 Situation (presupposition)","Change \u2192 TTT-corpus (member)","Change \u2192 collaborative (author)"]},
+  {id:"withdrawal",num:32,name:"Withdrawal",layer:3,type:"quality-like",def:"The aspect of a thing that exceeds its manifestation in any particular situation. Not a substantial core (contra Harman) but the result of things always inhabiting multiple situations.",presupposes:["situation","infinity","intersectionality"],maturity:"developed",author:"ZM / RS",source:"intro-to-ttt-what-is-reality.md",haak:null,belongings:["Withdrawal \u2192 Situation (presupposition)","Withdrawal \u2192 Infinity (presupposition)","Withdrawal \u2192 Intersectionality (presupposition)","Withdrawal \u2192 TTT-corpus (member)","Withdrawal \u2192 ZM (author)"]},
+  {id:"givenness",num:33,name:"Givenness",alt:"Facet",layer:3,type:"quality-like",def:"How a thing presents itself within a situation; what is accessible through current relational engagement. Always partial and perspectival.",presupposes:["situation","withdrawal"],maturity:"developed",author:"ZM",source:"intro-to-ttt-what-is-reality.md",haak:null,belongings:["Givenness \u2192 Situation (presupposition)","Givenness \u2192 Withdrawal (presupposition)","Givenness \u2192 TTT-corpus (member)","Givenness \u2192 ZM (author)"]},
+  {id:"scale",num:34,name:"Scale",layer:3,type:"quality-like",def:"The depth of situational nesting through which a thing is encountered. Scale is not intrinsic to things \u2014 it is the reach (breadth \u00d7 depth) of the situation in which the thing is read.",presupposes:["situation","breadth","depth","reach","domain"],maturity:"proposed",author:"ZM / collaborative",source:"missing-concepts.md",haak:"Domain subsumption hierarchy",belongings:["Scale \u2192 Situation (presupposition)","Scale \u2192 Breadth (presupposition)","Scale \u2192 Depth (presupposition)","Scale \u2192 Reach (presupposition)","Scale \u2192 Domain (presupposition)","Scale \u2192 TTT-corpus (member)","Scale \u2192 ZM (author)","Scale \u2192 missing-concepts.md (defined-in)","Scale \u2192 domain-subsumption [HAAK] (correspondence)"]},
+  {id:"event",num:35,name:"Event",layer:4,type:"situation-like",def:"A situation extended across time in which the reality and depth of things is revealed or transformed. A rupture where genuinely new possibilities emerge. The birth of a new compound thing.",presupposes:["change","situation","time","depth"],maturity:"developed",author:"RS / GG / ZM",source:"events.md",haak:null,belongings:["Event \u2192 Change (presupposition)","Event \u2192 Situation (presupposition)","Event \u2192 Time (presupposition)","Event \u2192 Depth (presupposition)","Event \u2192 TTT-corpus (member)","Event \u2192 RS (author)","Event \u2192 events.md (defined-in)"]},
+  {id:"movement",num:36,name:"Movement",layer:4,type:"method-like",def:"Change occurring within a situation; reconfiguration of relational position while the situation persists.",presupposes:["change","situation"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Movement \u2192 Change (presupposition)","Movement \u2192 Situation (presupposition)","Movement \u2192 TTT-corpus (member)","Movement \u2192 collaborative (author)"]},
+  {id:"process",num:37,name:"Process",layer:4,type:"entity-like",def:"A knot (topologically persistent entanglement) extended through time; a thing that maintains identity while undergoing change.",presupposes:["knot","time","change"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Process \u2192 Knot (presupposition)","Process \u2192 Time (presupposition)","Process \u2192 Change (presupposition)","Process \u2192 TTT-corpus (member)","Process \u2192 collaborative (author)"]},
+  {id:"actualization",num:38,name:"Actualization",layer:4,type:"method-like",def:"The process of potential relations becoming actual within situations. What emerges as some of the possible becomes actual through temporal unfolding.",presupposes:["actual","potential","time"],maturity:"developed",author:"collaborative",source:"core-principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Actualization \u2192 Actual (presupposition)","Actualization \u2192 Potential (presupposition)","Actualization \u2192 Time (presupposition)","Actualization \u2192 TTT-corpus (member)","Actualization \u2192 collaborative (author)"]},
+  {id:"multiplicity",num:39,name:"Multiplicity",layer:4,type:"quality-like",def:"The reserve of not-yet-presented and unknown relations; unrecognized depths exceeding both known possibilities and current actuality.",presupposes:["possible","relation"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Multiplicity \u2192 Possible (presupposition)","Multiplicity \u2192 Relation (presupposition)","Multiplicity \u2192 TTT-corpus (member)","Multiplicity \u2192 collaborative (author)"]},
+  {id:"possibility_modal",num:40,name:"Possibility (modal)",layer:4,type:"quality-like",def:"The reserve of not-yet-presented but known relations unfolding through situations and time. Distinguished from the Possible (all that could exist) and the Potential (what can actualize given constraints).",presupposes:["possible","actual","knowledge"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Possibility \u2192 Possible (presupposition)","Possibility \u2192 Actual (presupposition)","Possibility \u2192 Knowledge (presupposition)","Possibility \u2192 TTT-corpus (member)","Possibility \u2192 collaborative (author)"]},
+  {id:"circumstance",num:41,name:"Circumstance",layer:4,type:"situation-like",def:"A situation considered as the conditions for development of new situations. The set of relational constraints and potentials shaping what can unfold.",presupposes:["situation","potential"],maturity:"sketched",author:"collaborative",source:"situation.md",haak:null,belongings:["Circumstance \u2192 Situation (presupposition)","Circumstance \u2192 Potential (presupposition)","Circumstance \u2192 TTT-corpus (member)","Circumstance \u2192 collaborative (author)"]},
+  {id:"scene",num:42,name:"Scene",layer:4,type:"situation-like",def:"A set of situations considered as a sequence. The temporal ordering of situational transformations.",presupposes:["situation","time"],maturity:"sketched",author:"collaborative",source:"situation.md",haak:null,belongings:["Scene \u2192 Situation (presupposition)","Scene \u2192 Time (presupposition)","Scene \u2192 TTT-corpus (member)","Scene \u2192 collaborative (author)"]},
+  {id:"causality",num:43,name:"Causality",layer:4,type:"method-like",def:"The expressed situational order of how changes propagate. Domain-specific rather than universal.",presupposes:["domain","change","actualization"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Causality \u2192 Domain (presupposition)","Causality \u2192 Change (presupposition)","Causality \u2192 Actualization (presupposition)","Causality \u2192 TTT-corpus (member)","Causality \u2192 collaborative (author)"]},
+  {id:"determination",num:44,name:"Determination",layer:4,type:"method-like",def:"The fixing of particular relational configurations within a situation. A state of affairs determines itself by excluding all relations that do not pertain to it. Domain-specific; never absolute.",presupposes:["situation","domain","change"],maturity:"developed",author:"RS",source:"why-everything-is-a-situation.md",haak:null,belongings:["Determination \u2192 Situation (presupposition)","Determination \u2192 Domain (presupposition)","Determination \u2192 Change (presupposition)","Determination \u2192 TTT-corpus (member)","Determination \u2192 RS (author)"]},
+  {id:"implicate_order",num:45,name:"Implicate Order",layer:4,type:"quality-like",def:"The unknowable totality of relations and possibilities; the fullness of reality beyond what can be actualized or expressed in situations.",presupposes:["possible","infinity"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Implicate-Order \u2192 Possible (presupposition)","Implicate-Order \u2192 Infinity (presupposition)","Implicate-Order \u2192 TTT-corpus (member)","Implicate-Order \u2192 collaborative (author)"]},
+  {id:"power",num:46,name:"Power",layer:4,type:"quality-like",def:"The potential to flatten, focus, or entangle situations; the capacity to reconfigure relational structures.",presupposes:["flattening","focusing"],maturity:"developed",author:"collaborative",source:"plural-manifesto.md",haak:null,belongings:["Power \u2192 Flattening (presupposition)","Power \u2192 Focusing (presupposition)","Power \u2192 TTT-corpus (member)","Power \u2192 collaborative (author)","Power \u2192 plural-manifesto.md (defined-in)"]},
+  {id:"force",num:47,name:"Force",layer:4,type:"method-like",def:"The exercise of power; the actual manifestation of the potential to flatten or focus through action or intervention.",presupposes:["power"],maturity:"developed",author:"collaborative",source:"plural-manifesto.md",haak:null,belongings:["Force \u2192 Power (presupposition)","Force \u2192 TTT-corpus (member)","Force \u2192 collaborative (author)","Force \u2192 plural-manifesto.md (defined-in)"]},
+  {id:"intimacy",num:48,name:"Intimacy",layer:4,type:"quality-like",def:"A self-entanglement of internal relations deeper than external relations. An intimate entanglement is deep but narrow in breadth.",presupposes:["depth","breadth","relation"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Intimacy \u2192 Depth (presupposition)","Intimacy \u2192 Breadth (presupposition)","Intimacy \u2192 Relation (presupposition)","Intimacy \u2192 TTT-corpus (member)","Intimacy \u2192 collaborative (author)"]},
+  {id:"thread",num:49,name:"Thread",layer:4,type:"entity-like",def:"Narrow relational connections interweaving intimate situations. Threads are necessarily flatter than the intimate situations they connect.",presupposes:["intimacy","flattening"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Thread \u2192 Intimacy (presupposition)","Thread \u2192 Flattening (presupposition)","Thread \u2192 TTT-corpus (member)","Thread \u2192 collaborative (author)"]},
+  {id:"composition",num:50,name:"Composition",layer:4,type:"method-like",def:"Nesting through belonging. A situation composes into a larger situation by belonging to it. The composed whole is a new situation, not a mere sum. Replaces mereology without reinstating the One.",presupposes:["situation","relation","quality","depth"],maturity:"proposed",author:"ZM / collaborative",source:"missing-concepts.md",haak:"Ontology/12 situation nesting; rank field on belongings",belongings:["Composition \u2192 Situation (presupposition)","Composition \u2192 Relation (presupposition)","Composition \u2192 Quality (presupposition)","Composition \u2192 Depth (presupposition)","Composition \u2192 TTT-corpus (member)","Composition \u2192 ZM (author)","Composition \u2192 missing-concepts.md (defined-in)","Composition \u2192 Ontology-12 [HAAK] (correspondence)"]},
+  {id:"history",num:51,name:"History",layer:4,type:"quality-like",def:"The predecessor chain of situations that constitutes a thing's topology. Not external narrative but internal structure. History explains why two topologically similar things are still distinguishable: their predecessor chains diverge.",presupposes:["time","identity","situation","topology","change"],maturity:"proposed",author:"ZM / collaborative",source:"missing-concepts.md",haak:"Session predecessor chains; situation registers; agent mortality (Foundation 08)",belongings:["History \u2192 Time (presupposition)","History \u2192 Identity (presupposition)","History \u2192 Situation (presupposition)","History \u2192 Topology (presupposition)","History \u2192 Change (presupposition)","History \u2192 TTT-corpus (member)","History \u2192 ZM (author)","History \u2192 missing-concepts.md (defined-in)","History \u2192 predecessor-chains [HAAK] (correspondence)"]},
+  {id:"experience",num:52,name:"Experience",layer:5,type:"situation-like",def:"The unfolding of things into situations \u2014 a presentation, not a representation. Not restricted to conscious beings; all things have experience through their relational engagements.",presupposes:["relation","situation","actualization"],maturity:"developed",author:"GG / collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:"Ontology 05-perception-memory (perception as relational engagement)",belongings:["Experience \u2192 Relation (presupposition)","Experience \u2192 Situation (presupposition)","Experience \u2192 Actualization (presupposition)","Experience \u2192 TTT-corpus (member)","Experience \u2192 GG (author)","Experience \u2192 Ontology-05 [HAAK] (correspondence)"]},
+  {id:"presentation",num:53,name:"Presentation",layer:5,type:"method-like",def:"The actual appearing of relations within a situation. Contrasts with representation. Presentation is direct engagement with real relations.",presupposes:["experience"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Presentation \u2192 Experience (presupposition)","Presentation \u2192 TTT-corpus (member)","Presentation \u2192 collaborative (author)"]},
+  {id:"selectivity",num:54,name:"Selectivity",layer:5,type:"method-like",def:"Because situational relations are limited, experience is necessarily selective \u2014 a selection of relations from the broader relational field.",presupposes:["experience","situation"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Selectivity \u2192 Experience (presupposition)","Selectivity \u2192 Situation (presupposition)","Selectivity \u2192 TTT-corpus (member)","Selectivity \u2192 collaborative (author)"]},
+  {id:"perception",num:55,name:"Perception",layer:5,type:"method-like",def:"Sensitivity to tensions; the receptivity of a thing to relational pressures in its situations. Not merely sensory but relational awareness.",presupposes:["tension","experience"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:"Ontology 05-perception-memory",belongings:["Perception \u2192 Tension (presupposition)","Perception \u2192 Experience (presupposition)","Perception \u2192 TTT-corpus (member)","Perception \u2192 collaborative (author)","Perception \u2192 Ontology-05 [HAAK] (correspondence)"]},
+  {id:"action",num:56,name:"Action",layer:5,type:"method-like",def:"The configuration of tensions; the exertion or reconfiguration of internal and external tensions to shape situations.",presupposes:["tension","situation"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Action \u2192 Tension (presupposition)","Action \u2192 Situation (presupposition)","Action \u2192 TTT-corpus (member)","Action \u2192 collaborative (author)"]},
+  {id:"saliency",num:57,name:"Saliency",layer:5,type:"quality-like",def:"The property of becoming drawn to attention from the sea of surrounding relations. A transitional event from potentiality to actuality within the set of the potential.",presupposes:["potential","actual","experience"],maturity:"developed",author:"GG",source:"intercontextual-nature-of-experience.md",haak:null,belongings:["Saliency \u2192 Potential (presupposition)","Saliency \u2192 Actual (presupposition)","Saliency \u2192 Experience (presupposition)","Saliency \u2192 TTT-corpus (member)","Saliency \u2192 GG (author)"]},
+  {id:"surprise",num:58,name:"Surprise",layer:5,type:"situation-like",def:"A transitional event from the possible-but-not-potential to actual. What was not expected suddenly becomes actual, causing rupture or radical shift.",presupposes:["possible","potential","actual"],maturity:"developed",author:"GG",source:"intercontextual-nature-of-experience.md",haak:null,belongings:["Surprise \u2192 Possible (presupposition)","Surprise \u2192 Potential (presupposition)","Surprise \u2192 Actual (presupposition)","Surprise \u2192 TTT-corpus (member)","Surprise \u2192 GG (author)"]},
+  {id:"awareness",num:59,name:"Awareness",layer:5,type:"quality-like",def:"The capacity of a thing to change its own situation and therefore its experience. The reflexive ability to alter one's relational configuration. Not limited to conscious beings.",presupposes:["experience","action"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Awareness \u2192 Experience (presupposition)","Awareness \u2192 Action (presupposition)","Awareness \u2192 TTT-corpus (member)","Awareness \u2192 collaborative (author)"]},
+  {id:"consciousness",num:60,name:"Consciousness",layer:5,type:"quality-like",def:"Continuity of awareness over time; known experience. Not a hard problem but a situational and relational phenomenon.",presupposes:["awareness","time","knowledge"],maturity:"developed",author:"GG / collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Consciousness \u2192 Awareness (presupposition)","Consciousness \u2192 Time (presupposition)","Consciousness \u2192 Knowledge (presupposition)","Consciousness \u2192 TTT-corpus (member)","Consciousness \u2192 GG (author)"]},
+  {id:"mind",num:61,name:"Mind",layer:5,type:"situation-like",def:"A highly focused situation of exquisite intimacy, distinguished by exuberant and stable self-relations and selective, comparatively variable non-self relations.",presupposes:["intimacy","selectivity"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Mind \u2192 Intimacy (presupposition)","Mind \u2192 Selectivity (presupposition)","Mind \u2192 TTT-corpus (member)","Mind \u2192 collaborative (author)"]},
+  {id:"agency",num:62,name:"Agency / Agent",layer:5,type:"entity-like",def:"Agency is the capacity to change situations through actions. An agent is a system whose actions can change a situation.",presupposes:["action","situation"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:"Ontology 01-objects Def. 2 (Actor = operator capable of processing)",belongings:["Agency \u2192 Action (presupposition)","Agency \u2192 Situation (presupposition)","Agency \u2192 TTT-corpus (member)","Agency \u2192 collaborative (author)","Agency \u2192 Ontology-01 Def.2 [HAAK] (correspondence)"]},
+  {id:"affordance",num:63,name:"Affordance",layer:5,type:"quality-like",def:"The relational possibilities offered by things within situations. Related to J.J. Gibson's ecological psychology.",presupposes:["thing","relation","potential","agency"],maturity:"sketched",author:"GG",source:"intercontextual-nature-of-experience.md",haak:"Ontology 01-objects (affordances of materials)",belongings:["Affordance \u2192 Thing (presupposition)","Affordance \u2192 Relation (presupposition)","Affordance \u2192 Potential (presupposition)","Affordance \u2192 Agent (presupposition)","Affordance \u2192 TTT-corpus (member)","Affordance \u2192 GG (author)","Affordance \u2192 Ontology-01 [HAAK] (correspondence)"]},
+  {id:"value",num:64,name:"Value",layer:5,type:"quality-like",def:"A necessary component for shaping meaning; creates the valence that makes things matter. Things can be valuable without being meaningful.",presupposes:["situation","relation"],maturity:"developed",author:"GG",source:"intercontextual-nature-of-experience.md",haak:null,belongings:["Value \u2192 Situation (presupposition)","Value \u2192 Relation (presupposition)","Value \u2192 TTT-corpus (member)","Value \u2192 GG (author)"]},
+  {id:"meaning",num:65,name:"Meaning",layer:5,type:"quality-like",def:"A layer of history-dependent mixture of value and affordance clothed over whatever lies salient for an organism in a specific situation.",presupposes:["value","affordance","saliency"],maturity:"developed",author:"GG",source:"intercontextual-nature-of-experience.md",haak:null,belongings:["Meaning \u2192 Value (presupposition)","Meaning \u2192 Affordance (presupposition)","Meaning \u2192 Saliency (presupposition)","Meaning \u2192 TTT-corpus (member)","Meaning \u2192 GG (author)"]},
+  {id:"knowledge",num:66,name:"Knowledge",layer:6,type:"situation-like",def:"The power to control a situation; a relation between knower and known. Limited and always involves an unknown. Situational rather than absolute.",presupposes:["power","situation","agency"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Knowledge \u2192 Power (presupposition)","Knowledge \u2192 Situation (presupposition)","Knowledge \u2192 Agent (presupposition)","Knowledge \u2192 TTT-corpus (member)","Knowledge \u2192 collaborative (author)"]},
+  {id:"unknown",num:67,name:"Unknown",layer:6,type:"quality-like",def:"All relations of a knower not constituting the known. Simply relations out of the scope of the current knowing situation.",presupposes:["knowledge","relation"],maturity:"developed",author:"collaborative",source:"known-and-unknown.md",haak:null,belongings:["Unknown \u2192 Knowledge (presupposition)","Unknown \u2192 Relation (presupposition)","Unknown \u2192 TTT-corpus (member)","Unknown \u2192 collaborative (author)","Unknown \u2192 known-and-unknown.md (defined-in)"]},
+  {id:"homology",num:68,name:"Homology",layer:6,type:"quality-like",def:"A useful similarity or correspondence between knowledge and its referent. Permits transfer of insights across domains.",presupposes:["knowledge","pattern"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:"Ontology 04-correspondence (correspondence as structural homology)",belongings:["Homology \u2192 Knowledge (presupposition)","Homology \u2192 Pattern (presupposition)","Homology \u2192 TTT-corpus (member)","Homology \u2192 collaborative (author)","Homology \u2192 Ontology-04 [HAAK] (correspondence)"]},
+  {id:"analogy",num:69,name:"Analogy",layer:6,type:"method-like",def:"Relational correspondence based on unequal equality. From Cusanus via Kant: reason can know the absolute only through unequal equality between finite and infinite.",presupposes:["homology","infinity"],maturity:"developed",author:"RS",source:"how-relations-coil-up.md",haak:null,belongings:["Analogy \u2192 Homology (presupposition)","Analogy \u2192 Infinity (presupposition)","Analogy \u2192 TTT-corpus (member)","Analogy \u2192 RS (author)","Analogy \u2192 how-relations-coil-up.md (defined-in)"]},
+  {id:"communication",num:70,name:"Communication",layer:6,type:"method-like",def:"The intertwining of intimate situations through threads. Information can only be communicated through flattening.",presupposes:["intimacy","thread","flattening"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:"Ontology 09-situation-graph (communication as edges between situation subgraphs)",belongings:["Communication \u2192 Intimacy (presupposition)","Communication \u2192 Thread (presupposition)","Communication \u2192 Flattening (presupposition)","Communication \u2192 TTT-corpus (member)","Communication \u2192 collaborative (author)","Communication \u2192 Ontology-09 [HAAK] (correspondence)"]},
+  {id:"dialogue",num:71,name:"Dialogue",layer:6,type:"situation-like",def:"A relationally broader form of communication in which entanglements increase both breadth and depth. Beyond simple exchange; involves mutual deepening.",presupposes:["communication","intimacy"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Dialogue \u2192 Communication (presupposition)","Dialogue \u2192 Intimacy (presupposition)","Dialogue \u2192 TTT-corpus (member)","Dialogue \u2192 collaborative (author)"]},
+  {id:"tool",num:72,name:"Tool / Instrument",layer:6,type:"entity-like",def:"Real things engaged in practices with pragmatic purpose; things that can flatten or focus situations. Tools can break, exposing latent qualities.",presupposes:["agency","power","flattening"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:"Ontology 01-objects Def. 3 (Method as procedure; Material as operand)",belongings:["Tool \u2192 Agency (presupposition)","Tool \u2192 Power (presupposition)","Tool \u2192 Flattening (presupposition)","Tool \u2192 TTT-corpus (member)","Tool \u2192 collaborative (author)","Tool \u2192 Ontology-01 Def.3 [HAAK] (correspondence)"]},
+  {id:"breaking",num:73,name:"Breaking",layer:6,type:"method-like",def:"The moment when a tool's smooth functioning is interrupted, revealing the relational depths it normally conceals. Breaking exposes the flattening that was operating invisibly.",presupposes:["tool","flattening","depth"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Breaking \u2192 Tool (presupposition)","Breaking \u2192 Flattening (presupposition)","Breaking \u2192 Depth (presupposition)","Breaking \u2192 TTT-corpus (member)","Breaking \u2192 collaborative (author)"]},
+  {id:"endosymbiosis",num:74,name:"Endosymbiosis",alt:"epistemological",layer:6,type:"situation-like",def:"Knowledge as situational endosymbiosis \u2014 the intimate entanglement of knowing subject and known object in mutual relational depth.",presupposes:["knowledge","intimacy"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Endosymbiosis \u2192 Knowledge (presupposition)","Endosymbiosis \u2192 Intimacy (presupposition)","Endosymbiosis \u2192 TTT-corpus (member)","Endosymbiosis \u2192 collaborative (author)"]},
+  {id:"idolatry",num:75,name:"Idolatry",layer:6,type:"method-like",def:"The mistake of taking a flattened version of a thing for the entirety of that thing. A fundamental error in knowledge formation.",presupposes:["flattening","knowledge"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Idolatry \u2192 Flattening (presupposition)","Idolatry \u2192 Knowledge (presupposition)","Idolatry \u2192 TTT-corpus (member)","Idolatry \u2192 collaborative (author)"]},
+  {id:"signal",num:76,name:"Signal",layer:6,type:"quality-like",def:"A flattened relational trace carrying information between situations. The minimal relational content that survives compression through a thread.",presupposes:["flattening","thread"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Signal \u2192 Flattening (presupposition)","Signal \u2192 Thread (presupposition)","Signal \u2192 TTT-corpus (member)","Signal \u2192 collaborative (author)"]},
+  {id:"trace",num:77,name:"Trace",layer:6,type:"quality-like",def:"The residual relational imprint left by a signal or interaction. What persists after the situation that produced it has dissolved.",presupposes:["signal","situation"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Trace \u2192 Signal (presupposition)","Trace \u2192 Situation (presupposition)","Trace \u2192 TTT-corpus (member)","Trace \u2192 collaborative (author)"]},
+  {id:"preparation",num:78,name:"Preparation",layer:6,type:"method-like",def:"The deliberate structuring of a situation to receive signals and produce traces. Experimental setup as ontological act.",presupposes:["situation","signal","knowledge"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Preparation \u2192 Situation (presupposition)","Preparation \u2192 Signal (presupposition)","Preparation \u2192 Knowledge (presupposition)","Preparation \u2192 TTT-corpus (member)","Preparation \u2192 collaborative (author)"]},
+  {id:"error",num:79,name:"Error",alt:"Misperception",layer:6,type:"method-like",def:"Topological misassignment: the attribution of a relational pattern to a coil it does not belong to. The relations perceived are real but the coil through which they are read is wrong. Correction is re-reading the same relations through a different coil.",presupposes:["perception","topology","coil","flattening","pattern"],maturity:"proposed",author:"ZM / collaborative",source:"missing-concepts.md",haak:"Library Theorem (organized retrieval preserves structure); drift resistance",belongings:["Error \u2192 Perception (presupposition)","Error \u2192 Topology (presupposition)","Error \u2192 Coil (presupposition)","Error \u2192 Flattening (presupposition)","Error \u2192 Pattern (presupposition)","Error \u2192 TTT-corpus (member)","Error \u2192 ZM (author)","Error \u2192 missing-concepts.md (defined-in)","Error \u2192 Library-Theorem [HAAK] (correspondence)"]},
+  {id:"language",num:80,name:"Language",layer:6,type:"entity-like",def:"A shared repertoire of patterns (topological templates) used to flatten intimate situations into threads for transmission. A word is a pattern \u2014 a topology without specific geometry. Language is the most powerful and most dangerous flattening tool.",presupposes:["communication","thread","flattening","pattern","tool"],maturity:"proposed",author:"ZM / collaborative",source:"missing-concepts.md",haak:"Index hierarchy; gateway channels; the belongs-to relation as minimal language",belongings:["Language \u2192 Communication (presupposition)","Language \u2192 Thread (presupposition)","Language \u2192 Flattening (presupposition)","Language \u2192 Pattern (presupposition)","Language \u2192 Tool (presupposition)","Language \u2192 TTT-corpus (member)","Language \u2192 ZM (author)","Language \u2192 missing-concepts.md (defined-in)","Language \u2192 index-hierarchy [HAAK] (correspondence)"]},
+  {id:"subject_object",num:81,name:"Subject / Object",layer:7,type:"entity-like",def:"Subject: the limited aspect of a thing that is the knower. Object: the limited aspect that is the known. Not ontologically distinct; distinction is contextual and relational.",presupposes:["knowledge","situation","thing","flattening"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:"Ontology 01-objects Def. 2/5 (Actor/Material asymmetry)",belongings:["Subject/Object \u2192 Knowledge (presupposition)","Subject/Object \u2192 Situation (presupposition)","Subject/Object \u2192 Thing (presupposition)","Subject/Object \u2192 Flattening (presupposition)","Subject/Object \u2192 TTT-corpus (member)","Subject/Object \u2192 collaborative (author)","Subject/Object \u2192 Ontology-01 Def.2/5 [HAAK] (correspondence)"]},
+  {id:"person",num:82,name:"Person",layer:7,type:"entity-like",def:"A thing understood through its relational embeddedness rather than autonomous individuality. Defined by situations inhabited and constellations of relations engaged. Ontologically equal to all other things.",presupposes:["thing","relation","situation","intersectionality"],maturity:"developed",author:"ZM / RS",source:"relational-ethics.md",haak:"Ontology 11-identity (entity identity resolution)",belongings:["Person \u2192 Thing (presupposition)","Person \u2192 Relation (presupposition)","Person \u2192 Situation (presupposition)","Person \u2192 Intersectionality (presupposition)","Person \u2192 TTT-corpus (member)","Person \u2192 ZM (author)","Person \u2192 relational-ethics.md (defined-in)","Person \u2192 Ontology-11 [HAAK] (correspondence)"]},
+  {id:"living_being",num:83,name:"Living Being",layer:7,type:"entity-like",def:"An intimate situation in which self-relations (internal) are privileged over non-self relations (external), creating sustained relational asymmetry and self-coherence.",presupposes:["intimacy","relation"],maturity:"sketched",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Living-Being \u2192 Intimacy (presupposition)","Living-Being \u2192 Relation (presupposition)","Living-Being \u2192 TTT-corpus (member)","Living-Being \u2192 collaborative (author)"]},
+  {id:"identity",num:84,name:"Identity / Individuation",layer:7,type:"quality-like",def:"Persistence through time via topological stability. The unique relational profile distinguishing one thing from all others.",presupposes:["topology","geometry","time","relation"],maturity:"developed",author:"collaborative",source:"how-relations-coil-up.md",haak:"Ontology 11-identity (hub-and-spoke identity resolution)",belongings:["Identity \u2192 Topology (presupposition)","Identity \u2192 Geometry (presupposition)","Identity \u2192 Time (presupposition)","Identity \u2192 Relation (presupposition)","Identity \u2192 TTT-corpus (member)","Identity \u2192 collaborative (author)","Identity \u2192 how-relations-coil-up.md (defined-in)","Identity \u2192 Ontology-11 [HAAK] (correspondence)"]},
+  {id:"freedom",num:85,name:"Freedom",layer:7,type:"quality-like",def:"The capacity to act beyond any single situational determination. Arises from infinite depth: agents are always deeper than their situational manifestations.",presupposes:["depth","intersectionality","agency"],maturity:"sketched",author:"GG",source:"determinism-and-free-will.md",haak:null,belongings:["Freedom \u2192 Depth (presupposition)","Freedom \u2192 Intersectionality (presupposition)","Freedom \u2192 Agent (presupposition)","Freedom \u2192 TTT-corpus (member)","Freedom \u2192 GG (author)","Freedom \u2192 determinism-and-free-will.md (defined-in)"]},
+  {id:"aesthetic_experience",num:86,name:"Aesthetic Experience",layer:7,type:"situation-like",def:"An encounter at the boundary between situations where the endlessness of things becomes apparent. Merges depth and breadth in a way that makes situational boundaries porous.",presupposes:["depth","breadth","situation"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Aesthetic-Experience \u2192 Depth (presupposition)","Aesthetic-Experience \u2192 Breadth (presupposition)","Aesthetic-Experience \u2192 Situation (presupposition)","Aesthetic-Experience \u2192 TTT-corpus (member)","Aesthetic-Experience \u2192 collaborative (author)"]},
+  {id:"contemplation",num:87,name:"Contemplation",layer:7,type:"method-like",def:"The opening up of infinities of possibilities within a situation. Contrasts with knowledge (which crystallizes new possibilities). Aesthetic practice; a deepening and loosening rather than closure.",presupposes:["aesthetic_experience","possibility_modal"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Contemplation \u2192 Aesthetic-Experience (presupposition)","Contemplation \u2192 Possibility (presupposition)","Contemplation \u2192 TTT-corpus (member)","Contemplation \u2192 collaborative (author)"]},
+  {id:"fiction_art",num:88,name:"Fiction / Art",layer:7,type:"method-like",def:"The communication of intimate situations from creator to audience by tapping into shared depths. An aesthetic modality transmitting deep relational structures.",presupposes:["intimacy","communication","aesthetic_experience"],maturity:"developed",author:"collaborative",source:"principles-pluralistic-relational-situational-ontology.md",haak:null,belongings:["Fiction/Art \u2192 Intimacy (presupposition)","Fiction/Art \u2192 Communication (presupposition)","Fiction/Art \u2192 Aesthetic-Experience (presupposition)","Fiction/Art \u2192 TTT-corpus (member)","Fiction/Art \u2192 collaborative (author)"]},
+  {id:"wonder",num:89,name:"Wonder",layer:7,type:"situation-like",def:"The continuous oscillation between displeasure and pleasure when encountering things too grand for synthesis to complete. A feedback loop revealing infinite depth and open-endedness of knowledge.",presupposes:["aesthetic_experience","flattening","depth"],maturity:"developed",author:"RS / ZM",source:"ttt-preamble-history-of-flattening.md",haak:null,belongings:["Wonder \u2192 Aesthetic-Experience (presupposition)","Wonder \u2192 Flattening (presupposition)","Wonder \u2192 Depth (presupposition)","Wonder \u2192 TTT-corpus (member)","Wonder \u2192 RS (author)"]},
+  {id:"relational_ethics",num:90,name:"Relational Ethics",layer:7,type:"quality-like",def:"Ethics grounded in relationality. Wellbeing of the relational field is good for the person and vice versa. Rejects both isolationist autonomy and homogenizing conformism.",presupposes:["relation","situation","person","infinity"],maturity:"developed",author:"ZM / RS",source:"relational-ethics.md",haak:"Ontology 13-governance-as-situation (governance as situated normative structure)",belongings:["Relational-Ethics \u2192 Relation (presupposition)","Relational-Ethics \u2192 Situation (presupposition)","Relational-Ethics \u2192 Person (presupposition)","Relational-Ethics \u2192 Infinity (presupposition)","Relational-Ethics \u2192 TTT-corpus (member)","Relational-Ethics \u2192 ZM (author)","Relational-Ethics \u2192 relational-ethics.md (defined-in)","Relational-Ethics \u2192 Ontology-13 [HAAK] (correspondence)"]},
+  {id:"zero_person",num:91,name:"Zero-Person Perspective",layer:7,type:"method-like",def:"A reconceptualization of phenomenological perspective avoiding the subjective/objective split. The perspective of an embodied thing relating from within its own relational field.",presupposes:["thing","situation","experience","perception"],maturity:"sketched",author:"ZM",source:"zero-person-and-the-psyche.md",haak:null,belongings:["Zero-Person \u2192 Thing (presupposition)","Zero-Person \u2192 Situation (presupposition)","Zero-Person \u2192 Experience (presupposition)","Zero-Person \u2192 Perception (presupposition)","Zero-Person \u2192 TTT-corpus (member)","Zero-Person \u2192 ZM (author)"]},
+  {id:"psychedelic_remapping",num:92,name:"Psychedelic Remapping",layer:7,type:"method-like",def:"The hypothesis that psychedelics primarily alter how the brain parses the world into situations, enabling new situational configurations and promoting cognitive flexibility.",presupposes:["situationality","perception","mind"],maturity:"sketched",author:"ZM",source:"situations-and-psychedelics.md",haak:null,belongings:["Psychedelic-Remapping \u2192 Situationality (presupposition)","Psychedelic-Remapping \u2192 Perception (presupposition)","Psychedelic-Remapping \u2192 Mind (presupposition)","Psychedelic-Remapping \u2192 TTT-corpus (member)","Psychedelic-Remapping \u2192 ZM (author)"]},
+  {id:"interstitiality",num:93,name:"Interstitiality",layer:7,type:"quality-like",def:"The small gaps that open up even in totalizing systems, where expressions of human infinitude escape domination. Life, joy, creativity, and resistance appear in margins.",presupposes:["flattening","infinity","situation"],maturity:"sketched",author:"ZM",source:"interstitiality-of-doom-and-hope.md",haak:null,belongings:["Interstitiality \u2192 Flattening (presupposition)","Interstitiality \u2192 Infinity (presupposition)","Interstitiality \u2192 Situation (presupposition)","Interstitiality \u2192 TTT-corpus (member)","Interstitiality \u2192 ZM (author)"]},
+  {id:"democratic_ontology",num:94,name:"Democratic Ontology",layer:7,type:"quality-like",def:"An ontology granting equal ontological status to all things regardless of type, scale, or nature. TTT's pluralism is fundamentally democratic.",presupposes:["plurality","relation"],maturity:"developed",author:"collaborative",source:"plural-manifesto.md",haak:null,belongings:["Democratic-Ontology \u2192 Plurality (presupposition)","Democratic-Ontology \u2192 Relation (presupposition)","Democratic-Ontology \u2192 TTT-corpus (member)","Democratic-Ontology \u2192 collaborative (author)"]},
+  {id:"relational_depth_clause",num:95,name:"Relational Depth Clause",layer:7,type:"quality-like",def:"A proposed constraint for AI design: actions cannot reduce the relational depth of things involved; must increase or preserve relational complexity. Prevents harm by preventing flattening.",presupposes:["flattening","depth","agency"],maturity:"stub",author:"ZM",source:"ai-paperclip-catastrophe.md",haak:"Patterns/policies 01-constitution (governance constraints on agent action)",belongings:["Relational-Depth-Clause \u2192 Flattening (presupposition)","Relational-Depth-Clause \u2192 Depth (presupposition)","Relational-Depth-Clause \u2192 Agency (presupposition)","Relational-Depth-Clause \u2192 TTT-corpus (member)","Relational-Depth-Clause \u2192 ZM (author)","Relational-Depth-Clause \u2192 Constitution [HAAK] (correspondence)"]},
+  {id:"compound_object",num:96,name:"Compound Object",alt:"Symbiosis",layer:7,type:"entity-like",def:"An object formed through mutually deepening interaction of multiple objects. The birth of a new compound object is an event. Not a mere sum of parts.",presupposes:["thing","relation","event","depth"],maturity:"developed",author:"RS",source:"events.md",haak:"Ontology 01-objects Def. 6 (Compound = synthesis across all three axes)",belongings:["Compound-Object \u2192 Thing (presupposition)","Compound-Object \u2192 Relation (presupposition)","Compound-Object \u2192 Event (presupposition)","Compound-Object \u2192 Depth (presupposition)","Compound-Object \u2192 TTT-corpus (member)","Compound-Object \u2192 RS (author)","Compound-Object \u2192 events.md (defined-in)","Compound-Object \u2192 Ontology-01 Def.6 [HAAK] (correspondence)"]},
+  {id:"normativity",num:97,name:"Normativity",layer:7,type:"quality-like",def:"The topological reading of flattening: an act is normatively charged when it changes the topology of a relational field, not merely its geometry. The \"ought\" does not come from outside the relational field \u2014 it is the field's own resistance to topological destruction.",presupposes:["relation","topology","flattening","depth","relational_ethics","agency"],maturity:"proposed",author:"ZM / collaborative",source:"missing-concepts.md",haak:"Descriptive/normative split (ontology/01); Policy and Constitution (patterns/policies/01)",belongings:["Normativity \u2192 Relation (presupposition)","Normativity \u2192 Topology (presupposition)","Normativity \u2192 Flattening (presupposition)","Normativity \u2192 Depth (presupposition)","Normativity \u2192 Relational-Ethics (presupposition)","Normativity \u2192 Agency (presupposition)","Normativity \u2192 TTT-corpus (member)","Normativity \u2192 ZM (author)","Normativity \u2192 missing-concepts.md (defined-in)","Normativity \u2192 Policy/Constitution [HAAK] (correspondence)"]}
+];
+
+const GENEALOGY = [
+  {name:"Parmenides / Aristotle / Plotinus",body:"TTT traces the mereological tradition (the many exist only by virtue of the One) from Parmenides through Aristotle's prime mover to Neoplatonism.",takes:null,rejects:"This entire lineage: plurality is fundamental, not derivative."},
+  {name:"Nicholas of Cusa",body:"TTT takes his concept of \"learned ignorance\" and the method of analogy (unequal equality between finite and infinite).",takes:"Learned ignorance, method of analogy.",rejects:"Residual theological monism."},
+  {name:"Immanuel Kant",body:"TTT reinterprets Kant's three-level synthesis (apprehension, reproduction, recognition) as successive flattenings.",takes:"Finitude, the Sublime as flattening-breakdown.",rejects:"Transcendental idealism (mind-imposed structure); adopts situational realism instead."},
+  {name:"G.W.F. Hegel",body:"TTT takes dialectical determination (thesis-antithesis-sublation) as showing that descriptions of things are always open to expansion.",takes:"Dialectical determination, determinate negation.",rejects:"Teleological closure (Absolute Spirit) \u2014 TTT's dialectics never terminates."},
+  {name:"Edmund Husserl",body:"TTT takes the transcendental reduction (bracketing presuppositions) and intentionality (consciousness is always directed).",takes:"Transcendental reduction, intentionality, adumbration.",rejects:"Residual subject-centrism."},
+  {name:"Martin Heidegger",body:"TTT takes Being-in-the-world (Dasein) as always already worldly. Takes the ready-to-hand / present-at-hand distinction and tool-breaking.",takes:"Being-in-the-world, tool-breaking, ready-to-hand / present-at-hand.",rejects:"Anthropocentrism and the distinction between Dasein and other entities."},
+  {name:"Jacques Derrida",body:"TTT takes diff\u00e9rance as the generative ground underlying all differences and meanings.",takes:"Diff\u00e9rance, escape from full presence.",rejects:"Purely linguistic framing \u2014 TTT grounds diff\u00e9rance in ontological relationality."},
+  {name:"Gilles Deleuze",body:"TTT takes the rhizome, the consistency plane, deterritorialization/reterritorialization, and actuality/virtuality duality.",takes:"Rhizome, consistency plane, deterritorialization, actuality/virtuality.",rejects:"Certain aspects of immanence that underspecify finite situations."},
+  {name:"Alain Badiou",body:"TTT takes the concept of situation (multiplicity counted as one), inconsistent multiplicity, and forcing. Reinterprets \"count-as-one\" as flattening.",takes:"Situation as counted multiplicity, inconsistent multiplicity, forcing.",rejects:"Mathematical foundationalism."},
+  {name:"Jean-Luc Nancy",body:"TTT takes being-singular-plural (being is inherently plural; coexistence is fundamental).",takes:"Being-singular-plural, coexistence as fundamental.",rejects:"Nancy's work lacks the relational-topological machinery TTT provides."},
+  {name:"Graham Harman / OOO",body:"TTT shares flat ontology and the reality of all objects regardless of type. Takes the fourfold structure as a diagnostic.",takes:"Flat ontology, fourfold diagnostic.",rejects:"Withdrawn essence \u2014 TTT explains withdrawal through multiple situational inhabitation, not a hidden core."},
+  {name:"Bruno Latour / ANT",body:"TTT takes the actor-network (reality as scaffolding of relations through mutual effects), agency distributed across human and non-human actors.",takes:"Actor-network, distributed agency.",rejects:"ANT's tendency to flatten depth \u2014 all relations treated as equally shallow."},
+  {name:"Heinrich Rombach",body:"TTT takes structural autogenesis (situations co-create themselves), co-creativity, and situations as concretions of systems.",takes:"Structural autogenesis, co-creativity.",rejects:null},
+  {name:"Donna Haraway",body:"TTT takes endosymbiosis as a central operating concept and holobionts as examples of identity through radical entanglement.",takes:"Endosymbiosis, holobionts, listening for the non-human.",rejects:"Any residual anthropocentrism."},
+  {name:"Emilio Uranga",body:"TTT takes pendulation between states as constitutive of existence.",takes:"Pendulation between states as constitutive.",rejects:null},
+  {name:"Giorgio Agamben",body:"TTT takes the concept of chairotic (kairos) time \u2014 time pregnant with not-yet-actualized possibilities.",takes:"Chairotic (kairos) time.",rejects:null}
+];
+
+// === SEMANTIC RING & FAMILY ASSIGNMENTS ===
+const RING_MAP = {
+  // Ring 0: center pillars
+  thing:0, relation:0, situation:0,
+  // Ring 1: axioms
+  plurality:1, relationality:1, situationality:1, infinity:1,
+  // Ring 2: primary features
+  quality:2, domain:2, compound_object:2, difference:2, multiplicity:2,
+  specificity:2, mess:2, entanglement:2,
+  // Ring 3: operators & measures
+  breadth:3, depth:3, reach:3, coil:3, topology:3, geometry:3, flattening:3,
+  scale:3, focusing:3, intimacy:3, tension:3, intersectionality:3,
+  // Ring 4: dynamics
+  time:4, change:4, identity:4, composition:4, history:4, scene:4, realm:4,
+  possible:4, actual:4, potential:4, actualization:4, event:4, movement:4,
+  process:4, circumstance:4, causality:4, determination:4, force:4, power:4,
+  implicate_order:4, possibility_modal:4,
+  // Ring 5: experience & perception
+  perception:5, experience:5, consciousness:5, awareness:5, selectivity:5,
+  encounter:5, pattern:5, knot:5, error:5, saliency:5, surprise:5,
+  presentation:5, action:5, mind:5, givenness:5, withdrawal:5,
+  aesthetic_experience:5, contemplation:5, wonder:5, zero_person:5,
+  psychedelic_remapping:5,
+  // Ring 6: knowledge & communication
+  communication:6, thread:6, language:6, knowledge:6, unknown:6,
+  tool:6, signal:6, trace:6, preparation:6, homology:6, analogy:6,
+  dialogue:6, breaking:6, endosymbiosis:6, idolatry:6,
+  meaning:6, value:6, affordance:6, fiction_art:6, subject_object:6,
+  // Ring 7: applied/integrative
+  agency:7, relational_ethics:7, normativity:7, freedom:7,
+  democratic_ontology:7, person:7, living_being:7,
+  relational_depth_clause:7, interstitiality:7,
+};
+
+const FAMILY_MAP = {
+  // Thing-family: entities, identity, patterns, agents
+  thing:"thing", plurality:"thing", difference:"thing", identity:"thing",
+  compound_object:"thing", multiplicity:"thing", person:"thing", living_being:"thing",
+  pattern:"thing", knot:"thing", agency:"thing", action:"thing",
+  mind:"thing", subject_object:"thing", freedom:"thing",
+  affordance:"thing", tool:"thing", breaking:"thing",
+  // Relation-family: structure, topology, geometry, qualities, operators
+  relation:"relation", relationality:"relation", quality:"relation", topology:"relation",
+  geometry:"relation", coil:"relation", breadth:"relation", depth:"relation",
+  reach:"relation", specificity:"relation", mess:"relation",
+  entanglement:"relation", intersectionality:"relation",
+  homology:"relation", analogy:"relation", intimacy:"relation",
+  tension:"relation", focusing:"relation", endosymbiosis:"relation",
+  relational_depth_clause:"relation",
+  // Situation-family: encounters, time, change, perception, domains
+  situation:"situation", situationality:"situation", infinity:"situation",
+  domain:"situation", realm:"situation", time:"situation", change:"situation",
+  possible:"situation", actual:"situation", potential:"situation",
+  actualization:"situation", event:"situation", movement:"situation",
+  process:"situation", circumstance:"situation", scene:"situation",
+  history:"situation", causality:"situation", determination:"situation",
+  implicate_order:"situation", possibility_modal:"situation",
+  experience:"situation", perception:"situation", consciousness:"situation",
+  awareness:"situation", selectivity:"situation", saliency:"situation",
+  surprise:"situation", presentation:"situation", givenness:"situation",
+  withdrawal:"situation", aesthetic_experience:"situation", contemplation:"situation",
+  wonder:"situation", zero_person:"situation", psychedelic_remapping:"situation",
+  // Bridge concepts
+  flattening:"bridge", scale:"bridge", composition:"bridge", communication:"bridge",
+  thread:"bridge", language:"bridge", knowledge:"bridge", unknown:"bridge",
+  signal:"bridge", trace:"bridge", preparation:"bridge", dialogue:"bridge",
+  idolatry:"bridge", error:"bridge", power:"bridge", force:"bridge",
+  value:"bridge", meaning:"bridge", fiction_art:"bridge",
+  relational_ethics:"bridge", normativity:"bridge",
+  democratic_ontology:"bridge", interstitiality:"bridge",
+};
+
+const FAMILY_COLORS = {
+  thing: {bright:"#dbb545", mid:"#c9a96e", dim:"#e8c872"},
+  relation: {bright:"#4a9eff", mid:"#5aa8ff", dim:"#7eb8ff"},
+  situation: {bright:"#3ecf8e", mid:"#4dd89a", dim:"#6ee7b7"},
+  bridge: {bright:"#c8c8c8", mid:"#b0b0b0", dim:"#d8d8d8"},
+};
+
+const RING_RADII = [0, 110, 210, 310, 410, 500, 590, 680];
+const RING_LABELS = ["Pillars","Axioms","Features","Operators","Dynamics","Experience","Knowledge","Applied"];
+
+// Pillar angular anchors (Thing=top, Relation=bottom-left, Situation=bottom-right)
+const PILLAR_ANGLES = { thing: -Math.PI/2, relation: -Math.PI/2 + 2*Math.PI/3, situation: -Math.PI/2 + 4*Math.PI/3 };
+
+// Assign which pillar each axiom is near
+const AXIOM_PILLAR = { plurality:"thing", relationality:"relation", situationality:"situation", infinity:"situation" };
+
+function familyOf(c) { return FAMILY_MAP[c.id] || "bridge"; }
+function ringOf(c) { return RING_MAP[c.id] !== undefined ? RING_MAP[c.id] : 4; }
+function familyColor(fam) { return FAMILY_COLORS[fam] || FAMILY_COLORS.bridge; }
+
+// Count dependents for sizing
+const depCount = {};
+CONCEPTS.forEach(c => { depCount[c.id] = 0; });
+CONCEPTS.forEach(c => { (c.presupposes||[]).forEach(p => { if(depCount[p]!==undefined) depCount[p]++; }); });
+
+// Maturity config
+const MAT_CFG = {
+  formalized: {opacity:1, dash:"", glow:false},
+  polished: {opacity:0.9, dash:"", glow:false},
+  developed: {opacity:0.8, dash:"", glow:false},
+  sketched: {opacity:0.7, dash:"4,3", glow:false},
+  stub: {opacity:0.6, dash:"2,3", glow:false},
+  proposed: {opacity:0.7, dash:"2,3", glow:true},
+};
+
+// Build concept lookup
+const cMap = {}; CONCEPTS.forEach(c => { cMap[c.id] = c; });
+
+// Layout: assign angular positions
+function layoutConcepts() {
+  const positions = {};
+  const ringGroups = {};
+  CONCEPTS.forEach(c => {
+    const r = ringOf(c);
+    if (!ringGroups[r]) ringGroups[r] = [];
+    ringGroups[r].push(c);
+  });
+
+  // Ring 0: three pillars at fixed positions
+  const pillars = ["thing","relation","situation"];
+  pillars.forEach(pid => {
+    positions[pid] = { x: Math.cos(PILLAR_ANGLES[pid]) * 60, y: Math.sin(PILLAR_ANGLES[pid]) * 60 };
+  });
+
+  // Ring 1: axioms near their pillar
+  const axioms = ringGroups[1] || [];
+  axioms.forEach(c => {
+    const pillar = AXIOM_PILLAR[c.id] || "thing";
+    const base = PILLAR_ANGLES[pillar];
+    const idx = axioms.filter(a => AXIOM_PILLAR[a.id] === pillar).indexOf(c);
+    const count = axioms.filter(a => AXIOM_PILLAR[a.id] === pillar).length;
+    const spread = 0.4;
+    const angle = base + (idx - (count-1)/2) * spread;
+    positions[c.id] = { x: Math.cos(angle) * RING_RADII[1], y: Math.sin(angle) * RING_RADII[1] };
+  });
+
+  // Rings 2-7: distribute by family sector + even spacing
+  for (let ring = 2; ring <= 7; ring++) {
+    const group = ringGroups[ring] || [];
+    if (!group.length) continue;
+    const radius = RING_RADII[ring] || (ring * 90 + 60);
+
+    // Sort by family to cluster, then spread evenly
+    const familyOrder = ["thing","relation","situation","bridge"];
+    group.sort((a,b) => {
+      const fa = familyOrder.indexOf(familyOf(a)), fb = familyOrder.indexOf(familyOf(b));
+      if (fa !== fb) return fa - fb;
+      return a.name.localeCompare(b.name);
+    });
+
+    const n = group.length;
+    group.forEach((c, i) => {
+      const angle = -Math.PI/2 + (2 * Math.PI * i / n);
+      // Add small jitter based on id hash for visual interest
+      let hash = 0;
+      for (let j = 0; j < c.id.length; j++) hash = ((hash << 5) - hash) + c.id.charCodeAt(j);
+      const jitter = ((hash % 100) / 100 - 0.5) * 12;
+      positions[c.id] = {
+        x: Math.cos(angle) * (radius + jitter),
+        y: Math.sin(angle) * (radius + jitter)
+      };
+    });
+  }
+  return positions;
+}
+
+// === RENDERING ===
+const wrap = document.getElementById('graph-wrap');
+const svg = document.getElementById('graph');
+const tooltip = document.getElementById('tooltip');
+const panel = document.getElementById('panel');
+const panelContent = document.getElementById('panel-content');
+const searchInput = document.getElementById('search-input');
+
+let W, H, cx, cy;
+let zoom = 1, panX = 0, panY = 0;
+let selected = null;
+let positions = {};
+let searchTerm = "";
+let filters = { ring: "", family: "", maturity: "", author: "" };
+
+function resize() {
+  W = wrap.clientWidth; H = wrap.clientHeight;
+  cx = W/2; cy = H/2;
+  svg.setAttribute('width', W);
+  svg.setAttribute('height', H);
+  render();
+}
+
+function nodeRadius(c) {
+  if (ringOf(c) === 0) return 22;
+  const deps = depCount[c.id] || 0;
+  return Math.max(6, Math.min(18, 6 + deps * 1.2));
+}
+
+function isVisible(c) {
+  if (searchTerm) {
+    const s = searchTerm.toLowerCase();
+    if (!c.name.toLowerCase().includes(s) && !c.id.includes(s) &&
+        !(c.alt && c.alt.toLowerCase().includes(s))) return false;
+  }
+  if (filters.ring !== "" && ringOf(c) !== parseInt(filters.ring)) return false;
+  if (filters.family && familyOf(c) !== filters.family) return false;
+  if (filters.maturity && c.maturity !== filters.maturity) return false;
+  if (filters.author) {
+    const fa = filters.author.toLowerCase();
+    const ca = (c.author||"").toLowerCase();
+    if (fa === "collaborative") { if (!ca.includes("collaborative")) return false; }
+    else { if (!ca.toLowerCase().includes(fa.toLowerCase())) return false; }
+  }
+  return true;
+}
+
+function screenX(wx) { return cx + (wx + panX) * zoom; }
+function screenY(wy) { return cy + (wy + panY) * zoom; }
+
+function render() {
+  positions = layoutConcepts();
+  let html = '';
+
+  // Defs: gaussian blur for glow
+  html += '<defs>';
+  html += '<filter id="glow"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  html += '<filter id="glow-strong"><feGaussianBlur stdDeviation="8" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>';
+  html += '<radialGradient id="bg-grad" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#121830"/><stop offset="100%" stop-color="#0a0e1a"/></radialGradient>';
+  html += '</defs>';
+
+  // Background
+  html += `<rect x="0" y="0" width="${W}" height="${H}" fill="url(#bg-grad)"/>`;
+
+  // Ring guides
+  for (let i = 1; i <= 7; i++) {
+    const r = RING_RADII[i] * zoom;
+    html += `<circle cx="${screenX(0)}" cy="${screenY(0)}" r="${r}" fill="none" stroke="#2a3050" stroke-width="0.5" opacity="0.06"/>`;
+  }
+
+  // Determine selected ancestry/descendants
+  let ancestors = new Set(), descendants = new Set(), chainEdges = new Set();
+  if (selected) {
+    // BFS ancestors
+    const q = [selected];
+    ancestors.add(selected);
+    while (q.length) {
+      const cur = q.shift();
+      const c = cMap[cur];
+      if (c) (c.presupposes||[]).forEach(p => { if (!ancestors.has(p)) { ancestors.add(p); q.push(p); } chainEdges.add(p+'->'+cur); });
+    }
+    // BFS descendants
+    const q2 = [selected];
+    descendants.add(selected);
+    while (q2.length) {
+      const cur = q2.shift();
+      CONCEPTS.forEach(c => {
+        if ((c.presupposes||[]).includes(cur) && !descendants.has(c.id)) {
+          descendants.add(c.id); q2.push(c.id); chainEdges.add(cur+'->'+c.id);
+        }
+      });
+    }
+  }
+
+  const chain = new Set([...ancestors, ...descendants]);
+
+  // Edges
+  CONCEPTS.forEach(c => {
+    if (!positions[c.id]) return;
+    (c.presupposes||[]).forEach(pid => {
+      if (!positions[pid]) return;
+      const src = positions[pid], tgt = positions[c.id];
+      const sx = screenX(src.x), sy = screenY(src.y), tx = screenX(tgt.x), ty = screenY(tgt.y);
+      const mx = (sx+tx)/2, my = (sy+ty)/2 - 20*zoom;
+      const edgeKey = pid+'->'+c.id;
+      const inChain = chainEdges.has(edgeKey);
+      const srcFam = familyOf(cMap[pid]||c);
+      const col = familyColor(srcFam).mid;
+      let op = 0.12, sw = 0.6;
+      if (selected) {
+        if (inChain) { op = 0.6; sw = 1.8; } else { op = 0.03; }
+      }
+      if (!isVisible(c) && !isVisible(cMap[pid]||c)) op = 0.02;
+      html += `<path d="M${sx},${sy} Q${mx},${my} ${tx},${ty}" fill="none" stroke="${col}" stroke-width="${sw*zoom}" opacity="${op}"/>`;
+    });
+  });
+
+  // Nodes + labels
+  CONCEPTS.forEach(c => {
+    if (!positions[c.id]) return;
+    const pos = positions[c.id];
+    const x = screenX(pos.x), y = screenY(pos.y);
+    const r = nodeRadius(c) * zoom;
+    const fam = familyOf(c);
+    const col = familyColor(fam);
+    const mat = MAT_CFG[c.maturity] || MAT_CFG.developed;
+    const vis = isVisible(c);
+    const ring = ringOf(c);
+
+    let nodeOp = mat.opacity;
+    if (!vis) nodeOp = 0.08;
+    if (selected) {
+      if (chain.has(c.id)) nodeOp = mat.opacity;
+      else nodeOp = 0.1;
+    }
+
+    const fillCol = ring === 0 ? col.bright : col.mid;
+    const useGlow = ring === 0 || (mat.glow);
+    const filterAttr = ring === 0 ? 'filter="url(#glow-strong)"' : (useGlow ? 'filter="url(#glow)"' : '');
+    const dashAttr = mat.dash ? `stroke-dasharray="${mat.dash}"` : '';
+    const isPillar = ring === 0;
+    const isProposed = mat.glow;
+
+    html += `<g class="node${isPillar ? ' anim-pillar' : ''}${isProposed ? ' anim-proposed' : ''}" data-id="${c.id}" style="cursor:pointer;transform-box:fill-box;transform-origin:center;" opacity="${nodeOp}">`;
+    html += `<circle cx="${x}" cy="${y}" r="${r}" fill="${fillCol}" fill-opacity="0.15" stroke="${fillCol}" stroke-width="${ring===0?2:1.2}" ${dashAttr} ${filterAttr}/>`;
+    html += `<circle cx="${x}" cy="${y}" r="${r*0.4}" fill="${fillCol}" fill-opacity="0.6"/>`;
+
+    // Labels: always show for ring 0-2, or if 3+ dependents, or if zoomed enough
+    const showLabel = ring <= 2 || (depCount[c.id]||0) >= 3 || zoom > 1.3;
+    if (showLabel) {
+      const angle = Math.atan2(pos.y, pos.x);
+      const lx = x + Math.cos(angle) * (r + 8);
+      const ly = y + Math.sin(angle) * (r + 3);
+      const anchor = Math.abs(angle) > Math.PI/2 ? "end" : "start";
+      const fs = ring === 0 ? 13*zoom : (ring <= 2 ? 10.5*zoom : 9*zoom);
+      html += `<text x="${lx}" y="${ly}" fill="${col.dim}" font-family="'Crimson Pro',serif" font-size="${fs}" text-anchor="${anchor}" dominant-baseline="middle" opacity="${nodeOp > 0.5 ? 0.9 : nodeOp}">${c.name}</text>`;
+    }
+    html += '</g>';
+  });
+
+  svg.innerHTML = html;
+
+  // Attach events
+  svg.querySelectorAll('.node').forEach(g => {
+    const id = g.dataset.id;
+    g.addEventListener('mouseenter', e => showTooltip(e, id));
+    g.addEventListener('mousemove', e => moveTooltip(e));
+    g.addEventListener('mouseleave', hideTooltip);
+    g.addEventListener('click', e => { e.stopPropagation(); selectConcept(id); });
+    // Touch
+    g.addEventListener('touchend', e => { e.preventDefault(); selectConcept(id); });
+  });
+
+  updateStats();
+}
+
+function showTooltip(e, id) {
+  const c = cMap[id]; if (!c) return;
+  tooltip.querySelector('.tt-name').textContent = c.name;
+  tooltip.querySelector('.tt-def').textContent = c.def;
+  tooltip.classList.add('visible');
+  moveTooltip(e);
+  // Scale node
+  const g = svg.querySelector(`.node[data-id="${id}"]`);
+  if (g) { g.style.transformBox = 'fill-box'; g.style.transformOrigin = 'center'; g.style.transform = `scale(1.3)`; }
+}
+function moveTooltip(e) {
+  const x = (e.touches ? e.touches[0].clientX : e.clientX) + 14;
+  const y = (e.touches ? e.touches[0].clientY : e.clientY) + 14;
+  tooltip.style.left = Math.min(x, window.innerWidth - 300) + 'px';
+  tooltip.style.top = Math.min(y, window.innerHeight - 80) + 'px';
+}
+function hideTooltip() {
+  tooltip.classList.remove('visible');
+  svg.querySelectorAll('.node').forEach(g => { g.style.transformBox = ''; g.style.transformOrigin = ''; g.style.transform = ''; });
+}
+
+function selectConcept(id) {
+  selected = selected === id ? null : id;
+  render();
+  if (selected) openPanel(id); else closePanel();
+}
+
+function openPanel(id) {
+  const c = cMap[id]; if (!c) return;
+  const fam = familyOf(c);
+  const col = familyColor(fam);
+  const ring = ringOf(c);
+  const mat = c.maturity;
+
+  let h = `<div class="card-title" style="color:${col.bright}">${c.name}</div>`;
+  if (c.alt) h += `<div class="card-alt">${c.alt}</div>`;
+
+  // Badges
+  h += '<div class="card-badges">';
+  h += `<span class="badge badge-ring">Ring ${ring}: ${RING_LABELS[ring]||''}</span>`;
+  h += `<span class="badge badge-family" style="border-color:${col.mid};color:${col.mid}">${fam}</span>`;
+  h += `<span class="badge badge-maturity badge-mat-${mat}">${mat}</span>`;
+  if (c.type) h += `<span class="badge badge-type">${c.type}</span>`;
+  // Author badges
+  const authors = (c.author||"").split(/[\/,]/).map(a=>a.trim()).filter(Boolean);
+  authors.forEach(a => {
+    const al = a.toLowerCase();
+    let cls = 'badge-author-collab';
+    if (al.includes('zm')) cls = 'badge-author-zm';
+    else if (al.includes('rs')) cls = 'badge-author-rs';
+    else if (al.includes('gg')) cls = 'badge-author-gg';
+    h += `<span class="badge badge-author ${cls}">${a.replace('collaborative','C').substring(0,2).toUpperCase()}</span>`;
+  });
+  h += '</div>';
+
+  h += `<div class="card-def">${c.def}</div>`;
+
+  // Presupposes
+  if (c.presupposes && c.presupposes.length) {
+    h += '<div class="card-fields"><div class="card-label">Presupposes</div><div class="card-value">';
+    c.presupposes.forEach(pid => {
+      const pc = cMap[pid];
+      const name = pc ? pc.name : pid;
+      h += `<span class="pill" onclick="selectConcept('${pid}')">${name}</span>`;
+    });
+    h += '</div></div>';
+  }
+
+  // Dependents
+  const deps = CONCEPTS.filter(d => (d.presupposes||[]).includes(id));
+  if (deps.length) {
+    h += '<div class="card-fields"><div class="card-label">Dependents</div><div class="card-value">';
+    deps.forEach(d => { h += `<span class="pill" onclick="selectConcept('${d.id}')">${d.name}</span>`; });
+    h += '</div></div>';
+  }
+
+  // Belongings
+  if (c.belongings && c.belongings.length) {
+    h += '<div class="card-fields"><div class="card-label">Belongings</div><div class="card-value"><ul class="belongings-list">';
+    c.belongings.forEach(b => {
+      const parts = b.split('(');
+      if (parts.length > 1) h += `<li>${parts[0]}<span class="bq">(${parts.slice(1).join('(')}</span></li>`;
+      else h += `<li>${b}</li>`;
+    });
+    h += '</ul></div></div>';
+  }
+
+  // HAAK counterpart
+  if (c.haak) {
+    h += `<div class="haak-callout"><div class="card-label">HAAK counterpart</div><div class="card-value">${c.haak}</div></div>`;
+  }
+
+  // Source
+  if (c.source) h += `<div class="card-fields"><div class="card-label">Source</div><div class="card-value">${c.source}</div></div>`;
+
+  panelContent.innerHTML = h;
+  panel.classList.add('open');
+}
+
+function closePanel() {
+  panel.classList.remove('open');
+  selected = null;
+  render();
+}
+
+document.getElementById('panel-close').onclick = closePanel;
+svg.addEventListener('click', e => { if (e.target === svg || e.target.tagName === 'rect') { selected = null; render(); closePanel(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closePanel(); } });
+
+// Zoom + pan
+let dragging = false, dragX = 0, dragY = 0;
+wrap.addEventListener('mousedown', e => { if (e.target.closest('.node')) return; dragging = true; dragX = e.clientX; dragY = e.clientY; });
+window.addEventListener('mousemove', e => { if (!dragging) return; panX += (e.clientX - dragX) / zoom; panY += (e.clientY - dragY) / zoom; dragX = e.clientX; dragY = e.clientY; render(); });
+window.addEventListener('mouseup', () => { dragging = false; });
+
+wrap.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = wrap.getBoundingClientRect();
+  const mx = e.clientX - rect.left - cx, my = e.clientY - rect.top - cy;
+  const oldZ = zoom;
+  zoom *= e.deltaY < 0 ? 1.08 : 0.926;
+  zoom = Math.max(0.3, Math.min(5, zoom));
+  panX += mx * (1/oldZ - 1/zoom);
+  panY += my * (1/oldZ - 1/zoom);
+  render();
+}, {passive: false});
+
+// Touch zoom/pan
+let touches0 = null, touchDist0 = 0, touchPan0 = null;
+wrap.addEventListener('touchstart', e => {
+  if (e.touches.length === 2) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    touchDist0 = Math.sqrt(dx*dx+dy*dy);
+    touches0 = {zoom, panX, panY};
+  } else if (e.touches.length === 1) {
+    touchPan0 = {x: e.touches[0].clientX, y: e.touches[0].clientY, px: panX, py: panY};
+  }
+});
+wrap.addEventListener('touchmove', e => {
+  if (e.touches.length === 2 && touches0) {
+    e.preventDefault();
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    const d = Math.sqrt(dx*dx+dy*dy);
+    zoom = Math.max(0.3, Math.min(5, touches0.zoom * d / touchDist0));
+    render();
+  } else if (e.touches.length === 1 && touchPan0) {
+    panX = touchPan0.px + (e.touches[0].clientX - touchPan0.x) / zoom;
+    panY = touchPan0.py + (e.touches[0].clientY - touchPan0.y) / zoom;
+    render();
+  }
+}, {passive: false});
+wrap.addEventListener('touchend', () => { touches0 = null; touchPan0 = null; });
+
+// Reset view
+const DEFAULT_ZOOM = 1, DEFAULT_PAN_X = 0, DEFAULT_PAN_Y = 0;
+function animateReset() {
+  const startZoom = zoom, startPanX = panX, startPanY = panY;
+  const duration = 320;
+  const t0 = performance.now();
+  function step(now) {
+    const p = Math.min(1, (now - t0) / duration);
+    const e = 1 - Math.pow(1 - p, 3); // ease-out cubic
+    zoom = startZoom + (DEFAULT_ZOOM - startZoom) * e;
+    panX = startPanX + (DEFAULT_PAN_X - startPanX) * e;
+    panY = startPanY + (DEFAULT_PAN_Y - startPanY) * e;
+    render();
+    if (p < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+document.getElementById('reset-view').onclick = animateReset;
+wrap.addEventListener('dblclick', e => {
+  if (e.target.closest('.node')) return;
+  animateReset();
+});
+
+// Search
+searchInput.addEventListener('input', () => { searchTerm = searchInput.value; render(); });
+
+// Filters
+['filter-ring','filter-family','filter-maturity','filter-author'].forEach(id => {
+  document.getElementById(id).addEventListener('change', e => {
+    const key = id.replace('filter-','');
+    filters[key] = e.target.value;
+    updateFilterPills();
+    render();
+  });
+});
+
+document.getElementById('filters-toggle').onclick = () => {
+  document.getElementById('filters-panel').classList.toggle('open');
+};
+
+function updateFilterPills() {
+  const el = document.getElementById('active-filters');
+  let h = '';
+  Object.entries(filters).forEach(([k,v]) => {
+    if (v) h += `<span class="filter-pill" onclick="clearFilter('${k}')">${k}: ${v} <span class="x">&times;</span></span>`;
+  });
+  el.innerHTML = h;
+}
+
+function clearFilter(key) {
+  filters[key] = '';
+  document.getElementById('filter-'+key).value = '';
+  updateFilterPills();
+  render();
+}
+window.clearFilter = clearFilter;
+window.selectConcept = selectConcept;
+
+function updateStats() {
+  const vis = CONCEPTS.filter(isVisible).length;
+  const bar = document.getElementById('stats-bar');
+  bar.innerHTML = `<span>${vis} concepts</span>` +
+    `<span><span class="stat-dot" style="background:#dbb545"></span>Thing</span>` +
+    `<span><span class="stat-dot" style="background:#4a9eff"></span>Relation</span>` +
+    `<span><span class="stat-dot" style="background:#3ecf8e"></span>Situation</span>` +
+    `<span><span class="stat-dot" style="background:#c8c8c8"></span>Bridge</span>` +
+    `<span>8 rings</span>`;
+}
+
+// Genealogy
+function renderGenealogy() {
+  const grid = document.getElementById('genealogy-grid');
+  // Thinker -> pillar influence mapping
+  const thinkerPillars = {
+    "Parmenides": ["thing"], "Nicholas": ["situation","relation"], "Immanuel Kant": ["situation","bridge"],
+    "G.W.F. Hegel": ["relation","situation"], "Edmund Husserl": ["situation"], "Martin Heidegger": ["situation","thing"],
+    "Jacques Derrida": ["relation"], "Gilles Deleuze": ["relation","situation"], "Alain Badiou": ["situation"],
+    "Jean-Luc Nancy": ["thing","relation"], "Graham Harman": ["thing"], "Bruno Latour": ["relation","thing"],
+    "Heinrich Rombach": ["situation"], "Donna Haraway": ["relation","thing"], "Emilio Uranga": ["situation"],
+    "Giorgio Agamben": ["situation"]
+  };
+
+  grid.innerHTML = GENEALOGY.map(g => {
+    let dots = '';
+    const key = Object.keys(thinkerPillars).find(k => g.name.includes(k));
+    const pillars = key ? thinkerPillars[key] : ["bridge"];
+    pillars.forEach(p => {
+      const col = FAMILY_COLORS[p] ? FAMILY_COLORS[p].bright : '#888';
+      dots += `<span class="gen-pillar-dot" style="background:${col}"></span>`;
+    });
+    return `<div class="gen-card">
+      <div class="gen-name">${g.name}</div>
+      <div class="gen-body">${g.body}
+        ${g.takes ? `<br><span class="gen-takes">Takes: ${g.takes}</span>` : ''}
+        ${g.rejects ? `<br><span class="gen-rejects">Rejects: ${g.rejects}</span>` : ''}
+      </div>
+      <div class="gen-pillar-dots">${dots}</div>
+    </div>`;
+  }).join('');
+}
+
+// Pulse animation loop — runs independently of render() so pan/zoom doesn't restart it
+let pulseStart = null;
+function pulseTick(ts) {
+  if (!pulseStart) pulseStart = ts;
+  const t = (ts - pulseStart) / 1000; // seconds
+
+  // Pillar nodes: brightness pulse over 4s
+  const pillarT = (Math.sin(t * Math.PI / 2) + 1) / 2; // 0→1→0, period 4s
+  const brightness = 1 + pillarT * 0.4;
+  svg.querySelectorAll('.anim-pillar').forEach(g => {
+    g.style.filter = `brightness(${brightness.toFixed(3)})`;
+  });
+
+  // Proposed nodes: opacity pulse over 2s
+  const propT = (Math.sin(t * Math.PI) + 1) / 2; // 0→1→0, period 2s
+  svg.querySelectorAll('.anim-proposed').forEach(g => {
+    const baseOp = parseFloat(g.getAttribute('opacity')) || 0.7;
+    g.style.opacity = (baseOp * (0.85 + propT * 0.15)).toFixed(3);
+  });
+
+  requestAnimationFrame(pulseTick);
+}
+requestAnimationFrame(pulseTick);
+
+// Init
+window.addEventListener('resize', resize);
+renderGenealogy();
+resize();
+</script>
+</body>
+</html>

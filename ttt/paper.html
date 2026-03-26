@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-<title>Same but Different — TTT Paper</title>
+<title>TTT — Same but Different</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gloock&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -250,7 +250,7 @@ footer {
 <div id="font-indicator"></div>
 
 <div class="back-line">
-  <a href="index.html">&larr; concept browser</a>
+  <a href="index.html">&larr; TTT</a>
 </div>
 
 <div style="max-width:720px; margin: 0 auto; padding: 0 28px;">
@@ -264,11 +264,11 @@ footer {
 
   <div class="authors-block">
     <div class="author-line">Zachary F. Mainen</div>
-    <div class="author-affil">Champalimaud Foundation, Lisbon &mdash; <a href="mailto:zmainen@neuro.fchampalimaud.org">zmainen@neuro.fchampalimaud.org</a></div>
+    <div class="author-affil">Champalimaud Research, Lisbon &mdash; <a href="mailto:zmainen@neuro.fchampalimaud.org">zmainen@neuro.fchampalimaud.org</a></div>
     <div class="author-line">Adrian Razvan Sandru</div>
-    <div class="author-affil">University of Lisbon</div>
+    <div class="author-affil">Champalimaud Research, Lisbon</div>
     <div class="author-line">Gonçalo Guiomar</div>
-    <div class="author-affil">Champalimaud Foundation, Lisbon</div>
+    <div class="author-affil">ETH Zurich</div>
     <div class="paper-date">Preprint &middot; March 2026</div>
   </div>
 
@@ -649,8 +649,9 @@ function applyTheme(mode) {
   }
 }
 
-// Init from localStorage (default: night)
-const savedTheme = localStorage.getItem(THEME_KEY) || 'night';
+// Init from localStorage; fall back to OS preference
+const savedTheme = localStorage.getItem(THEME_KEY) ||
+  (window.matchMedia('(prefers-color-scheme: light)').matches ? 'day' : 'night');
 applyTheme(savedTheme);
 
 btn.addEventListener('click', () => {
