@@ -10,53 +10,125 @@
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* ── Design System: Cool Gray ── */
 :root {
-  --bg: #141414;
-  --fg: #e8e8e8;
-  --light-bg: #f4f4f4;
-  --light-fg: #222222;
-  --accent: #9a9a9a;
-  --meta: #888;
+  --bg: #101012;
+  --bg-surface: #18181a;
+  --border: #252528;
+  --text-primary: #d8d8dc;
+  --text-secondary: #a0a0a8;
+  --text-muted: #707078;
+  --accent: #8090a0;
+  --accent-alt: #a0a8b0;
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --page-width: 1100px;
 }
 
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-  scrollbar-width: thin;
-  scrollbar-color: rgba(255,255,255,0.12) transparent;
-}
+html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
-  color: var(--fg);
-  font-family: 'Source Serif 4', Georgia, 'Times New Roman', serif;
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-a { color: inherit; text-decoration: none; }
-a:hover { opacity: 0.7; }
+a { color: inherit; text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent-alt); }
 
-/* ============================
-   Section 1: Opening
-   ============================ */
-.opening {
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  background: rgba(16, 16, 18, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  letter-spacing: 0.02em;
+}
+.nav-links a:hover { color: var(--text-primary); }
+
+/* ── Hero ── */
+.hero {
   position: relative;
-  z-index: 1;
   width: 100%;
-  height: 80vh;
+  min-height: 70vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  padding-top: 52px;
   overflow: hidden;
 }
 
+.hero-text {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  max-width: 680px;
+  padding: 0 32px;
+}
+
+.hero-question {
+  font-family: var(--font-heading);
+  font-size: clamp(32px, 4.5vw, 56px);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--text-primary);
+}
+
+.hero-sub {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.6vw, 18px);
+  font-weight: 300;
+  color: var(--text-secondary);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+.hero-desc {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.1vw, 16px);
+  font-weight: 300;
+  color: var(--text-muted);
+  margin-top: 24px;
+  line-height: 1.7;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── Flow Canvas ── */
 #flow-canvas {
   position: fixed;
   top: 0; left: 0;
@@ -65,615 +137,249 @@ a:hover { opacity: 0.7; }
   pointer-events: none;
 }
 
-.opening-text {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  pointer-events: none;
-  max-width: 800px;
-  padding: 0 5vw;
-}
-
-.opening-question {
-  font-size: clamp(48px, 6vw, 80px);
-  font-weight: 300;
-  line-height: 1.15;
-  letter-spacing: -0.02em;
-}
-
-.opening-sub {
-  font-size: clamp(17px, 2vw, 24px);
-  font-weight: 300;
-  color: rgba(232, 232, 232, 0.8);
-  margin-top: 0.8em;
-  letter-spacing: 0.02em;
-  font-style: italic;
-}
-
-.opening-desc {
-  font-size: clamp(18px, 1.5vw, 20px);
-  font-weight: 400;
-  color: rgba(232, 232, 232, 0.8);
-  margin-top: 2.5em;
-  line-height: 1.7;
-  letter-spacing: 0.01em;
-  max-width: 520px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.scroll-indicator {
-  position: absolute;
-  bottom: 4vh;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  opacity: 0.3;
-  animation: pulse 2.5s ease-in-out infinite;
-}
-
-.scroll-indicator span {
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--meta);
-  font-weight: 500;
-}
-
-.scroll-indicator svg {
-  width: 16px;
-  height: 16px;
-  stroke: var(--meta);
-  fill: none;
-  stroke-width: 1.5;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 0.5; transform: translateX(-50%) translateY(4px); }
-}
-
-/* ============================
-   Section 2: Projects (Constellation)
-   ============================ */
+/* ── Projects Grid ── */
 .projects {
   position: relative;
   z-index: 1;
-  background: transparent;
-  min-height: 100vh;
-  padding: 10vh 0;
-  border-top: 1px solid rgba(255,255,255,0.06);
+  padding: 80px 0 120px;
 }
 
 .projects-inner {
-  max-width: 1100px;
+  max-width: var(--page-width);
   margin: 0 auto;
-  padding: 0 6vw;
+  padding: 0 32px;
 }
 
-/* Constellation layout */
-.constellation {
-  position: relative;
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  height: 140vh;
-  min-height: 900px;
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px 32px;
 }
 
-.cnode {
-  position: absolute;
-  display: flex;
-  align-items: center;
-  gap: 14px;
+.project-card {
+  display: block;
   text-decoration: none;
-  color: #e8e8e8;
+  color: inherit;
   transition: opacity 0.3s;
-  cursor: pointer;
 }
+.project-card:hover { opacity: 0.85; }
 
-.cnode-img {
-  width: 100px;
-  height: 66px;
+.project-card img {
+  width: 100%;
+  aspect-ratio: 3 / 2;
   object-fit: cover;
-  border-radius: 3px;
-  opacity: 0.55;
-  transition: opacity 0.3s, transform 0.3s;
+  display: block;
 }
 
-.cnode:hover .cnode-img {
-  opacity: 1;
-  transform: scale(1.08);
-}
-
-.cnode-text {
+.project-card .card-placeholder {
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
   display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.cnode-cat {
-  font-family: -apple-system, sans-serif;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  opacity: 0.45;
-}
-
-.cnode-title {
-  font-family: 'Source Serif 4', serif;
-  font-size: 18px;
-  font-variation-settings: "wght" 400;
-  transition: font-variation-settings 0.2s;
-}
-
-.cnode:hover .cnode-title {
-  font-variation-settings: "wght" 700;
-}
-
-.cnode-year {
-  font-size: 11px;
-  opacity: 0.3;
-  font-variant-numeric: tabular-nums;
-}
-
-/* Sibling dimming */
-.constellation:hover .cnode { opacity: 0.3; }
-.constellation:hover .cnode:hover { opacity: 1; }
-
-/* Track labels */
-.track-label {
-  position: absolute;
-  font-family: 'Source Serif 4', serif;
-  font-size: 100px;
-  font-variation-settings: "wght" 200;
-  opacity: 0.035;
-  pointer-events: none;
-  user-select: none;
-}
-.track-states { left: 0; top: 40%; transform: rotate(-4deg); }
-.track-spaces { right: 0; top: 40%; transform: rotate(3deg); }
-
-/* Filtered-out constellation nodes */
-.cnode.filtered-out {
-  display: none;
-}
-
-/* ============================
-   Pill Toggle
-   ============================ */
-.pill-toggle {
-  position: fixed;
-  bottom: 4vh;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 100;
-  display: flex;
-  overflow: hidden;
-  background: rgba(26, 26, 26, 0.6);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 0;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.pill-toggle.visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.pill-toggle-track {
-  position: relative;
-  display: flex;
-}
-
-.pill-slider {
-  position: absolute;
-  top: 0; bottom: 0;
-  left: 0;
-  background: rgba(255,255,255,0.06);
-  transition: transform 0.3s ease, width 0.3s ease;
-  pointer-events: none;
-}
-
-.pill-option {
-  padding: 8px 18px;
-  font-size: 11px;
-  cursor: pointer;
-  color: rgba(136, 136, 136, 0.7);
-  transition: color 0.2s ease;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  user-select: none;
-  position: relative;
-  z-index: 1;
-  white-space: nowrap;
-}
-
-.pill-option:hover {
-  color: var(--fg);
-}
-
-.pill-option.active {
-  color: var(--fg);
-}
-
-/* ============================
-   Section 3: Closing
-   ============================ */
-.closing {
-  position: relative;
-  z-index: 1;
-  background: transparent;
-  padding: 20vh 10vw 16vh;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
-.closing-text {
-  font-size: clamp(28px, 4vw, 52px);
-  font-weight: 300;
-  line-height: 1.3;
+.project-card .card-title {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-top: 12px;
   letter-spacing: -0.01em;
-  color: rgba(232, 232, 232, 0.7);
-  font-style: italic;
 }
 
-.closing-rule {
-  width: 40px;
-  height: 1px;
-  background: rgba(255,255,255,0.12);
-  margin-top: 3em;
+.project-card .card-meta {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 4px;
 }
 
-/* ============================
-   Section 4: Footer
-   ============================ */
-.footer {
+/* ── Footer ── */
+footer {
   position: relative;
   z-index: 1;
-  background: var(--bg);
-  border-top: 1px solid rgba(255,255,255,0.06);
-  padding: 12vh 6vw 8vh;
-}
-
-.footer-columns {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 4vw;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.footer-col h3 {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: rgba(136, 136, 136, 0.7);
-  font-weight: 600;
-  margin-bottom: 2em;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-.footer-col ul {
-  list-style: none;
-}
-
-.footer-col li {
-  font-size: 15px;
+  padding: 48px 32px;
+  text-align: center;
+  font-size: 13px;
   font-weight: 400;
-  line-height: 2.2;
-  color: rgba(232, 232, 232, 0.7);
-  transition: color 0.2s ease;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
 }
 
-.footer-col li:hover {
-  color: var(--fg);
-}
-
-.footer-col li a:hover {
-  opacity: 1;
-  color: var(--fg);
-}
-
-.colophon {
-  max-width: 1200px;
-  margin: 10vh auto 0;
-  padding-top: 4vh;
-  border-top: 1px solid rgba(255,255,255,0.04);
-  font-size: 12px;
-  color: rgba(136, 136, 136, 0.4);
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-}
-
-/* ============================
-   Node drift animations
-   ============================ */
-@keyframes drift-1 {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(6px, -4px); }
-  50% { transform: translate(-3px, 7px); }
-  75% { transform: translate(5px, 3px); }
-}
-@keyframes drift-2 {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(-5px, 6px); }
-  50% { transform: translate(4px, -3px); }
-  75% { transform: translate(-6px, -5px); }
-}
-@keyframes drift-3 {
-  0%, 100% { transform: translate(0, 0); }
-  25% { transform: translate(3px, 5px); }
-  50% { transform: translate(-7px, -2px); }
-  75% { transform: translate(4px, -6px); }
-}
-
-.cnode:nth-child(3n+1) { animation: drift-1 30s ease-in-out infinite; }
-.cnode:nth-child(3n+2) { animation: drift-2 35s ease-in-out infinite; }
-.cnode:nth-child(3n+3) { animation: drift-3 28s ease-in-out infinite; }
-
-.cnode:nth-child(1) { animation-delay: 0s; }
-.cnode:nth-child(2) { animation-delay: -8s; }
-.cnode:nth-child(3) { animation-delay: -3s; }
-.cnode:nth-child(4) { animation-delay: -12s; }
-.cnode:nth-child(5) { animation-delay: -19s; }
-.cnode:nth-child(6) { animation-delay: -6s; }
-.cnode:nth-child(7) { animation-delay: -15s; }
-.cnode:nth-child(8) { animation-delay: -22s; }
-.cnode:nth-child(9) { animation-delay: -10s; }
-.cnode:nth-child(10) { animation-delay: -4s; }
-.cnode:nth-child(11) { animation-delay: -17s; }
-.cnode:nth-child(12) { animation-delay: -25s; }
-.cnode:nth-child(13) { animation-delay: -7s; }
-
-.cnode:hover { animation-play-state: paused; }
-
-/* ============================
-   Responsive
-   ============================ */
+/* ── Responsive ── */
 @media (max-width: 768px) {
-  .projects-inner {
-    padding: 0 5vw;
-  }
-  .constellation {
-    height: auto;
-    min-height: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    padding: 40px 20px;
-  }
-  .cnode {
-    position: static !important;
-  }
-  .track-label {
-    display: none;
-  }
-  .footer-columns {
+  nav { padding: 0 20px; }
+  .hero { min-height: 60vh; }
+  .hero-question { font-size: 32px; }
+  .projects-inner { padding: 0 20px; }
+  .projects-grid {
     grid-template-columns: 1fr;
-    gap: 4vh;
+    gap: 40px;
   }
-  .pill-toggle {
-    bottom: 2vh;
-  }
-  .constellation:hover .cnode {
-    opacity: 1;
-  }
+}
+
+@media (max-width: 480px) {
+  .hero-text { padding: 0 20px; }
+  .projects-inner { padding: 0 16px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ================================
-     SECTION 1: OPENING
-     ================================ -->
-<nav style="position:fixed;top:0;left:0;right:0;z-index:100;padding:0 32px;background:rgba(20,20,20,0.85);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.06);">
-  <div style="max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;height:56px;">
-    <a href="./" style="font-family:'Source Serif 4',serif;font-weight:700;font-size:18px;letter-spacing:-0.02em;color:#e8e8e8;text-decoration:none;">LS</a>
-    <div style="display:flex;gap:24px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;">
-      <a href="people/" style="color:#888;text-decoration:none;transition:color 0.3s;">People</a>
-      <a href="about/" style="color:#888;text-decoration:none;transition:color 0.3s;">About</a>
-    </div>
+<!-- ── Nav ── -->
+<nav>
+  <a href="./" class="nav-logo">LS</a>
+  <div class="nav-links">
+    <a href="people/">People</a>
+    <a href="about/">About</a>
   </div>
 </nav>
 
-<section class="opening" id="opening">
-  <canvas id="flow-canvas"></canvas>
-  <div class="opening-text">
-    <div class="opening-question">What is it like to experience?</div>
-    <div class="opening-sub">Yourself. Another person. A forest. A machine.</div>
-    <div class="opening-desc">Science in the wild and art in the lab. Since 2016, Latent States has taken neuroscience out of the clinic and into festivals, galleries, and open fields &mdash; designing encounters where the experiment is the experience.</div>
-  </div>
-  <div class="scroll-indicator">
-    <span>Scroll</span>
-    <svg viewBox="0 0 20 20"><polyline points="4,7 10,13 16,7"/></svg>
+<canvas id="flow-canvas"></canvas>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-text">
+    <div class="hero-question">What is it like to experience?</div>
+    <div class="hero-sub">Yourself. Another person. A forest. A machine.</div>
+    <div class="hero-desc">Science in the wild and art in the lab. Since 2016, Latent States has taken neuroscience out of the clinic and into festivals, galleries, and open fields &mdash; designing encounters where the experiment is the experience.</div>
   </div>
 </section>
 
-<!-- ================================
-     SECTION 2: PROJECTS
-     ================================ -->
+<!-- ── Projects ── -->
 <section class="projects" id="projects">
-  <div class="projects-inner" id="project-list">
+  <div class="projects-inner">
+    <div class="projects-grid">
 
-    <div class="constellation">
-      <!-- Faint track labels -->
-      <span class="track-label track-states">States</span>
-      <span class="track-label track-spaces">Spaces</span>
+      <a class="project-card" href="psiloscope/">
+        <img src="assets/psiloscope-dance.png" alt="Psiloscope — collective dance floor visualization" loading="lazy">
+        <div class="card-title">Psiloscope</div>
+        <div class="card-meta">2016 &middot; Boom Festival</div>
+      </a>
 
-      <!-- Origins — centered top -->
-      <a class="cnode" href="psiloscope/" data-tag="origins" style="left:12%;top:4%">
-        <img class="cnode-img" src="assets/psiloscope-dance.png" alt="Psiloscope — collective dance floor visualization"><div class="cnode-text"><span class="cnode-cat">COLLECTIVE MOTION LAB</span><span class="cnode-title">Psiloscope</span><span class="cnode-year">2016</span></div>
+      <a class="project-card" href="mindcrystal/">
+        <div class="card-placeholder">2018</div>
+        <div class="card-title">MindCrystal</div>
+        <div class="card-meta">2018 &middot; Waking Life Festival</div>
       </a>
-      <a class="cnode" href="mindcrystal/" data-tag="origins" style="left:42%;top:7%">
-        <div class="cnode-img" style="background:var(--bg);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:9px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(255,255,255,0.2);">2018</div><div class="cnode-text"><span class="cnode-cat">COLLECTIVE MOTION LAB</span><span class="cnode-title">MindCrystal</span><span class="cnode-year">2018</span></div>
-      </a>
-      <div class="cnode" data-tag="origins" style="left:72%;top:11%">
-        <img class="cnode-img" src="assets/human-open-field-hero.jpg"><div class="cnode-text"><span class="cnode-cat">OPEN-AIR EXPERIMENT</span><span class="cnode-title">Human Open Field</span><span class="cnode-year">2019</span></div>
+
+      <div class="project-card">
+        <img src="assets/human-open-field-hero.jpg" alt="Human Open Field" loading="lazy">
+        <div class="card-title">Human Open Field</div>
+        <div class="card-meta">2019 &middot; Open-air experiment</div>
       </div>
 
-      <!-- States — left side -->
-      <a class="cnode" href="lsc/" data-tag="states" style="left:5%;top:32%">
-        <img class="cnode-img" src="assets/camp-1.jpg"><div class="cnode-text"><span class="cnode-cat">FIELD STUDY</span><span class="cnode-title">Latent States Camp</span><span class="cnode-year">2023</span></div>
-      </a>
-      <a class="cnode" href="lsc/" data-tag="states" style="left:12%;top:48%">
-        <img class="cnode-img" src="assets/seeing-1.jpg"><div class="cnode-text"><span class="cnode-cat">FIELD STUDY</span><span class="cnode-title">Latent States Camp</span><span class="cnode-year">2024</span></div>
-      </a>
-      <a class="cnode" href="lsc/" data-tag="states" style="left:3%;top:64%">
-        <img class="cnode-img" src="assets/camp-3.jpg"><div class="cnode-text"><span class="cnode-cat">FIELD STUDY</span><span class="cnode-title">Latent States Camp</span><span class="cnode-year">2025</span></div>
+      <a class="project-card" href="polylith/">
+        <img src="assets/cf-metamersion-polylith.png" alt="Polylith — brain-driven installation" loading="lazy">
+        <div class="card-title">Polylith</div>
+        <div class="card-meta">2022 &middot; Champalimaud Foundation</div>
       </a>
 
-      <!-- Spaces — right side -->
-      <a class="cnode" href="polylith/" data-tag="spaces" style="left:65%;top:25%">
-        <img class="cnode-img" src="assets/cf-metamersion-polylith.png"><div class="cnode-text"><span class="cnode-cat">BRAIN-DRIVEN INSTALLATION</span><span class="cnode-title">Polylith</span><span class="cnode-year">2022</span></div>
-      </a>
-      <a class="cnode" href="atavic-forest/" data-tag="spaces" style="left:75%;top:36%">
-        <img class="cnode-img" src="assets/cf-metamersion-ls-atavic-forest.jpg"><div class="cnode-text"><span class="cnode-cat">BRAIN-DRIVEN INSTALLATION</span><span class="cnode-title">Atavic Forest</span><span class="cnode-year">2022</span></div>
-      </a>
-      <a class="cnode" href="ls1/" data-tag="spaces" style="left:68%;top:47%">
-        <img class="cnode-img" src="assets/cf-metamersion-ls-latent-space-i.jpg"><div class="cnode-text"><span class="cnode-cat">BRAIN-DRIVEN INSTALLATION</span><span class="cnode-title">Latent Space I</span><span class="cnode-year">2022</span></div>
-      </a>
-      <a class="cnode" href="palimpsest/" data-tag="spaces" style="left:80%;top:56%">
-        <img class="cnode-img" src="assets/cf-metamersion-ls-palimpsest.png"><div class="cnode-text"><span class="cnode-cat">BRAIN-DRIVEN INSTALLATION</span><span class="cnode-title">Palimpsest</span><span class="cnode-year">2023</span></div>
-      </a>
-      <a class="cnode" href="metamersion/" data-tag="spaces" style="left:72%;top:67%">
-        <img class="cnode-img" src="assets/cf-metamersion-ha-installation-overview.jpg"><div class="cnode-text"><span class="cnode-cat">NEUROSCIENCE EXHIBITION</span><span class="cnode-title">Healing Algorithms</span><span class="cnode-year">2024</span></div>
+      <a class="project-card" href="atavic-forest/">
+        <img src="assets/cf-metamersion-ls-atavic-forest.jpg" alt="Atavic Forest — generative neural landscape" loading="lazy">
+        <div class="card-title">Atavic Forest</div>
+        <div class="card-meta">2022 &middot; Lunar Ring, Jonathan Uliel Saldanha</div>
       </a>
 
-      <!-- Bridge — center -->
-      <div class="cnode" data-tag="states spaces" style="left:38%;top:58%">
-        <img class="cnode-img" src="assets/cf-metamersion-ha-altered-reflexions.jpg"><div class="cnode-text"><span class="cnode-cat">MIRROR STUDY</span><span class="cnode-title">Altered Reflections</span><span class="cnode-year">2024</span></div>
+      <a class="project-card" href="ls1/">
+        <img src="assets/cf-metamersion-ls-latent-space-i.jpg" alt="Latent Space I — brain-driven installation" loading="lazy">
+        <div class="card-title">Latent Space I</div>
+        <div class="card-meta">2022 &middot; Champalimaud Foundation</div>
+      </a>
+
+      <a class="project-card" href="palimpsest/">
+        <img src="assets/cf-metamersion-ls-palimpsest.png" alt="Palimpsest — brain-driven installation" loading="lazy">
+        <div class="card-title">Palimpsest</div>
+        <div class="card-meta">2023 &middot; Champalimaud Foundation</div>
+      </a>
+
+      <a class="project-card" href="lsc/">
+        <img src="assets/camp-1.jpg" alt="Latent States Camp — field study" loading="lazy">
+        <div class="card-title">Latent States Camp</div>
+        <div class="card-meta">2023&ndash;2025 &middot; Field study</div>
+      </a>
+
+      <a class="project-card" href="metamersion/">
+        <img src="assets/cf-metamersion-ha-installation-overview.jpg" alt="Healing Algorithms — neuroscience exhibition" loading="lazy">
+        <div class="card-title">Healing Algorithms</div>
+        <div class="card-meta">2024 &middot; Champalimaud Foundation</div>
+      </a>
+
+      <div class="project-card">
+        <img src="assets/cf-metamersion-ha-altered-reflexions.jpg" alt="Altered Reflections — mirror study" loading="lazy">
+        <div class="card-title">Altered Reflections</div>
+        <div class="card-meta">2024 &middot; Mirror study</div>
       </div>
-      <div class="cnode" data-tag="states spaces" style="left:48%;top:72%">
-        <img class="cnode-img" src="assets/cf-metamersion-ha-submersion.jpeg"><div class="cnode-text"><span class="cnode-cat">SENSORY DEPRIVATION</span><span class="cnode-title">Submersion</span><span class="cnode-year">2024</span></div>
+
+      <div class="project-card">
+        <img src="assets/cf-metamersion-ha-submersion.jpeg" alt="Submersion — sensory deprivation" loading="lazy">
+        <div class="card-title">Submersion</div>
+        <div class="card-meta">2024 &middot; Sensory deprivation</div>
       </div>
+
     </div>
-
   </div>
 </section>
 
-<!-- Pill toggle -->
-<div class="pill-toggle" id="pill-toggle">
-  <div class="pill-toggle-track" id="pill-track">
-    <div class="pill-slider" id="pill-slider"></div>
-    <div class="pill-option active" data-filter="all">All</div>
-    <div class="pill-option" data-filter="origins">Origins</div>
-    <div class="pill-option" data-filter="states">States</div>
-    <div class="pill-option" data-filter="spaces">Spaces</div>
-  </div>
-</div>
-
-<!-- ================================
-     SECTION 3: CLOSING
-     ================================ -->
-<section class="closing">
-  <div class="closing-text">Every experiment begins with not knowing what you will find.</div>
-  <div class="closing-rule"></div>
-</section>
-
-<!-- ================================
-     SECTION 4: FOOTER
-     ================================ -->
-<footer class="footer">
-  <div class="footer-columns">
-    <div class="footer-col">
-      <h3>Works</h3>
-      <ul>
-        <li><a href="psiloscope/">Psiloscope</a></li>
-        <li><a href="mindcrystal/">MindCrystal</a></li>
-        <li>Human Open Field</li>
-        <li><a href="polylith/">Polylith</a></li>
-        <li><a href="atavic-forest/">Atavic Forest</a></li>
-        <li><a href="ls1/">Latent Space I</a></li>
-        <li><a href="palimpsest/">Palimpsest</a></li>
-        <li><a href="lsc/">Latent States Camp</a></li>
-        <li><a href="metamersion/">Healing Algorithms</a></li>
-        <li>Altered Reflections</li>
-        <li>Submersion</li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h3>Partners</h3>
-      <ul>
-        <li><a href="boom/">Boom Festival</a></li>
-        <li><a href="waking-life/">Waking Life Festival</a></li>
-        <li>Champalimaud Foundation</li>
-        <li>Lunar Ring</li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h3>More</h3>
-      <ul>
-        <li><a href="people/">People</a></li>
-        <li><a href="about/">About</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="colophon">Latent States &middot; Lisbon &middot; 2016&ndash;present</div>
-</footer>
-
-<!-- GSAP + ScrollTrigger -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<!-- ── Footer ── -->
+<footer>Latent States &middot; Lisbon</footer>
 
 <script>
 // =============================================
-// Simplex 2D noise
-// =============================================
-const F2 = 0.5 * (Math.sqrt(3) - 1), G2 = (3 - Math.sqrt(3)) / 6;
-const grad2 = [[1,1],[-1,1],[1,-1],[-1,-1],[1,0],[-1,0],[0,1],[0,-1]];
-const perm = new Uint8Array(512), pg = new Uint8Array(512);
-(function seed() {
-  const p = new Uint8Array(256);
-  for (let i = 0; i < 256; i++) p[i] = i;
-  for (let i = 255; i > 0; i--) { const j = (Math.random() * (i + 1)) | 0; [p[i], p[j]] = [p[j], p[i]]; }
-  for (let i = 0; i < 512; i++) { perm[i] = p[i & 255]; pg[i] = perm[i] & 7; }
-})();
-function simplex2(x, y) {
-  const s = (x + y) * F2, i = Math.floor(x + s), j = Math.floor(y + s);
-  const t = (i + j) * G2, x0 = x - (i - t), y0 = y - (j - t);
-  const i1 = x0 > y0 ? 1 : 0, j1 = x0 > y0 ? 0 : 1;
-  const x1 = x0 - i1 + G2, y1 = y0 - j1 + G2;
-  const x2 = x0 - 1 + 2 * G2, y2 = y0 - 1 + 2 * G2;
-  const ii = i & 255, jj = j & 255;
-  let n0 = 0, n1 = 0, n2 = 0;
-  let t0 = 0.5 - x0*x0 - y0*y0;
-  if (t0 > 0) { t0 *= t0; const g = grad2[pg[ii + perm[jj]]]; n0 = t0 * t0 * (g[0]*x0 + g[1]*y0); }
-  let t1 = 0.5 - x1*x1 - y1*y1;
-  if (t1 > 0) { t1 *= t1; const g = grad2[pg[ii + i1 + perm[jj + j1]]]; n1 = t1 * t1 * (g[0]*x1 + g[1]*y1); }
-  let t2 = 0.5 - x2*x2 - y2*y2;
-  if (t2 > 0) { t2 *= t2; const g = grad2[pg[ii + 1 + perm[jj + 1]]]; n2 = t2 * t2 * (g[0]*x2 + g[1]*y2); }
-  return 70 * (n0 + n1 + n2);
-}
-
-// =============================================
-// Flow field
+// Flow field — cool gray particles weaving between project cards
 // =============================================
 const canvas = document.getElementById('flow-canvas');
 const ctx = canvas.getContext('2d');
-const COLORS = ['#8a8a8a','#a0a0a0','#b0b0b0','#787878','#c0c0c0'];
-const NUM = 160;
-const TRAIL = 18;
-const SCALE1 = 0.003, SCALE2 = 0.006;
-const DAMPING = 0.96, MAX_SPEED = 0.96;
-const FORCE = 0.0315;
-const CURSOR_R = 280, CURSOR_FORCE = 4.0;
 
-let W, H, dpr, time = 0;
-let mouse = { x: -9999, y: -9999, prevX: -9999, prevY: -9999, speed: 0 };
+const COLORS = ['#606878','#708090','#8090a0','#586070','#a0a8b0','#4a5260'];
+const PARTICLE_COUNT = 220;
+const TRAIL = 14;
+const CURSOR_R = 250, CURSOR_FORCE = 0.06;
+
+let W, H, dpr;
+let mouse = { x: -9999, y: -9999, speed: 0, prevX: -9999, prevY: -9999 };
+let particles = [];
+let noiseTime = 0;
+
+// Simple noise function (value noise with smooth interpolation)
+function noise2d(x, y) {
+  const ix = Math.floor(x), iy = Math.floor(y);
+  const fx = x - ix, fy = y - iy;
+  const sx = fx * fx * (3 - 2 * fx), sy = fy * fy * (3 - 2 * fy);
+  function hash(px, py) {
+    let h = (px * 2654435761 ^ py * 2246822519) & 0x7fffffff;
+    return (h % 65536) / 65536;
+  }
+  const a = hash(ix, iy), b = hash(ix + 1, iy);
+  const c = hash(ix, iy + 1), d = hash(ix + 1, iy + 1);
+  return a + (b - a) * sx + (c - a) * sy + (a - b - c + d) * sx * sy;
+}
+
+function getFlowAngle(x, y, t) {
+  const scale = 0.0015;
+  const n = noise2d(x * scale + t * 0.3, y * scale + t * 0.2);
+  return n * Math.PI * 4;
+}
+
+function makeParticle() {
+  return {
+    x: Math.random() * W,
+    y: Math.random() * H,
+    speed: 0.4 + Math.random() * 0.6,
+    trail: [],
+    color: COLORS[(Math.random() * COLORS.length) | 0],
+    life: Math.random() * 600 + 200,
+    age: 0,
+  };
+}
 
 function resize() {
   dpr = Math.min(devicePixelRatio || 1, 2);
@@ -681,214 +387,89 @@ function resize() {
   canvas.width = W * dpr; canvas.height = H * dpr;
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 }
-window.addEventListener('resize', resize);
-resize();
 
-function makeParticle(edge) {
-  let x, y;
-  if (edge) {
-    const side = (Math.random() * 4) | 0;
-    if (side === 0) { x = Math.random() * W; y = -2; }
-    else if (side === 1) { x = W + 2; y = Math.random() * H; }
-    else if (side === 2) { x = Math.random() * W; y = H + 2; }
-    else { x = -2; y = Math.random() * H; }
-  } else {
-    x = Math.random() * W; y = Math.random() * H;
-  }
-  return { x, y, vx: 0, vy: 0, color: COLORS[(Math.random() * COLORS.length) | 0], trail: [] };
+function init() {
+  resize();
+  particles = [];
+  for (let i = 0; i < PARTICLE_COUNT; i++) particles.push(makeParticle());
 }
 
-let particles = [];
-for (let i = 0; i < NUM; i++) particles.push(makeParticle(false));
-
+window.addEventListener('resize', () => { resize(); });
 document.addEventListener('mousemove', e => {
   mouse.prevX = mouse.x; mouse.prevY = mouse.y;
   mouse.x = e.clientX; mouse.y = e.clientY;
-  const mdx = mouse.x - mouse.prevX, mdy = mouse.y - mouse.prevY;
-  mouse.speed = Math.sqrt(mdx * mdx + mdy * mdy);
+  const dx = mouse.x - mouse.prevX, dy = mouse.y - mouse.prevY;
+  mouse.speed = Math.sqrt(dx * dx + dy * dy);
 });
 document.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
 
-function flowAngle(x, y) {
-  const n1 = simplex2(x * SCALE1, y * SCALE1 + time);
-  const n2 = simplex2(x * SCALE2 + 100, y * SCALE2 + time * 1.3 + 100);
-  return (n1 + n2 * 0.5) * Math.PI * 2;
-}
-
 function frame() {
-
-  ctx.fillStyle = 'rgba(20,20,20,0.015)';
+  ctx.fillStyle = 'rgba(16, 16, 18, 0.04)';
   ctx.fillRect(0, 0, W, H);
-  time += 0.0003;
 
-  for (let i = 0; i < NUM; i++) {
+  noiseTime += 0.002;
+
+  for (let i = 0; i < particles.length; i++) {
     const p = particles[i];
-    const a = flowAngle(p.x, p.y);
-    p.vx += Math.cos(a) * FORCE;
-    p.vy += Math.sin(a) * FORCE;
+    p.age++;
 
-    const dx = p.x - mouse.x, dy = p.y - mouse.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < CURSOR_R && dist > 1) {
-      const speedBoost = 1 + Math.min(mouse.speed, 40) * 0.08;
-      const strength = (1 - dist / CURSOR_R) * CURSOR_FORCE * speedBoost;
-      p.vx += (-dy / dist * 0.7 + dx / dist * 0.3) * strength;
-      p.vy += (dx / dist * 0.7 + dy / dist * 0.3) * strength;
+    if (p.age > p.life || p.x < -20 || p.x > W + 20 || p.y < -20 || p.y > H + 20) {
+      particles[i] = makeParticle();
+      continue;
     }
 
-    p.vx *= DAMPING; p.vy *= DAMPING;
-    const spd = Math.sqrt(p.vx * p.vx + p.vy * p.vy);
-    if (spd > MAX_SPEED) { p.vx *= MAX_SPEED / spd; p.vy *= MAX_SPEED / spd; }
-    p.x += p.vx; p.y += p.vy;
+    const angle = getFlowAngle(p.x, p.y, noiseTime);
+    let vx = Math.cos(angle) * p.speed;
+    let vy = Math.sin(angle) * p.speed;
+
+    // Cursor interaction
+    const dx = mouse.x - p.x, dy = mouse.y - p.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (dist < CURSOR_R && dist > 1) {
+      const strength = (1 - dist / CURSOR_R) * CURSOR_FORCE * (1 + Math.min(mouse.speed, 40) * 0.08);
+      vx += (dx / dist) * strength * 8;
+      vy += (dy / dist) * strength * 8;
+    }
+
+    p.x += vx;
+    p.y += vy;
+
     p.trail.push(p.x, p.y);
     if (p.trail.length > TRAIL * 2) p.trail.splice(0, 2);
 
-    if (p.x < -10 || p.x > W + 10 || p.y < -10 || p.y > H + 10) {
-      const np = makeParticle(true);
-      p.x = np.x; p.y = np.y; p.vx = 0; p.vy = 0; p.trail.length = 0;
-    }
-
     const len = p.trail.length / 2;
     if (len < 2) continue;
+
+    // Fade in/out based on age
+    let fade = 1;
+    if (p.age < 40) fade = p.age / 40;
+    else if (p.age > p.life - 60) fade = Math.max(0, (p.life - p.age) / 60);
+
+    // Draw trail
     ctx.beginPath();
     ctx.moveTo(p.trail[0], p.trail[1]);
     for (let j = 1; j < len; j++) ctx.lineTo(p.trail[j * 2], p.trail[j * 2 + 1]);
     ctx.strokeStyle = p.color;
-    ctx.lineWidth = 0.35;
-    ctx.globalAlpha = 0.08;
+    ctx.lineWidth = 0.5;
+    ctx.globalAlpha = 0.18 * fade;
     ctx.stroke();
 
+    // Draw head
     ctx.beginPath();
-    ctx.arc(p.x, p.y, 0.4, 0, Math.PI * 2);
+    ctx.arc(p.x, p.y, 0.6, 0, Math.PI * 2);
     ctx.fillStyle = p.color;
-    ctx.globalAlpha = 0.15;
+    ctx.globalAlpha = 0.3 * fade;
     ctx.fill();
   }
+
   ctx.globalAlpha = 1;
   requestAnimationFrame(frame);
 }
 
-ctx.fillStyle = '#141414';
+init();
+ctx.fillStyle = '#101012';
 ctx.fillRect(0, 0, W, H);
 requestAnimationFrame(frame);
-
-// =============================================
-// Pill toggle — filter constellation nodes
-// =============================================
-const constellationNodes = document.querySelectorAll('.cnode');
-const pillToggle = document.getElementById('pill-toggle');
-const pillOptions = document.querySelectorAll('.pill-option');
-const pillSlider = document.getElementById('pill-slider');
-let activeFilter = 'all';
-
-function updateSlider() {
-  const active = document.querySelector('.pill-option.active');
-  if (!active) return;
-  pillSlider.style.width = active.offsetWidth + 'px';
-  pillSlider.style.transform = `translateX(${active.offsetLeft}px)`;
-}
-
-function filterProjects(filter) {
-  activeFilter = filter;
-  constellationNodes.forEach(node => {
-    const tag = node.dataset.tag;
-    if (filter === 'all') {
-      node.classList.remove('filtered-out');
-    } else if (tag && tag.includes(filter)) {
-      node.classList.remove('filtered-out');
-    } else {
-      node.classList.add('filtered-out');
-    }
-  });
-}
-
-pillOptions.forEach(pill => {
-  pill.addEventListener('click', () => {
-    pillOptions.forEach(p => p.classList.remove('active'));
-    pill.classList.add('active');
-    updateSlider();
-    filterProjects(pill.dataset.filter);
-  });
-});
-
-// Init slider position after fonts load
-window.addEventListener('load', updateSlider);
-requestAnimationFrame(updateSlider);
-
-// Show/hide pill toggle when projects section is in view
-gsap.registerPlugin(ScrollTrigger);
-
-ScrollTrigger.create({
-  trigger: '#projects',
-  start: 'top 80%',
-  end: 'bottom 20%',
-  onEnter: () => pillToggle.classList.add('visible'),
-  onLeave: () => pillToggle.classList.remove('visible'),
-  onEnterBack: () => pillToggle.classList.add('visible'),
-  onLeaveBack: () => pillToggle.classList.remove('visible'),
-});
-
-// =============================================
-// Scroll-driven fade for opening text
-// =============================================
-gsap.to('.opening-text', {
-  scrollTrigger: {
-    trigger: '.opening',
-    start: 'top top',
-    end: '60% top',
-    scrub: true,
-  },
-  opacity: 0,
-  y: -40,
-});
-
-gsap.to('.scroll-indicator', {
-  scrollTrigger: {
-    trigger: '.opening',
-    start: '10% top',
-    end: '30% top',
-    scrub: true,
-  },
-  opacity: 0,
-});
-
-// =============================================
-// Flow field fades to subtle behind projects
-// =============================================
-gsap.to('#flow-canvas', {
-  scrollTrigger: {
-    trigger: '.opening',
-    start: 'bottom 80%',
-    end: 'bottom 20%',
-    scrub: true,
-  },
-  opacity: 0.25,
-});
-
-// =============================================
-// Closing text entrance
-// =============================================
-gsap.from('.closing-text', {
-  scrollTrigger: {
-    trigger: '.closing',
-    start: 'top 80%',
-    end: 'top 40%',
-    scrub: true,
-  },
-  opacity: 0,
-  y: 30,
-});
-
-gsap.from('.closing-rule', {
-  scrollTrigger: {
-    trigger: '.closing',
-    start: 'top 60%',
-    end: 'top 30%',
-    scrub: true,
-  },
-  opacity: 0,
-  scaleX: 0,
-});
 </script>
 
 </body>
