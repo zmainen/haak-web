@@ -3,480 +3,775 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LS1 — Metamersion: Latent Passages — Latent States</title>
-<meta name="description" content="A multimedia art piece combining film, VR, and installation — where AI builds a dream from your words. Metamersion 2, Champalimaud Foundation, 2022–2023.">
+<title>Latent Space I — Latent States</title>
+<meta name="description" content="A conversation with an artificial philosopher becomes a dream you can walk through. Installation, VR, and film at Metamersion II: Latent Spaces, Champalimaud Foundation, 2022–2023.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <style>
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --bg: #0a0a0a;
-  --bg-raised: #111110;
-  --bg-card: #161614;
-  --text-primary: #e8e4e0;
-  --text-secondary: #8a8580;
-  --text-muted: #585450;
-  --text-ghost: #2a2826;
-  --accent: #c4956a;
-  --accent-sage: #7a9a8a;
-  --accent-warm: #a89888;
-  --accent-highlight: #c8c0b8;
-  --border: #1e1c1a;
-  --border-light: #2a2826;
-  --font-heading: 'Syne', sans-serif;
-  --font-body: 'Space Grotesk', sans-serif;
-}
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme="dark"]) {
-    --bg: #f4f0ec;
-    --bg-raised: #e8e4e0;
-    --bg-card: #ddd9d5;
-    --text-primary: #1a1816;
-    --text-secondary: #6a6560;
-    --text-muted: #8a8580;
-    --text-ghost: #c8c4c0;
-    --accent: #9a6a42;
-    --accent-sage: #4a7a6a;
-    --accent-warm: #7a6a5a;
-    --accent-highlight: #4a4440;
-    --border: #d8d4d0;
-    --border-light: #c8c4c0;
-  }
-}
-[data-theme="light"] {
-  --bg: #f4f0ec;
-  --bg-raised: #e8e4e0;
-  --bg-card: #ddd9d5;
-  --text-primary: #1a1816;
-  --text-secondary: #6a6560;
-  --text-muted: #8a8580;
-  --text-ghost: #c8c4c0;
-  --accent: #9a6a42;
-  --accent-sage: #4a7a6a;
-  --accent-warm: #7a6a5a;
-  --accent-highlight: #4a4440;
-  --border: #d8d4d0;
-  --border-light: #c8c4c0;
-}
-html { scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; }
-body {
-  background: var(--bg); color: var(--text-primary);
-  font-family: var(--font-body); font-weight: 300; line-height: 1.7;
-  -webkit-font-smoothing: antialiased; overflow-x: hidden;
-}
-nav {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 0 32px;
-  background: color-mix(in srgb, var(--bg) 85%, transparent); backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
-}
-nav .nav-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; justify-content: space-between; align-items: center; height: 64px;
-}
-nav .logo {
-  font-family: var(--font-heading); font-weight: 700; font-size: 18px;
-  letter-spacing: -0.02em; color: var(--text-primary); text-decoration: none;
-}
-nav .breadcrumb { font-size: 13px; color: var(--text-muted); letter-spacing: 0.04em; }
-nav .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
-nav .breadcrumb a:hover { color: var(--text-primary); }
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
-/* Hero */
-.hero {
-  position: relative; width: 100%; height: 100vh; min-height: 500px;
-  overflow: hidden; display: flex; align-items: center; justify-content: center;
+:root {
+  --bg-light: #f4f4f4;
+  --fg: #232222;
+  --meta: #888;
+  --meta-light: #aaa;
+  --border: #ddd;
+  --col: calc((100% - 11 * 20px) / 12);
 }
-.hero video {
-  position: absolute; inset: 0; width: 100%; height: 100%;
-  object-fit: cover; opacity: 0.5;
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg-light);
+  color: var(--fg);
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
-.hero-overlay {
-  position: relative; z-index: 1; text-align: center;
+
+/* ── Header ── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  height: 56px;
+  background: #232222;
+  display: flex; align-items: center; justify-content: space-between;
   padding: 0 32px;
 }
-.hero-overlay h1 {
-  font-family: var(--font-heading); font-weight: 800;
-  font-size: clamp(40px, 8vw, 80px); letter-spacing: -0.03em;
-  line-height: 0.95; margin-bottom: 16px;
+header a {
+  color: #999; text-decoration: none;
+  font-family: 'Source Serif 4', Georgia, serif;
+  font-size: 14px; font-weight: 400;
+  letter-spacing: 0.02em;
+  transition: color 0.2s;
 }
-.hero-overlay .subtitle {
-  font-family: var(--font-heading); font-weight: 400; font-size: clamp(16px, 2.5vw, 22px);
-  color: var(--text-secondary); letter-spacing: -0.01em;
-}
-.hero-scroll {
-  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); z-index: 1;
-  display: flex; flex-direction: column; align-items: center; gap: 12px;
-}
-.hero-scroll span {
-  font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted);
-}
-.hero-scroll .line {
-  width: 1px; height: 32px; background: var(--text-secondary);
-  animation: gentle-bounce 2.4s ease-in-out infinite;
-}
-@keyframes gentle-bounce {
-  0%, 100% { transform: translateY(0); opacity: 0.4; }
-  50% { transform: translateY(6px); opacity: 1; }
+header a:hover { color: #ccc; }
+.header-close {
+  font-size: 22px; font-weight: 300; line-height: 1;
+  width: 32px; height: 32px;
+  display: flex; align-items: center; justify-content: center;
 }
 
-/* Page content */
-.page { max-width: 960px; margin: 0 auto; padding: 80px 32px; }
-.section-heading {
-  font-family: var(--font-heading); font-weight: 700;
-  font-size: clamp(28px, 4vw, 40px); letter-spacing: -0.02em;
-  margin-bottom: 24px;
+/* ── Hero ── */
+.hero {
+  width: 100%;
+  height: calc(100vh - 56px);
+  margin-top: 56px;
+  overflow: hidden;
+  position: relative;
 }
-.description {
-  font-size: 18px; line-height: 1.85; color: var(--text-secondary);
-  margin-bottom: 56px; max-width: 720px;
+.hero-video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
 }
-.quote {
-  border-left: 2px solid var(--border-light); padding-left: 24px;
-  margin: 40px 0; max-width: 720px;
+
+/* ── Grid Container ── */
+.grid-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0 20px;
 }
-.quote p {
-  font-size: 16px; line-height: 1.8; color: var(--text-secondary); font-style: italic;
+
+/* ── Content Section ── */
+.content {
+  padding-top: 80px;
+  padding-bottom: 0;
 }
-.quote .attribution {
-  font-size: 13px; color: var(--text-muted); margin-top: 12px; font-style: normal;
+
+/* Title */
+.project-title {
+  grid-column: 1 / 9;
+  font-size: 72px;
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--fg);
+  margin-bottom: 20px;
+}
+
+/* Intro */
+.project-intro {
+  grid-column: 1 / 9;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: var(--fg);
+  margin-bottom: 0;
+}
+
+/* Metadata row */
+.metadata-row {
+  grid-column: 5 / 13;
+  display: flex;
+  gap: 0;
+  margin-bottom: 0;
+}
+.meta-item {
+  flex: 1;
+  padding: 14px 0 14px 0;
+  border-top: 1px solid var(--border);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--meta);
+  line-height: 1.4;
+}
+.meta-item:first-child { padding-left: 0; }
+.meta-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--meta-light);
+  margin-bottom: 4px;
+}
+
+/* ── Spacers ── */
+.gap-5 { grid-column: 1 / -1; height: 5px; }
+.gap-60 { grid-column: 1 / -1; height: 60px; }
+.gap-90 { grid-column: 1 / -1; height: 90px; }
+.gap-120 { grid-column: 1 / -1; height: 120px; }
+.gap-150 { grid-column: 1 / -1; height: 150px; }
+
+/* ── Body Text ── */
+.body-text {
+  grid-column: 7 / 13;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--fg);
+}
+.body-text p { margin-bottom: 1.4em; }
+.body-text p:last-child { margin-bottom: 0; }
+
+/* ── Image Zone ── */
+.image-zone {
+  grid-column: 1 / 9;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.image-zone img,
+.image-zone video {
+  width: 100%;
+  display: block;
+}
+
+/* ── Full-width Image Zone ── */
+.image-zone-full {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.image-zone-full img {
+  width: 100%;
+  display: block;
+}
+
+/* ── Image Caption (left margin) ── */
+.image-caption {
+  grid-column: 1 / 4;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--meta);
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+  align-self: center;
+}
+.image-caption .caption-label {
+  display: block;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--meta-light);
+  margin-bottom: 3px;
+}
+
+/* ── Captioned image row ── */
+.captioned-image {
+  grid-column: 4 / 13;
+}
+.captioned-image img {
+  width: 100%;
+  display: block;
+}
+
+/* ── Quote Block ── */
+.quote-block {
+  grid-column: 7 / 13;
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: #555;
+  font-style: italic;
+  border-left: 2px solid var(--border);
+  padding-left: 24px;
+}
+.quote-attribution {
+  font-style: normal;
+  font-size: 13px;
+  color: var(--meta);
+  margin-top: 12px;
   letter-spacing: 0.04em;
 }
 
-/* Info sections */
-.info-section { margin-bottom: 48px; }
-.info-label {
-  font-family: var(--font-heading); font-weight: 600; font-size: 11px;
-  letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted);
+/* ── Video Link ── */
+.video-link {
+  grid-column: 7 / 13;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 15px;
+  font-weight: 400;
+  color: var(--fg);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+  transition: color 0.2s, border-color 0.2s;
+  width: fit-content;
+}
+.video-link:hover { color: var(--meta); border-color: var(--meta); }
+.video-link svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
+
+/* ── Credits ── */
+.credits {
+  grid-column: 7 / 13;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--meta);
+}
+.credits strong {
+  font-weight: 500;
+  color: var(--fg);
+  display: block;
+  margin-top: 1em;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+}
+.credits strong:first-child { margin-top: 0; }
+
+/* ── Exhibition History ── */
+.exhibitions {
+  grid-column: 7 / 13;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--meta);
+}
+.exhibitions .ex-title {
+  font-weight: 500;
+  color: var(--fg);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 8px;
+}
+.exhibitions ul {
+  list-style: none;
+}
+
+/* ── Prev / Next Nav ── */
+.project-nav {
+  margin-top: 150px;
+  padding: 0 40px 80px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.project-nav-inner {
+  display: flex;
+  gap: 40px;
+  border-top: 1px solid var(--border);
+  padding-top: 40px;
+}
+.nav-item {
+  flex: 1;
+  text-decoration: none;
+  color: var(--fg);
+  transition: opacity 0.3s;
+}
+.nav-item img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
   margin-bottom: 16px;
 }
-.info-text { font-size: 15px; line-height: 1.75; color: var(--text-secondary); }
-.info-text a {
-  color: var(--accent); text-decoration: none;
-  border-bottom: 1px solid var(--border); padding-bottom: 1px;
-  transition: color 0.3s, border-color 0.3s;
+.nav-direction {
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--meta);
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
 }
-.info-text a:hover { color: var(--text-primary); border-color: var(--accent); }
+.nav-project-title {
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.nav-item--next { text-align: right; }
+.project-nav-inner:hover .nav-item { opacity: 0.4; }
+.project-nav-inner:hover .nav-item:hover { opacity: 1; }
 
-/* Video links */
-.video-links { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 56px; }
-.video-link {
-  display: inline-flex; align-items: center; gap: 10px;
-  font-size: 14px; color: var(--accent); text-decoration: none;
-  border: 1px solid var(--border); padding: 12px 24px; border-radius: 2px;
-  transition: border-color 0.3s, color 0.3s;
+/* ── Footer ── */
+footer {
+  padding: 40px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--meta);
+  letter-spacing: 0.04em;
 }
-.video-link:hover { border-color: var(--accent); color: var(--text-primary); }
-.video-link svg { width: 16px; height: 16px; fill: currentColor; }
+footer a { color: var(--meta); text-decoration: none; }
+footer a:hover { color: var(--fg); }
 
-/* Image grids */
-.grid { margin-bottom: 80px; }
-.grid-label {
-  font-family: var(--font-heading); font-weight: 600; font-size: 11px;
-  letter-spacing: 0.25em; text-transform: uppercase; color: var(--text-muted);
-  margin-bottom: 24px;
+/* ── Gallery image drift ── */
+.image-zone, .image-zone-full, .captioned-image { overflow: hidden; }
+.gallery-image {
+  animation: subtle-drift 30s ease-in-out infinite alternate;
 }
-.grid-caption {
-  font-size: 15px; line-height: 1.75; color: var(--text-secondary);
-  margin-bottom: 32px; max-width: 640px;
-}
-
-/* Full-width stacked grid for installation photos */
-.grid-fullwidth {
-  display: flex; flex-direction: column; gap: 12px;
-}
-.grid-fullwidth img {
-  width: 100%; aspect-ratio: 16/9; object-fit: cover; border-radius: 2px;
-  display: block; transition: opacity 0.3s;
-}
-.grid-fullwidth img:hover { opacity: 0.85; }
-
-/* Regular grids with tighter spacing */
-.grid-2col {
-  display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;
-}
-.grid-3col {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px;
-}
-.grid-4col {
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px;
-}
-.grid-5col {
-  display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px;
+@keyframes subtle-drift {
+  0% { transform: scale(1.02) rotate(-0.3deg); }
+  100% { transform: scale(1.05) rotate(0.3deg); }
 }
 
-/* Smaller thumbnail style for supporting visuals */
-.grid-2col img, .grid-3col img, .grid-4col img, .grid-5col img {
-  width: 100%; aspect-ratio: 4/3; object-fit: cover; border-radius: 2px;
-  display: block; transition: opacity 0.3s;
+/* ── AI Siori portrait grid ── */
+.ai-portrait-grid {
+  grid-column: 1 / 9;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
+  overflow: hidden;
 }
-.grid-4col img, .grid-5col img { aspect-ratio: 1/1; }
-.grid-2col img:hover, .grid-3col img:hover, .grid-4col img:hover, .grid-5col img:hover { opacity: 0.85; }
-
-.grid-wide {
-  grid-column: 1 / -1;
-}
-.grid-wide img { aspect-ratio: 21/9; }
-
-/* Divider */
-.divider { width: 48px; height: 1px; background: var(--border-light); margin: 56px 0; }
-
-/* Related */
-.related { display: flex; gap: 16px; flex-wrap: wrap; }
-.related a {
-  font-size: 13px; letter-spacing: 0.08em; color: var(--accent);
-  text-decoration: none; border: 1px solid var(--border); padding: 8px 20px;
-  border-radius: 2px; transition: border-color 0.3s, color 0.3s;
-}
-.related a:hover { border-color: var(--accent); color: var(--text-primary); }
-
-/* Footer */
-footer { padding: 48px 32px; border-top: 1px solid var(--border); }
-footer .footer-inner {
-  max-width: 1200px; margin: 0 auto;
-  display: flex; justify-content: space-between; align-items: center;
-}
-footer .footer-left, footer .footer-right { font-size: 12px; letter-spacing: 0.15em; color: var(--text-ghost); }
-footer a { color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
-footer a:hover { color: var(--accent-warm); }
-
-/* Lightbox */
-.lightbox {
-  display: none; position: fixed; inset: 0; z-index: 200;
-  background: rgba(0,0,0,0.92); align-items: center; justify-content: center;
-  cursor: zoom-out;
-}
-.lightbox.active { display: flex; }
-.lightbox img {
-  max-width: 90vw; max-height: 90vh; object-fit: contain; border-radius: 2px;
+.ai-portrait-grid img {
+  width: 100%;
+  display: block;
+  animation: subtle-drift 30s ease-in-out infinite alternate;
 }
 
-@media (max-width: 768px) {
-  .page { padding: 60px 20px; }
-  nav { padding: 0 20px; }
-  .grid-2col { grid-template-columns: 1fr; }
-  .grid-3col { grid-template-columns: repeat(2, 1fr); }
-  .grid-4col { grid-template-columns: repeat(3, 1fr); }
-  .grid-5col { grid-template-columns: repeat(3, 1fr); }
-  footer .footer-inner { flex-direction: column; gap: 12px; text-align: center; }
-  .hero { min-height: 400px; height: 80vh; }
-  .video-links { flex-direction: column; }
+/* ── Transcript ── */
+.transcript-block {
+  grid-column: 7 / 13;
+}
+.transcript { margin: 40px 0; }
+.msg { padding: 8px 0; font-size: 15px; line-height: 1.6; }
+.msg-ai { opacity: 0.6; }
+.msg-human { opacity: 1; }
+.speaker { font-weight: 700; margin-right: 8px; }
+
+/* ── Inline video clips ── */
+.image-zone video.gallery-image {
+  object-fit: cover;
+}
+
+/* ── GSAP fade targets ── */
+.fade-in {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .grid-container {
+    padding: 0 24px;
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+  .project-title { grid-column: 1; font-size: 44px; }
+  .project-intro { grid-column: 1; font-size: 20px; }
+  .metadata-row {
+    grid-column: 1;
+    flex-wrap: wrap;
+  }
+  .meta-item { flex: 0 0 50%; margin-bottom: 12px; }
+  .body-text { grid-column: 1; }
+  .image-zone { grid-column: 1; }
+  .image-zone-full { grid-column: 1; }
+  .image-caption { grid-column: 1; margin-bottom: 8px; }
+  .captioned-image { grid-column: 1; }
+  .quote-block { grid-column: 1; }
+  .video-link { grid-column: 1; }
+  .credits { grid-column: 1; }
+  .exhibitions { grid-column: 1; }
+  .ai-portrait-grid { grid-column: 1; grid-template-columns: repeat(2, 1fr); }
+  .transcript-block { grid-column: 1; }
+  .gap-90 { height: 50px; }
+  .gap-120 { height: 60px; }
+  .gap-150 { height: 80px; }
+  .hero { height: 60vh; }
+  header { padding: 0 20px; }
+  .project-nav { padding: 0 24px 60px; }
+  .project-nav-inner { flex-direction: column; gap: 30px; }
+  .nav-item--next { text-align: left; }
+  .nav-item img { height: 160px; }
+}
+
+@media (max-width: 480px) {
+  .project-title { font-size: 36px; }
+  .project-intro { font-size: 18px; }
+  .meta-item { flex: 0 0 100%; }
+  .content { padding-top: 50px; }
+  .ai-portrait-grid { grid-template-columns: repeat(2, 1fr); }
 }
 </style>
 </head>
 <body>
-<button id="theme-toggle" aria-label="Toggle light/dark mode" style="position:fixed;top:20px;right:20px;z-index:1000;background:none;border:1px solid var(--border);border-radius:50%;width:32px;height:32px;cursor:pointer;color:var(--text-secondary, var(--text-muted));font-size:14px;display:flex;align-items:center;justify-content:center;transition:border-color 0.3s,color 0.3s;">&#9788;</button>
 
-<nav>
-  <div class="nav-inner">
-    <a href="../" class="logo">LS</a>
-    <div class="breadcrumb">LS1</div>
-  </div>
-</nav>
+<!-- ── Header ── -->
+<header>
+  <a href="../">Latent States</a>
+  <a href="../" class="header-close">&times;</a>
+</header>
 
-<!-- Hero with looping video -->
-<section class="hero">
-  <video autoplay muted loop playsinline>
-    <source src="assets/hero-loop.webm" type="video/webm">
-    <source src="assets/hero-loop.mp4" type="video/mp4">
+<!-- ── Hero Video ── -->
+<div class="hero">
+  <video class="hero-video" autoplay muted loop playsinline preload="auto" poster="assets/hero-vr-poster.jpg">
+    <source src="assets/hero-vr-loop.mp4" type="video/mp4">
   </video>
-  <div class="hero-overlay">
-    <h1>Latent Space I</h1>
-    <div class="subtitle">Metamersion: Latent Passages</div>
-  </div>
-  <div class="hero-scroll">
-    <span>2022&ndash;2023</span>
-    <div class="line"></div>
-  </div>
-</section>
+</div>
 
-<div class="page">
+<!-- ── Content ── -->
+<div class="content">
+  <div class="grid-container">
 
-  <!-- About -->
-  <div class="description">
-    A multimedia art piece combining film, installation, and VR &mdash; where artists, neuroscientists, and AI collaborate to imagine what future therapy could look like. You sit at a vintage terminal and have a conversation with an AI simulating the philosopher Alan Watts. Large language models analyze your responses. Then you enter VR &mdash; a dream-like visual journey shaped by what you said, rendered through latent blending with generated narration and custom music. The question at the center: what happens when a machine builds a world from your words?
-  </div>
+    <!-- Title -->
+    <h1 class="project-title fade-in">Latent Space I</h1>
 
-  <div class="video-links">
-    <a href="https://www.youtube.com/watch?v=NWli5tCID0I" target="_blank" rel="noopener" class="video-link">
+    <!-- Intro -->
+    <p class="project-intro fade-in">A conversation with an artificial philosopher becomes a dream you can walk through. At the intersection of language models, generative imagery, and virtual reality, each visitor&rsquo;s inner world was made visible &mdash; to themselves and to the audience watching from outside.</p>
+
+    <!-- 120px after intro before metadata -->
+    <div class="gap-120"></div>
+
+    <!-- Metadata Row -->
+    <div class="metadata-row fade-in">
+      <div class="meta-item">
+        <div class="meta-label">Year</div>
+        2022&ndash;23
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Type</div>
+        Installation &middot; VR &middot; Film
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Venue</div>
+        Champalimaud Foundation
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Programme</div>
+        Metamersion II: Latent Spaces
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Collective</div>
+        Lunar Ring + mots
+      </div>
+    </div>
+
+    <!-- 90px between metadata and first section -->
+    <div class="gap-90"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SECTION 1 — The Terminal                       -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="image-zone fade-in">
+      <img class="gallery-image" style="animation-delay: 0s;" src="assets/install-vr-experience-chatbot.jpg" alt="A visitor seated alone at the terminal, conversing with the AI" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 4s;" src="assets/install-vr-experience-chatbot2.jpg" alt="The terminal station — vintage monitor, keyboard, low light" loading="lazy">
+    </div>
+
+    <div class="body-text fade-in" style="align-self: start;">
+      <p>The experience began in solitude. Visitors sat alone at a vintage computer terminal &mdash; a green-black screen, a keyboard, nothing else &mdash; and typed their way into a conversation with an AI channelling the spirit of Alan Watts. The machine was patient and probing. Over seven minutes it drew out who they were: their concerns, their hopes, what made them restless or afraid. It asked the kind of questions a good therapist might ask, but with the uncanny directness of something that had no stake in the answer.</p>
+      <p>Behind the conversation, GPT-3 was working. It analysed each visitor&rsquo;s words in real time, extracting the essential things about them &mdash; emotional themes, recurring images, the shape of their preoccupations &mdash; and from this raw material generated a personalized story in six steps. Each step carried a symbolic object and a dramatic landscape. A whale surfacing in dark water. A cathedral submerged beneath the sea. A staircase that led nowhere and everywhere. The visitor never saw this story as text. They would see it as a dream.</p>
+    </div>
+
+    <div class="gap-90"></div>
+
+    <div class="image-caption fade-in">
+      <span class="caption-label">Img. 001</span>
+      The terminal &mdash; visitors conversed with an AI channelling Alan Watts
+    </div>
+    <div style="grid-column: 4 / 13;"></div>
+
+    <div class="gap-90"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SECTION 2 — The Wireframe Room                 -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="image-zone fade-in">
+      <img class="gallery-image" style="animation-delay: 8s;" src="assets/install-ai-cube.jpg" alt="The wireframe cube — neon LED strips glowing through haze" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 12s;" src="assets/install-dscf8816.jpg" alt="The warehouse space with the cube installation" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 16s;" src="assets/install-dscf8818.jpg" alt="Detail — the cube from inside the darkened warehouse" loading="lazy">
+      <video class="gallery-image" autoplay muted loop playsinline style="animation-delay: 20s;" loading="lazy">
+        <source src="assets/clip-cube.mp4" type="video/mp4">
+      </video>
+    </div>
+
+    <div class="body-text fade-in" style="align-self: start;">
+      <p>From the terminal, visitors walked into a dark warehouse space. Seagulls called in the distance. Haze hung everywhere, catching stray light. In the centre of the room stood a cubic wireframe structure, its edges traced with neon LED strips &mdash; blue, pink, white &mdash; glowing through the fog like something between a stage set and a scientific apparatus.</p>
+      <p>Inside the cube: a single seat and a VR headset. The visitor stepped through the frame, sat down, and a guide placed the headset over their eyes. What happened next was theatrical in the deepest sense. While the visitor was immersed in VR, a projector mapped what they were seeing onto the cube&rsquo;s outer surfaces, so the audience gathered in the warehouse caught fragmentary glimpses of someone else&rsquo;s dream. The haze became a screen. The subject appeared to dissolve slowly into another world &mdash; present in body, absent in mind, their private vision made semi-public as projected light scattered through the fog.</p>
+    </div>
+
+    <div class="gap-90"></div>
+
+    <div class="image-caption fade-in">
+      <span class="caption-label">Img. 002</span>
+      The wireframe room &mdash; neon cube, haze, and projections in the Champalimaud warehouse
+    </div>
+    <div style="grid-column: 4 / 13;"></div>
+
+    <div class="gap-90"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SECTION 3 — The VR Dream                       -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="image-zone fade-in">
+      <img class="gallery-image" style="animation-delay: 0s;" src="assets/install-vr-experience.jpg" alt="A visitor inside VR — the headset on, the cube glowing around them" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 4s;" src="assets/install-vr-experience2.jpg" alt="The VR experience from the audience's perspective" loading="lazy">
+      <video class="gallery-image" autoplay muted loop playsinline style="animation-delay: 8s;" loading="lazy">
+        <source src="assets/clip-cliffs.mp4" type="video/mp4">
+      </video>
+      <img class="gallery-image" style="animation-delay: 12s;" src="assets/still-the-whale-ai.jpg" alt="AI-generated dream scene — a whale emerging from dark water" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 16s;" src="assets/still-dark-eyes-1.jpg" alt="AI-generated portrait — eyes dissolving through latent space" loading="lazy">
+    </div>
+
+    <div class="body-text fade-in" style="align-self: start;">
+      <p>Inside the headset, visitors found themselves on a journey through landscapes that existed only because they had spoken. Stable Diffusion generated scenes from the text prompts that GPT-3 had extracted from the conversation &mdash; underwater cathedrals, breathing forests, faces that aged and reformed, architecture that folded in on itself. But the key innovation was not the generation of individual images. It was the transitions between them.</p>
+      <p>Lunar Ring&rsquo;s latent blending technique &mdash; developed by Johannes Stelzer and Alexander Loktyushin &mdash; smoothly interpolated between points in the generative model&rsquo;s learned manifold, creating continuous passages through impossible spaces. One scene did not cut to the next; it dissolved, morphed, breathed into it. The effect was genuinely dreamlike: the logic of one world persisted just long enough to become the logic of another.</p>
+      <p>A mystical poem narrated the journey, written by GPT-3 and personalized to each visitor. Procedurally generated music accompanied the imagery. Every experience was unique &mdash; 446 documented sessions across the exhibition&rsquo;s run, no two the same.</p>
+    </div>
+
+    <div class="gap-90"></div>
+
+    <div class="image-caption fade-in">
+      <span class="caption-label">Img. 003</span>
+      Inside the dream &mdash; AI-generated landscapes shaped by each visitor&rsquo;s conversation
+    </div>
+    <div style="grid-column: 4 / 13;"></div>
+
+    <div class="gap-90"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SECTION 4 — The Film                           -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="image-zone fade-in">
+      <img class="gallery-image" style="animation-delay: 0s;" src="assets/still-siori-lee-1.jpg" alt="Siori Lee — the protagonist entering the latent dream" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 4s;" src="assets/still-aged-siori-lee-ai.jpg" alt="Siori Lee aged through AI — a future self imagined by Stable Diffusion" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 8s;" src="assets/still-banana-hands-ai.jpg" alt="AI hallucination — hands dissolving into organic forms" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 12s;" src="assets/still-mirror.jpg" alt="The dreamer reflected in an impossible surface" loading="lazy">
+    </div>
+
+    <div class="body-text fade-in" style="align-self: start;">
+      <p>Running in parallel with the installation was a short film directed by mots &mdash; Octavian Mot and Daniela Nedovescu. It starred Siori Lee as a young woman who appears to be trapped inside a dream but is actually inside a therapy session simulated by AI. The film was post-produced entirely through Stable Diffusion: every frame passed through the generative model, transforming live-action footage into something uncanny, half-remembered, hovering between photography and hallucination.</p>
+      <p>The AI&rsquo;s tendency toward visual surprise &mdash; banana-like fingers, impossible reflections, faces that shifted between recognition and estrangement &mdash; was not treated as error but as material. The unreliability of the model became the aesthetic of the work.</p>
+    </div>
+
+    <div class="gap-90"></div>
+
+    <div class="image-caption fade-in">
+      <span class="caption-label">Img. 004</span>
+      Siori Lee &mdash; the protagonist reimagined through Stable Diffusion across 20 versions of the film
+    </div>
+    <div style="grid-column: 4 / 13;"></div>
+
+    <div class="gap-90"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SECTION 5 — The AI Mirror                      -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="ai-portrait-grid fade-in">
+      <img class="gallery-image" style="animation-delay: 0s;" src="assets/ai-siori-01.jpg" alt="AI Siori — version 1" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 3s;" src="assets/ai-siori-02.jpg" alt="AI Siori — version 2" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 6s;" src="assets/ai-siori-03.jpg" alt="AI Siori — version 3" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 9s;" src="assets/ai-siori-04.jpg" alt="AI Siori — version 4" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 12s;" src="assets/ai-siori-05.jpg" alt="AI Siori — version 5" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 15s;" src="assets/ai-siori-06.jpg" alt="AI Siori — version 6" loading="lazy">
+    </div>
+
+    <div class="body-text fade-in" style="align-self: start;">
+      <p>A custom Stable Diffusion model was trained on photographs of lead talent Siori Lee. The AI then generated alternate versions of her &mdash; aged, stylized, multiplied, reimagined through different artistic traditions. Twenty different versions of the film were produced, each screening showing a different AI interpretation of the same person. The question at the center: when a machine reimagines you, what does it reveal?</p>
+    </div>
+
+    <div class="gap-90"></div>
+
+    <div class="image-caption fade-in">
+      <span class="caption-label">Img. 005</span>
+      Siori Lee reimagined by Stable Diffusion &mdash; six of twenty AI-generated versions
+    </div>
+    <div style="grid-column: 4 / 13;"></div>
+
+    <div class="gap-90"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- Quote Block — Espresso Interview               -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div style="grid-column: 1 / 7;"></div>
+    <div class="quote-block fade-in">
+      One could imagine using artificial intelligence not to increase clicks, but to produce brain states that were more desirable. We&rsquo;re getting into ethical, philosophical questions about who would use that technology, who would control it, how it would be regulated. But it&rsquo;s coming.
+      <div class="quote-attribution">&mdash; Zachary Mainen, Espresso Magazine</div>
+    </div>
+
+    <div class="gap-90"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SECTION 6 — The Conversation                   -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div style="grid-column: 1 / 7;"></div>
+    <div class="body-text fade-in" style="align-self: start;">
+      <p>446 visitors sat at the terminal. Each conversation was unique. The AI drew out different things from different people &mdash; hopes, fears, memories, questions about consciousness. Here is one exchange.</p>
+    </div>
+
+    <div class="gap-60"></div>
+
+    <div style="grid-column: 1 / 7;"></div>
+    <div class="transcript-block fade-in">
+      <div class="transcript">
+        <div class="msg msg-ai"><span class="speaker">YY:</span> Hello, visitor! My name is YY. Who are you?</div>
+        <div class="msg msg-human"><span class="speaker">David:</span> David Pasquale Fedele</div>
+        <div class="msg msg-ai"><span class="speaker">YY:</span> Nice to meet you, David! What would you like to tell me about yourself?</div>
+        <div class="msg msg-human"><span class="speaker">David:</span> A bit of a lost soul, spending most of my time on the road. An insatiable curiousity, always confused. Permanently overthinking. A creative schizophrenic. A filmmaker, a musician, everything and nothing. I like to see the world, I think that the purpose of life is to experience the world by moving and interacting in it, rather than being passive.</div>
+        <div class="msg msg-ai"><span class="speaker">YY:</span> That&rsquo;s great, David. I can certainly understand the idea of wanting to have your brain stimulated and learning new things. What have you learned so far that you find most intriguing?</div>
+        <div class="msg msg-human"><span class="speaker">David:</span> I find it intriguing how the mind and the brain work. Especially about consciousness. Ever since I was a child I&rsquo;ve always been asking questions about what is the meaning of life, what does it mean to be alive, to be human. How the brain works. How consciousness works. Who am I? Why am I not you? Am I unique? What happens when I die? What happened before I was born. Why do people fight and hate each other instead of love and togetherness.</div>
+        <div class="msg msg-ai"><span class="speaker">YY:</span> Thank you for taking the time to speak with me, David. I&rsquo;m really looking forward to learning about you and creating a story that reflects that. Please bear with me while I consider what we&rsquo;ve discussed and create the story.</div>
+      </div>
+    </div>
+
+    <div class="gap-90"></div>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!-- SECTION 7 — The Space                          -->
+    <!-- ═══════════════════════════════════════════════ -->
+
+    <div class="image-zone-full fade-in">
+      <img class="gallery-image" style="animation-delay: 0s;" src="assets/install-dscf8933.jpg" alt="The warehouse space — wide view of the Metamersion installation" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 4s;" src="assets/install-dscf8986.jpg" alt="Installation detail — screens and visitors in the warehouse" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 8s;" src="assets/install-crowd.jpg" alt="The crowd gathered at Metamersion II" loading="lazy">
+      <img class="gallery-image" style="animation-delay: 12s;" src="assets/event-20230127_220204.jpg" alt="Evening event — the warehouse alive with visitors" loading="lazy">
+    </div>
+
+    <div class="gap-90"></div>
+
+    <div class="image-caption fade-in">
+      <span class="caption-label">Img. 006</span>
+      Metamersion II: Latent Spaces, Champalimaud Foundation warehouse
+    </div>
+    <div style="grid-column: 4 / 13;"></div>
+
+    <!-- Video link -->
+    <div class="gap-60"></div>
+
+    <div style="grid-column: 1 / 7;"></div>
+    <a href="https://www.youtube.com/watch?v=NWli5tCID0I" target="_blank" rel="noopener" class="video-link fade-in">
       <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
       Watch the VR experience
     </a>
+
+    <div style="grid-column: 7 / 13;"></div>
+
+    <div class="gap-90"></div>
+
+    <!-- Credits -->
+    <div style="grid-column: 1 / 7;"></div>
+    <div class="credits fade-in">
+      <strong>Concept</strong>
+      Zachary Mainen
+
+      <strong>Film Direction</strong>
+      Octavian Mot, Daniela Nedovescu (mots)
+
+      <strong>Installation</strong>
+      Lunar Ring &mdash; Alexander Loktyushin, Gon&ccedil;alo Guiomar, Anna Taphorn, Johannes Stelzer, Niklas Fricke, Zachary Mainen
+
+      <strong>Latent Blending</strong>
+      Johannes Stelzer, Alexander Loktyushin
+
+      <strong>Interactive Sound</strong>
+      Andr&eacute; Gon&ccedil;alves
+
+      <strong>Lighting &amp; VR Environment</strong>
+      Tupac Martir / Satore Studio
+
+      <strong>Lead Talent</strong>
+      Siori Lee Koerner
+
+      <strong>Neuroscience &amp; ML</strong>
+      Eric Lacosse, Scott Rennie, Razvan Sandru
+
+      <strong>Programme</strong>
+      Metamersion II: Latent Spaces
+
+      <strong>Curators</strong>
+      Joe Paton, John Krakauer, Zachary Mainen
+
+      <strong>Coordination</strong>
+      Julia Salaroli, Patricia Correia
+    </div>
+
+    <div class="gap-60"></div>
+
+    <!-- Exhibition History -->
+    <div style="grid-column: 1 / 7;"></div>
+    <div class="exhibitions fade-in">
+      <div class="ex-title">Exhibition History</div>
+      <ul>
+        <li>Metamersion II: Latent Spaces, Champalimaud Foundation, Lisbon, Dec 2022 &ndash; Jan 2023</li>
+      </ul>
+    </div>
+
+  </div><!-- /grid-container -->
+</div><!-- /content -->
+
+<!-- ── Previous / Next Navigation ── -->
+<nav class="project-nav">
+  <div class="project-nav-inner">
+    <a href="../atavic-forest/" class="nav-item nav-item--prev">
+      <img src="../assets/cf-metamersion-ls-atavic-forest.jpg" alt="Atavic Forest" loading="lazy">
+      <div class="nav-direction">&larr; Previous Project</div>
+      <div class="nav-project-title">Atavic Forest</div>
+    </a>
+    <a href="../palimpsest/" class="nav-item nav-item--next">
+      <img src="../assets/cf-metamersion-ls-palimpsest.png" alt="Palimpsest" loading="lazy">
+      <div class="nav-direction">Next Project &rarr;</div>
+      <div class="nav-project-title">Palimpsest</div>
+    </a>
   </div>
+</nav>
 
-  <div class="divider"></div>
-
-  <!-- The Installation -->
-  <div class="grid">
-    <div class="grid-label">The Installation</div>
-    <div class="grid-caption">
-      Metamersion 2 at the Champalimaud Foundation warehouse: the multi-pod physical space where visitors entered conversations with AI, and the large multi-screen displays showing real-time generated visual experiences. Each participant received a unique dream sequence rendered from their interaction.
-    </div>
-    <div class="grid-fullwidth">
-      <img src="assets/event-001.jpg" alt="Installation space — the Metamersion pods and visitor area" loading="lazy">
-      <img src="assets/event-002.jpg" alt="Installation — multiple pods with visitors engaged in AI conversations" loading="lazy">
-      <img src="assets/event-003.jpg" alt="Installation setup — the physical space with lighting and staging" loading="lazy">
-      <img src="assets/event-004.jpg" alt="Installation gathering — visitors and collaborators in the space" loading="lazy">
-      <img src="assets/screens-001.jpg" alt="Display screens — generated visual experience in progress" loading="lazy">
-      <img src="assets/screens-002.jpg" alt="Generated content — surreal AI-rendered dream sequence on display" loading="lazy">
-      <img src="assets/screens-003.jpg" alt="Multi-screen display — visual narrative unfolding across panels" loading="lazy">
-      <img src="assets/screens-004.jpg" alt="Screen content — the AI-generated world taking shape" loading="lazy">
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- The Work — Stills -->
-  <div class="grid">
-    <div class="grid-label">The Work</div>
-    <div class="grid-caption">
-      Sixteen key frames from the film and VR experience. The short film was outlined using GPT-3 and post-produced with Stable Diffusion. An AI model trained on images of the lead talent generated alternate versions of the character &mdash; each screening a different dream.
-    </div>
-    <div class="grid-5col">
-      <img src="assets/still-the-cube.jpg" alt="The Cube — a surreal geometric structure in the dream landscape" loading="lazy">
-      <img src="assets/still-mirror.jpg" alt="Mirror — the dreamer reflected in an impossible surface" loading="lazy">
-      <img src="assets/still-the-whale-ai.jpg" alt="The Whale — AI-generated ocean creature emerging from the subconscious" loading="lazy">
-      <img src="assets/still-dark-eyes-1.jpg" alt="Dark Eyes — close-up portrait in the dream state" loading="lazy">
-      <img src="assets/still-dark-eyes-2.jpg" alt="Dark Eyes II — altered perception of the dreamer" loading="lazy">
-      <img src="assets/still-sintra.jpg" alt="Sintra — dreamscape inspired by Portuguese forest" loading="lazy">
-      <img src="assets/still-sintra-2.jpg" alt="Sintra II — deeper into the forest dream" loading="lazy">
-      <img src="assets/still-ocean.jpg" alt="Ocean — underwater passage in the VR journey" loading="lazy">
-      <img src="assets/still-sand-castle-ai.jpg" alt="Sand Castle — AI-generated surreal architecture" loading="lazy">
-      <img src="assets/still-michael.jpg" alt="Michael — a figure in the latent space" loading="lazy">
-      <img src="assets/still-banana-hands-ai.jpg" alt="Banana Hands — AI hallucination of the body" loading="lazy">
-      <img src="assets/still-siori-lee-1.jpg" alt="Siori Lee — the protagonist entering the dream" loading="lazy">
-      <img src="assets/still-siori-lee-2.jpg" alt="Siori Lee II — transformation through the AI mirror" loading="lazy">
-      <img src="assets/still-siori-lee-3.jpg" alt="Siori Lee III — the dreamer fragmented" loading="lazy">
-      <img src="assets/still-aged-siori-lee-ai.jpg" alt="Aged Siori Lee — AI-imagined future self" loading="lazy">
-      <img src="assets/still-the-beautiful-woman.jpg" alt="The Beautiful Woman — beauty distorted by the machine" loading="lazy">
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- AI Exploration — Siori portraits -->
-  <div class="grid">
-    <div class="grid-label">AI Exploration</div>
-    <div class="grid-caption">
-      During post-production, a Stable Diffusion model was trained on images of lead talent Siori Lee. The model generated hundreds of variations &mdash; surrealist, cyberpunk, photorealistic &mdash; each a different version of the character as imagined by the machine. These explorations informed the final film and enabled twenty unique versions of the piece.
-    </div>
-    <div class="grid-5col">
-      <img src="assets/siori-01.jpg" alt="AI Siori — surrealist portrait, painted style" loading="lazy">
-      <img src="assets/siori-02.jpg" alt="AI Siori — cyberpunk portrait" loading="lazy">
-      <img src="assets/siori-03.jpg" alt="AI Siori — cyberpunk variant" loading="lazy">
-      <img src="assets/siori-04.jpg" alt="AI Siori — fine art photography style" loading="lazy">
-      <img src="assets/siori-05.jpg" alt="AI Siori — ultrarealistic portrait variant" loading="lazy">
-      <img src="assets/siori-06.jpg" alt="AI Siori — soft portrait" loading="lazy">
-      <img src="assets/siori-07.jpg" alt="AI Siori — fine art variant" loading="lazy">
-      <img src="assets/siori-08.jpg" alt="AI Siori — high-resolution portrait in crowd" loading="lazy">
-      <img src="assets/siori-09.jpg" alt="AI Siori — detailed face, fine art" loading="lazy">
-      <img src="assets/siori-10.jpg" alt="AI Siori — portrait variant" loading="lazy">
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Behind the Scenes -->
-  <div class="grid">
-    <div class="grid-label">Behind the Scenes</div>
-    <div class="grid-caption">
-      The film was shot on location in Germany and Portugal. The installation was built at the Champalimaud Foundation warehouse in Lisbon for Metamersion 2, December 2022 &ndash; January 2023.
-    </div>
-    <div class="grid-5col">
-      <img src="assets/bts-dscf8508.jpg" alt="Behind the scenes — production setup" loading="lazy">
-      <img src="assets/bts-dscf8519.jpg" alt="Behind the scenes — on set with crew" loading="lazy">
-      <img src="assets/bts-dscf8522.jpg" alt="Behind the scenes — filming on location" loading="lazy">
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Quotes -->
-  <div class="quote">
-    <p>&ldquo;We were trying to imagine how AI would create this environment for people, to feel somehow viscerally connected and have these experiences that maybe help them grow. And at some point, we said, but why don&rsquo;t we just ask AI? Why don&rsquo;t we just use these models that are already available on the web and just try to see how it would create itself?&rdquo;</p>
-    <div class="attribution">Octavian Mot, film director, mots</div>
-  </div>
-
-  <div class="quote">
-    <p>&ldquo;We wanted to get away from the very restricted task and try to study people in more natural environments. These language and image generation models have this creativity, they&rsquo;re not reliable, and they tend to do unexpected things. We were seeing this as an amazing advantage &mdash; they provide a much more naturalistic context for looking at people interacting with something that is not a thousand times exactly the same boring thing.&rdquo;</p>
-    <div class="attribution">Zachary Mainen, neuroscientist, Champalimaud Centre for the Unknown</div>
-  </div>
-
-  <div class="divider"></div>
-
-  <!-- Credits -->
-  <div class="info-section">
-    <div class="info-label">Collaborators</div>
-    <div class="info-text">
-      <a href="https://www.lunarring.studio" target="_blank" rel="noopener">Lunar Ring</a> (Gon&ccedil;alo Guiomar, Anna Taphorn, Alexander Loktyushin, Johannes Stelzer, Niklas Fricke, Zachary Mainen), Andr&eacute; Gon&ccedil;alves, Tupac Martir / Satore Studio, <a href="https://mots.studio" target="_blank" rel="noopener">mots</a> (Octavian Mot, Cristina Stefan). Neuroscience: Eric Lacosse, Scott Rennie, Razvan Sandru.
-    </div>
-  </div>
-
-  <div class="info-section">
-    <div class="info-label">Context</div>
-    <div class="info-text">
-      <a href="../metamersion/">Metamersion 2: Latent Spaces</a>, Dec 2022 &ndash; Jan 2023, Champalimaud Foundation, Lisbon<br>
-      Film, installation, VR experience &middot; AI tools: GPT-3, Stable Diffusion, Unreal Engine, Meta Quest Pro
-    </div>
-  </div>
-
-  <div class="info-section">
-    <div class="info-label">The Piece</div>
-    <div class="info-text">
-      Two components: a 3-minute short film written and post-produced with AI, and a virtual reality experience tailored to each participant. In the VR component, visitors conversed with a chatbot analyzed by language models. Based on that interpretation, a unique 3-minute video story was generated on the spot &mdash; visuals, sound, and narration made entirely by AI.
-    </div>
-  </div>
-
-  <div class="divider"></div>
-
-  <div class="info-section">
-    <div class="info-label">Related</div>
-    <div class="related">
-      <a href="../atavic-forest/">Atavic Forest</a>
-      <a href="../metamersion/">Metamersion</a>
-      <a href="../palimpsest/">Palimpsest</a>
-      <a href="../polylith/">Polylith</a>
-    </div>
-  </div>
-
-</div>
-
+<!-- ── Footer ── -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-left">Latent States &middot; 2026</div>
-    <div class="footer-right">Lisbon</div>
-  </div>
+  <a href="../">Latent States</a> &middot; Zachary Mainen &middot; Champalimaud Foundation
 </footer>
 
-<!-- Lightbox -->
-<div class="lightbox" id="lightbox">
-  <img src="" alt="">
-</div>
-
 <script>
-(function(){
-  var t=document.getElementById('theme-toggle'),r=document.documentElement;
-  var saved=localStorage.getItem('ls-theme');
-  if(saved){r.setAttribute('data-theme',saved);t.textContent=saved==='light'?'\u263E':'\u2600';}
-  t.addEventListener('click',function(){
-    var current=r.getAttribute('data-theme');
-    var next=current==='light'?'dark':'light';
-    r.setAttribute('data-theme',next);
-    localStorage.setItem('ls-theme',next);
-    t.textContent=next==='light'?'\u263E':'\u2600';
+gsap.registerPlugin(ScrollTrigger);
+
+gsap.utils.toArray('.fade-in').forEach(el => {
+  gsap.to(el, {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    ease: 'power2.out',
+    scrollTrigger: {
+      trigger: el,
+      start: 'top 88%',
+      once: true
+    }
   });
-  // Lightbox
-  var lb=document.getElementById('lightbox'), lbImg=lb.querySelector('img');
-  document.querySelectorAll('.grid-2col img, .grid-3col img, .grid-4col img').forEach(function(img){
-    img.style.cursor='zoom-in';
-    img.addEventListener('click',function(){
-      lbImg.src=this.src; lbImg.alt=this.alt;
-      lb.classList.add('active');
-    });
-  });
-  lb.addEventListener('click',function(){ lb.classList.remove('active'); });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape') lb.classList.remove('active'); });
-})();
+});
 </script>
 </body>
 </html>
