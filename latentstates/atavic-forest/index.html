@@ -4,527 +4,447 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Atavic Forest — Latent States</title>
-<meta name="description" content="A generative neural landscape trained on 180,000 forest images, steered by collective movement through the Champalimaud Foundation warehouse.">
+<meta name="description" content="A generative neural landscape trained on 180,000 forest images, steered by collective movement. Champalimaud Foundation 2022, Mucho Flow Festival 2023.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,200..900;1,8..60,200..900&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
+/* ── Design System: Cool Gray ── */
 :root {
-  --bg-light: #f4f4f4;
-  --fg: #232222;
-  --meta: #888;
-  --meta-light: #aaa;
-  --border: #ddd;
-  --col: calc((100% - 11 * 20px) / 12);
+  --bg: #101012;
+  --bg-surface: #18181a;
+  --border: #252528;
+  --text-primary: #d8d8dc;
+  --text-secondary: #888890;
+  --text-muted: #555558;
+  --accent: #8090a0;
+  --accent-alt: #a0a8b0;
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Space Grotesk', sans-serif;
+  --content-width: 720px;
+  --page-width: 1200px;
 }
 
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--bg-light);
-  color: var(--fg);
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-optical-sizing: auto;
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  font-weight: 300;
+  line-height: 1.7;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
 }
 
-/* ── Header ── */
-header {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-  height: 56px;
-  background: #232222;
-  display: flex; align-items: center; justify-content: space-between;
+a { color: var(--accent); text-decoration: none; transition: color 0.2s; }
+a:hover { color: var(--accent-alt); }
+
+/* ── Nav ── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   padding: 0 32px;
+  background: rgba(16, 16, 18, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
 }
-header a {
-  color: #999; text-decoration: none;
-  font-family: 'Source Serif 4', Georgia, serif;
-  font-size: 14px; font-weight: 400;
+.nav-logo {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text-primary);
+}
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--text-secondary);
   letter-spacing: 0.02em;
-  transition: color 0.2s;
 }
-header a:hover { color: #ccc; }
-.header-close {
-  font-size: 22px; font-weight: 300; line-height: 1;
-  width: 32px; height: 32px;
-  display: flex; align-items: center; justify-content: center;
-}
+.nav-links a:hover { color: var(--text-primary); }
 
 /* ── Hero ── */
 .hero {
   width: 100%;
-  height: calc(100vh - 56px);
-  margin-top: 56px;
-  overflow: hidden;
-  position: relative;
+  margin-top: 52px;
 }
 .hero img {
-  width: 100%; height: 100%;
-  object-fit: cover;
+  width: 100%;
   display: block;
+  object-fit: cover;
+  max-height: calc(100vh - 52px);
 }
 
-/* ── Grid Container ── */
-.grid-container {
-  max-width: 1200px;
+/* ── Section container ── */
+.section {
+  max-width: var(--content-width);
   margin: 0 auto;
-  padding: 0 40px;
-  display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  gap: 0 20px;
+  padding: 0 24px;
 }
 
-/* ── Content Section ── */
-.content {
-  padding-top: 80px;
-  padding-bottom: 0;
+/* ── Hero info ── */
+.hero-info {
+  padding-top: 64px;
+  padding-bottom: 80px;
 }
-
-/* Title */
-.project-title {
-  grid-column: 1 / 9;
-  font-size: 72px;
-  font-weight: 700;
+.hero-info h1 {
+  font-family: var(--font-heading);
+  font-size: 56px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
   line-height: 1.05;
+  color: var(--text-primary);
+  margin-bottom: 16px;
+}
+.hero-info .meta-line {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+.hero-info .credits-line {
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-secondary);
+}
+
+/* ── Text sections ── */
+.text-section {
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+.text-section h2 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  font-weight: 700;
   letter-spacing: -0.02em;
-  color: var(--fg);
-  margin-bottom: 20px;
+  color: var(--text-primary);
+  margin-bottom: 8px;
 }
-
-/* Intro */
-.project-intro {
-  grid-column: 1 / 9;
-  font-size: 24px;
-  font-weight: 400;
-  line-height: 1.4;
-  color: var(--fg);
-  margin-bottom: 50px;
-}
-
-/* Metadata row */
-.metadata-row {
-  grid-column: 5 / 13;
-  display: flex;
-  gap: 0;
-  margin-bottom: 0;
-}
-.meta-item {
-  flex: 1;
-  padding: 14px 0 14px 0;
-  border-top: 1px solid var(--border);
+.text-section .section-credit {
   font-size: 13px;
-  font-weight: 500;
-  color: var(--meta);
-  line-height: 1.4;
-}
-.meta-item:first-child { padding-left: 0; }
-.meta-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--meta-light);
-  margin-bottom: 4px;
-}
-
-/* ── Spacer ── */
-.gap-90 {
-  grid-column: 1 / -1;
-  height: 90px;
-}
-
-/* ── Body Text ── */
-.body-text {
-  grid-column: 7 / 13;
-  font-size: 17px;
   font-weight: 400;
-  line-height: 1.6;
-  color: var(--fg);
+  color: var(--text-muted);
+  margin-bottom: 32px;
 }
-.body-text p { margin-bottom: 1.4em; }
-.body-text p:last-child { margin-bottom: 0; }
+.text-section p {
+  font-size: 16px;
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 1.4em;
+}
+.text-section p:last-child { margin-bottom: 0; }
 
-/* ── Image Zone ── */
-.image-zone {
-  grid-column: 1 / 9;
+/* ── Blockquote ── */
+.manifesto {
+  padding: 80px 24px;
+  max-width: var(--content-width);
+  margin: 0 auto;
+}
+blockquote {
+  font-family: var(--font-body);
+  font-size: 18px;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.8;
+  color: var(--text-secondary);
+  border-left: 2px solid var(--border);
+  padding-left: 28px;
+}
+
+/* ── Image clusters ── */
+.image-cluster {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 5px;
+  gap: 4px;
 }
-.image-zone img {
+.image-cluster img {
   width: 100%;
   display: block;
 }
-
-/* ── Image Caption ── */
-.image-caption {
-  grid-column: 1 / 3;
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--meta);
-  letter-spacing: 0.04em;
-  padding-top: 8px;
-  align-self: start;
+.image-row {
+  display: flex;
+  gap: 4px;
 }
-
-/* ── Quote Block ── */
-.quote-block {
-  grid-column: 7 / 13;
-  font-size: 17px;
-  font-weight: 400;
-  line-height: 1.6;
-  color: #555;
-  font-style: italic;
-  border-left: 2px solid var(--border);
-  padding-left: 24px;
-}
-
-/* ── Video Link ── */
-.video-link {
-  grid-column: 7 / 13;
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 15px;
-  font-weight: 400;
-  color: var(--fg);
-  text-decoration: none;
-  border-bottom: 1px solid var(--border);
-  padding-bottom: 12px;
-  transition: color 0.2s, border-color 0.2s;
-  width: fit-content;
-}
-.video-link:hover { color: var(--meta); border-color: var(--meta); }
-.video-link svg { width: 16px; height: 16px; fill: currentColor; flex-shrink: 0; }
-
-/* ── Credits ── */
-.credits {
-  grid-column: 7 / 13;
-  font-size: 15px;
-  font-weight: 400;
-  line-height: 1.8;
-  color: var(--meta);
-}
-.credits strong {
-  font-weight: 500;
-  color: var(--fg);
+.image-row img {
+  flex: 1;
+  min-width: 0;
   display: block;
-  margin-top: 1em;
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
+  object-fit: cover;
 }
-.credits strong:first-child { margin-top: 0; }
+.image-row--thirds img { flex: 1 1 33.33%; }
+.image-row--halves img { flex: 1 1 50%; }
 
-/* ── Exhibition History ── */
-.exhibitions {
-  grid-column: 7 / 13;
-  font-size: 15px;
+/* ── Ten Worlds list ── */
+.worlds-list {
+  font-size: 14px;
   font-weight: 400;
-  line-height: 1.8;
-  color: var(--meta);
-}
-.exhibitions .ex-title {
-  font-weight: 500;
-  color: var(--fg);
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  margin-bottom: 8px;
-}
-.exhibitions ul {
-  list-style: none;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  line-height: 2;
+  padding-top: 8px;
 }
 
-/* ── Prev / Next Nav ── */
+/* ── Exhibition list ── */
+.exhibition-list {
+  list-style: none;
+  padding: 0;
+}
+.exhibition-list li {
+  font-size: 15px;
+  font-weight: 300;
+  color: var(--text-secondary);
+  padding: 12px 0;
+  border-bottom: 1px solid var(--border);
+}
+.exhibition-list li:first-child {
+  border-top: 1px solid var(--border);
+}
+.exhibition-list .ex-name {
+  display: block;
+  font-weight: 400;
+  color: var(--text-primary);
+}
+.exhibition-list .ex-detail {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ── Credits grid ── */
+.credits-grid {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 12px 24px;
+  font-size: 15px;
+  font-weight: 300;
+  line-height: 1.6;
+}
+.credits-grid dt {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  padding-top: 2px;
+}
+.credits-grid dd {
+  color: var(--text-secondary);
+}
+.credits-grid dd a { color: var(--accent); }
+
+/* ── Prev/Next nav ── */
 .project-nav {
-  margin-top: 150px;
-  padding: 0 40px 80px;
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  max-width: var(--page-width);
+  margin: 120px auto 0;
+  padding: 0 32px 80px;
 }
 .project-nav-inner {
   display: flex;
-  gap: 40px;
+  gap: 32px;
   border-top: 1px solid var(--border);
-  padding-top: 40px;
+  padding-top: 32px;
 }
 .nav-item {
   flex: 1;
   text-decoration: none;
-  color: var(--fg);
   transition: opacity 0.3s;
 }
-.nav-item img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  display: block;
-  margin-bottom: 16px;
-}
+.nav-item:hover { opacity: 0.8; }
 .nav-direction {
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 400;
-  color: var(--meta);
-  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
   margin-bottom: 6px;
 }
 .nav-project-title {
-  font-size: 22px;
+  font-family: var(--font-heading);
+  font-size: 20px;
   font-weight: 600;
-  line-height: 1.2;
+  color: var(--text-primary);
 }
 .nav-item--next { text-align: right; }
-.project-nav-inner:hover .nav-item { opacity: 0.4; }
-.project-nav-inner:hover .nav-item:hover { opacity: 1; }
 
 /* ── Footer ── */
 footer {
-  padding: 40px;
+  padding: 48px 32px;
   text-align: center;
   font-size: 13px;
   font-weight: 400;
-  color: var(--meta);
+  color: var(--text-muted);
   letter-spacing: 0.04em;
-}
-footer a { color: var(--meta); text-decoration: none; }
-footer a:hover { color: var(--fg); }
-
-/* ── GSAP fade targets ── */
-.fade-in {
-  opacity: 0;
-  transform: translateY(24px);
 }
 
 /* ── Responsive ── */
-@media (max-width: 900px) {
-  .grid-container {
-    padding: 0 24px;
+@media (max-width: 768px) {
+  nav { padding: 0 20px; }
+  .hero-info h1 { font-size: 36px; }
+  .hero-info { padding-top: 48px; padding-bottom: 56px; }
+  .text-section { padding-top: 56px; padding-bottom: 56px; }
+  .text-section h2 { font-size: 24px; }
+  .manifesto { padding: 56px 24px; }
+  blockquote { font-size: 16px; padding-left: 20px; }
+  .image-row { flex-direction: column; }
+  .credits-grid {
     grid-template-columns: 1fr;
-    gap: 0;
+    gap: 4px 0;
   }
-  .project-title { grid-column: 1; font-size: 44px; }
-  .project-intro { grid-column: 1; font-size: 20px; }
-  .metadata-row {
-    grid-column: 1;
-    flex-wrap: wrap;
-  }
-  .meta-item { flex: 0 0 50%; margin-bottom: 12px; }
-  .body-text { grid-column: 1; }
-  .image-zone { grid-column: 1; }
-  .image-caption { grid-column: 1; }
-  .quote-block { grid-column: 1; }
-  .video-link { grid-column: 1; }
-  .credits { grid-column: 1; }
-  .exhibitions { grid-column: 1; }
-  .gap-90 { height: 50px; }
-  .hero { height: 60vh; }
-  header { padding: 0 20px; }
-  .project-nav { padding: 0 24px 60px; }
-  .project-nav-inner { flex-direction: column; gap: 30px; }
+  .credits-grid dt { padding-top: 12px; }
+  .project-nav { padding: 0 20px 60px; }
+  .project-nav-inner { flex-direction: column; gap: 24px; }
   .nav-item--next { text-align: left; }
-  .nav-item img { height: 160px; }
 }
 
 @media (max-width: 480px) {
-  .project-title { font-size: 36px; }
-  .project-intro { font-size: 18px; }
-  .meta-item { flex: 0 0 100%; }
-  .content { padding-top: 50px; }
+  .hero-info h1 { font-size: 30px; }
+  .section { padding: 0 16px; }
+  .manifesto { padding: 40px 16px; }
 }
 </style>
 </head>
 <body>
 
-<!-- ── Header ── -->
-<header>
-  <a href="../">Latent States</a>
-  <a href="../" class="header-close">&times;</a>
-</header>
-
-<!-- ── Hero Image ── -->
-<div class="hero">
-  <img src="../assets/cf-metamersion-ls-atavic-forest.jpg" alt="Atavic Forest — generative neural landscape">
-</div>
-
-<!-- ── Content ── -->
-<div class="content">
-  <div class="grid-container">
-
-    <!-- Title -->
-    <h1 class="project-title fade-in">Atavic Forest</h1>
-
-    <!-- Intro -->
-    <p class="project-intro fade-in">A generative neural landscape trained on 180,000 forest images, steered by collective movement through the Champalimaud Foundation warehouse.</p>
-
-    <!-- Metadata Row -->
-    <div class="metadata-row fade-in">
-      <div class="meta-item">
-        <div class="meta-label">Year</div>
-        2022
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Type</div>
-        Immersive Installation
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Venue</div>
-        Champalimaud Foundation
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Programme</div>
-        Metamersion II: Latent Spaces
-      </div>
-      <div class="meta-item">
-        <div class="meta-label">Collective</div>
-        Lunar Ring
-      </div>
-    </div>
-
-    <div class="gap-90"></div>
-
-    <!-- Image cluster 1 + Body text 1 -->
-    <div class="image-zone fade-in">
-      <img src="assets/af-01.jpg" alt="Generative forest — flowing organic forms" loading="lazy">
-      <img src="assets/af-02.jpg" alt="Generative forest — layered landscape" loading="lazy">
-      <img src="assets/af-03.jpg" alt="Generative forest — emergence of depth" loading="lazy">
-    </div>
-
-    <div class="body-text fade-in" style="align-self: end;">
-      <p>The Atavic Forest exists wholly in latent space. Each frame is generated in real-time by neural networks trained on over 180,000 forest images. No pixel is photographed; every surface, every branch, every play of light is hallucinated by the model and rendered live during a 45-minute performance.</p>
-      <p>Collective movement in the room steers the journey. IR tracking cameras read the positions and trajectories of the audience, translating their spatial behaviour into navigation through the latent manifold. The forest you see depends on where you stand and how you move. No two performances produce the same path.</p>
-    </div>
-
-    <div class="gap-90"></div>
-
-    <!-- Image cluster 2 + Body text 2 -->
-    <div class="image-zone fade-in">
-      <img src="assets/af-04.jpg" alt="Generative forest — light and shadow interchange" loading="lazy">
-      <img src="assets/af-05.jpg" alt="Generative forest — dense vegetation" loading="lazy">
-    </div>
-
-    <div class="body-text fade-in" style="align-self: end;">
-      <p>Sound is not accompaniment but architecture. Jonathan Uliel Saldanha's 7.2 surround composition feeds directly into the generative layers, perturbing the networks themselves. Sonic vibrations reshape the topology of the latent space, opening passages and sealing others. The forest responds to sound as much as to motion &mdash; auditory and visual experience fuse into a single sensory field.</p>
-    </div>
-
-    <div class="gap-90"></div>
-
-    <!-- Quote -->
-    <div style="grid-column: 1 / 7;"></div>
-    <div class="quote-block fade-in">
-      This forest has been fully dreamt by Artificial Intelligence. Hidden within the corpus of its training data lie forgotten memories that diffuse through a fluid continuum. Throughout our evolutionary path, our genes have kept a record of our relationship with nature, hiding it in order to avoid unnecessary expression. This installation is an expression of that hidden knowledge &mdash; an exploration of what a space of these memories would look like if we could directly interface with them in a pre-linguistic stance.
-    </div>
-
-    <div class="gap-90"></div>
-
-    <!-- Image cluster 3 + Body text 3 -->
-    <div class="image-zone fade-in">
-      <img src="assets/af-06.jpg" alt="Generative forest — atmospheric depth" loading="lazy">
-      <img src="assets/af-07.jpg" alt="Generative forest — crystalline forms" loading="lazy">
-      <img src="assets/af-08.jpg" alt="Generative forest — luminous canopy" loading="lazy">
-    </div>
-
-    <div class="body-text fade-in" style="align-self: end;">
-      <p>At the Mucho Flow Festival in Guimar&atilde;es, the system was extended into new generative worlds: alien fungi, reactor spores, thermal fire, toxic mycelium. The same training corpus, viewed through different generative lenses, produced landscapes that ranged from the primordial to the alien. Each world maintained the core interaction &mdash; collective motion and sound steering the generative path &mdash; while exploring the furthest edges of what the model had learned to imagine.</p>
-    </div>
-
-    <div class="gap-90"></div>
-
-    <!-- Video link -->
-    <div style="grid-column: 1 / 7;"></div>
-    <a href="https://www.youtube.com/watch?v=jjR7zX9ouM4" target="_blank" rel="noopener" class="video-link fade-in">
-      <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-      Deep inside Atavic Forest
-    </a>
-
-    <div class="gap-90"></div>
-
-    <!-- Final image cluster -->
-    <div class="image-zone fade-in">
-      <img src="assets/af-09.jpg" alt="Generative forest — deep green expanse" loading="lazy">
-      <img src="assets/af-10.jpg" alt="Generative forest — texturing and detail" loading="lazy">
-      <img src="assets/af-11.jpg" alt="Generative forest — volumetric space" loading="lazy">
-      <img src="assets/af-12.jpg" alt="Generative forest — shifting focus" loading="lazy">
-      <img src="assets/af-13.jpg" alt="Generative forest — final landscape" loading="lazy">
-    </div>
-
-    <div style="grid-column: 7 / 13;"></div>
-
-    <div class="gap-90"></div>
-
-    <!-- Credits -->
-    <div style="grid-column: 1 / 7;"></div>
-    <div class="credits fade-in">
-      <strong>An installation by</strong>
-      Lunar Ring
-
-      <strong>Artists &amp; Engineers</strong>
-      Alexander Loktyushin, Gon&ccedil;alo Guiomar, Anna Taphorn, Johannes Stelzer, Niklas Fricke, Zachary Mainen
-
-      <strong>Sound</strong>
-      Jonathan Uliel Saldanha
-
-      <strong>Programme</strong>
-      Metamersion II: Latent Spaces, Champalimaud Foundation
-    </div>
-
-    <div class="gap-90"></div>
-
-    <!-- Exhibition History -->
-    <div style="grid-column: 1 / 7;"></div>
-    <div class="exhibitions fade-in">
-      <div class="ex-title">Exhibition History</div>
-      <ul>
-        <li>Metamersion II: Latent Spaces, Champalimaud Foundation, Lisbon, Dec 2022 &ndash; Jan 2023</li>
-        <li>Mucho Flow Festival, Guimar&atilde;es, Oct 2023</li>
-      </ul>
-    </div>
-
-  </div><!-- /grid-container -->
-</div><!-- /content -->
-
-<!-- ── Previous / Next Navigation ── -->
-<nav class="project-nav">
-  <div class="project-nav-inner">
-    <a href="../polylith/" class="nav-item nav-item--prev">
-      <img src="../assets/cf-metamersion-polylith.png" alt="Polylith" loading="lazy">
-      <div class="nav-direction">&larr; Previous Project</div>
-      <div class="nav-project-title">Polylith</div>
-    </a>
-    <a href="../ls1/" class="nav-item nav-item--next">
-      <img src="../assets/cf-metamersion-ls-latent-space-i.jpg" alt="Latent Space I" loading="lazy">
-      <div class="nav-direction">Next Project &rarr;</div>
-      <div class="nav-project-title">Latent Space I</div>
-    </a>
+<!-- ── Nav ── -->
+<nav>
+  <a href="../" class="nav-logo">LS</a>
+  <div class="nav-links">
+    <a href="../people/">People</a>
+    <a href="../about/">About</a>
   </div>
 </nav>
 
+<!-- ── Hero ── -->
+<div class="hero">
+  <img src="assets/af-forest-03.jpg" alt="Generative ancient tree in blue mist — neural network output from 180,000 forest images">
+</div>
+
+<!-- ── Hero Info ── -->
+<div class="section hero-info">
+  <h1>Atavic Forest</h1>
+  <div class="meta-line">2022&ndash;2023 &middot; Champalimaud Foundation, Mucho Flow Festival</div>
+  <div class="credits-line">Lunar Ring &middot; Jonathan Uliel Saldanha &middot; Gon&ccedil;alo Guiomar &middot; Zachary Mainen</div>
+</div>
+
+<!-- ── Concept ── -->
+<div class="manifesto">
+  <blockquote>
+    This forest has been fully dreamt by Artificial Intelligence. Hidden within the corpus of its training data lie forgotten memories that diffuse through a fluid continuum. Throughout our evolutionary path, our genes have kept a record of our relationship with nature, hiding it in order to avoid unnecessary expression. This installation is an expression of that hidden knowledge &mdash; an exploration of what a space of these memories would look like if we could directly interface with them in a pre-linguistic stance; direct contact with alterity.
+  </blockquote>
+</div>
+
+<div class="section text-section">
+  <p>The Atavic Forest exists wholly in latent space. Each frame is generated in real-time by neural networks trained on over 180,000 forest images. No pixel is photographed; every surface, every branch, every play of light is hallucinated by the model and rendered live during a 45-minute performance. Collective movement in the room steers the journey through an ancient forest &mdash; the machine attempts to interpret and amplify what is being felt and seen.</p>
+</div>
+
+<!-- ── Image cluster 1 ── -->
+<div class="image-cluster">
+  <img src="assets/af-forest-01.jpg" alt="Generative forest — misty trees with spectral rainbow light" loading="lazy">
+  <div class="image-row image-row--halves">
+    <img src="assets/af-02.jpg" alt="Tangled dark branches against cyan-green sky with red moss" loading="lazy">
+    <img src="assets/af-forest-02.jpg" alt="Alien canopy of twisting branches in emerald atmosphere" loading="lazy">
+  </div>
+</div>
+
+<!-- ── Sound Architecture ── -->
+<div class="section text-section">
+  <h2>Sound Architecture</h2>
+  <div class="section-credit">Jonathan Uliel Saldanha &mdash; composition, 7.2 surround</div>
+  <p>Sound is not accompaniment but architecture. Saldanha&rsquo;s 7.2 surround composition feeds directly into the generative layers, perturbing the networks themselves. Sonic vibrations reshape the topology of the latent space, opening passages and sealing others. The forest responds to sound as much as to motion &mdash; auditory and visual experience fuse into a single sensory field.</p>
+</div>
+
+<!-- ── Image cluster 2 ── -->
+<div class="image-cluster">
+  <img src="assets/af-07.jpg" alt="Installation view — generative vegetation projected on warehouse screen, audience silhouettes" loading="lazy">
+  <div class="image-row image-row--halves">
+    <img src="assets/af-10.jpg" alt="Musician silhouetted against purple light at mixing desk" loading="lazy">
+    <img src="assets/af-12.jpg" alt="Projector beam cutting through purple haze in warehouse ceiling" loading="lazy">
+  </div>
+</div>
+
+<!-- ── Ten Worlds ── -->
+<div class="section text-section">
+  <h2>Mucho Flow &mdash; Ten Generative Worlds</h2>
+  <div class="section-credit">October 2023 &middot; Guimar&atilde;es, Portugal</div>
+  <p>For Mucho Flow Festival, the system expanded from a single forest to ten generative worlds. Stable Diffusion generated new training sets, which were recompressed through specialized GANs &mdash; each world its own hallucinatory landscape. Fungal networks serve as portals between spaces: reactor spores growing in Chernobyl-blue light, thermal fire rendered in inverted infrared, toxic mycelium glowing with alien bioluminescence. Transitions between worlds use latent blending, exploiting change blindness to create imperceptible passages.</p>
+  <div class="worlds-list">
+    Atavic Forest &middot; Alien Fungi &middot; Alien Vegetation &middot; Disgusting Forest &middot; Hard Particle &middot; Night Forest &middot; Reactor Spores &middot; Thermal Fire &middot; Toxic Mycelium &middot; Tube Portal
+  </div>
+</div>
+
+<!-- ── Image cluster 3 — Ten Worlds ── -->
+<div class="image-cluster">
+  <div class="image-row image-row--thirds">
+    <img src="assets/mucho-alien-fungi-066.jpg" alt="Alien Fungi — purple mushrooms with orange gills, dripping, teal background" loading="lazy">
+    <img src="assets/af-exotic-thermal-fire-01.jpg" alt="Thermal Fire — inverted infrared forest rendered in orange and purple" loading="lazy">
+    <img src="assets/mucho-hard-particle-066.jpg" alt="Hard Particle — explosive radial burst in purple, yellow, and magenta" loading="lazy">
+  </div>
+  <div class="image-row image-row--thirds">
+    <img src="assets/mucho-tube-portal-033.jpg" alt="Tube Portal — tunnel receding into blue light with organic layered walls" loading="lazy">
+    <img src="assets/mucho-alien-vegetation-033.jpg" alt="Alien Vegetation — purple-smoking crater in vivid moss and magenta landscape" loading="lazy">
+    <img src="assets/af-exotic-reactor-spores-01.jpg" alt="Reactor Spores — magenta and cyan bioluminescent growth on dark substrate" loading="lazy">
+  </div>
+</div>
+
+<!-- ── Exhibitions ── -->
+<div class="section text-section">
+  <h2>Exhibitions</h2>
+  <ul class="exhibition-list">
+    <li>
+      <span class="ex-name">Metamersion 2: Latent Spaces</span>
+      <span class="ex-detail">Champalimaud Foundation, Lisbon &middot; December 2022 / January 2023</span>
+    </li>
+    <li>
+      <span class="ex-name">Mucho Flow Festival</span>
+      <span class="ex-detail">Guimar&atilde;es, Portugal &middot; October 2023</span>
+    </li>
+  </ul>
+</div>
+
+<!-- ── Credits ── -->
+<div class="section text-section">
+  <h2>Credits</h2>
+  <dl class="credits-grid">
+    <dt>Direction</dt>
+    <dd>Alexander Loktyushin, Gon&ccedil;alo Guiomar, Zachary Mainen</dd>
+    <dt>Sound</dt>
+    <dd><a href="https://jonathanuliel.com" target="_blank" rel="noopener">Jonathan Uliel Saldanha</a></dd>
+    <dt>Generative systems</dt>
+    <dd><a href="https://lunar-ring.ai" target="_blank" rel="noopener">Lunar Ring</a> &mdash; Alexander Loktyushin, Johannes Stelzer, Niklas Fricke</dd>
+    <dt>Contributors</dt>
+    <dd>Anna Taphorn, Fatemeh Molaei</dd>
+  </dl>
+</div>
+
+<!-- ── Prev/Next ── -->
+<div class="project-nav">
+  <div class="project-nav-inner">
+    <a href="../polylith/" class="nav-item">
+      <div class="nav-direction">&larr; Previous</div>
+      <div class="nav-project-title">Polylith</div>
+    </a>
+    <a href="../ls1/" class="nav-item nav-item--next">
+      <div class="nav-direction">Next &rarr;</div>
+      <div class="nav-project-title">LS1</div>
+    </a>
+  </div>
+</div>
+
 <!-- ── Footer ── -->
-<footer>
-  <a href="../">Latent States</a> &middot; Zachary Mainen &middot; Champalimaud Foundation
-</footer>
+<footer>Latent States &middot; Lisbon</footer>
 
-<script>
-gsap.registerPlugin(ScrollTrigger);
-
-gsap.utils.toArray('.fade-in').forEach(el => {
-  gsap.to(el, {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    ease: 'power2.out',
-    scrollTrigger: {
-      trigger: el,
-      start: 'top 88%',
-      once: true
-    }
-  });
-});
-</script>
 </body>
 </html>
