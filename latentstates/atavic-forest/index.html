@@ -80,11 +80,11 @@ nav {
   width: 100%;
   margin-top: 52px;
 }
-.hero img {
+.hero-video {
   width: 100%;
   display: block;
   object-fit: cover;
-  max-height: calc(100vh - 52px);
+  max-height: 80vh;
 }
 
 /* ── Section container ── */
@@ -329,7 +329,9 @@ footer {
 
 <!-- ── Hero ── -->
 <div class="hero">
-  <img src="assets/af-forest-03.jpg" alt="Generative ancient tree in blue mist — neural network output from 180,000 forest images">
+  <video autoplay muted loop playsinline poster="assets/af-forest-03.jpg" class="hero-video">
+    <source src="assets/hero-alien-fungi.mp4" type="video/mp4">
+  </video>
 </div>
 
 <!-- ── Hero Info ── -->
