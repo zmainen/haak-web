@@ -264,6 +264,8 @@ def load_publications():
             "organisms": _as_list(meta.get("organisms", [])),
             "settings": _as_list(meta.get("settings", [])),
             "belongings": meta.get("belongings", []),
+            "pdf": meta.get("pdf", ""),
+            "links": meta.get("links", {}),
         })
     pubs.sort(key=lambda p: (-p["year"], -p["citations"]))
     return pubs
@@ -700,6 +702,13 @@ header .subtitle { color: var(--muted); font-size: 0.95rem; margin-top: 0.2rem; 
   padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text); font-size: 0.85rem;
 }
 #theme-toggle:hover { background: var(--hover); }
+.header-nav { margin-top: 0.5rem; }
+.header-nav a {
+  font-size: 0.85rem; color: var(--accent); text-decoration: none;
+  border: 1px solid var(--border); border-radius: 999px; padding: 0.2rem 0.7rem;
+  transition: background 0.15s;
+}
+.header-nav a:hover { background: var(--hover); text-decoration: underline; }
 
 /* Lab intro */
 .lab-intro {
@@ -1037,6 +1046,7 @@ footer .sep { margin: 0 0.5rem; opacity: 0.4; }
 <header>
   <h1>Mainen Systems Neuroscience Lab</h1>
   <div class="subtitle">Champalimaud Foundation, Lisbon</div>
+  <nav class="header-nav"><a href="publications/">Publications</a></nav>
   <button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
 </header>
 
@@ -2495,6 +2505,231 @@ def generate_person_pages(people, site_data, s2_pubs=None, bios=None):
         count += 1
     print(f"  {count} person pages generated in {people_dir}")
 
+# ── Publications page ──
+
+PUBLICATIONS_PAGE_CSS = r'''
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #fafaf8; --bg-card: #ffffff; --text: #1a1a1a; --muted: #6b7280;
+  --border: #e5e7eb; --hover: #f3f4f6; --accent: #0d9488; --highlight: #f0fdfa;
+  --pill-themes: #0d9488;
+}
+[data-theme="dark"] {
+  --bg: #111111; --bg-card: #1a1a1a; --text: #e5e5e5; --muted: #9ca3af;
+  --border: #2d2d2d; --hover: #222222; --accent: #2dd4bf; --highlight: #0d2926;
+  --pill-themes: #2dd4bf;
+}
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg); color: var(--text); line-height: 1.6;
+  transition: background 0.2s, color 0.2s;
+}
+.page { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+.back { font-size: 0.85rem; color: var(--accent); text-decoration: none; display: inline-block; margin-bottom: 1.5rem; }
+.back:hover { text-decoration: underline; }
+h1 { font-size: 1.5rem; font-weight: 600; letter-spacing: -0.02em; margin-bottom: 0.15rem; }
+.page-meta { color: var(--muted); font-size: 0.88rem; margin-bottom: 1.5rem; }
+#theme-toggle {
+  position: fixed; top: 1rem; right: 1rem;
+  background: none; border: 1px solid var(--border); border-radius: 6px;
+  padding: 0.4rem 0.6rem; cursor: pointer; color: var(--text); font-size: 0.85rem;
+}
+#theme-toggle:hover { background: var(--hover); }
+/* Search */
+.search-box {
+  width: 100%; padding: 0.5rem 0.75rem; font-size: 0.88rem;
+  border: 1px solid var(--border); border-radius: 6px; background: var(--bg-card);
+  color: var(--text); outline: none; margin-bottom: 0.75rem;
+}
+.search-box:focus { border-color: var(--accent); }
+/* Theme filters */
+.filter-bar { display: flex; flex-wrap: wrap; gap: 0.3rem; margin-bottom: 1.25rem; }
+.theme-pill {
+  display: inline-block; padding: 0.2rem 0.55rem; border-radius: 999px;
+  font-size: 0.75rem; cursor: pointer; transition: all 0.15s;
+  border: 1px solid var(--pill-themes); color: var(--pill-themes);
+  user-select: none; white-space: nowrap;
+}
+.theme-pill.active { background: var(--pill-themes); color: #fff; }
+.theme-pill:hover { opacity: 0.8; }
+/* Count */
+.result-count { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+/* Publication list */
+.pub-list { list-style: none; padding: 0; }
+.pub-item { padding: 0.7rem 0; border-bottom: 1px solid var(--border); }
+.pub-item:last-child { border-bottom: none; }
+.pub-item.hidden { display: none; }
+.pub-year { font-size: 0.78rem; color: var(--muted); font-weight: 600; margin-bottom: 0.1rem; }
+.pub-title { font-size: 0.92rem; font-weight: 500; line-height: 1.4; }
+.pub-title a { color: var(--accent); text-decoration: none; }
+.pub-title a:hover { text-decoration: underline; }
+.pub-authors { font-size: 0.82rem; color: var(--muted); margin-top: 0.15rem; }
+.pub-journal { font-size: 0.82rem; color: var(--muted); font-style: italic; }
+.pub-links { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-top: 0.3rem; }
+.pub-links a {
+  font-size: 0.72rem; padding: 0.15rem 0.45rem; border-radius: 4px;
+  border: 1px solid var(--border); color: var(--accent); text-decoration: none;
+  transition: background 0.15s;
+}
+.pub-links a:hover { background: var(--hover); }
+.cite-badge {
+  display: inline-block; font-size: 0.7rem; padding: 0.1rem 0.4rem;
+  border-radius: 3px; background: var(--hover); color: var(--muted);
+  margin-left: 0.3rem; vertical-align: middle;
+}
+'''
+
+PUBLICATIONS_PAGE_JS = r'''
+const toggle = document.getElementById('theme-toggle');
+const root = document.documentElement;
+const stored = localStorage.getItem('ml-theme');
+if (stored) root.setAttribute('data-theme', stored);
+else if (window.matchMedia('(prefers-color-scheme: dark)').matches) root.setAttribute('data-theme', 'dark');
+toggle.textContent = root.getAttribute('data-theme') === 'dark' ? '\u2600' : '\u263E';
+toggle.addEventListener('click', () => {
+  const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  localStorage.setItem('ml-theme', next);
+  toggle.textContent = next === 'dark' ? '\u2600' : '\u263E';
+});
+
+// Filtering
+const searchBox = document.getElementById('pub-search');
+const items = document.querySelectorAll('.pub-item');
+const pills = document.querySelectorAll('.theme-pill');
+const countEl = document.getElementById('result-count');
+let activeThemes = new Set();
+
+function applyFilters() {
+  const q = searchBox.value.toLowerCase().trim();
+  let visible = 0;
+  items.forEach(el => {
+    const text = el.getAttribute('data-search');
+    const themes = el.getAttribute('data-themes').split(',').filter(Boolean);
+    const matchText = !q || text.includes(q);
+    const matchTheme = activeThemes.size === 0 || themes.some(t => activeThemes.has(t));
+    if (matchText && matchTheme) {
+      el.classList.remove('hidden');
+      visible++;
+    } else {
+      el.classList.add('hidden');
+    }
+  });
+  countEl.textContent = visible + ' of ' + items.length + ' publications';
+}
+
+searchBox.addEventListener('input', applyFilters);
+pills.forEach(pill => {
+  pill.addEventListener('click', () => {
+    const theme = pill.getAttribute('data-theme');
+    if (activeThemes.has(theme)) {
+      activeThemes.delete(theme);
+      pill.classList.remove('active');
+    } else {
+      activeThemes.add(theme);
+      pill.classList.add('active');
+    }
+    applyFilters();
+  });
+});
+'''
+
+def _abbrev_authors(authors, max_show=3):
+    if not authors: return ""
+    if len(authors) <= max_show:
+        return ", ".join(authors)
+    return authors[0] + " et al."
+
+def generate_publications_page(pubs, taxonomy):
+    pub_dir = WEB / "publications"
+    pub_dir.mkdir(exist_ok=True)
+    years = [p["year"] for p in pubs if p["year"]]
+    year_range = f"{min(years)}\u2013{max(years)}" if years else ""
+    total = len(pubs)
+    # Collect all theme slugs used across publications
+    all_themes = set()
+    for p in pubs:
+        all_themes.update(p.get("themes", []))
+    theme_labels = {}
+    for t in taxonomy.get("themes", []):
+        theme_labels[t["slug"]] = t["label"]
+        for c in t.get("children", []):
+            theme_labels[c["slug"]] = c["label"]
+    used_themes = sorted(all_themes & set(theme_labels), key=lambda s: theme_labels.get(s, s))
+
+    pills_html = "\n".join(
+        f'<span class="theme-pill" data-theme="{esc(s)}">{esc(theme_labels[s])}</span>'
+        for s in used_themes
+    )
+
+    items_html = []
+    for p in pubs:
+        slug = p["slug"]
+        title = esc(p["title"])
+        doi = p.get("doi", "")
+        year = p["year"] or ""
+        journal = esc(p.get("journal", ""))
+        citations = p.get("citations", 0)
+        authors_str = esc(_abbrev_authors(p["authors"]))
+        themes_attr = esc(",".join(p.get("themes", [])))
+        search_text = esc(f'{p["title"]} {" ".join(p["authors"])} {p.get("journal", "")} {year}'.lower())
+
+        title_html = f'<a href="https://doi.org/{esc(doi)}" target="_blank" rel="noopener">{title}</a>' if doi else title
+        cite_html = f' <span class="cite-badge">{citations} cited</span>' if citations else ""
+
+        links = []
+        if doi:
+            links.append(f'<a href="https://doi.org/{esc(doi)}" target="_blank" rel="noopener">DOI</a>')
+        pub_links = p.get("links", {})
+        if pub_links.get("preprint"):
+            links.append(f'<a href="{esc(pub_links["preprint"])}" target="_blank" rel="noopener">Preprint</a>')
+        pdf_url = f'https://filix-media.sos-de-muc-1.exo.io/publications/{slug}.pdf'
+        if p.get("pdf"):
+            links.append(f'<a href="{pdf_url}" target="_blank" rel="noopener">PDF</a>')
+        if pub_links.get("code"):
+            links.append(f'<a href="{esc(pub_links["code"])}" target="_blank" rel="noopener">Code</a>')
+        if pub_links.get("data"):
+            links.append(f'<a href="{esc(pub_links["data"])}" target="_blank" rel="noopener">Data</a>')
+        links_html = '<div class="pub-links">' + " · ".join(links) + '</div>' if links else ""
+
+        items_html.append(
+            f'<li class="pub-item" data-search="{search_text}" data-themes="{themes_attr}">'
+            f'<div class="pub-year">{year}</div>'
+            f'<div class="pub-title">{title_html}{cite_html}</div>'
+            f'<div class="pub-authors">{authors_str}</div>'
+            f'{f"""<div class="pub-journal">{journal}</div>""" if journal else ""}'
+            f'{links_html}'
+            f'</li>'
+        )
+
+    page_html = f'''<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Publications &mdash; Zachary F. Mainen</title>
+<link rel="icon" type="image/svg+xml" href="../favicon.svg">
+<style>{PUBLICATIONS_PAGE_CSS}</style>
+</head>
+<body>
+<div class="page">
+<a href="../index.html" class="back">&larr; Mainen Lab</a>
+<button id="theme-toggle" aria-label="Toggle dark mode">&#9790;</button>
+<h1>Publications</h1>
+<div class="page-meta">{total} publications, {year_range}</div>
+<input type="text" id="pub-search" class="search-box" placeholder="Search by title, author, journal...">
+<div class="filter-bar">{pills_html}</div>
+<div class="result-count" id="result-count">{total} of {total} publications</div>
+<ul class="pub-list">
+{"".join(items_html)}
+</ul>
+</div>
+<script>{PUBLICATIONS_PAGE_JS}</script>
+</body>
+</html>'''
+    (pub_dir / "index.html").write_text(page_html)
+    print(f"  Publications page: {total} entries written to {pub_dir / 'index.html'}")
+
 # ── Build ──
 
 def build(regenerate=False):
@@ -2598,6 +2833,8 @@ def build(regenerate=False):
             "authors": p["authors"], "journal": p["journal"],
             "doi": p["doi"], "citations": p["citations"],
             "themes": p["themes"], "methods": p["methods"],
+            "pdf": p["pdf"],
+            "pdf_url": f'https://filix-media.sos-de-muc-1.exo.io/publications/{p["slug"]}.pdf',
         } for p in pubs],
         "people": [{
             "slug": p["slug"], "name": p["name"], "status": p["status"],
@@ -2652,6 +2889,9 @@ def build(regenerate=False):
     print("Generating person pages...")
     generate_person_pages(people, site_data, s2_pubs=s2_pubs, bios=bios)
 
+    print("Generating publications page...")
+    generate_publications_page(pubs, taxonomy)
+
     print("Checking migration regressions...")
     migration_warnings(people, pubs, projects)
 
@@ -2686,6 +2926,15 @@ def deploy():
             shutil.rmtree(people_dst)
         shutil.copytree(people_src, people_dst)
         print(f"  Copied {len(list(people_src.glob('*.html')))} person pages")
+
+    # Copy publications/ directory
+    pubs_src = WEB / "publications"
+    pubs_dst = DEPLOY_CACHE / "publications"
+    if pubs_src.exists():
+        if pubs_dst.exists():
+            shutil.rmtree(pubs_dst)
+        shutil.copytree(pubs_src, pubs_dst)
+        print(f"  Copied publications page")
 
     msg = f"build: deploy {datetime.now().strftime('%Y-%m-%d %H:%M')}"
     subprocess.run(["git", "add", "-A"], cwd=DEPLOY_CACHE, check=True)
