@@ -94,13 +94,13 @@ a:hover { opacity: 0.7; }
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  opacity: 0.4;
+  gap: 6px;
+  opacity: 0.3;
   animation: pulse 2.5s ease-in-out infinite;
 }
 
 .scroll-indicator span {
-  font-size: 11px;
+  font-size: 9px;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--meta);
@@ -108,16 +108,16 @@ a:hover { opacity: 0.7; }
 }
 
 .scroll-indicator svg {
-  width: 20px;
-  height: 20px;
+  width: 16px;
+  height: 16px;
   stroke: var(--meta);
   fill: none;
   stroke-width: 1.5;
 }
 
 @keyframes pulse {
-  0%, 100% { opacity: 0.4; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 0.7; transform: translateX(-50%) translateY(4px); }
+  0%, 100% { opacity: 0.3; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 0.5; transform: translateX(-50%) translateY(4px); }
 }
 
 /* ============================
@@ -128,6 +128,7 @@ a:hover { opacity: 0.7; }
   background: var(--bg);
   min-height: 100vh;
   padding: 10vh 0;
+  border-top: 1px solid rgba(255,255,255,0.06);
 }
 
 .projects-inner {
@@ -147,7 +148,7 @@ a:hover { opacity: 0.7; }
 }
 
 .project-item {
-  padding: 0.9em 0;
+  padding: 1.1em 0;
   border-bottom: 1px solid rgba(255,255,255,0.06);
   cursor: pointer;
   transition: opacity 0.3s ease;
@@ -214,6 +215,15 @@ a:hover { opacity: 0.7; }
   height: 100%;
   object-fit: cover;
   display: block;
+  image-rendering: auto;
+}
+
+.project-image img[alt="Altered Reflections"] {
+  max-width: 1024px;
+  max-height: 1024px;
+  width: auto;
+  height: auto;
+  margin: auto;
 }
 
 /* ============================
@@ -258,7 +268,7 @@ a:hover { opacity: 0.7; }
 }
 
 .pill-option {
-  padding: 10px 26px;
+  padding: 10px 20px;
   font-size: 13px;
   cursor: pointer;
   color: var(--meta);
@@ -280,7 +290,7 @@ a:hover { opacity: 0.7; }
    ============================ */
 .closing {
   background: var(--bg);
-  padding: 20vh 10vw;
+  padding: 12vh 10vw;
   text-align: center;
 }
 
@@ -313,7 +323,7 @@ a:hover { opacity: 0.7; }
   text-transform: uppercase;
   letter-spacing: 0.16em;
   color: var(--meta);
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: 1.5em;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 }
@@ -347,6 +357,14 @@ a:hover { opacity: 0.7; }
 /* ============================
    Responsive
    ============================ */
+.project-thumb {
+  display: none;
+}
+
+.project-info {
+  min-width: 0;
+}
+
 @media (max-width: 768px) {
   .projects-inner {
     flex-direction: column;
@@ -358,12 +376,20 @@ a:hover { opacity: 0.7; }
     padding-bottom: 4vh;
   }
   .projects-right {
-    flex: none;
-    min-height: 50vh;
-    width: 100%;
+    display: none;
   }
-  .project-image {
-    inset: 0;
+  .project-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .project-thumb {
+    display: block;
+    width: 56px;
+    height: 56px;
+    border-radius: 4px;
+    object-fit: cover;
+    flex-shrink: 0;
   }
   .footer-columns {
     grid-template-columns: 1fr;
@@ -400,88 +426,127 @@ a:hover { opacity: 0.7; }
     <div class="projects-left" id="project-list">
 
       <div class="project-item" data-img="img-psiloscope" data-tag="origins">
-        <div class="project-cat">Collective Motion Lab</div>
-        <a href="psiloscope/"><div class="project-title">Psiloscope</div></a>
-        <div class="project-year">2016, Boom Festival</div>
+        <img class="project-thumb" src="assets/boom-remember.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Collective Motion Lab</div>
+          <a href="psiloscope/"><div class="project-title">Psiloscope</div></a>
+          <div class="project-year">2016, Boom Festival</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-mindcrystal" data-tag="origins">
-        <div class="project-cat">Collective Motion Lab</div>
-        <a href="mindcrystal/"><div class="project-title">MindCrystal</div></a>
-        <div class="project-year">2018, Boom Festival</div>
+        <img class="project-thumb" src="assets/boom-remember.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Collective Motion Lab</div>
+          <a href="mindcrystal/"><div class="project-title">MindCrystal</div></a>
+          <div class="project-year">2018, Boom Festival</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-hof" data-tag="origins">
-        <div class="project-cat">Experiment</div>
-        <div class="project-title">Human Open Field</div>
-        <div class="project-year">2019, Pavilh&atilde;o do Conhecimento</div>
+        <img class="project-thumb" src="assets/human-open-field-hero.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Experiment</div>
+          <div class="project-title">Human Open Field</div>
+          <div class="project-year">2019, Pavilh&atilde;o do Conhecimento</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-polylith" data-tag="spaces">
-        <div class="project-cat">Immersive Installation</div>
-        <a href="polylith/"><div class="project-title">Polylith</div></a>
-        <div class="project-year">2022, Metamersion I</div>
+        <img class="project-thumb" src="assets/cf-metamersion-polylith.png" alt="">
+        <div class="project-info">
+          <div class="project-cat">Immersive Installation</div>
+          <a href="polylith/"><div class="project-title">Polylith</div></a>
+          <div class="project-year">2022, Metamersion I</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-atavic" data-tag="spaces">
-        <div class="project-cat">Immersive Installation</div>
-        <a href="atavic-forest/"><div class="project-title">Atavic Forest</div></a>
-        <div class="project-year">2022, Metamersion II</div>
+        <img class="project-thumb" src="assets/cf-metamersion-ls-atavic-forest.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Immersive Installation</div>
+          <a href="atavic-forest/"><div class="project-title">Atavic Forest</div></a>
+          <div class="project-year">2022, Metamersion II</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-ls1" data-tag="spaces">
-        <div class="project-cat">Immersive Installation</div>
-        <a href="ls1/"><div class="project-title">Latent Space I</div></a>
-        <div class="project-year">2022, Metamersion II</div>
+        <img class="project-thumb" src="assets/cf-metamersion-ls-latent-space-i.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Immersive Installation</div>
+          <a href="ls1/"><div class="project-title">Latent Space I</div></a>
+          <div class="project-year">2022, Metamersion II</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-palimpsest" data-tag="spaces">
-        <div class="project-cat">Immersive Installation</div>
-        <a href="palimpsest/"><div class="project-title">Palimpsest</div></a>
-        <div class="project-year">2023, Metamersion II</div>
+        <img class="project-thumb" src="assets/cf-metamersion-ls-palimpsest.png" alt="">
+        <div class="project-info">
+          <div class="project-cat">Immersive Installation</div>
+          <a href="palimpsest/"><div class="project-title">Palimpsest</div></a>
+          <div class="project-year">2023, Metamersion II</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-lsc23" data-tag="states">
-        <div class="project-cat">Festival Experiment</div>
-        <a href="lsc/"><div class="project-title">Latent States Camp 2023</div></a>
-        <div class="project-year">2023, Waking Life Festival</div>
+        <img class="project-thumb" src="assets/camp-1.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Festival Experiment</div>
+          <a href="lsc/"><div class="project-title">Latent States Camp 2023</div></a>
+          <div class="project-year">2023, Waking Life Festival</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-lsc24" data-tag="states">
-        <div class="project-cat">Festival Experiment</div>
-        <a href="lsc/"><div class="project-title">Latent States Camp 2024</div></a>
-        <div class="project-year">2024, Waking Life Festival</div>
+        <img class="project-thumb" src="assets/seeing-1.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Festival Experiment</div>
+          <a href="lsc/"><div class="project-title">Latent States Camp 2024</div></a>
+          <div class="project-year">2024, Waking Life Festival</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-ha" data-tag="spaces">
-        <div class="project-cat">Immersive Exhibition</div>
-        <a href="metamersion/"><div class="project-title">Healing Algorithms</div></a>
-        <div class="project-year">2024, Metamersion III</div>
+        <img class="project-thumb" src="assets/cf-metamersion-ha-installation-overview.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Immersive Exhibition</div>
+          <a href="metamersion/"><div class="project-title">Healing Algorithms</div></a>
+          <div class="project-year">2024, Metamersion III</div>
+        </div>
       </div>
 
-      <div class="project-item" data-img="img-ar" data-tag="bridge">
-        <div class="project-cat">Bridge</div>
-        <div class="project-title">Altered Reflections</div>
-        <div class="project-year">2024</div>
+      <div class="project-item" data-img="img-ar" data-tag="states spaces">
+        <img class="project-thumb" src="assets/cf-metamersion-ha-altered-reflexions.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Bridge</div>
+          <div class="project-title">Altered Reflections</div>
+          <div class="project-year">2024</div>
+        </div>
       </div>
 
-      <div class="project-item" data-img="img-sub" data-tag="bridge">
-        <div class="project-cat">Bridge</div>
-        <div class="project-title">Submersion</div>
-        <div class="project-year">2024</div>
+      <div class="project-item" data-img="img-sub" data-tag="states spaces">
+        <img class="project-thumb" src="assets/cf-metamersion-ha-submersion.jpeg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Bridge</div>
+          <div class="project-title">Submersion</div>
+          <div class="project-year">2024</div>
+        </div>
       </div>
 
       <div class="project-item" data-img="img-lsc25" data-tag="states">
-        <div class="project-cat">Festival Experiment</div>
-        <a href="lsc/"><div class="project-title">Latent States Camp 2025</div></a>
-        <div class="project-year">2025, Waking Life Festival</div>
+        <img class="project-thumb" src="assets/camp-3.jpg" alt="">
+        <div class="project-info">
+          <div class="project-cat">Festival Experiment</div>
+          <a href="lsc/"><div class="project-title">Latent States Camp 2025</div></a>
+          <div class="project-year">2025, Waking Life Festival</div>
+        </div>
       </div>
 
     </div>
 
     <div class="projects-right" id="project-images">
       <div class="project-image visible" id="img-psiloscope"><img src="assets/boom-remember.jpg" alt="Psiloscope"></div>
-      <div class="project-image" id="img-mindcrystal"><img src="assets/Psilloscope devices .png" alt="MindCrystal"></div>
+      <div class="project-image" id="img-mindcrystal"><img src="assets/boom-remember.jpg" alt="MindCrystal"></div>
       <div class="project-image" id="img-hof"><img src="assets/human-open-field-hero.jpg" alt="Human Open Field"></div>
       <div class="project-image" id="img-polylith"><img src="assets/cf-metamersion-polylith.png" alt="Polylith"></div>
       <div class="project-image" id="img-atavic"><img src="assets/cf-metamersion-ls-atavic-forest.jpg" alt="Atavic Forest"></div>
@@ -502,6 +567,7 @@ a:hover { opacity: 0.7; }
   <div class="pill-toggle-track" id="pill-track">
     <div class="pill-slider" id="pill-slider"></div>
     <div class="pill-option active" data-filter="all">All</div>
+    <div class="pill-option" data-filter="origins">Origins</div>
     <div class="pill-option" data-filter="states">States</div>
     <div class="pill-option" data-filter="spaces">Spaces</div>
   </div>
@@ -552,7 +618,7 @@ a:hover { opacity: 0.7; }
       </ul>
     </div>
   </div>
-  <div class="colophon">Zachary Mainen &middot; Champalimaud Foundation &middot; Lisbon</div>
+  <div class="colophon">Latent States &middot; Lisbon</div>
 </footer>
 
 <!-- GSAP + ScrollTrigger -->
@@ -725,6 +791,8 @@ projectItems.forEach(item => {
     if (!imgId) return;
     const target = document.getElementById(imgId);
     if (!target) return;
+    // Skip crossfade for empty image containers (no img child)
+    if (!target.querySelector('img')) return;
     projectImages.forEach(img => img.classList.remove('visible'));
     target.classList.add('visible');
     lastVisibleImg = target;
@@ -756,7 +824,7 @@ function filterProjects(filter) {
     const tag = item.dataset.tag;
     if (filter === 'all') {
       item.classList.remove('filtered-out');
-    } else if (tag === filter) {
+    } else if (tag && tag.includes(filter)) {
       item.classList.remove('filtered-out');
     } else {
       item.classList.add('filtered-out');
