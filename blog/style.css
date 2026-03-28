@@ -98,7 +98,7 @@ article { padding: 80px 0 120px; }
 
 .article-subtitle {
   font-family: 'Crimson Pro', serif;
-  font-size: clamp(18px, 2vw, 22px);
+  font-size: clamp(22px, 2.8vw, 28px);
   font-weight: 300;
   font-style: italic;
   line-height: 1.5;
