@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>Convergence — Belongs-To and TTT</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Night mode (default) */
+:root {
+  --bg: #0a0e1a; --bg2: #0f1424; --cream: #e8e0d4; --cream2: #7a8580;
+  --gold: #c9a96e; --gold-dim: #2a2318; --silver: #8a7898; --line: #1a2028; --line2: #242d38;
+  --text: #e8e0d4;
+  --draft-bg: rgba(201,169,110,0.06); --draft-border: rgba(201,169,110,0.2); --draft-color: #c9a96e;
+  --blockquote-bg: rgba(201,169,110,0.04);
+  --abstract-bg: rgba(201,169,110,0.03);
+  --link-color: #c9a96e;
+}
+
+/* Day mode */
+body.day-mode {
+  --bg: #f5f0e8; --bg2: #ede8de; --cream: #1a1a1a; --cream2: #3a3632;
+  --gold: #8a6a2a; --gold-dim: #e8d9b8; --silver: #6a6258; --line: #d8d0c0; --line2: #ccc4b4;
+  --text: #1a1a1a;
+  --draft-bg: #c9a96e; --draft-border: #8a6a2a; --draft-color: #1a1a1a;
+  --blockquote-bg: rgba(138,106,42,0.06);
+  --abstract-bg: rgba(138,106,42,0.04);
+  --link-color: #2a4a7a;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: 'Crimson Pro', Georgia, serif; line-height: 1.85; }
+a { color: var(--link-color); text-decoration: none; cursor: pointer; }
+a:hover { opacity: 0.8; }
+
+/* Theme toggle button */
+#theme-toggle {
+  position: fixed; top: 18px; right: 20px; z-index: 100;
+  background: none; border: 1px solid var(--line2); border-radius: 20px;
+  padding: 5px 12px; cursor: pointer;
+  font-size: 15px; color: var(--silver); line-height: 1;
+  transition: border-color 0.2s, color 0.2s;
+}
+#theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Font size indicator */
+#font-indicator {
+  position: fixed; bottom: 28px; right: 28px; z-index: 100;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+  color: var(--cream); background: var(--gold); border-radius: 4px;
+  padding: 4px 10px; opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+#font-indicator.visible { opacity: 1; }
+
+/* Back link */
+.back-line {
+  max-width: 720px; margin: 20px auto 0; padding: 0 28px;
+}
+.back-line a {
+  font-family: 'Crimson Pro', serif; font-style: italic;
+  font-size: 14px; color: var(--silver); letter-spacing: 0;
+}
+.back-line a:hover { color: var(--gold); }
+
+.paper-wrap {
+  max-width: 720px; margin: 0 auto; padding: 48px 28px 120px;
+}
+
+article {
+  font-size: 18px;
+}
+
+.paper-title {
+  font-family: 'Gloock', serif; font-size: clamp(26px, 4vw, 38px);
+  font-weight: 400; color: var(--cream); line-height: 1.2;
+  margin-bottom: 28px;
+}
+
+.authors-block {
+  margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--line2);
+}
+.author-line {
+  font-family: 'Crimson Pro', serif; font-size: 17px; color: var(--cream);
+  margin-bottom: 2px;
+}
+.author-affil {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cream2);
+  letter-spacing: 0.06em; margin-bottom: 10px;
+}
+.paper-date {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--silver);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-top: 16px;
+}
+
+.abstract-block {
+  margin-bottom: 52px; padding: 24px 28px;
+  border-left: 2px solid var(--gold); background: var(--abstract-bg);
+  border-radius: 0 4px 4px 0;
+}
+.abstract-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--silver); margin-bottom: 10px;
+}
+.abstract-text {
+  font-size: 16px; font-weight: 300; color: var(--cream2); line-height: 1.75;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Gloock', serif; font-weight: 400; color: var(--cream);
+  line-height: 1.25;
+}
+
+h1 { font-size: 28px; margin: 64px 0 20px; }
+h2 { font-size: 22px; margin: 52px 0 16px; }
+h3 { font-size: 18px; margin: 36px 0 12px; color: var(--cream2); }
+h4 { font-size: 16px; margin: 28px 0 10px; color: var(--silver); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+p { font-size: 18px; font-weight: 300; color: var(--cream2); margin-bottom: 20px; line-height: 1.85; }
+
+blockquote {
+  margin: 28px 0; padding: 16px 24px;
+  border-left: 3px solid var(--gold); background: var(--blockquote-bg);
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { font-style: italic; margin-bottom: 0; color: var(--cream); }
+
+ol, ul {
+  margin: 16px 0 20px 24px; font-size: 18px; font-weight: 300; color: var(--cream2); line-height: 1.85;
+}
+li { margin-bottom: 8px; }
+li strong { color: var(--cream); font-weight: 400; }
+
+hr {
+  border: none; border-top: 1px solid var(--line2); margin: 48px 0;
+}
+
+.section-number {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--silver);
+  letter-spacing: 0.08em; margin-right: 8px;
+}
+
+strong { color: var(--cream); font-weight: 400; }
+em { font-style: italic; }
+
+footer {
+  border-top: 1px solid var(--line2); padding: 20px 28px;
+  max-width: 720px; margin: 0 auto;
+  display: flex; justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cream2);
+}
+
+@media (max-width: 600px) {
+  .paper-wrap { padding: 32px 20px 80px; }
+  .back-line { padding: 0 20px; }
+}
+</style>
+</head>
+<body>
+
+<button id="theme-toggle" aria-label="Toggle day/night mode">◑</button>
+<div id="font-indicator"></div>
+
+<div class="back-line">
+  <a href="index.html">&larr; TTT</a>
+</div>
+
+<div class="paper-wrap">
+<article>
+
+<h1 class="paper-title">Convergence: Belongs-To and TTT</h1>
+
+<div class="authors-block">
+  <div class="author-line">Zachary Mainen</div>
+  <div class="author-affil">Champalimaud Foundation, Lisbon</div>
+  <div class="paper-date">March 2026</div>
+</div>
+
+<div class="abstract-block">
+  <div class="abstract-label">Abstract</div>
+  <p class="abstract-text">The ontology paper ("Belongs-To and Nothing Else") and the TTT paper ("Same but Different: A Topological Theory of Things") were written at different scales and for different audiences, but they describe the same underlying structure. TTT works at the philosophical register — motivating a relational ontology through the problems of order, identity, and knowledge, and developing the apparatus of coils, knots, and the topology/geometry distinction. The ontology paper works at the formal register — specifying a single primitive relation, a quality graph, and five meta-qualities, then verifying the whole system in Lean 4. This document maps the convergence point by point.</p>
+</div>
+
+<h2><span class="section-number">1.</span> The Mess and Belongs-To</h2>
+
+<p>TTT begins with "the mess" — pure undifferentiated relationality from which no objects have yet precipitated. This is not chaos; it is the condition prior to any organizational cut. The ontology paper's single primitive, the belongs-to relation, is precisely such a pre-objective starting point. Belongs-to does not relate two pre-given entities. It <em>constitutes</em> them: A becomes a dependent by belonging to B, and B becomes a context by having A belong to it. There are no entities prior to their relational participation. The ontology paper thus formalizes the mess by showing that a single asymmetric relation, iterated and qualified, suffices to generate all the structure TTT motivates philosophically.</p>
+
+<h2><span class="section-number">2.</span> Coils and the Quality Graph</h2>
+
+<p>TTT introduces coils — structured partial orderings that impose layers of organization on the mess, gathering it into identifiable patterns without eliminating the underlying relational field. The quality graph is a coil system. Each meta-quality performs a specific organizational operation: <em>instance</em> builds taxonomic hierarchy (layering kinds over particulars), <em>transitive</em> closes relational chains (propagating structure through depth), <em>implies</em> lifts entailments upward (connecting local patterns to global constraints), <em>inverse</em> establishes reciprocity, and <em>applies-to</em> bounds the domain of each quality. These five operations are exactly the structural moves that impose coil-like partial order on the flat belonging field. The quality graph does not describe the world from outside; it organizes the belonging field from within, which is TTT's core requirement for coils.</p>
+
+<h2><span class="section-number">3.</span> Knots and Situations</h2>
+
+<p>TTT defines things as knots — locally structured regions identifiable by their topological persistence through geometric change. A knot is not an object with fixed properties but a stable relational pattern that can be re-identified across different instantiations. In the ontology paper, situations play exactly this role. A situation is a specific gathering of actors, methods, domains, and materials connected by qualified belongings. It is locally dense (many internal belongings), boundary-open (connected to other situations through shared entities), and identifiable by its quality pattern rather than by any fixed constituent. A situation is a knot in the belonging graph.</p>
+
+<h2><span class="section-number">4.</span> Topology/Geometry and Structure/Instantiation</h2>
+
+<p>TTT's central distinction — topology as invariant relational pattern, geometry as variable instantiation — maps directly onto the ontology paper's architecture. The belonging graph (which entities belong to which, with what qualities) is the topological structure. The specific quality set activated in a given situation is the geometry. An entity persists through change when its belonging graph connectivity is preserved even as the activated qualities shift. A researcher who moves from one lab to another retains their topological position (belonging patterns with institutions, collaborators, methods) while their geometric instantiation changes (different projects, different co-authors, different materials). The ontology paper makes this distinction computationally precise: identity is graph-isomorphism up to quality relabeling, not property-identity.</p>
+
+<h2><span class="section-number">5.</span> The Three Problems</h2>
+
+<p>TTT organizes itself around three classical problems. Each finds its formal resolution in the ontology paper.</p>
+
+<p><strong>Order</strong> — how distinct things share characteristics while remaining distinct. The quality graph resolves this directly. Two entities can both carry "author" quality belongings to different situations, sharing the characteristic without merging. Shared qualities produce co-participation structure (derived, never stored), which is precisely TTT's account of how order emerges from relational patterning rather than from shared substance or universal properties.</p>
+
+<p><strong>Identity</strong> — how one thing persists through change. The ontology paper resolves this as topological invariance in the belonging graph. An entity's identity is its structural position — the pattern of belongings and qualities that remains stable through local perturbations. This is not a hidden essence (contra OOO) but a graph-theoretic invariant, formally specifiable and machine-checkable.</p>
+
+<p><strong>Knowledge</strong> — how perception resembles its object without copying it. The Library Theorem (companion result, Lean-verified) resolves this: knowledge is indexed retrieval from the quality graph, not duplication. A perceiver's quality graph intersects with the perceived entity's quality graph at specific nodes. Knowledge is the intersection structure — a derived view, partial by construction, but structurally faithful to the source. Resemblance is shared graph structure, not representation.</p>
+
+<h2><span class="section-number">6.</span> Against Withdrawal</h2>
+
+<p>Both papers explicitly reject OOO's anti-relational conclusion. TTT argues that Harman's "withdrawal" — the claim that objects always exceed their relations — mistakes relational depth for metaphysical inaccessibility. The ontology paper formalizes this: at any moment, an entity's activated quality set is a subset of its total quality graph. The complement — the qualities not currently activated — is what OOO calls the "withdrawn" object. But this complement is not hidden or inaccessible in principle. It is simply the currently unactivated portion of a fully relational structure. Withdrawal is the shadow cast by partial activation, not evidence of a non-relational core.</p>
+
+<hr>
+
+<h2>Summary</h2>
+
+<p>TTT provides the philosophical motivation; the ontology paper provides the formal mechanism. The mess becomes belongs-to. Coils become the quality graph with its five meta-qualities. Knots become situations. The topology/geometry distinction becomes graph structure versus quality activation. The three problems receive formal solutions. And withdrawal is demystified as partial activation over a relational field. The two papers are not analogous — they are the same framework at different levels of specification.</p>
+
+</article>
+</div>
+
+<footer>
+  <span>Champalimaud Foundation, Lisbon &middot; 2026</span>
+  <a href="index.html" style="color: var(--silver); font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.08em;">TTT</a>
+</footer>
+
+<script>
+(function() {
+  const KEY = 'ttt-theme';
+  const btn = document.getElementById('theme-toggle');
+  function applyTheme(day) {
+    document.body.classList.toggle('day-mode', day);
+    btn.textContent = day ? '◐' : '◑';
+  }
+  const saved = localStorage.getItem(KEY);
+  applyTheme(saved === 'day');
+  btn.addEventListener('click', function() {
+    const isDay = document.body.classList.contains('day-mode');
+    localStorage.setItem(KEY, isDay ? 'night' : 'day');
+    applyTheme(!isDay);
+  });
+})();
+</script>
+</body>
+</html>
