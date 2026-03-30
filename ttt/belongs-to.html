@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+<title>TTT — Belongs-To and Nothing Else</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gloock&family=Crimson+Pro:ital,wght@0,300;0,400;1,300;1,400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+/* Night mode (default) */
+:root {
+  --bg: #0a0e1a; --bg2: #0f1424; --cream: #e8e0d4; --cream2: #7a8580;
+  --gold: #c9a96e; --gold-dim: #2a2318; --silver: #8a7898; --line: #1a2028; --line2: #242d38;
+  --text: #e8e0d4;
+  --draft-bg: rgba(201,169,110,0.06); --draft-border: rgba(201,169,110,0.2); --draft-color: #c9a96e;
+  --blockquote-bg: rgba(201,169,110,0.04);
+  --abstract-bg: rgba(201,169,110,0.03);
+  --link-color: #c9a96e;
+  --code-bg: #0c1018; --code-border: #1a2028; --code-color: #a8c0a8;
+  --table-border: #242d38; --table-head-bg: #0f1424;
+}
+
+/* Day mode */
+body.day-mode {
+  --bg: #f5f0e8; --bg2: #ede8de; --cream: #1a1a1a; --cream2: #3a3632;
+  --gold: #8a6a2a; --gold-dim: #e8d9b8; --silver: #6a6258; --line: #d8d0c0; --line2: #ccc4b4;
+  --text: #1a1a1a;
+  --draft-bg: #c9a96e; --draft-border: #8a6a2a; --draft-color: #1a1a1a;
+  --blockquote-bg: rgba(138,106,42,0.06);
+  --abstract-bg: rgba(138,106,42,0.04);
+  --link-color: #2a4a7a;
+  --code-bg: #e8e3d8; --code-border: #ccc4b4; --code-color: #2a4a2a;
+  --table-border: #ccc4b4; --table-head-bg: #ede8de;
+}
+
+html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--cream); font-family: 'Crimson Pro', Georgia, serif; line-height: 1.85; }
+a { color: var(--link-color); text-decoration: none; cursor: pointer; }
+a:hover { opacity: 0.8; }
+
+/* Theme toggle button */
+#theme-toggle {
+  position: fixed; top: 18px; right: 20px; z-index: 100;
+  background: none; border: 1px solid var(--line2); border-radius: 20px;
+  padding: 5px 12px; cursor: pointer;
+  font-size: 15px; color: var(--silver); line-height: 1;
+  transition: border-color 0.2s, color 0.2s;
+}
+#theme-toggle:hover { border-color: var(--gold); color: var(--gold); }
+
+/* Font size indicator */
+#font-indicator {
+  position: fixed; bottom: 28px; right: 28px; z-index: 100;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em;
+  color: var(--cream); background: var(--gold); border-radius: 4px;
+  padding: 4px 10px; opacity: 0;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+#font-indicator.visible { opacity: 1; }
+
+/* Back link */
+.back-line {
+  max-width: 720px; margin: 20px auto 0; padding: 0 28px;
+}
+.back-line a {
+  font-family: 'Crimson Pro', serif; font-style: italic;
+  font-size: 14px; color: var(--silver); letter-spacing: 0;
+}
+.back-line a:hover { color: var(--gold); }
+
+.draft-notice {
+  margin: 10px auto 0; max-width: 720px; padding: 10px 28px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--draft-color); background: var(--draft-bg);
+  border: 1px solid var(--draft-border); border-radius: 3px; text-align: center;
+  opacity: 0.9;
+}
+
+.paper-wrap {
+  max-width: 720px; margin: 0 auto; padding: 48px 28px 120px;
+}
+
+article {
+  font-size: 18px;
+}
+
+.paper-title {
+  font-family: 'Gloock', serif; font-size: clamp(26px, 4vw, 38px);
+  font-weight: 400; color: var(--cream); line-height: 1.2;
+  margin-bottom: 12px;
+}
+
+.paper-subtitle {
+  font-family: 'Crimson Pro', serif; font-size: clamp(15px, 2vw, 18px);
+  font-style: italic; color: var(--silver); font-weight: 300;
+  margin-bottom: 28px; line-height: 1.4;
+}
+
+.authors-block {
+  margin-bottom: 40px; padding-bottom: 32px; border-bottom: 1px solid var(--line2);
+}
+.author-line {
+  font-family: 'Crimson Pro', serif; font-size: 17px; color: var(--cream);
+  margin-bottom: 2px;
+}
+.author-affil {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cream2);
+  letter-spacing: 0.06em; margin-bottom: 10px;
+}
+.paper-date {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--silver);
+  letter-spacing: 0.1em; text-transform: uppercase; margin-top: 16px;
+}
+
+.abstract-block {
+  margin-bottom: 52px; padding: 24px 28px;
+  border-left: 2px solid var(--gold); background: var(--abstract-bg);
+  border-radius: 0 4px 4px 0;
+}
+.abstract-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 9px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--silver); margin-bottom: 10px;
+}
+.abstract-text {
+  font-size: 16px; font-weight: 300; color: var(--cream2); line-height: 1.75;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Gloock', serif; font-weight: 400; color: var(--cream);
+  line-height: 1.25;
+}
+
+h1 { font-size: 28px; margin: 64px 0 20px; }
+h2 { font-size: 22px; margin: 52px 0 16px; }
+h3 { font-size: 18px; margin: 36px 0 12px; color: var(--cream2); }
+h4 { font-size: 16px; margin: 28px 0 10px; color: var(--silver); font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+p { font-size: 18px; font-weight: 300; color: var(--cream2); margin-bottom: 20px; line-height: 1.85; }
+
+blockquote {
+  margin: 28px 0; padding: 16px 24px;
+  border-left: 3px solid var(--gold); background: var(--blockquote-bg);
+  border-radius: 0 4px 4px 0;
+}
+blockquote p { font-style: italic; margin-bottom: 0; color: var(--cream); }
+
+ol, ul {
+  margin: 16px 0 20px 24px; font-size: 18px; font-weight: 300; color: var(--cream2); line-height: 1.85;
+}
+li { margin-bottom: 8px; }
+li strong { color: var(--cream); font-weight: 400; }
+
+hr {
+  border: none; border-top: 1px solid var(--line2); margin: 48px 0;
+}
+
+.section-number {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: var(--silver);
+  letter-spacing: 0.08em; margin-right: 8px;
+}
+
+strong { color: var(--cream); font-weight: 400; }
+em { font-style: italic; }
+
+/* Code blocks */
+pre {
+  background: var(--code-bg); border: 1px solid var(--code-border);
+  border-radius: 4px; padding: 20px 24px; margin: 24px 0;
+  overflow-x: auto;
+}
+pre code {
+  font-family: 'IBM Plex Mono', monospace; font-size: 13px;
+  color: var(--code-color); line-height: 1.6;
+  background: none; border: none; padding: 0;
+}
+code {
+  font-family: 'IBM Plex Mono', monospace; font-size: 14px;
+  color: var(--gold); background: var(--gold-dim);
+  padding: 1px 6px; border-radius: 3px;
+}
+pre code { color: var(--code-color); background: none; padding: 0; }
+
+/* Tables */
+table {
+  width: 100%; border-collapse: collapse; margin: 28px 0;
+  font-size: 15px; font-weight: 300;
+}
+thead th {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--silver);
+  background: var(--table-head-bg); padding: 10px 14px;
+  border-bottom: 1px solid var(--table-border);
+  text-align: left;
+}
+tbody td {
+  padding: 10px 14px; border-bottom: 1px solid var(--table-border);
+  color: var(--cream2); vertical-align: top;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody code { font-size: 12px; }
+
+.references-section h2 {
+  margin-bottom: 28px;
+}
+.reference-item {
+  font-size: 15px; font-weight: 300; color: var(--cream2); line-height: 1.65;
+  margin-bottom: 14px; padding-left: 20px; text-indent: -20px;
+}
+.reference-item a { color: var(--link-color); font-family: 'IBM Plex Mono', monospace; font-size: 11px; }
+
+footer {
+  border-top: 1px solid var(--line2); padding: 20px 28px;
+  max-width: 720px; margin: 0 auto;
+  display: flex; justify-content: space-between;
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px; color: var(--cream2);
+}
+
+@media (max-width: 600px) {
+  .paper-wrap { padding: 32px 20px 80px; }
+  .back-line { padding: 0 20px; }
+}
+
+/* Passphrase gate */
+#auth-overlay {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #0a0e1a;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; gap: 16px;
+}
+#auth-overlay .auth-label {
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: #c9a96e; opacity: 0.7;
+}
+#auth-overlay input {
+  background: transparent; border: 1px solid #c9a96e;
+  border-radius: 3px; padding: 10px 16px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 14px;
+  color: #c9a96e; outline: none; width: 220px; text-align: center;
+  letter-spacing: 0.08em;
+}
+#auth-overlay input::placeholder { color: rgba(201,169,110,0.3); }
+#auth-overlay input:focus { border-color: #e8e0d4; color: #e8e0d4; }
+#auth-overlay button {
+  background: none; border: 1px solid rgba(201,169,110,0.4);
+  border-radius: 3px; padding: 8px 20px;
+  font-family: 'IBM Plex Mono', monospace; font-size: 11px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: rgba(201,169,110,0.7); cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+#auth-overlay button:hover { border-color: #c9a96e; color: #c9a96e; }
+#auth-error {
+  font-family: 'IBM Plex Mono', monospace; font-size: 10px;
+  letter-spacing: 0.1em; color: #c9a96e; opacity: 0;
+  transition: opacity 0.2s; text-transform: uppercase;
+}
+#auth-error.visible { opacity: 0.7; }
+@keyframes auth-shake {
+  0%, 100% { transform: translateX(0); }
+  20%, 60% { transform: translateX(-6px); }
+  40%, 80% { transform: translateX(6px); }
+}
+#auth-overlay input.shake { animation: auth-shake 0.35s ease; }
+</style>
+</head>
+<body>
+
+<div id="auth-overlay">
+  <div class="auth-label">this page is a draft</div>
+  <input type="password" id="auth-input" placeholder="passphrase" autocomplete="off" autofocus>
+  <button id="auth-btn">enter</button>
+  <div id="auth-error">incorrect</div>
+</div>
+
+<div id="page-content" style="display:none;">
+
+<button id="theme-toggle" aria-label="Toggle day/night mode">&#9728;</button>
+<div id="font-indicator"></div>
+
+<div class="back-line">
+  <a href="index.html">&larr; TTT</a>
+</div>
+
+<div style="max-width:720px; margin: 0 auto; padding: 0 28px;">
+  <div class="draft-notice">Manuscript Draft &mdash; March 2026 &mdash; please do not circulate</div>
+</div>
+
+<div class="paper-wrap">
+<article>
+
+  <h1 class="paper-title" style="margin-top:32px;">Belongs-To and Nothing Else</h1>
+  <p class="paper-subtitle">A Mechanically Verified Single-Primitive Relational Ontology</p>
+
+  <div class="authors-block">
+    <div class="author-line">Zach Mainen</div>
+    <div class="author-affil">Champalimaud Research, Lisbon</div>
+    <div class="paper-date">Draft &middot; March 2026</div>
+  </div>
+
+  <div class="abstract-block" id="abstract">
+    <div class="abstract-label">Abstract</div>
+    <div class="abstract-text">
+      We present a formal ontology built from a single primitive relation &mdash; <em>belongs-to</em> &mdash; and a quality mechanism that gives it expressive power equivalent to multi-primitive systems. Qualities specify the nature of each directed dependency (&ldquo;author,&rdquo; &ldquo;part-of,&rdquo; &ldquo;participant&rdquo;), and are themselves entities in the ontology, creating a reflexive closure: the system describes its own descriptive apparatus. We formalize this construction in Lean 4 and prove eleven theorems organized around five claims: (1) the reflexive closure terminates &mdash; qualification depth is bounded at 1, with a well-founded ordering over quality levels (Theorems 1&ndash;2); (2) the meta-quality set {instance, inverse, implies, transitive, applies-to} is finite, closed, and sufficient for all structural inference (Theorems 3&ndash;4); (3) the ontology is monotonically consistent &mdash; asserting new belongings cannot invalidate existing ones (Theorem 5); (4) twelve primitive relations from BFO and DOLCE reduce to belongs-to with appropriate qualities, using distinct quality identifiers and valid meta-quality behaviors (Theorems 6&ndash;8); (5) social structure (co-participation, co-authorship, institutional membership) is derivable from the belonging graph, with symmetry, irreflexivity, monotonicity, and full provenance preservation mechanically verified (Theorems 9&ndash;11).
+      <br><br>
+      A distinctive feature of this approach is the treatment of ontological categories. The three axes of the ontology &mdash; actor, method, domain &mdash; and the fourth category, material, are not types of entities but qualities of belongings. Nothing <em>is</em> an actor in absolute terms; things <em>participate as</em> actors in specific situations. This dissolves a class of problems that arise in BFO and DOLCE when entities seem to occupy multiple categories simultaneously.
+    </div>
+  </div>
+
+  <!-- Section 1 -->
+  <h1><span class="section-number">1.</span>Introduction</h1>
+
+  <p>Formal ontologies face a design tension between expressiveness and parsimony. Systems like the Basic Formal Ontology (BFO; Arp et al. 2015), DOLCE (Masolo et al. 2003), and SUMO (Niles &amp; Pease 2001) achieve expressiveness through multiple primitive relations &mdash; <em>part-of</em>, <em>participates-in</em>, <em>depends-on</em>, <em>member-of</em>, <em>instance-of</em> &mdash; each with its own axiomatization. This yields rich descriptive power but creates two problems that grow more acute as ontologies scale.</p>
+
+  <p>First, the vocabulary of relations is open-ended. Medical ontologies add <em>has-symptom</em>, <em>treats</em>, <em>located-in</em>; social ontologies add <em>employs</em>, <em>collaborates-with</em>, <em>reports-to</em>. Each new relation requires interpretation rules, transitivity decisions, inverse specifications, and domain constraints. The relational vocabulary becomes an unbounded set, expensive to audit, difficult to extend consistently, and a perennial obstacle to interoperability between systems built on different upper-level ontologies.</p>
+
+  <p>Second, the meta-level is problematic. Relations describe entities, but what describes the relations? In BFO, <em>part-of</em> and <em>instance-of</em> are axiomatized separately, with their properties stipulated rather than derived from a common mechanism. The relation vocabulary stands outside the ontology it serves &mdash; a privileged meta-language that cannot describe itself. This is not a practical inconvenience; it is a structural limitation. An ontology that cannot account for its own descriptive apparatus is incomplete about its own foundations.</p>
+
+  <p>We propose a different architecture. One primitive relation &mdash; <em>belongs-to</em> &mdash; with one extension: a <em>quality</em> field that specifies the nature of each dependency. Qualities carry all the semantics that multi-primitive ontologies distribute across relation types. And because qualities are themselves entities in the ontology, the system is self-describing: the quality &ldquo;author&rdquo; belongs to the quality &ldquo;creation&rdquo; with quality &ldquo;instance.&rdquo; The reflexive closure &mdash; the system describing its own descriptive apparatus &mdash; is the central contribution.</p>
+
+  <p>The obvious objection is infinite regress. If every belonging has a quality, and every quality is an entity with its own belongings, then the chain of qualification never terminates. We show that it does. A small, closed set of <em>meta-qualities</em> &mdash; structural relations between qualities &mdash; has meaning given by structural role rather than further qualification. The qualification chain terminates at depth 1. We prove this formally in Lean 4.</p>
+
+  <h2><span class="section-number">1.1</span>Contributions</h2>
+
+  <ol>
+    <li>A single-primitive relational ontology with reflexive closure.</li>
+    <li>Mechanical verification in Lean 4: termination, well-foundedness, monotonic consistency.</li>
+    <li>Axis-roles as qualities: the categories actor, method, domain, and material are not types of entities but qualities of belongings, dissolving multi-category problems.</li>
+    <li>Expressiveness: reduction of 6 BFO and 6 DOLCE primitive relations to belongs-to + quality.</li>
+    <li>Derived social structure: co-participation and social graphs are computed from the belonging graph, never stored, with full provenance preservation.</li>
+  </ol>
+
+  <h2><span class="section-number">1.2</span>Relationship to the Library Theorem</h2>
+
+  <p>This paper is a companion to a separate result on retrieval complexity over indexed knowledge stores (the Library Theorem; Mainen 2026). The Library Theorem asks <em>how fast</em> a bounded reasoner can retrieve information from organized memory. This paper asks <em>what the organization is</em>. The ontology presented here is a specific indexing scheme: the quality graph organizes the knowledge store, and the meta-qualities enable navigational inference (inverse enables bidirectional traversal; implies enables taxonomic propagation; transitive enables closure computation). The two papers are self-contained but mutually illuminating.</p>
+
+  <!-- Section 2 -->
+  <h1><span class="section-number">2.</span>The Belongs-To Relation</h1>
+
+  <p><strong>Definition 1 (Belongs-to).</strong> <em>Belongs-to</em> is the single primitive relation. Every assertion takes the form: entity $A$ belongs to entity $B$. The relation is directed: $A$ is the dependent, $B$ is the context. $A$ belongs-to $B$ does not entail $B$ belongs-to $A$.</p>
+
+  <p>The positions are not symmetric. A file belongs to a project; the project does not thereby belong to the file. A participant belongs to a meeting; the meeting does not belong to the participant. The asymmetry is constitutive: $A$ depends on $B$ for its meaning, role, or existence in context.</p>
+
+  <p>Belongs-to is the only stored relation. Every other relation &mdash; co-participation, authorship, containment, temporal ordering, causal derivation &mdash; is either a quality of a belonging (Section 3) or a derived view computed over the belonging graph (Section 8).</p>
+
+  <p><strong>Formal representation.</strong> A belonging is a triple $(d, c, q) \in \mathcal{E} \times \mathcal{E} \times \mathcal{Q}$, where $d$ is the dependent entity, $c$ is the context entity, and $q$ is the quality. In the Lean 4 formalization:</p>
+
+<pre><code>structure Belonging where
+  dependent : EntityId
+  context   : EntityId
+  quality   : QualityId</code></pre>
+
+  <p>The ontology state is a list of belongings:</p>
+
+<pre><code>structure OntologyState where
+  belongings  : List Belonging
+  nextEntity  : Nat
+  nextQuality : Nat</code></pre>
+
+  <p><strong>Why one relation.</strong> Multiple named relations encode semantics in the relation label: <em>authored-by</em>, <em>contains</em>, <em>published-in</em>, <em>member-of</em>. Each label requires its own interpretation rules, its own axiomatization of transitivity and reflexivity, its own inverse specification. A single relation with a quality field inverts the architecture: the relation is uniform, and the semantics live in the quality, which is itself an entity subject to the same ontological treatment as everything else. The relation does not carry meaning; the quality does. And because qualities are entities, they can be inspected, classified, related to other qualities, and reasoned about &mdash; all within the same framework.</p>
+
+  <p>This is a genuine architectural difference, not a notational variant. In a labeled-edge ontology, adding a new relation type requires extending the axiom set. In a belongs-to + quality ontology, adding a new relation type requires only adding a new entity (the quality) and relating it to existing qualities via the meta-quality grammar. The axiom set &mdash; the five meta-qualities &mdash; remains fixed.</p>
+
+  <!-- Section 3 -->
+  <h1><span class="section-number">3.</span>Qualities and Reflexive Closure</h1>
+
+  <p><strong>Definition 2 (Quality).</strong> A quality is a property of a belonging that specifies the nature of the dependence. It answers: <em>in what way</em> does $A$ belong to $B$?</p>
+
+  <p>Without a quality, belongs-to records only that a dependence exists. With a quality, it records what kind. Consider five belongings with the same context &mdash; an examination:</p>
+
+  <table>
+    <thead>
+      <tr><th>Dependent</th><th>Context</th><th>Quality</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Student</td><td>Examination</td><td>participant</td></tr>
+      <tr><td>Exam paper</td><td>Examination</td><td>material</td></tr>
+      <tr><td>Invigilator</td><td>Examination</td><td>authority</td></tr>
+      <tr><td>Examination hall</td><td>Examination</td><td>venue</td></tr>
+      <tr><td>Silence rule</td><td>Examination</td><td>policy</td></tr>
+    </tbody>
+  </table>
+
+  <p>All five are belongs-to with the same target. The qualities distinguish them.</p>
+
+  <p><strong>Definition 3 (Quality as entity).</strong> Every quality is an entity in the ontology. As an entity, it can participate in belongs-to relations with other entities, including other qualities.</p>
+
+  <p>The quality &ldquo;author&rdquo; is an entity that belongs to the quality &ldquo;creation&rdquo; with quality &ldquo;instance.&rdquo; The quality &ldquo;sender&rdquo; is an entity that belongs to the quality &ldquo;receiver&rdquo; with quality &ldquo;inverse.&rdquo; The system that describes the world also describes its own descriptive apparatus.</p>
+
+  <p>This reflexive closure is the construction&rsquo;s distinctive property. It eliminates the meta-level problem identified in Section 1: there is no separate language for describing relations, because relations (as qualities) are in the same language as everything else.</p>
+
+  <p><strong>Termination.</strong> The closure terminates because a quality&rsquo;s quality is always drawn from a small set of meta-qualities (Section 5) whose meaning is structural, not referential. When you ask &ldquo;in what way does &lsquo;author&rsquo; belong to &lsquo;creation&rsquo;?&rdquo;, the answer &mdash; &ldquo;as an instance&rdquo; &mdash; does not demand further qualification. The recursion bottoms out in structural roles.</p>
+
+  <p>In the Lean 4 formalization, we model this as a two-level structure:</p>
+
+<pre><code>inductive QualLevel where
+  | metaQ (m : MetaQuality) : QualLevel        -- level 0: self-grounding
+  | domainQ (q : QualityId) (grounding : MetaQuality) : QualLevel  -- level 1</code></pre>
+
+  <p>Domain qualities (author, sender, part-of, venue, ...) are at level 1. Meta-qualities (instance, inverse, implies, transitive, applies-to) are at level 0. The depth function assigns 0 to meta-qualities and 1 to domain qualities. There is no level 2.</p>
+
+  <p><strong>Theorem 1 (Termination).</strong> For all quality levels $ql$, $\text{depth}(ql) \leq 1$.</p>
+
+<pre><code>theorem closure_terminates (ql : QualLevel) : ql.depth ≤ 1</code></pre>
+
+  <p><strong>Theorem 2 (Well-foundedness).</strong> The depth ordering over quality levels is well-founded: there are no infinite descending chains.</p>
+
+<pre><code>theorem wellFounded_qualification :
+    WellFounded (fun (a b : QualLevel) => a.depth < b.depth)</code></pre>
+
+  <p><strong>Theorem 3 (Injection).</strong> The embedding of qualities into entities is injective: distinct qualities map to distinct entities. This ensures the reflexive closure does not conflate distinct qualities.</p>
+
+<pre><code>def qualityToEntity (q : QualityId) : EntityId := ⟨q.val⟩
+
+theorem qualityToEntity_injective :
+    Function.Injective qualityToEntity</code></pre>
+
+  <!-- Section 4 -->
+  <h1><span class="section-number">4.</span>Axis-Roles as Qualities</h1>
+
+  <p>This section presents what we consider the ontology&rsquo;s most distinctive feature, and the one most relevant to long-standing difficulties in upper-level ontology design.</p>
+
+  <p><strong>Definition 4 (Axis-role).</strong> The three axes of the ontology &mdash; actor, method, domain &mdash; and the fourth category, material, are not types of entities. They are qualities of belongings. Nothing <em>is</em> an actor in absolute terms. Things <em>participate as</em> actors in specific situations. The axis-role is a property of the belonging, not of the entity.</p>
+
+<pre><code>inductive AxisRole where
+  | actor | method | domain | material</code></pre>
+
+  <p>This resolves a class of problems that recur in BFO, DOLCE, and similar systems. Consider: is a large language model an actor, a method, or a material? In BFO&rsquo;s framework, this question demands a categorical answer &mdash; the entity must be classified as a continuant of a specific kind. But the answer depends on the situation. The LLM belongs to a writing session as <em>actor</em> (it transforms the prompt into a completion), as <em>method</em> (it is the repeatable procedure the person invokes), and as <em>material</em> (it is processed by the infrastructure that runs it). These are three belongings with three different axis-role qualities, not a contradiction.</p>
+
+  <p>The same resolution applies to institutions. Is a university an actor or a domain? It belongs to the situations it governs as <em>domain</em> (it provides the context) and to the situations it acts upon as <em>actor</em> (it changes things). Two belongings, two qualities. The apparent contradiction dissolves because the axis-roles are qualities of different belongings, not intrinsic properties of the entity.</p>
+
+  <p><strong>The relational scalars.</strong> Traditional ontologies often assign scalar properties to entities: <em>power</em> (actor-property), <em>scope</em> (domain-property), <em>malleability</em> (material-property). Under the quality framework, these are derivative. An entity&rsquo;s power is the count and character of its belongings where the quality is &ldquo;actor.&rdquo; An entity&rsquo;s scope is the count and character of its belongings where the quality is &ldquo;domain.&rdquo; The scalars are not stored; they are computed from the quality graph.</p>
+
+  <!-- Section 5 -->
+  <h1><span class="section-number">5.</span>Meta-Qualities</h1>
+
+  <p><strong>Definition 5 (Meta-quality).</strong> A meta-quality describes a structural relationship between qualities. Meta-qualities are the grammar of the quality language; all other qualities are vocabulary.</p>
+
+  <p>The meta-qualities form a closed set of five:</p>
+
+  <h2><span class="section-number">5.1</span>Instance (classification)</h2>
+
+  <p>Quality $A$ belongs-to quality $B$ with meta-quality &ldquo;instance&rdquo; means $A$ is a specific case of $B$. &ldquo;Author&rdquo; is an instance of &ldquo;creation.&rdquo; &ldquo;Python&rdquo; is an instance of &ldquo;code.&rdquo; &ldquo;Email&rdquo; is an instance of &ldquo;communication.&rdquo; Instance builds the taxonomy of qualities &mdash; the classification backbone of the quality graph.</p>
+
+  <h2><span class="section-number">5.2</span>Inverse (bidirectional traversal)</h2>
+
+  <p>Quality $A$ belongs-to quality $B$ with meta-quality &ldquo;inverse&rdquo; means: if entity $X$ belongs-to entity $Y$ with quality $A$, then $Y$ belongs-to $X$ with quality $B$, without storing both. &ldquo;Sender&rdquo; is the inverse of &ldquo;receiver.&rdquo; &ldquo;Part-of&rdquo; is the inverse of &ldquo;contains.&rdquo;</p>
+
+  $$\langle d, c, q_1 \rangle \wedge (q_1 \xrightarrow{\text{inverse}} q_2) \implies \langle c, d, q_2 \rangle$$
+
+  <p>Inverses enable bidirectional graph traversal from unidirectional storage. The graph stores edges in one direction; the inverse meta-quality makes both traversals available.</p>
+
+  <h2><span class="section-number">5.3</span>Implies (inference)</h2>
+
+  <p>Quality $A$ belongs-to quality $B$ with meta-quality &ldquo;implies&rdquo; means: any belonging with quality $A$ entails a belonging with quality $B$ between the same entities, without storing both. &ldquo;Principal-investigator&rdquo; implies &ldquo;member.&rdquo; &ldquo;Owner&rdquo; implies &ldquo;authority.&rdquo;</p>
+
+  $$\langle d, c, q_1 \rangle \wedge (q_1 \xrightarrow{\text{implies}} q_2) \implies \langle d, c, q_2 \rangle$$
+
+  <h2><span class="section-number">5.4</span>Transitive (closure)</h2>
+
+  <p>Quality $A$ is tagged as transitive means: if $X$ belongs-to $Y$ with quality $A$, and $Y$ belongs-to $Z$ with quality $A$, then $X$ belongs-to $Z$ with quality $A$. &ldquo;Part-of&rdquo; is transitive: if a chapter is part of a book, and the book is part of a series, the chapter is part of the series. &ldquo;Author&rdquo; is not transitive: if Mainen authored a paper, and the paper belongs to a project, Mainen did not author the project.</p>
+
+  $$\langle x, y, q \rangle \wedge \langle y, z, q \rangle \wedge \text{transitive}(q) \implies \langle x, z, q \rangle$$
+
+  <p>The distinction matters. Transitivity is a property of specific qualities, not of belongs-to in general. The meta-quality system makes this explicit: each quality that is transitive carries a tagged annotation; those that are not carry none.</p>
+
+  <h2><span class="section-number">5.5</span>Applies-to (domain constraint)</h2>
+
+  <p>Quality $A$ belongs-to entity-type $B$ with meta-quality &ldquo;applies-to&rdquo; means $A$ is only valid for belongings whose target is of type $B$. &ldquo;Sender&rdquo; applies to situations. &ldquo;Track-on&rdquo; applies to albums. Domain constraints prevent incoherent assertions: a file cannot belong to a bucket as &ldquo;sender.&rdquo;</p>
+
+  <h2><span class="section-number">5.6</span>Completeness and derivation</h2>
+
+  <p>We prove in Lean 4 that the meta-quality set is complete:</p>
+
+<pre><code>inductive MetaQuality where
+  | inst | inverse | implies | transitive | appliesTo
+
+def allMetaQualities : List MetaQuality :=
+  [.inst, .inverse, .implies, .transitive, .appliesTo]
+
+theorem allMetaQualities_complete (m : MetaQuality) :
+    m ∈ allMetaQualities</code></pre>
+
+  <p>The completeness theorem establishes that every value of the inductive type belongs to the enumerated list &mdash; a necessary but not substantively interesting result, since the type was defined with exactly those constructors. The deeper question is why five operations, and not four or six.</p>
+
+  <p>The answer is structural: the five meta-qualities partition the space of questions one can ask about a directed quality graph. Instance handles vertical classification &mdash; when does one quality specialize another? Inverse handles bidirectional traversal &mdash; given a directed edge, how do we navigate against its grain? Implies handles horizontal entailment &mdash; when does one quality&rsquo;s presence license the inference of another? Transitive handles self-composition &mdash; when does a quality chain collapse to a single step? Applies-to handles domain applicability &mdash; which kinds of entity may bear a given quality? Each operation addresses a distinct structural concern, and together they span the repertoire of graph-level reasoning.</p>
+
+  <p>We have considered candidate sixth operations and found that each reduces to the existing five. Reflexivity is handled at the belongs-to level through self-referential belongings, not through a structural operation on qualities. Symmetry is simply a constraint relating a quality to its own inverse, not an independent operation. Cardinality restrictions amount to specialized applications of applies-to, constraining the domain rather than adding a new mode of inference.</p>
+
+  <p>We do not claim this argument constitutes a formal proof of minimality. A graph-theoretic or category-theoretic proof that no sixth independent operation exists over directed labeled graphs would strengthen the result considerably, and we revisit this as an open problem in &sect;12.2.</p>
+
+  <!-- Section 6 -->
+  <h1><span class="section-number">6.</span>Quality Families</h1>
+
+  <p>Qualities cluster into families that reflect distinct modes of dependence. The families are not axioms &mdash; they are emergent structure in the quality graph, visible when one traces instance chains upward.</p>
+
+  <p><strong>Classification.</strong> Instance, tagged. $X$ is a kind of $Y$. The taxonomic backbone. Every tag chain (python &rarr; code &rarr; language) is built from classification qualities.</p>
+
+  <p><strong>Composition.</strong> Part-of, contains, member-of, track-on. $X$ is inside $Y$, or $Y$ is built from $X$. Part-of and contains are inverses; both are transitive.</p>
+
+  <p><strong>Creation.</strong> Author, creator, producer, builder. $X$ made $Y$, or $Y$ was made by $X$. All creation qualities imply participation &mdash; you cannot create something without participating in the situation of its creation.</p>
+
+  <p><strong>Participation.</strong> Actor, participant, sender, receiver, witness, collaborator. $X$ played a role in $Y$. These apply primarily to belongings whose target is a situation. The axis-roles (actor, method, material, domain) are the most general participation qualities.</p>
+
+  <p><strong>Provenance.</strong> Source, origin, materialization, evidence. $X$ came from $Y$, or $X$ is a trace of $Y$. Provenance qualities handle what is elsewhere treated as a separate <em>representation</em> relation: a PDF belongs to a paper as &ldquo;materialization&rdquo;; match footage belongs to a past situation as &ldquo;recording.&rdquo; No new primitive is needed for representation &mdash; it is a belongs-to with a provenance quality.</p>
+
+  <p><strong>Location.</strong> Stored-in, published-in, venue, habitat. $X$ is housed in $Y$. The spatial-institutional family.</p>
+
+  <p><strong>Temporal.</strong> Predecessor, successor, concurrent. $X$ is before $Y$, or $X$ happened simultaneously with $Y$.</p>
+
+  <p>These families are navigational aids, not formal categories. They emerge from the instance structure of the quality graph and can be reorganized as the graph evolves. Their existence illustrates a structural point: the quality vocabulary, though open-ended, is not unstructured.</p>
+
+  <!-- Section 7 -->
+  <h1><span class="section-number">7.</span>Expressiveness</h1>
+
+  <p>The claim that a single primitive relation suffices must be tested against the relations that established ontologies treat as primitive. We take BFO and DOLCE and show that each of their primitive relations reduces to belongs-to with an appropriate quality.</p>
+
+  <h2><span class="section-number">7.1</span>BFO Reductions</h2>
+
+  <p>BFO distinguishes continuants from occurrents and defines primitive relations over them:</p>
+
+  <table>
+    <thead>
+      <tr><th>BFO Relation</th><th>Belongs-to reduction</th><th>Meta-quality behavior</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>continuant-part-of</code></td><td>$\langle \text{part}, \text{whole}, q_{100} \rangle$</td><td>transitive</td></tr>
+      <tr><td><code>has-participant</code></td><td>$\langle \text{continuant}, \text{process}, q_{101} \rangle$</td><td>inverse (recovers original direction)</td></tr>
+      <tr><td><code>realizes</code></td><td>$\langle \text{realizable}, \text{process}, q_{102} \rangle$</td><td>&mdash;</td></tr>
+      <tr><td><code>instance-of</code></td><td>$\langle \text{particular}, \text{universal}, q_{103} \rangle$</td><td>instance (meta-quality itself)</td></tr>
+      <tr><td><code>inheres-in</code></td><td>$\langle \text{quality}, \text{bearer}, q_{104} \rangle$</td><td>&mdash;</td></tr>
+      <tr><td><code>occurs-in</code></td><td>$\langle \text{process}, \text{region}, q_{105} \rangle$</td><td>&mdash;</td></tr>
+    </tbody>
+  </table>
+
+  <p>Note the reversal in <code>has-participant</code>. BFO&rsquo;s relation runs from process to continuant (&ldquo;the process <em>has-participant</em> the person&rdquo;). In our framework, the participant <em>belongs to</em> the process &mdash; the direction of dependence flows toward the context. The inverse meta-quality recovers the original traversal direction when needed.</p>
+
+  <h2><span class="section-number">7.2</span>DOLCE Reductions</h2>
+
+  <table>
+    <thead>
+      <tr><th>DOLCE Relation</th><th>Belongs-to reduction</th><th>Meta-quality behavior</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>part</code></td><td>$\langle \text{part}, \text{whole}, q_{200} \rangle$</td><td>transitive</td></tr>
+      <tr><td><code>constitution</code></td><td>$\langle \text{constituter}, \text{constituted}, q_{201} \rangle$</td><td>&mdash; (not transitive)</td></tr>
+      <tr><td><code>participation</code></td><td>$\langle \text{endurant}, \text{perdurant}, q_{202} \rangle$</td><td>&mdash;</td></tr>
+      <tr><td><code>quality-inherence</code></td><td>$\langle \text{quality}, \text{bearer}, q_{203} \rangle$</td><td>&mdash;</td></tr>
+      <tr><td><code>quale</code></td><td>$\langle \text{quality}, \text{quality-space}, q_{204} \rangle$</td><td>&mdash;</td></tr>
+      <tr><td><code>dependence</code></td><td>$\langle \text{dependent}, \text{host}, q_{205} \rangle$</td><td>&mdash;</td></tr>
+    </tbody>
+  </table>
+
+  <p>The last row is revealing. DOLCE treats generic dependence as one relation among many. We treat it as the only relation. Everything DOLCE adds on top &mdash; participation, constitution, quale &mdash; we handle through the quality field.</p>
+
+  <h2><span class="section-number">7.3</span>Scope of the verification</h2>
+
+  <p>The Lean theorems that follow establish structural correspondence: the belongs-to encoding of each BFO and DOLCE primitive uses only declared meta-qualities, assigns distinct quality identifiers, and covers all twelve source relations. They do not establish semantic equivalence &mdash; that the belongs-to encoding of <code>realizes</code> preserves every model-theoretic property that BFO intends for that relation. This limitation is deliberate.</p>
+
+  <p>Full semantic equivalence presupposes a fixed target semantics, yet the formal semantics of both BFO and DOLCE remain contested. BFO&rsquo;s treatment of realization and inherence has shifted across versions from BFO 1.1 through BFO 2020, with substantive disagreements about whether these are independent primitives or definable in terms of participation and dependence (Smith &amp; Grenon 2004). DOLCE&rsquo;s constitution relation has generated its own debates about transitivity, temporal coincidence, and the boundary with parthood (Masolo et al. 2003). Proving equivalence to a moving target is not a well-posed problem.</p>
+
+  <p>What structural correspondence does establish is the interoperability claim central to Section 7.5: if both ontologies are expressed in belongs-to plus quality, alignment reduces to quality vocabulary mapping &mdash; a tractable taxonomy problem &mdash; rather than the far harder task of relating heterogeneous relation types with divergent axiomatizations.</p>
+
+  <h2><span class="section-number">7.4</span>Formal verification of the reductions</h2>
+
+  <p>The Lean 4 formalization proves three properties of the reductions:</p>
+
+  <p><strong>Theorem 4 (Validity).</strong> Every meta-quality behavior referenced in a BFO or DOLCE reduction belongs to the closed meta-quality set.</p>
+
+<pre><code>theorem bfo_behaviors_valid :
+    ∀ r ∈ bfoReductions, ∀ m ∈ r.behaviors, m ∈ allMetaQualities
+
+theorem dolce_behaviors_valid :
+    ∀ r ∈ dolceReductions, ∀ m ∈ r.behaviors, m ∈ allMetaQualities</code></pre>
+
+  <p><strong>Theorem 5 (Distinctness).</strong> The 6 BFO reductions use 6 distinct quality identifiers, and the 6 DOLCE reductions use 6 distinct quality identifiers. No two source relations are conflated.</p>
+
+<pre><code>theorem bfo_qualities_distinct :
+    (bfoReductions.map Reduction.quality).Nodup
+
+theorem dolce_qualities_distinct :
+    (dolceReductions.map Reduction.quality).Nodup</code></pre>
+
+  <p><strong>Theorem 6 (Completeness of coverage).</strong> The total number of reductions is 12 &mdash; all primitive relations from both systems are accounted for.</p>
+
+<pre><code>theorem total_reductions :
+    bfoReductions.length + dolceReductions.length = 12</code></pre>
+
+  <h2><span class="section-number">7.5</span>What the reduction shows</h2>
+
+  <p>The reduction is not a notational trick. It has a structural consequence: all relations in the ontology are stored in a single table with uniform schema. A knowledge graph built on belongs-to + quality has one edge table, one index structure, one query pattern. A knowledge graph built on BFO has as many edge types as it has primitive relations, each with its own axiomatization and query semantics.</p>
+
+  <p>The practical cost of multiple primitives shows up in interoperability. Mapping between BFO-based and DOLCE-based ontologies requires relating their respective primitive vocabularies &mdash; a problem that has occupied the formal ontology community for decades (Masolo et al. 2003; Smith &amp; Grenon 2004). If both systems are expressed in belongs-to + quality, interoperability reduces to aligning quality vocabularies &mdash; a taxonomy mapping problem, tractable with standard techniques.</p>
+
+  <!-- Section 8 -->
+  <h1><span class="section-number">8.</span>The Situation Graph</h1>
+
+  <p>The ontology&rsquo;s explanatory power is most visible when applied to social knowledge.</p>
+
+  <h2><span class="section-number">8.1</span>Situations as entities</h2>
+
+  <p>A <em>situation</em> is a descriptive token: a particular coming-together of actors, methods, and domains around materials. In the belongs-to framework, a situation is an entity to which participants belong:</p>
+
+  $$\text{person:A} \xrightarrow{\text{participant}} \text{situation:S} \xleftarrow{\text{participant}} \text{person:B}$$
+
+  <p>Notice what is absent: no &ldquo;sender,&rdquo; no &ldquo;receiver,&rdquo; no &ldquo;colleague,&rdquo; no &ldquo;friend.&rdquo; These are either qualities of specific belongings (person A belongs to situation S as <em>sender</em>) or computed views over the graph.</p>
+
+  <h2><span class="section-number">8.2</span>Co-participation</h2>
+
+  <p>The fundamental social query is co-participation &mdash; entities that share a context:</p>
+
+  $$\text{coparticipants}(x) = \{ y \mid \exists s, q_1, q_2 : (x, s, q_1) \in \mathcal{B} \wedge (y, s, q_2) \in \mathcal{B} \wedge x \neq y \}$$
+
+  <p>We formalize co-participation in Lean 4 as a structure with explicit witnesses:</p>
+
+<pre><code>structure CoParticipation where
+  entityA    : EntityId
+  entityB    : EntityId
+  situation  : EntityId
+  belongingA : Belonging
+  belongingB : Belonging
+  hDistinct  : entityA ≠ entityB
+  hA : belongingA.dependent = entityA ∧ belongingA.context = situation
+  hB : belongingB.dependent = entityB ∧ belongingB.context = situation</code></pre>
+
+  <p>Every co-participation carries its proof: the two belongings that witness it and the situation they share. The social graph is not a free-standing claim &mdash; it is a computed view with full provenance.</p>
+
+  <h2><span class="section-number">8.3</span>Formal properties</h2>
+
+  <p>We prove four properties of the derived social graph:</p>
+
+  <p><strong>Theorem 7 (Symmetry).</strong> If $(A, B, S)$ is a co-participation witnessed by belongings in $\mathcal{B}$, then $(B, A, S)$ is also a co-participation witnessed by belongings in $\mathcal{B}$.</p>
+
+  <p><strong>Theorem 8 (Irreflexivity).</strong> No entity co-participates with itself. This follows from the distinctness requirement in the co-participation definition.</p>
+
+  <p><strong>Theorem 9 (Monotonicity).</strong> Adding a belonging to the state can only add co-participation edges, never remove them. If $A$ and $B$ co-participate in state $\mathcal{B}$, they co-participate in any extension $\mathcal{B}' \supseteq \mathcal{B}$.</p>
+
+  <p><strong>Theorem 10 (Grounding).</strong> Every co-participation is grounded: there exists a witnessing situation and two belongings that justify it. The social graph adds no information beyond the belonging list.</p>
+
+<pre><code>theorem social_graph_is_view (cp : CoParticipation) :
+    cp.entityA = cp.belongingA.dependent ∧
+    cp.entityB = cp.belongingB.dependent ∧
+    cp.situation = cp.belongingA.context ∧
+    cp.belongingA.context = cp.belongingB.context</code></pre>
+
+  <h2><span class="section-number">8.4</span>Provenance preservation</h2>
+
+  <p>The critical advantage over stored relationships is provenance. When a contacts database records &ldquo;Epstein interacted with Nikolic 680 times,&rdquo; the 680 individual situations are collapsed into one number. Temporal structure, method profile, and evidence chains are lost.</p>
+
+  <p>In the situation graph, every social fact decomposes: which situations? using which methods? evidenced by which documents? The graph is an index into the archive. Every hop is grounded; the provenance is never lost. Relationships are queries over situations, not stored primitives.</p>
+
+  <!-- Section 9 -->
+  <h1><span class="section-number">9.</span>Philosophical Grounding: Withdrawal Without Essence</h1>
+
+  <p>This section develops the philosophical motivation. We argue that the ontology resolves a tension in recent metaphysics between the observation that objects always exceed their appearances and the essentialist explanations typically offered for this phenomenon.</p>
+
+  <h2><span class="section-number">9.1</span>The observation</h2>
+
+  <p>Harman (2002, 2005) identifies a genuine phenomenon: every encounter between entities is partial. When a flame burns cotton, the flame engages only the cotton&rsquo;s combustibility &mdash; its softness, color, and smell play no role. Harman generalizes this into a principle: objects meet through surfaces of contact, never through complete mutual transparency. So far, so good. But Harman draws an anti-relational conclusion from this observation. He posits a <em>real object</em> behind every <em>sensual presentation</em> &mdash; a hidden essence that withdraws from all relations and grounds the thing&rsquo;s persistence through change. For Harman, relations are ontologically secondary; the real is what escapes them. Object-Oriented Ontology is programmatically anti-relational: it holds that no web of relations, however extensive, ever reaches the thing itself.</p>
+
+  <h2><span class="section-number">9.2</span>The relational alternative</h2>
+
+  <p>We disagree. The belongs-to framework draws the opposite conclusion from the same observation. An entity participates in many situations, each activating only the qualities relevant to that context. What Harman calls withdrawal &mdash; the surplus that exceeds any particular encounter &mdash; is the gap between the qualities a situation activates and the entity&rsquo;s full relational character. That gap is structural: it is the complement of the activated quality set within the total quality graph, computable in principle from the ontology built here. There are no hidden natures; there is only a graph too large for any single situation to traverse. The surplus is real, but its explanation is relational, not essentialist. What Harman reads as depth &mdash; an inexhaustible interior &mdash; we read as breadth: a relational topology richer than any one encounter can sample. This disagreement has stakes. If the relational account is right, then partiality is formally tractable &mdash; a matter of graph structure, not metaphysical inaccessibility &mdash; and the machinery developed in &sect;&sect;3&ndash;7 provides the precise language for saying what &ldquo;excess&rdquo; means without positing anything beyond relations.</p>
+
+  <h2><span class="section-number">9.3</span>Identity as topological invariance</h2>
+
+  <p>If things are nothing but their relations, identity becomes urgent. What holds a thing together through change?</p>
+
+  <p>The answer this ontology suggests is structural invariance: a thing persists through changes in its relational arrangement when connectivity is preserved even as particular relations are added, removed, or rearranged. The marble worn smooth is still the marble because the relational structure that constitutes it &mdash; its material belonging graph &mdash; has changed gradually rather than ruptured. The body that has aged, grown, healed, is still the same body because the organizational connectivity of systems, organs, and functions has been continuously maintained.</p>
+
+  <p>The intuition has philosophical precedent. Leibniz&rsquo;s monadology (1714) treats each substance as a perspectival glimpse on the relational whole, with identity residing in the invariant pattern through transformation rather than in hidden substrate. The analogy to conservation principles in physics is suggestive &mdash; Noether&rsquo;s theorem (1918) shows that conservation laws arise from symmetries, linking persistence to invariance &mdash; though applying that framework literally to relational ontology would require a formal dynamics we do not develop here.</p>
+
+  <p>For the ontology, the practical consequence is concrete. Identity resolution &mdash; deciding whether two entity records refer to the same real-world entity &mdash; reduces to testing whether their relational configurations can be mapped onto each other. Two records that share co-participation patterns, temporal profiles, and method distributions across multiple situations are candidates for identity. This is entity resolution driven by graph topology, not by name matching alone.</p>
+
+  <!-- Section 10 -->
+  <h1><span class="section-number">10.</span>Monotonic Consistency</h1>
+
+  <p><strong>Theorem 11 (Monotonicity).</strong> Asserting a new belonging cannot invalidate any existing belonging. The ontology state only grows.</p>
+
+<pre><code>theorem monotonic_consistency (bs : List Belonging) (new_b : Belonging) :
+    ∀ b ∈ bs, b ∈ (new_b :: bs)</code></pre>
+
+  <p>This theorem establishes the base case: stored belonging membership is monotone under extension. The proof is immediate from list construction, and that directness is the point. Because the belonging list can only grow, every operation defined over it inherits monotonicity automatically.</p>
+
+  <p>The substantive content of this guarantee lies in its consequences for derived views. Theorem 9 (Section 8.3) proved that co-participation is monotone: if A and B co-participate in state <strong>B</strong>, they co-participate in every extension <strong>B&prime;</strong> that includes <strong>B</strong>. The argument generalizes beyond co-participation. The three inference operations defined in Section 5 &mdash; inverse, implies, and transitive closure &mdash; each compute new belongings from the existing list. Since that list only grows, any belonging derivable in state <strong>B</strong> remains derivable in <strong>B&prime;</strong>. No derived fact is ever invalidated by new assertions.</p>
+
+  <p>Retraction &mdash; removing a belonging &mdash; is therefore not an ontological operation. It is an editorial act, performed by a separate governance mechanism. The distinction between the ontology (what has been asserted) and the governance layer (what is permitted or corrected) remains clean. Monotonicity is not always desirable in a knowledge base, where one sometimes learns that a prior belief was wrong. But it is a desirable property of a <em>log</em>: the faithful record of what was asserted, regardless of later correction. The ontology functions as an append-only archive; corrections are overlaid, never spliced in.</p>
+
+  <!-- Section 11 -->
+  <h1><span class="section-number">11.</span>Computational Consequences</h1>
+
+  <p>The ontology is an indexing scheme over a knowledge store. The quality graph &mdash; with inverse traversal, taxonomic propagation, and transitive closure &mdash; provides navigational shortcuts that reduce retrieval cost. The formal analysis belongs to a companion paper (the Library Theorem; Mainen 2026), which proves that indexed retrieval over $N$ items costs $O(\log N)$ versus $\Omega(N)$ for unindexed stores. The quality graph&rsquo;s meta-quality shortcuts correspond to branches in the index tree.</p>
+
+  <p>The ontology defines <em>what the index is</em>. The Library Theorem defines <em>what the index does</em>.</p>
+
+  <p>For the practical engineer: a single <code>belongings</code> table with a quality column replaces an arbitrary number of relation-specific tables. Queries are uniform (<code>SELECT FROM belongings WHERE quality = ?</code>). Schema migration between domains requires only quality vocabulary alignment, not relation-type mapping. The belongs-to graph is domain-agnostic: the same structure holds emails, academic papers, corporate filings, and medical records.</p>
+
+  <!-- Section 12 -->
+  <h1><span class="section-number">12.</span>Discussion</h1>
+
+  <h2><span class="section-number">12.1</span>Comparison with prior work</h2>
+
+  <p>Guarino and Welty&rsquo;s (2009) OntoClean methodology uses meta-properties &mdash; rigidity, identity, unity &mdash; to discipline ontological distinctions, but retains multiple base relations. Sowa&rsquo;s (2000) conceptual graphs employ a type hierarchy over relations, similar in spirit to our quality taxonomy, but the relations themselves remain primitive.</p>
+
+  <p>Our contribution is more radical: not a discipline for organizing multiple primitives, but the elimination of all but one. The meta-qualities replace per-relation axiomatizations with a uniform inference grammar.</p>
+
+  <p>The closest structural precedent may be category theory, where a single morphism concept generates complex mathematical structure through composition and identity. Our quality graph plays an analogous role: a single edge type generates complex relational structure through five structural operations.</p>
+
+  <p>The axis-role treatment in Section 4 extends a line of work on role-based modeling that reaches back at least to Steimann (2000), who argued that roles are neither intrinsic types nor subtypes but context-dependent properties acquired through participation; Loebe (2007) and Masolo et al. (2004) developed this further within DOLCE, distinguishing social from foundational roles and treating role identity as dependent on the relational context in which an entity participates. Our account shares the core commitment &mdash; nothing <em>is</em> an actor, things <em>participate as</em> actors &mdash; but locates the role on the belonging rather than on the entity or on a separate role layer. Because axis-roles are qualities of belongings, and qualities are themselves entities that bear meta-qualities, axis-roles enter the same inferential machinery as every other quality in the system. No additional formalism is required to reason about them.</p>
+
+  <p>A structurally related point arises at the data-modeling level. The belongs-to table with a quality column resembles property graphs (edges carrying key-value annotations), RDF-star (statements about statements), and the Entity-Attribute-Value pattern in relational databases. All three allow annotations on relations. What they lack is a formal account of what those annotations <em>mean</em> &mdash; they are storage conventions, not ontological commitments. The belongs-to + quality architecture provides precisely this: the quality is an entity, its meta-quality edges determine its inferential behavior (symmetry, transitivity, composition), and these edges are themselves belongings subject to the same rules. It is this uniform semantic grounding, not the tabular shape, that enables the reflexive closure and the expressiveness reductions of BFO and DOLCE relations.</p>
+
+  <h2><span class="section-number">12.2</span>Limitations</h2>
+
+  <p>The quality vocabulary is open &mdash; new domain qualities can always be added. Whether the five meta-qualities are truly complete &mdash; whether any real-world inference pattern requires a sixth structural operation &mdash; is an empirical question. Our completeness theorem establishes that the five enumerated values exhaust the Lean type; it does not prove that no sixth is needed.</p>
+
+  <p>The depth-1 termination result assumes that domain qualities are grounded by exactly one meta-quality edge. A quality like &ldquo;part-of&rdquo; may carry multiple annotations (transitive <em>and</em> inverse &ldquo;contains&rdquo;). The formalization handles this by allowing multiple quality-relation edges per quality, but the termination proof assumes a single grounding. Extending to multi-grounded qualities is straightforward but not yet formalized.</p>
+
+  <p>The expressiveness comparison (Section 7) covers BFO and DOLCE but not SUMO, Cyc, or domain-specific ontologies. We expect the same pattern to hold &mdash; the BFO and DOLCE reductions cover the major relation types &mdash; but formal verification against additional systems remains future work.</p>
+
+  <h2><span class="section-number">12.3</span>Future work</h2>
+
+  <ol>
+    <li><strong>Empirical validation</strong> of the computational predictions: compare retrieval performance over quality-indexed versus flat knowledge stores.</li>
+    <li><strong>Dynamic ontology</strong>: currently the ontology is monotonic. Extending it with retraction (non-monotonic reasoning, belief revision) requires a governance layer that decides which assertions to withdraw and records the editorial history. This connects to the constitutional structure developed in companion work.</li>
+  </ol>
+
+  <!-- Section 13 -->
+  <h1><span class="section-number">13.</span>The Lean 4 Formalization</h1>
+
+  <p>A note on what the formalization does and does not accomplish. The theorems proved here are not mathematically deep: the monotonicity result follows from list construction (membership is preserved under prepend), the completeness theorem confirms that every constructor of an inductive type appears in a list that enumerates all its constructors, and the expressiveness results verify distinctness of hardcoded identifiers. A skeptic would find none of these surprising. But to read the formalization as a collection of would-be mathematical results is to misunderstand its purpose. The value lies in precision of construction, not depth of conclusion. Lean&rsquo;s type checker forces every concept &mdash; entity, quality, belonging, meta-quality, axis-role &mdash; to be stated with a specificity that informal ontology specifications routinely evade. Anyone who has tracked BFO&rsquo;s shifting treatment of <em>realization</em> across versions, or attempted to determine whether DOLCE&rsquo;s <em>participation</em> is symmetric from its natural-language axiom glosses, knows how much ambiguity survives peer review in ontology engineering. A mechanically checked definition cannot harbor such ambiguity: if the type does not elaborate a case, the proof fails. The formalization is therefore best understood as a machine-auditable specification &mdash; a reference document whose internal consistency is guaranteed by construction &mdash; rather than as a proof of surprising mathematical facts. This is, we suggest, the appropriate role for proof assistants in ontology engineering more broadly: not to discover theorems, but to discipline definitions.</p>
+
+  <p>The complete formalization comprises five modules:</p>
+
+  <table>
+    <thead>
+      <tr><th>Module</th><th>Content</th><th>Key results</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>Basic.lean</code></td>
+        <td>Core types: EntityId, QualityId, Belonging, AxisRole, OntologyState</td>
+        <td>Query functions (dependenciesOf, coParticipants)</td>
+      </tr>
+      <tr>
+        <td><code>MetaQualities.lean</code></td>
+        <td>MetaQuality enumeration, QualityRelation, ExtendedState</td>
+        <td>Derivation functions (inverse, implies, transitive), completeness theorem</td>
+      </tr>
+      <tr>
+        <td><code>Closure.lean</code></td>
+        <td>QualLevel, depth function, qualityToEntity injection</td>
+        <td>Termination (depth &le; 1), well-foundedness, monotonic consistency</td>
+      </tr>
+      <tr>
+        <td><code>Derived.lean</code></td>
+        <td>CoParticipation structure, allCoParticipations</td>
+        <td>Symmetry, irreflexivity, monotonicity, grounding, social_graph_is_view</td>
+      </tr>
+      <tr>
+        <td><code>Expressiveness.lean</code></td>
+        <td>Reduction structure, BFO and DOLCE reduction lists</td>
+        <td>Behavior validity, quality distinctness, total coverage</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>All theorems are proved without axioms (<code>sorry</code>-free). The library depends on Mathlib for <code>Function.Injective</code> and related definitions but uses no heavy-weight mathematical machinery. The code is available at <a href="https://github.com/zmainen/belongs-to-ontology">github.com/zmainen/belongs-to-ontology</a>.</p>
+
+  <hr>
+
+  <div class="references-section">
+    <h2>References</h2>
+
+    <p class="reference-item">Arp, R., Smith, B., &amp; Spear, A. D. (2015). <em>Building Ontologies with Basic Formal Ontology</em>. MIT Press.</p>
+
+    <p class="reference-item">Borgo, S., &amp; Masolo, C. (2009). Foundational choices in DOLCE. In <em>Handbook on Ontologies</em> (pp. 361&ndash;381). Springer.</p>
+
+    <p class="reference-item">Gangemi, A., Guarino, N., Masolo, C., Oltramari, A., &amp; Schneider, L. (2002). Sweetening ontologies with DOLCE. In <em>Knowledge Engineering and Knowledge Management</em> (pp. 166&ndash;181). Springer.</p>
+
+    <p class="reference-item">Guarino, N. (1998). Formal ontology and information systems. In <em>Proceedings of FOIS&rsquo;98</em> (pp. 3&ndash;15). IOS Press.</p>
+
+    <p class="reference-item">Guarino, N., &amp; Welty, C. A. (2009). An overview of OntoClean. In <em>Handbook on Ontologies</em> (pp. 201&ndash;220). Springer.</p>
+
+    <p class="reference-item">Harman, G. (2002). <em>Tool-Being: Heidegger and the Metaphysics of Objects</em>. Open Court.</p>
+
+    <p class="reference-item">Harman, G. (2005). <em>Guerrilla Metaphysics: Phenomenology and the Carpentry of Things</em>. Open Court.</p>
+
+    <p class="reference-item">Leibniz, G. W. (1714). <em>Monadology</em>. [Various editions.]</p>
+
+    <p class="reference-item">Loebe, F. (2007). Abstract vs. social roles &mdash; towards a general theoretical account of roles. <em>Applied Ontology</em>, 2(2), 127&ndash;158.</p>
+
+    <p class="reference-item">Masolo, C., Borgo, S., Gangemi, A., Guarino, N., &amp; Oltramari, A. (2003). WonderWeb deliverable D18: Ontology library. IST Project 2001-33052.</p>
+
+    <p class="reference-item">Masolo, C., Vieu, L., Bottazzi, E., Catenacci, C., Ferrario, R., Gangemi, A., &amp; Guarino, N. (2004). Social roles and their descriptions. In <em>Principles of Knowledge Representation and Reasoning: Proceedings of FOIS 2004</em> (pp. 267&ndash;277). IOS Press.</p>
+
+    <p class="reference-item">Niles, I., &amp; Pease, A. (2001). Towards a standard upper ontology. <em>Proceedings of FOIS 2001</em>, 2&ndash;9.</p>
+
+    <p class="reference-item">Noether, E. (1918). Invariante Variationsprobleme. <em>Nachrichten der K&ouml;niglichen Gesellschaft der Wissenschaften zu G&ouml;ttingen</em>, 235&ndash;257.</p>
+
+    <p class="reference-item">Smith, B., &amp; Grenon, P. (2004). The cornucopia of formal-ontological relations. <em>Dialectica</em>, 58(3), 279&ndash;296.</p>
+
+    <p class="reference-item">Sowa, J. F. (2000). <em>Knowledge Representation: Logical, Philosophical, and Computational Foundations</em>. Brooks/Cole.</p>
+
+    <p class="reference-item">Steimann, F. (2000). On the representation of roles in object-oriented and conceptual modelling. <em>Data &amp; Knowledge Engineering</em>, 35(1), 83&ndash;106.</p>
+
+    <p class="reference-item">de Moura, L., &amp; Ullrich, S. (2021). The Lean 4 theorem prover and programming language. In <em>Automated Deduction &mdash; CADE 28</em> (pp. 625&ndash;635). Springer.</p>
+
+    <p class="reference-item">The Mathlib Community (2020). Lean Mathlib. <a href="https://github.com/leanprover-community/mathlib4">github.com/leanprover-community/mathlib4</a></p>
+
+    <p class="reference-item">Mainen, Z. (2026). Inscription agents and the Library Theorem. arXiv:2603.21272.</p>
+  </div>
+
+</article>
+</div>
+
+<footer>
+  <span>Champalimaud Research, Lisbon &middot; 2026</span>
+  <a href="index.html" style="color:var(--cream2); font-family:'IBM Plex Mono',monospace; font-size:10px;">TTT</a>
+</footer>
+
+</div><!-- /page-content -->
+
+<script>
+// --- Passphrase gate ---
+(function() {
+  const PASSPHRASE = 'topology';
+  const overlay = document.getElementById('auth-overlay');
+  const content = document.getElementById('page-content');
+  const input = document.getElementById('auth-input');
+  const btn = document.getElementById('auth-btn');
+  const err = document.getElementById('auth-error');
+
+  function unlock() {
+    sessionStorage.setItem('ttt-auth', '1');
+    overlay.style.display = 'none';
+    content.style.display = 'block';
+  }
+
+  if (sessionStorage.getItem('ttt-auth') === '1') {
+    unlock();
+  }
+
+  function tryAuth() {
+    if (input.value === PASSPHRASE) {
+      unlock();
+    } else {
+      err.classList.add('visible');
+      input.classList.remove('shake');
+      void input.offsetWidth;
+      input.classList.add('shake');
+      input.value = '';
+      setTimeout(function() { err.classList.remove('visible'); }, 1800);
+    }
+  }
+
+  btn.addEventListener('click', tryAuth);
+  input.addEventListener('keydown', function(e) { if (e.key === 'Enter') tryAuth(); });
+})();
+
+// --- Theme toggle ---
+(function() {
+  const KEY = 'ttt-theme';
+  const btn = document.getElementById('theme-toggle');
+  function applyTheme(day) {
+    document.body.classList.toggle('day-mode', day);
+    btn.textContent = day ? '\u25D0' : '\u2600';
+  }
+  const saved = localStorage.getItem(KEY);
+  applyTheme(saved === 'day');
+  btn.addEventListener('click', function() {
+    const isDay = document.body.classList.contains('day-mode');
+    localStorage.setItem(KEY, isDay ? 'night' : 'day');
+    applyTheme(!isDay);
+  });
+})();
+</script>
+
+</body>
+</html>
